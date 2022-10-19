@@ -30,3 +30,13 @@ json RoPP::User::GetFollowers(string Sort, int Limit)
 
     return json::parse(res.data);
 }
+
+json RoPP::User::GetFollowings(string Sort, int Limit)
+{
+    Request req("https://friends.roblox.com/v1/users/" + std::to_string(this->UID) + "/followings?sortOrder=" + Sort + "&limit=" + std::to_string(Limit));
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data);
+}
