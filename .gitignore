@@ -1,6 +1,5 @@
 build/
 .vscode/
-CMakeLists.txt
 main.cpp
 balls
 main
