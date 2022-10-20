@@ -1,0 +1,5 @@
+build/
+.vscode/
+main.cpp
+balls
+main
