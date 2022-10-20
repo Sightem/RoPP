@@ -21,6 +21,8 @@ namespace RoPP
             int GetFollowersCount();
             json GetFollowings(string Sort="Asc", int Limit=10);
             int GetFollowingsCount();
+            json GetGroups();
+            int GetGroupsCount();
             
 
 
