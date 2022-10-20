@@ -10,6 +10,10 @@ namespace RoPP
     class User
     {
         public:
+            std::string GetUsername();
+            std::string GetDisplayName();
+            std::string GetDescription();
+
             json GetFriends(string Sort="Alphabetical");
             json GetFriendsOnline();
             int GetFriendsCount();
