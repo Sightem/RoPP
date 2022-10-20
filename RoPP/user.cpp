@@ -178,3 +178,86 @@ int RoPP::User::GetGroupsCount()
 
     return count;
 }
+
+/*
+* @brief gets the badges of the user
+* @return badges json object
+*/
+json RoPP::User::GetBadges()
+{
+    Request req("https://badges.roblox.com/v1/users/" + std::to_string(this->UID) + "/badges");
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data);
+}
+
+/*
+* @brief gets the count of badges the user has
+* @return count of badges
+*/
+int RoPP::User::GetBadgesCount()
+{
+    Request req("https://badges.roblox.com/v1/users/" + std::to_string(this->UID) + "/badges");
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    std::string word = "awarder";
+    int count = 0;
+    for (size_t pos = res.data.find(word); pos != std::string::npos; pos = res.data.find(word, pos + word.length()))
+    {
+        ++count;
+    }
+
+    return count;
+}
+
+/*
+* @brief gets the creation date of the user
+* @return creation date
+*/
+std::string RoPP::User::GetCreationDate()
+{
+    Request req("https://users.roblox.com/v1/users/" + std::to_string(this->UID));
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data)["created"];
+}
+
+/*
+* @brief gets the experiences of the user
+* @return experiences json object
+*/
+json RoPP::User::GetExperiences(string Sort, int limit)
+{
+    Request req("https://games.roblox.com/v2/users/" + std::to_string(this->UID) + "/games?sortOrder=" + Sort + "&limit=" + std::to_string(limit));
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data);
+}
+/*
+* @brief gets the count of experiences the user has
+* @return count of experiences
+*/
+int RoPP::User::GetExperiencesCount()
+{
+    Request req("https://games.roblox.com/v2/users/" + std::to_string(this->UID) + "/games");
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    std::string word = "name";
+    int count = 0;
+    for (size_t pos = res.data.find(word); pos != std::string::npos; pos = res.data.find(word, pos + word.length()))
+    {
+        ++count;
+    }
+
+    return count;
+}
