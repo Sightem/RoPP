@@ -26,12 +26,12 @@ namespace RoPP
             
 
 
-            User(int UID)
+            User(long UID)
             {
                 this->UID = UID;
             }
 
         private:
-            int UID;
+            long UID;
     };
 }
