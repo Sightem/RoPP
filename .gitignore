@@ -68,3 +68,6 @@ build/Testing/TAG
 build/Testing/20221018-2012/Test.xml
 build/Testing/Temporary/CTestCostData.txt
 build/Testing/Temporary/LastTest_20221018-2012.log
+build/.cmake/api/v1/reply/cache-v2-e82ba1dc581233b73e62.json
+build/.cmake/api/v1/reply/index-2022-10-20T01-05-45-0101.json
+.gitignore
