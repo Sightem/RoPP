@@ -11,6 +11,7 @@ namespace RoPP
     {
         public:
             json GetFriends(string Sort="Alphabetical");
+            json GetFriendsOnline();
             int GetFriendsCount();
             json GetFollowers(string Sort="Asc", int Limit=10);
             int GetFollowersCount();
