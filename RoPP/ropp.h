@@ -13,18 +13,23 @@ namespace RoPP
             std::string GetUsername();
             std::string GetDisplayName();
             std::string GetDescription();
+            std::string GetCreationDate();
 
             json GetFriends(string Sort="Alphabetical");
             json GetFriendsOnline();
-            int GetFriendsCount();
             json GetFollowers(string Sort="Asc", int Limit=10);
-            int GetFollowersCount();
             json GetFollowings(string Sort="Asc", int Limit=10);
-            int GetFollowingsCount();
             json GetGroups();
-            int GetGroupsCount();
-            
+            json GetBadges();
 
+            int GetFriendsCount();
+            int GetFollowingsCount();
+            int GetFollowersCount();
+            int GetGroupsCount();
+            int GetBadgesCount();
+
+            json GetExperiences(string Sort="Asc", int Limit=10);
+            int GetExperiencesCount();
 
             User(long UID)
             {
