@@ -19,6 +19,7 @@ namespace RoPP
             json GetFriendsOnline();
             json GetFollowers(string Sort="Asc", int Limit=10);
             json GetFollowings(string Sort="Asc", int Limit=10);
+            json GetExperiences(string Sort="Asc", int Limit=10);
             json GetGroups();
             json GetBadges();
 
@@ -27,8 +28,6 @@ namespace RoPP
             int GetFollowersCount();
             int GetGroupsCount();
             int GetBadgesCount();
-
-            json GetExperiences(string Sort="Asc", int Limit=10);
             int GetExperiencesCount();
 
             User(long UID)
@@ -38,5 +37,28 @@ namespace RoPP
 
         private:
             long UID;
+    };
+
+    class Session
+    {
+        public:
+            std::string GetCSRF();
+            std::string GetAuthTicket();
+            std::string GetUsername();
+            std::string GetDescription();
+
+            json GetBirthDate();
+
+            long GetUserID();
+
+            void SetCookie(std::string Cookie);
+
+            Session(string Cookie)
+            {
+                this->Cookie = Cookie;
+            }
+
+        private:
+            std::string Cookie;
     };
 }
