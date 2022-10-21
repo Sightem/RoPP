@@ -20,6 +20,7 @@ namespace RoPP
             json GetFollowers(string Sort="Asc", int Limit=10);
             json GetFollowings(string Sort="Asc", int Limit=10);
             json GetExperiences(string Sort="Asc", int Limit=10);
+            json GetFavoriteGames(string Sort="Asc", int Limit=10);
             json GetGroups();
             json GetBadges();
 

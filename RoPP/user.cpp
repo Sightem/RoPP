@@ -261,3 +261,17 @@ int RoPP::User::GetExperiencesCount()
 
     return count;
 }
+
+/*
+* @brief gets the favorite games of the user
+* @return favorites json object
+*/
+json RoPP::User::GetFavoriteGames(string Sort, int limit)
+{
+    Request req("https://games.roblox.com/v1/users/" + std::to_string(this->UID) + "/favorites/games?sortOrder=" + Sort + "&limit=" + std::to_string(limit));
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data);
+}
