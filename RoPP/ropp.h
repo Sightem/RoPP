@@ -61,4 +61,10 @@ namespace RoPP
         private:
             std::string Cookie;
     };
+
+    class Other
+    {
+        public:
+            json UserSearch(string Keyword, int Limit=10);
+    };
 }
