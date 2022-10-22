@@ -185,6 +185,10 @@ namespace RoPP
     class Other
     {
         public:
+            /*
+            * @brief Search for users given a keyword
+            * @return JSON of users
+            */
             json UserSearch(string Keyword, int Limit=10);
     };
 }

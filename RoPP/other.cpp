@@ -1,10 +1,7 @@
 #include "ropp.h"
 #include "../include/request.hpp"
 
-/*
-* @brief Search for users given a keyword
-* @return JSON of users
-*/
+
 json RoPP::Other::UserSearch(string Keyword, int Limit)
 
 {
