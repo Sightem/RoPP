@@ -83,6 +83,12 @@ namespace RoPP
             json GetBadges();
 
             /*
+            * @brief gets the presence data of the user
+            * @return presence json object
+            */
+            json GetPresence();
+
+            /*
             * @brief gets the friends count of the user
             * @return friends count
             */

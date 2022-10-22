@@ -204,3 +204,21 @@ json RoPP::User::GetFavoriteGames(string Sort, int limit)
 
     return json::parse(res.data);
 }
+
+json RoPP::User::GetPresence()
+{
+    json data = 
+    {
+        {"userIds", {this->UID}}
+    };
+
+    Request req("https://presence.roblox.com/v1/presence/users");
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.set_header("Content-Type", "application/json");
+    req.set_header("Accept", "application/json");
+    req.set_data(data.dump());
+    req.initalize();
+    Response res = req.post();
+
+    return json::parse(res.data);
+}
