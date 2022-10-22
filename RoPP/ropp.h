@@ -130,15 +130,47 @@ namespace RoPP
     class Session
     {
         public:
+
+            /*
+            * @brief gets the CSRF token of the cookie
+            * @return CSRF token
+            */
             std::string GetCSRF();
+
+            /*
+            * @brief gets the auth ticket of the cookie
+            * @return Authentication ticket
+            */
             std::string GetAuthTicket();
+
+            /*
+            * @brief gets the username of the cookie
+            * @return Username
+            */
             std::string GetUsername();
+
+            /*
+            * @brief gets the description of the cookie
+            * @return Description
+            */
             std::string GetDescription();
 
+            /*
+            * @brief gets the birthdate of the cookie
+            * @return Birthdate json object
+            */
             json GetBirthDate();
 
+            /*
+            * @brief gets the UID of the cookie
+            * @return UID
+            */
             long GetUserID();
 
+            /*
+            * @brief sets the cookie to a new cookie
+            * @param cookie
+            */
             void SetCookie(std::string Cookie);
 
             Session(string Cookie)
