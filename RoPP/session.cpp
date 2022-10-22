@@ -76,3 +76,14 @@ std::string RoPP::Session::GetDescription()
 
     return json::parse(res.data)["description"];
 }
+
+json RoPP::Session::GetPhoneInfo()
+{
+    Request req("https://accountinformation.roblox.com/v1/phone");
+    req.set_cookie(".ROBLOSECURITY", this->Cookie);
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data);
+}

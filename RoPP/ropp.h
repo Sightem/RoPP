@@ -162,6 +162,12 @@ namespace RoPP
             json GetBirthDate();
 
             /*
+            * @brief gets the verified phone number of the cookie
+            * @return Verified phone number information json object
+            */
+            json GetPhoneInfo();
+
+            /*
             * @brief gets the UID of the cookie
             * @return UID
             */
