@@ -222,3 +222,13 @@ json RoPP::User::GetPresence()
 
     return json::parse(res.data);
 }
+
+json RoPP::User::GetPastUsernames(string Sort, int limit)
+{
+    Request req("https://users.roblox.com/v1/users/" + std::to_string(this->UID) + "/username-history?limit=" + std::to_string(limit) + "&sortOrder=" + Sort);
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data);
+}

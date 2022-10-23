@@ -71,6 +71,12 @@ namespace RoPP
             json GetFavoriteGames(string Sort="Asc", int Limit=10);
             
             /*
+            * @brief gets the username historty of the user
+            * @return username history json object
+            */
+            json GetPastUsernames(string Sort="Asc", int Limit=10);
+            
+            /*
             * @brief gets the groups of the user (very verbose)
             * @return groups json object
             */
