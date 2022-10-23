@@ -219,6 +219,8 @@ namespace RoPP
 
         std::string GetGroupName();
         std::string GetGroupDescription();
+        std::string GetOwnerName();
+        std::string GetOwnerDisplayName();
 
 
 
@@ -228,7 +230,8 @@ namespace RoPP
         json GetGroupShout();
 
         long GetMemberCount();
-        
+        long GetOwnerID();
+
         Group(long GID)
         {
             this->GID = GID;

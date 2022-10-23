@@ -60,3 +60,33 @@ long RoPP::Group::GetMemberCount()
 
     return json::parse(res.data)["memberCount"];
 }
+
+long RoPP::Group::GetOwnerID()
+{
+    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID));
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data)["owner"]["userId"];
+}
+
+std::string RoPP::Group::GetOwnerName()
+{
+    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID));
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data)["owner"]["username"];
+}
+
+std::string RoPP::Group::GetOwnerDisplayName()
+{
+    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID));
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data)["owner"]["displayName"];
+}
