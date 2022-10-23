@@ -90,3 +90,13 @@ std::string RoPP::Group::GetOwnerDisplayName()
 
     return json::parse(res.data)["owner"]["displayName"];
 }
+
+json RoPP::Group::GetNameHistory(string Sort, int Limit)
+{
+    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID) + "/name-history?sortOrder=" + Sort + "&limit=" + std::to_string(Limit));
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data);
+}
