@@ -212,6 +212,31 @@ namespace RoPP
             std::string Cookie;
     };
 
+
+    class Group
+    {
+        public:
+
+        std::string GetGroupName();
+        std::string GetGroupDescription();
+
+
+
+
+        json GetGroupInfo();
+        json GetGroupOwner();
+        json GetGroupShout();
+
+        long GetMemberCount();
+        
+        Group(long GID)
+        {
+            this->GID = GID;
+        }
+
+        private:
+            long GID = 0;
+    };
     class Other
     {
         public:
