@@ -87,3 +87,14 @@ json RoPP::Session::GetPhoneInfo()
 
     return json::parse(res.data);
 }
+
+long RoPP::Session::GetRobuxBalance()
+{
+    Request req("https://economy.roblox.com/v1/users/" + std::to_string(this->GetUserID()) + "/currency");
+    req.set_cookie(".ROBLOSECURITY", this->Cookie);
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data)["robux"];
+}

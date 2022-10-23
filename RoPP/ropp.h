@@ -71,7 +71,7 @@ namespace RoPP
             json GetFavoriteGames(string Sort="Asc", int Limit=10);
             
             /*
-            * @brief gets the groups of the user
+            * @brief gets the groups of the user (very verbose)
             * @return groups json object
             */
             json GetGroups();
@@ -178,7 +178,12 @@ namespace RoPP
             * @return UID
             */
             long GetUserID();
-
+            
+            /*
+            * @brief gets the robux balance of the cookie
+            * @return robux balance
+            */
+            long GetRobuxBalance();
             /*
             * @brief sets the cookie to a new cookie
             * @param cookie
