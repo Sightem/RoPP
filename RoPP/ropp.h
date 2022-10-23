@@ -148,7 +148,6 @@ namespace RoPP
     class Session
     {
         public:
-
             /*
             * @brief gets the CSRF token of the cookie
             * @return CSRF token
@@ -186,6 +185,18 @@ namespace RoPP
             json GetPhoneInfo();
 
             /*
+            * @brief gets friend requests of the cookie
+            * @return Friend requests json object
+            */
+            json GetFriendRequests(string Sort="Asc", int Limit=10);
+
+            /*
+            * @brief gets the friend count of the cookie
+            * @return Friend count
+            */
+            int GetFriendsCount();
+
+            /*
             * @brief gets the UID of the cookie
             * @return UID
             */
@@ -196,10 +207,6 @@ namespace RoPP
             * @return robux balance
             */
             long GetRobuxBalance();
-            /*
-            * @brief sets the cookie to a new cookie
-            * @param cookie
-            */
 
             /*
             * @brief checks if the cookie has Roblox premium
@@ -207,6 +214,10 @@ namespace RoPP
             */
             bool HasPremium();
 
+            /*
+            * @brief sets the cookie to a new cookie
+            * @param cookie
+            */
             void SetCookie(std::string Cookie);
 
             Session(string Cookie)

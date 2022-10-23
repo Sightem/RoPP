@@ -109,3 +109,25 @@ bool RoPP::Session::HasPremium()
 
     return json::parse(res.data);
 }
+
+int RoPP::Session::GetFriendsCount()
+{
+    Request req("https://friends.roblox.com/v1/my/friends/count");
+    req.set_cookie(".ROBLOSECURITY", this->Cookie);
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data)["count"];
+}
+
+json RoPP::Session::GetFriendRequests(string Sort, int Limit)
+{
+    Request req("https://friends.roblox.com/v1/my/friends/requests?" + Sort + "&limit=" + std::to_string(Limit));
+    req.set_cookie(".ROBLOSECURITY", this->Cookie);
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data);
+}
