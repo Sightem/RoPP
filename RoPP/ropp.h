@@ -229,6 +229,7 @@ namespace RoPP
         json GetGroupOwner();
         json GetGroupShout();
         json GetNameHistory(string Sort="Asc", int Limit=10);
+        json GetGroupWall(string Sort="Asc", int Limit=10);
 
         long GetMemberCount();
         long GetOwnerID();

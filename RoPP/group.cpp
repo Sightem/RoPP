@@ -100,3 +100,13 @@ json RoPP::Group::GetNameHistory(string Sort, int Limit)
 
     return json::parse(res.data);
 }
+
+json RoPP::Group::GetGroupWall(string Sort, int Limit)
+{
+    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID) + "/wall/posts?sortOrder=" + Sort + "&limit=" + std::to_string(Limit));
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data);
+}
