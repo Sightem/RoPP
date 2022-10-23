@@ -109,3 +109,8 @@ bool RoPP::Session::HasPremium()
 
     return json::parse(res.data);
 }
+
+void RoPP::Session::SetUID(long uid)
+{
+    this->UID = uid;
+}
