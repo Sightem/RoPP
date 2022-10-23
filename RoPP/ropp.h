@@ -250,5 +250,7 @@ namespace RoPP
             * @return JSON of users
             */
             json UserSearch(string Keyword, int Limit=10);
+
+            json GroupSearch(string Keyword, bool prioritizeExactMatch=true, int Limit=10);
     };
 }

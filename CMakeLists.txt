@@ -5,6 +5,8 @@ include(CTest)
 enable_testing()
 
 add_library(ropp STATIC)
+add_executable(ropp-test main.cpp)
+target_link_libraries(ropp-test ropp)
 
 file(GLOB source_files RoPP/*.cpp)
 file(GLOB includ_source include/*.hpp)
