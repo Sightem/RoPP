@@ -202,7 +202,6 @@ namespace RoPP
             bool HasPremium();
 
             void SetCookie(std::string Cookie);
-            void SetUID(long UID);
 
             Session(string Cookie)
             {
@@ -211,7 +210,6 @@ namespace RoPP
 
         private:
             std::string Cookie;
-            long UID = 0;
     };
 
     class Other
