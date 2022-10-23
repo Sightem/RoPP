@@ -95,6 +95,12 @@ namespace RoPP
             json GetPresence();
 
             /*
+            * @brief gets the primary group of the user
+            * @return primary group json object
+            */
+            json GetPrimaryGroup();
+            
+            /*
             * @brief gets the friends count of the user
             * @return friends count
             */

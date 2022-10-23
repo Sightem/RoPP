@@ -232,3 +232,13 @@ json RoPP::User::GetPastUsernames(string Sort, int limit)
 
     return json::parse(res.data);
 }
+
+json RoPP::User::GetPrimaryGroup()
+{
+    Request req("https://groups.roblox.com/v1/users/" + std::to_string(this->UID) + "/groups/primary/role");
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data);
+}
