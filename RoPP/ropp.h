@@ -228,9 +228,6 @@ namespace RoPP
         std::string GetOwnerName();
         std::string GetOwnerDisplayName();
 
-
-
-
         json GetGroupInfo();
         json GetGroupOwner();
         json GetGroupShout();
@@ -239,6 +236,10 @@ namespace RoPP
 
         long GetMemberCount();
         long GetOwnerID();
+
+        bool IsGroupLocked();
+        bool IsPublicEntryAllowed();
+        bool IsBuildersClubOnly();
 
         Group(long GID)
         {

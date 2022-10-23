@@ -110,3 +110,33 @@ json RoPP::Group::GetGroupWall(string Sort, int Limit)
 
     return json::parse(res.data);
 }
+
+bool RoPP::Group::IsGroupLocked()
+{
+    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID));
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data)["isLocked"];
+}
+
+bool RoPP::Group::IsPublicEntryAllowed()
+{
+    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID));
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data)["publicEntryAllowed"];
+}
+
+bool RoPP::Group::IsBuildersClubOnly()
+{
+    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID));
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data)["isBuildersClubOnly"];
+}
