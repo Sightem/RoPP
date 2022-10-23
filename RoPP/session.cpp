@@ -98,3 +98,14 @@ long RoPP::Session::GetRobuxBalance()
 
     return json::parse(res.data)["robux"];
 }
+
+bool RoPP::Session::HasPremium()
+{
+    Request req("https://premiumfeatures.roblox.com/v1/users/" + std::to_string(this->GetUserID()) + "/validate-membership");
+    req.set_cookie(".ROBLOSECURITY", this->Cookie);
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data);
+}

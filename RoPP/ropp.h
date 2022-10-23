@@ -194,6 +194,13 @@ namespace RoPP
             * @brief sets the cookie to a new cookie
             * @param cookie
             */
+
+            /*
+            * @brief checks if the cookie has Roblox premium
+            * @return true if premium, false if not
+            */
+            bool HasPremium();
+
             void SetCookie(std::string Cookie);
 
             Session(string Cookie)
