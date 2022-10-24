@@ -20,3 +20,13 @@ json RoPP::Other::GroupSearch(string Keyword, bool prioritizeExactMatch, int Lim
 
     return json::parse(res.data);
 }
+
+std::string RoPP::Other::ValidateUsername(std::string Username)
+{
+    Request req("https://auth.roblox.com/v2/usernames/validate?request.username=" + Username + "&request.birthday=1970-10-10");
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data)["message"];
+}

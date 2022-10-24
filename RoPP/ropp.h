@@ -270,5 +270,7 @@ namespace RoPP
             json UserSearch(string Keyword, int Limit=10);
 
             json GroupSearch(string Keyword, bool prioritizeExactMatch=true, int Limit=10);
+
+            std::string ValidateUsername(string Username);
     };
 }
