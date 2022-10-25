@@ -267,6 +267,24 @@ namespace RoPP
         private:
             long GID = 0;
     };
+
+    class Place
+    {
+        public:
+
+        json GetPlaceInfo();
+
+        int GetUniverseID();
+
+        Place(long PID)
+        {
+            this->PID = PID;
+        }
+
+        private:
+            long PID = 0;
+    };
+
     class Other
     {
         public:
