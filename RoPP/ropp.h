@@ -272,10 +272,28 @@ namespace RoPP
     {
         public:
 
+        std::string GetPlaceName();
+        std::string GetPlaceDescription();
+        std::string GetCreatorName();
+        std::string GetCreatorType();
+        std::string GetCreationDate();
+        std::string GetUpdatedDate();
+        std::string GetGenre();
+
+
         json GetPlaceInfo();
-
+        json GetPlaceCreator();
+        json GetAllowedGear();
+        
         int GetUniverseID();
+        int GetCreatorID();
+        int GetPrice();
+        long GetPlaceVisits();
+        long GetCurrentPlayers();
+        int GetMaxPlayers();
+        long GetFavoriteCount();
 
+        bool IsCopyable();
         Place(long PID)
         {
             this->PID = PID;
