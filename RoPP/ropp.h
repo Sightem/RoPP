@@ -215,6 +215,12 @@ namespace RoPP
             bool HasPremium();
 
             /*
+            * @brief checks if the specified game is favorited by the cookie
+            * @return true if favorited, false if not
+            */
+            bool IsFavoriteGame(int PlaceID);
+            
+            /*
             * @brief sets the cookie to a new cookie
             * @param cookie
             */
