@@ -273,5 +273,7 @@ namespace RoPP
             json GroupSearch(string Keyword, bool prioritizeExactMatch=true, int Limit=10);
 
             std::string ValidateUsername(string Username);
+
+            int GetGameUniverseID(int PlaceID);
     };
 }

@@ -30,3 +30,13 @@ std::string RoPP::Other::ValidateUsername(std::string Username)
 
     return json::parse(res.data)["message"];
 }
+
+int RoPP::Other::GetGameUniverseID(int PlaceID)
+{
+    Request req("https://api.roblox.com/universes/get-universe-containing-place?placeid=2414851778");
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data)["UniverseId"];
+}
