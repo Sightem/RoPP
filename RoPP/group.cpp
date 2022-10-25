@@ -140,3 +140,13 @@ bool RoPP::Group::IsBuildersClubOnly()
 
     return json::parse(res.data)["isBuildersClubOnly"];
 }
+
+json RoPP::Group::GetGames(string AccessFilter, string Sort, int Limit)
+{
+    Request req("https://games.roblox.com/v2/groups/" + std::to_string(this->GID) + "/games?accessFilter=" + AccessFilter + "&sortOrder=" + Sort + "&limit=" + std::to_string(Limit));
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data);
+}
