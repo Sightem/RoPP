@@ -332,6 +332,7 @@ namespace RoPP
         bool IsForSale();
         bool IsLimited();
         bool IsLimitedUnique();
+        bool IsNew();
 
         Asset(long AID)
         {

@@ -76,3 +76,8 @@ bool RoPP::Asset::IsLimitedUnique()
 {
     return GetAssetInfo()["IsLimitedUnique"];
 }
+
+bool RoPP::Asset::IsNew()
+{
+    return GetAssetInfo()["IsNew"];
+}
