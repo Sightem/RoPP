@@ -280,20 +280,22 @@ namespace RoPP
         std::string GetUpdatedDate();
         std::string GetGenre();
 
-
         json GetPlaceInfo();
         json GetPlaceCreator();
         json GetAllowedGear();
-        
+
+        long GetPlaceVisits();
+        long GetCurrentPlayers();
+        long GetFavoriteCount();
+
         int GetUniverseID();
         int GetCreatorID();
         int GetPrice();
-        long GetPlaceVisits();
-        long GetCurrentPlayers();
         int GetMaxPlayers();
-        long GetFavoriteCount();
 
         bool IsCopyable();
+        bool IsVIPServerAllowed();
+
         Place(long PID)
         {
             this->PID = PID;

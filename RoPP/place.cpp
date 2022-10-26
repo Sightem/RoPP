@@ -102,3 +102,8 @@ bool RoPP::Place::IsCopyable()
 {
     return GetPlaceInfo()["data"][0]["copyingAllowed"];
 }
+
+bool RoPP::Place::IsVIPServerAllowed()
+{
+    return GetPlaceInfo()["data"][0]["createVipServersAllowed"];
+}
