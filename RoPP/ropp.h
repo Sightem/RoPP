@@ -283,6 +283,7 @@ namespace RoPP
         json GetPlaceInfo();
         json GetPlaceCreator();
         json GetAllowedGear();
+        json GetGamepassInfo(string Sort="Asc", int Limit=10);
 
         long GetPlaceVisits();
         long GetCurrentPlayers();

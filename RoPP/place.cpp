@@ -127,3 +127,13 @@ long RoPP::Place::GetDownVotes()
 
     return json::parse(res.data)["data"][0]["downVotes"];
 }
+
+json RoPP::Place::GetGamepassInfo(std::string Sort, int Limit)
+{
+    Request req("https://games.roblox.com/v1/games/" + std::to_string(this->UniverseID) + "/game-passes?sortOrder=" + Sort + "&limit=" + std::to_string(Limit));
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data);
+}
