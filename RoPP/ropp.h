@@ -341,7 +341,7 @@ namespace RoPP
         private:
             long AID = 0;
 
-            //https://github.com/ro-py/ro.py/blob/284b30dfef4c8117198b961c3b4b47c040da6af4/roblox/assets.py#L21
+            //https://github.com/ro-py/ro.py/blob/284b30dfef4c8117198b961c3b4b47c040da6af4/roblox/assets.py#L21 <3
            std::map<int, std::string> asset_type_names = 
            {
                 {1, "Image"},
