@@ -14,7 +14,7 @@ int RoPP::Place::GetUniverseID()
 
 json RoPP::Place::GetPlaceInfo()
 {
-    Request req("https://games.roblox.com/v1/games?universeIds=" + std::to_string(GetUniverseID()));
+    Request req("https://games.roblox.com/v1/games?universeIds=" + std::to_string(this->UniverseID));
     req.set_header("Referer", "https://www.roblox.com/");
     req.initalize();
 

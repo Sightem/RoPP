@@ -299,10 +299,12 @@ namespace RoPP
         Place(long PID)
         {
             this->PID = PID;
+            this->UniverseID = GetUniverseID();
         }
 
         private:
             long PID = 0;
+            long UniverseID = 0;
     };
 
     class Other
