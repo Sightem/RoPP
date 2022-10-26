@@ -287,6 +287,8 @@ namespace RoPP
         long GetPlaceVisits();
         long GetCurrentPlayers();
         long GetFavoriteCount();
+        long GetUpVotes();
+        long GetDownVotes();
 
         int GetUniverseID();
         int GetCreatorID();

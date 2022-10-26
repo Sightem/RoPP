@@ -107,3 +107,23 @@ bool RoPP::Place::IsVIPServerAllowed()
 {
     return GetPlaceInfo()["data"][0]["createVipServersAllowed"];
 }
+
+long RoPP::Place::GetUpVotes()
+{
+    Request req("https://games.roblox.com/v1/games/votes?universeIds=" + std::to_string(this->UniverseID));
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data)["data"][0]["upVotes"];
+}
+
+long RoPP::Place::GetDownVotes()
+{
+    Request req("https://games.roblox.com/v1/games/votes?universeIds=" + std::to_string(this->UniverseID));
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data)["data"][0]["downVotes"];
+}
