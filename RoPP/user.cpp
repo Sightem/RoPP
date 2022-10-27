@@ -252,3 +252,13 @@ json RoPP::User::GetInventory(string AssetType, string Sort, int Limit)
 
     return json::parse(res.data);
 }
+
+bool RoPP::User::CanInventoryBeViewed()
+{
+    Request req("https://inventory.roblox.com/v1/users/" + std::to_string(this->UID) + "/can-view-inventory");
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data)["canViewInventory"];
+}

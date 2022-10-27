@@ -138,6 +138,8 @@ namespace RoPP
             */
             int GetExperiencesCount();
 
+            bool CanInventoryBeViewed();
+
             User(long UID)
             {
                 this->UID = UID;
