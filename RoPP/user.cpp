@@ -240,3 +240,15 @@ json RoPP::User::GetPrimaryGroup()
 
     return json::parse(res.data);
 }
+
+json RoPP::User::GetInventory(string AssetType, string Sort, int Limit)
+
+{
+    //https://inventory.roblox.com/v2/users/2207291/inventory?assetTypes=Hat&limit=10&sortOrder=Asc
+    Request req("https://inventory.roblox.com/v2/users/" + std::to_string(this->UID) + "/inventory?assetTypes=" + AssetType + "&limit=" + std::to_string(Limit) + "&sortOrder=" + Sort);
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+    Response res = req.get();
+
+    return json::parse(res.data);
+}

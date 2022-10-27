@@ -99,6 +99,8 @@ namespace RoPP
             * @return primary group json object
             */
             json GetPrimaryGroup();
+
+            json GetInventory(string AssetType, string Sort="Asc", int Limit=10);
             
             /*
             * @brief gets the friends count of the user
@@ -415,7 +417,6 @@ namespace RoPP
                 {74, "Font Face"},
                 {75, "MeshHiddenSurfaceRemoval"}
            };
-
     };
     class Other
     {

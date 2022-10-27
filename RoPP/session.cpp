@@ -137,7 +137,6 @@ bool RoPP::Session::IsFavoriteGame(int PlaceID)
     RoPP::Other other;
     int UniverseID = other.GetGameUniverseID(PlaceID);
 
-    //https://games.roblox.com/v1/games/848145103/favorites
     Request req("https://games.roblox.com/v1/games/" + std::to_string(UniverseID) + "/favorites");
     req.set_cookie(".ROBLOSECURITY", this->Cookie);
     req.set_header("Referer", "https://www.roblox.com/");
