@@ -324,6 +324,7 @@ namespace RoPP
 
         json GetAssetInfo();
         json GetAssetCreator();
+        json GetAssetOwners(string Sort="Asc", int Limit=10);
 
         long GetCreatorID();
         long GetPrice();

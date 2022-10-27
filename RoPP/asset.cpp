@@ -81,3 +81,14 @@ bool RoPP::Asset::IsNew()
 {
     return GetAssetInfo()["IsNew"];
 }
+
+json RoPP::Asset::GetAssetOwners(string Sort, int Limit)
+{
+    Request req("https://inventory.roblox.com/v2/assets/" + std::to_string(this->AID) + "/owners?" + Sort + "&limit=" + std::to_string(Limit));
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+
+    Response res = req.get();
+
+    return json::parse(res.data);
+}
