@@ -1,0 +1,1461 @@
+User Name: litozinnamon
+User Display name: litozinnamon
+User Description: Oh no I am no longer a teen
+User Creation Date: 2009-12-21T17:31:05.853Z
+Get Friends: 
+{
+    "data": [
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "2blox2quit",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 117890804,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "2blox2quit",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Amplias",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 723910,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "Amplias",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "archie",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 98797177,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "appaache",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "AxisAngles",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 525919,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "AxisAngle",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "azn",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 95924777,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "Aznbric",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Blueberry",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 3645709,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "Blueice506",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "blue",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 8835343,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "blutreefrog",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Buddyism",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 4337002,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "Buddyism",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Cri",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 187778150,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "C_riii",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "cbmaximillian",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 19153190,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "cbmaximillian",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Den_S",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 1741242,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "Den_S",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Roddy",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 47554521,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "EnlocK",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "EvasiveIy",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 78889719,
+            "isBanned": true,
+            "isDeleted": true,
+            "isOnline": false,
+            "name": "EvasiveIy",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "vivian",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 49900130,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "ext_ernal",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "fancypurplecat",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 5741800,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "fancypurplecat",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Garnold",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 324616,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "Garnold",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Gounther",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 20024241,
+            "isBanned": true,
+            "isDeleted": true,
+            "isOnline": false,
+            "name": "Gounther",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Hippie_ofDoom",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 151751026,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "Hippie_ofDoom",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Hypo",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 9143169,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "HypocriticalDragon",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Immersor",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 220115,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "Immersor",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Inyo22",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 9171537,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": true,
+            "name": "Inyo22",
+            "presenceType": 3
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "joshuarome",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 942498,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "joshuarome",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "CaesarSalad",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 137380135,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "JustSalads",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Kaideu",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 69502309,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "Kaideu",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Arekan",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 607954,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "lArekan",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Locard",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 59231553,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": true,
+            "name": "Locard",
+            "presenceType": 2
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "logitech101",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": true,
+            "id": 219856,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "logitech101",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "LostInfinity",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 32174428,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "LostInfinity",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "LtAznFriedRice",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 95925483,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "LtAznFriedRice",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "burrito",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 1597768409,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "Lvl100SuperBurrito",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "preannie",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 17965891,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "preannie",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Pyrolysis",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 42644199,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "Pyrolysis",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Quenty",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 4397833,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "Quenty",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Raspy_Pi",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 31137804,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "Raspy_Pi",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "RobloxIntrepid2",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 44442626,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "RobloxIntrepid2",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "scotter1995",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 1437886,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "scotter1995",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "ScriptOn",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 9843936,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": true,
+            "name": "ScriptOn",
+            "presenceType": 1
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "engine_swap",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 195329,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "Semaphorism",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Shay",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 1667819,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "shaylan007",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Shred",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 1526241279,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "ShreddedPotat0",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Dev",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 484782977,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "smrkndev",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Soundcrusher",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 19500865,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "Soundcrusher",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "TheAmazeman",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 1141336,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": true,
+            "name": "TheAmazeman",
+            "presenceType": 3
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Katorium",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 5730064,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "TheKatorium",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "tyridge77",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 5736873,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "tyridge77",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "Vurse",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": true,
+            "id": 41163986,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "Vurse",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "WeirdWhiteVan",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 62825183,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "WeirdWhiteVan",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "willow",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 866714226,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "willowyw",
+            "presenceType": 0
+        },
+        {
+            "created": "0001-01-01T06:00:00Z",
+            "description": null,
+            "displayName": "XLR",
+            "externalAppDisplayName": null,
+            "friendFrequentRank": 1,
+            "friendFrequentScore": 0,
+            "hasVerifiedBadge": false,
+            "id": 195749,
+            "isBanned": false,
+            "isDeleted": false,
+            "isOnline": false,
+            "name": "XLR",
+            "presenceType": 0
+        }
+    ]
+}
+Get Groups: 
+{
+    "data": [
+        {
+            "group": {
+                "description": "Maximillian Studios leads ROBLOX in innovation within game development. Join our group to receive game benefits.",
+                "hasVerifiedBadge": false,
+                "id": 2615635,
+                "isBuildersClubOnly": false,
+                "memberCount": 41801,
+                "name": "MAXIMILLIAN",
+                "owner": {
+                    "displayName": "cbmaximillian",
+                    "hasVerifiedBadge": false,
+                    "userId": 19153190,
+                    "username": "cbmaximillian"
+                },
+                "publicEntryAllowed": true,
+                "shout": null
+            },
+            "role": {
+                "id": 17362594,
+                "name": "Maximillian Family",
+                "rank": 1
+            }
+        },
+        {
+            "group": {
+                "description": "https://www.roblox.com/games/10724942847/Chat-With-Avatars-Demo",
+                "hasVerifiedBadge": false,
+                "id": 15772045,
+                "isBuildersClubOnly": false,
+                "memberCount": 1492,
+                "name": "ACBooth",
+                "owner": {
+                    "displayName": "Ugilicious",
+                    "hasVerifiedBadge": false,
+                    "userId": 2872867661,
+                    "username": "Ugilicious"
+                },
+                "publicEntryAllowed": false,
+                "shout": null
+            },
+            "role": {
+                "id": 88565055,
+                "name": "Member",
+                "rank": 1
+            }
+        },
+        {
+            "group": {
+                "description": "Reach for the stars!",
+                "hasVerifiedBadge": false,
+                "id": 5121415,
+                "isBuildersClubOnly": false,
+                "memberCount": 115,
+                "name": "Quenty Studios",
+                "owner": {
+                    "displayName": "Quenty",
+                    "hasVerifiedBadge": false,
+                    "userId": 4397833,
+                    "username": "Quenty"
+                },
+                "publicEntryAllowed": false,
+                "shout": null
+            },
+            "role": {
+                "id": 34127548,
+                "name": "Alpha Tester",
+                "rank": 10
+            }
+        },
+        {
+            "group": {
+                "description": "Hello!",
+                "hasVerifiedBadge": false,
+                "id": 4293732,
+                "isBuildersClubOnly": false,
+                "memberCount": 5256,
+                "name": "Decade Games",
+                "owner": {
+                    "displayName": "hlelo_wolrd",
+                    "hasVerifiedBadge": false,
+                    "userId": 18659509,
+                    "username": "hlelo_wolrd"
+                },
+                "publicEntryAllowed": true,
+                "shout": null
+            },
+            "role": {
+                "id": 28983811,
+                "name": "subscriber",
+                "rank": 1
+            }
+        },
+        {
+            "group": {
+                "description": "We maka da games.",
+                "hasVerifiedBadge": false,
+                "id": 2800004,
+                "isBuildersClubOnly": false,
+                "memberCount": 22144,
+                "name": "Team !mpact",
+                "owner": {
+                    "displayName": "ScriptOn",
+                    "hasVerifiedBadge": false,
+                    "userId": 9843936,
+                    "username": "ScriptOn"
+                },
+                "publicEntryAllowed": true,
+                "shout": null
+            },
+            "role": {
+                "id": 18920569,
+                "name": "Fan",
+                "rank": 1
+            }
+        },
+        {
+            "group": {
+                "description": "",
+                "hasVerifiedBadge": false,
+                "id": 2779916,
+                "isBuildersClubOnly": false,
+                "memberCount": 304,
+                "name": "SL7",
+                "owner": {
+                    "displayName": "Shay",
+                    "hasVerifiedBadge": false,
+                    "userId": 1667819,
+                    "username": "shaylan007"
+                },
+                "publicEntryAllowed": true,
+                "shout": null
+            },
+            "role": {
+                "id": 64327470,
+                "name": "Manage Roles",
+                "rank": 254
+            }
+        },
+        {
+            "group": {
+                "description": "",
+                "hasVerifiedBadge": false,
+                "id": 3051986,
+                "isBuildersClubOnly": false,
+                "memberCount": 12,
+                "name": "PF community improvements",
+                "owner": {
+                    "displayName": "AxisAngles",
+                    "hasVerifiedBadge": false,
+                    "userId": 525919,
+                    "username": "AxisAngle"
+                },
+                "publicEntryAllowed": false,
+                "shout": null
+            },
+            "role": {
+                "id": 21377514,
+                "name": "Also Owner",
+                "rank": 254
+            }
+        },
+        {
+            "group": {
+                "description": "ROLVe is a development team formed in 2013 making games on ROBLOX. A collaborative effort is constantly made when we make games. Our goal is to effectively satisfy all fans and consumers of our games so that everyone can have as much fun as possible.",
+                "hasVerifiedBadge": false,
+                "id": 2613928,
+                "isBuildersClubOnly": false,
+                "memberCount": 2975009,
+                "name": "ROLVe Community",
+                "owner": {
+                    "displayName": "DevRolve",
+                    "hasVerifiedBadge": false,
+                    "userId": 23239501,
+                    "username": "DevRolve"
+                },
+                "publicEntryAllowed": true,
+                "shout": null
+            },
+            "role": {
+                "id": 17348016,
+                "name": "Members",
+                "rank": 1
+            }
+        },
+        {
+            "group": {
+                "description": "Official group of Roblox interns past and present",
+                "hasVerifiedBadge": false,
+                "id": 2868472,
+                "isBuildersClubOnly": false,
+                "memberCount": 535,
+                "name": "Roblox Interns",
+                "owner": {
+                    "displayName": "Seranok",
+                    "hasVerifiedBadge": false,
+                    "userId": 5600283,
+                    "username": "Seranok"
+                },
+                "publicEntryAllowed": false,
+                "shout": null
+            },
+            "role": {
+                "id": 19490800,
+                "name": "Former Accelerator",
+                "rank": 6
+            }
+        },
+        {
+            "group": {
+                "description": "Developers:\r\n- litozinnamon\r\n- Shaylan007\r\n- AxisAngle\r\n- Buddyism\r\n\r\nIn process of sorting out what this is about.",
+                "hasVerifiedBadge": false,
+                "id": 2693707,
+                "isBuildersClubOnly": false,
+                "memberCount": 8,
+                "name": "Stylis Staff Official Group",
+                "owner": {
+                    "displayName": "litozinnamon",
+                    "hasVerifiedBadge": false,
+                    "userId": 5725475,
+                    "username": "litozinnamon"
+                },
+                "publicEntryAllowed": false,
+                "shout": null
+            },
+            "role": {
+                "id": 18021009,
+                "name": "Developer",
+                "rank": 255
+            }
+        },
+        {
+            "group": {
+                "description": "Join the group as a subscriber to receive updates on all of the games from Rudimentality Development! \r\n\r\nCheck out the Rudimentality account's friend list to view our developers and their independent projects. \r\n\r\nCheck out our friends below (allies) and their games! \r\n\r\nPlease be nice on the group wall, don't spam, and keep things somewhat relevant.\r\n\r\nEnjoy!",
+                "hasVerifiedBadge": false,
+                "id": 601203,
+                "isBuildersClubOnly": false,
+                "memberCount": 12900,
+                "name": "Team Rudimentality",
+                "owner": {
+                    "displayName": "Rudimentality",
+                    "hasVerifiedBadge": false,
+                    "userId": 29589046,
+                    "username": "Rudimentality"
+                },
+                "publicEntryAllowed": true,
+                "shout": null
+            },
+            "role": {
+                "id": 3519412,
+                "name": "Subscriber",
+                "rank": 2
+            }
+        },
+        {
+            "group": {
+                "description": "Going to be increasing activity with this group. Hopefully i can have members vote for things they want me to make. ",
+                "hasVerifiedBadge": false,
+                "id": 1009702,
+                "isBuildersClubOnly": false,
+                "memberCount": 146,
+                "name": "The Shaylan007 fan club",
+                "owner": {
+                    "displayName": "Shay",
+                    "hasVerifiedBadge": false,
+                    "userId": 1667819,
+                    "username": "shaylan007"
+                },
+                "publicEntryAllowed": true,
+                "shout": null
+            },
+            "role": {
+                "id": 6669863,
+                "name": "BFF",
+                "rank": 100
+            }
+        },
+        {
+            "group": {
+                "description": "WE HAVE MOVED GROUPS:\nhttps://www.roblox.com/groups/3514227/Roblox-DevForum-Community\n\n----------------------------------------------------------\n\nThis served as the original unofficial community group for the Developer Forum, for when it was named RBXDev. It has since changed names to the developer forum (DevForum), which was the reason for migrating groups since group names can't be changed.\n\nJoin requests are not longer being accepted to this group.",
+                "hasVerifiedBadge": false,
+                "id": 979242,
+                "isBuildersClubOnly": false,
+                "memberCount": 345,
+                "name": "RBXDev",
+                "owner": {
+                    "displayName": "moth",
+                    "hasVerifiedBadge": false,
+                    "userId": 10314936,
+                    "username": "mothmage"
+                },
+                "publicEntryAllowed": false,
+                "shout": null
+            },
+            "role": {
+                "id": 6201683,
+                "name": "Regular",
+                "rank": 1
+            }
+        },
+        {
+            "group": {
+                "description": "We are one of the most active and best growing anime / manga groups out there.\n\nIf you're looking for a fun, friendly, active community to share your otaku love with then look no further!",
+                "hasVerifiedBadge": false,
+                "id": 910797,
+                "isBuildersClubOnly": false,
+                "memberCount": 37064,
+                "name": "Otaku",
+                "owner": {
+                    "displayName": "Webspace",
+                    "hasVerifiedBadge": false,
+                    "userId": 1572288,
+                    "username": "Webspace"
+                },
+                "publicEntryAllowed": true,
+                "shout": null
+            },
+            "role": {
+                "id": 6160624,
+                "name": "Otaku tenshi",
+                "rank": 170
+            }
+        },
+        {
+            "group": {
+                "description": "Setting the standarts of game design.\r\n\r\nInvidia Game Producers is an advanced game producing group working on all genre of games for your visual gaming experience.\r\n\r\nWe're taking interns.",
+                "hasVerifiedBadge": false,
+                "id": 809516,
+                "isBuildersClubOnly": false,
+                "memberCount": 407,
+                "name": "Invidia Game Producers",
+                "owner": {
+                    "displayName": "Soundcrusher",
+                    "hasVerifiedBadge": false,
+                    "userId": 19500865,
+                    "username": "Soundcrusher"
+                },
+                "publicEntryAllowed": true,
+                "shout": null
+            },
+            "role": {
+                "id": 4944571,
+                "name": "Contributor",
+                "rank": 77
+            }
+        },
+        {
+            "group": {
+                "description": "[ Call of Robloxia 5 ]\r\n[ StyLiS Studios ] \r\n________________________________\r\n[ New Twitch Channel ] http://www.twitch.tv/stylis_studios\r\n________________________________\r\n[ Main Developers ]\r\nlitozinnamon\r\nshaylan007\r\n\r\n___________________________________\r\nChange log [v7.6f Project FPS]: http://www.roblox.com/Forum/ShowPost.aspx?PostID=94624737 \r\n___________________________________\r\nControls: C = lower stance | X = raise stance | F = knife | Q / Right click = Aim | Double Tap W / Left Shift = Sprint | R = Reload / Detonate Satchel Charge | V = Pick Up gun | Z = Sniper Scope | G = Killstreak Storage | E = Bayonet Stab / Variable Zoom | ",
+                "hasVerifiedBadge": false,
+                "id": 199214,
+                "isBuildersClubOnly": false,
+                "memberCount": 8617,
+                "name": "Call Of Duty 5 Fan Club.",
+                "owner": {
+                    "displayName": "litozinnamon",
+                    "hasVerifiedBadge": false,
+                    "userId": 5725475,
+                    "username": "litozinnamon"
+                },
+                "publicEntryAllowed": false,
+                "shout": null
+            },
+            "role": {
+                "id": 1098544,
+                "name": "Litozinnamon [scripter]",
+                "rank": 255
+            }
+        },
+        {
+            "group": {
+                "description": "[StyLiS Studios]\n\nA Roblox game development group comprised of:\nLeads - litozinnamon, shaylan007, and AxisAngle \nDevelopers - Semaphorism and Raspy_Pi\n______________________\nOur mission is to push Roblox to its limit by creating content for the entire ROBLOX community to enjoy!\n\n[Phantom Forces]\nPC Version: https://www.roblox.com/games/292439477/Phantom-Forces\nXbox Version: https://www.roblox.com/games/254965063/Phantom-Forces-Console",
+                "hasVerifiedBadge": false,
+                "id": 1103278,
+                "isBuildersClubOnly": false,
+                "memberCount": 713670,
+                "name": "StyLiS Studios",
+                "owner": {
+                    "displayName": "litozinnamon",
+                    "hasVerifiedBadge": false,
+                    "userId": 5725475,
+                    "username": "litozinnamon"
+                },
+                "publicEntryAllowed": true,
+                "shout": null
+            },
+            "isPrimaryGroup": true,
+            "role": {
+                "id": 7163014,
+                "name": "litozinnamon",
+                "rank": 255
+            }
+        }
+    ]
+}
+User Experiences: 
+{
+    "data": [
+        {
+            "created": "2014-03-09T00:22:35.777Z",
+            "creator": {
+                "id": 5725475,
+                "type": "User"
+            },
+            "description": "For upcoming UCL tournaments.\r\n_____________________\r\nThis place is not fully designed to handle tournaments yet as it is simply a duplicate of the current place. All scores are to be handled manually by whoever is present and trusted to be the referee.",
+            "id": 70160325,
+            "name": "UCL Competitive Server [ Halted ]",
+            "placeVisits": 55110,
+            "rootPlace": {
+                "id": 148991083,
+                "type": "Place"
+            },
+            "updated": "2019-04-04T07:05:43.523Z"
+        },
+        {
+            "created": "2014-02-23T00:11:56.91Z",
+            "creator": {
+                "id": 5725475,
+                "type": "User"
+            },
+            "description": "Gun framework is heavily outdated.\r\nWill be working on this after a successful CSG update to the main CoR5.",
+            "id": 69262205,
+            "name": "Zombies Test [ Halted ]",
+            "placeVisits": 187929,
+            "rootPlace": {
+                "id": 147352409,
+                "type": "Place"
+            },
+            "updated": "2019-04-04T05:57:08.76Z"
+        },
+        {
+            "created": "2013-11-01T09:12:37.183Z",
+            "creator": {
+                "id": 5725475,
+                "type": "User"
+            },
+            "description": "Added automatic teleport back to main room of the map if you fly outside. Zombies will now deal damage if you touch their heads, now armless zombies are still a threat.\r\n___________________________________ \r\nControls: C = lower stance, X = raise stance, F = knife, Q = Aim, R = Reload, V = Repair walls, gun shops",
+            "id": 29407759,
+            "name": "Call of Robloxia 5 - Roblox At War : The Zombies!",
+            "placeVisits": 894345,
+            "rootPlace": {
+                "id": 86721697,
+                "type": "Place"
+            },
+            "updated": "2019-04-04T08:06:30.223Z"
+        },
+        {
+            "created": "2013-11-01T09:03:29.01Z",
+            "creator": {
+                "id": 5725475,
+                "type": "User"
+            },
+            "description": "Game is broken. May return to it someday when I have a chance to create better bots and better guns.",
+            "id": 29008162,
+            "name": "Call of Robloxia 5 - AI Domination [Broken]",
+            "placeVisits": 137626,
+            "rootPlace": {
+                "id": 86803209,
+                "type": "Place"
+            },
+            "updated": "2019-04-04T07:57:02.403Z"
+        },
+        {
+            "created": "2013-11-01T09:01:33.51Z",
+            "creator": {
+                "id": 5725475,
+                "type": "User"
+            },
+            "description": "This version has long been broken by roblox updates. Take it as whatever you want, but it has been permanently discontinued.\r\n\r\nThe way the snipers are scripted here have been completely deprecated and were horribly organized in the first place. Fixing them would literally be the equivalent of remaking the game. And THAT, I already did by creating the current version of CoR5. \r\nThere is no turning back.",
+            "id": 28928563,
+            "name": "Call of Robloxia 5 - Classic Version [ ded ]",
+            "placeVisits": 288193,
+            "rootPlace": {
+                "id": 86819744,
+                "type": "Place"
+            },
+            "updated": "2019-04-04T07:55:09.077Z"
+        },
+        {
+            "created": "2013-11-01T07:25:13.87Z",
+            "creator": {
+                "id": 5725475,
+                "type": "User"
+            },
+            "description": "This project has been sitting in the dust for a while. \r\nWith recent roblox updates, the camera system, aiming, are completely messed up on poor coding techniques that were used in this game.\r\n\r\nWe plan to remake it in the future. \r\nIt will re-use the Phantom Forces framework while ensuring to preserve most of the unique gameplay elements in here.",
+            "id": 24027409,
+            "name": "[ Broken ] Call of Robloxia 5 - Roblox at War",
+            "placeVisits": 48413973,
+            "rootPlace": {
+                "id": 19549795,
+                "type": "Place"
+            },
+            "updated": "2019-04-04T05:53:25.393Z"
+        }
+    ],
+    "nextPageCursor": null,
+    "previousPageCursor": null
+}
+User Badges: 
+{
+    "data": [
+        {
+            "awarder": {
+                "id": 3498890,
+                "type": "Place"
+            },
+            "created": "2009-08-27T01:12:58.557Z",
+            "description": "Rack up more than 600 Flying Time points (10 minutes of flying) at one server to get this badge! It will still keep count even if you trade in your time for money.",
+            "displayDescription": "Rack up more than 600 Flying Time points (10 minutes of flying) at one server to get this badge! It will still keep count even if you trade in your time for money.",
+            "displayIconImageId": 3245325151,
+            "displayName": "RO-Port Tycoon: FLYER",
+            "enabled": true,
+            "iconImageId": 3245325151,
+            "id": 15100475,
+            "name": "RO-Port Tycoon: FLYER",
+            "statistics": {
+                "awardedCount": 313667,
+                "pastDayAwardedCount": 2,
+                "winRatePercentage": 0.008
+            },
+            "updated": "2019-06-01T19:22:06.197Z"
+        },
+        {
+            "awarder": {
+                "id": 3498890,
+                "type": "Place"
+            },
+            "created": "2009-08-23T19:28:50.457Z",
+            "description": "Owners of this badge are true RO-Port Tycoon experts! This badge is awarded to players who purchase every upgrade available.",
+            "displayDescription": "Owners of this badge are true RO-Port Tycoon experts! This badge is awarded to players who purchase every upgrade available.",
+            "displayIconImageId": 3245322109,
+            "displayName": "RO-Port Tycoon: EXPERT",
+            "enabled": true,
+            "iconImageId": 3245322109,
+            "id": 14956085,
+            "name": "RO-Port Tycoon: EXPERT",
+            "statistics": {
+                "awardedCount": 377136,
+                "pastDayAwardedCount": 3,
+                "winRatePercentage": 0.012
+            },
+            "updated": "2019-06-01T19:25:22.28Z"
+        },
+        {
+            "awarder": {
+                "id": 3498890,
+                "type": "Place"
+            },
+            "created": "2009-09-19T03:00:22.143Z",
+            "description": "Owners of this badge have achieved $1 million!",
+            "displayDescription": "Owners of this badge have achieved $1 million!",
+            "displayIconImageId": 3245327790,
+            "displayName": "RO-Port Tycoon: MILLIONAIRE",
+            "enabled": true,
+            "iconImageId": 3245327790,
+            "id": 15976046,
+            "name": "RO-Port Tycoon: MILLIONAIRE",
+            "statistics": {
+                "awardedCount": 128589,
+                "pastDayAwardedCount": 0,
+                "winRatePercentage": 0.0
+            },
+            "updated": "2019-06-01T19:26:37.327Z"
+        },
+        {
+            "awarder": {
+                "id": 19897516,
+                "type": "Place"
+            },
+            "created": "2010-01-10T11:17:36.263Z",
+            "description": "You've entered the war, now you are a pilot!",
+            "displayDescription": "You've entered the war, now you are a pilot!",
+            "displayIconImageId": 20500551,
+            "displayName": "War Pilot",
+            "enabled": false,
+            "iconImageId": 20500551,
+            "id": 20500556,
+            "name": "War Pilot",
+            "statistics": {
+                "awardedCount": 74980,
+                "pastDayAwardedCount": 0,
+                "winRatePercentage": 0.0
+            },
+            "updated": "2016-09-22T21:10:23.86Z"
+        },
+        {
+            "awarder": {
+                "id": 19897516,
+                "type": "Place"
+            },
+            "created": "2010-01-01T19:40:33.747Z",
+            "description": "Get 5 kills in a row without dieing!",
+            "displayDescription": "Get 5 kills in a row without dieing!",
+            "displayIconImageId": 20100105,
+            "displayName": "Flying Ace",
+            "enabled": false,
+            "iconImageId": 20100105,
+            "id": 20100202,
+            "name": "Flying Ace",
+            "statistics": {
+                "awardedCount": 6601,
+                "pastDayAwardedCount": 0,
+                "winRatePercentage": 0.0
+            },
+            "updated": "2016-09-22T21:10:23.39Z"
+        },
+        {
+            "awarder": {
+                "id": 2403845,
+                "type": "Place"
+            },
+            "created": "2009-12-25T01:22:39.763Z",
+            "description": "Nice job you survived a zombie attack.",
+            "displayDescription": "Nice job you survived a zombie attack.",
+            "displayIconImageId": 19746518,
+            "displayName": "I made it to the end of the road.",
+            "enabled": false,
+            "iconImageId": 19746518,
+            "id": 19746565,
+            "name": "I made it to the end of the road.",
+            "statistics": {
+                "awardedCount": 8419,
+                "pastDayAwardedCount": 0,
+                "winRatePercentage": 0.0
+            },
+            "updated": "2016-05-29T13:24:56.457Z"
+        },
+        {
+            "awarder": {
+                "id": 15675818,
+                "type": "Place"
+            },
+            "created": "2009-12-17T03:51:04.317Z",
+            "description": "Awarded to those who have beaten all levels up to 10",
+            "displayDescription": "Awarded to those who have beaten all levels up to 10",
+            "displayIconImageId": 19335574,
+            "displayName": "Wobbly Towers Beginner Winner",
+            "enabled": true,
+            "iconImageId": 19335574,
+            "id": 19335598,
+            "name": "Wobbly Towers Beginner Winner",
+            "statistics": {
+                "awardedCount": 59374,
+                "pastDayAwardedCount": 7,
+                "winRatePercentage": 0.467
+            },
+            "updated": "2019-04-04T16:50:52.597Z"
+        },
+        {
+            "awarder": {
+                "id": 15675818,
+                "type": "Place"
+            },
+            "created": "2009-12-17T03:52:19.727Z",
+            "description": "Awarded to those who have beaten all levels up to Level 20",
+            "displayDescription": "Awarded to those who have beaten all levels up to Level 20",
+            "displayIconImageId": 19335602,
+            "displayName": "Wobbly Towers Intermediate Winner",
+            "enabled": true,
+            "iconImageId": 19335602,
+            "id": 19335619,
+            "name": "Wobbly Towers Intermediate Winner",
+            "statistics": {
+                "awardedCount": 14088,
+                "pastDayAwardedCount": 2,
+                "winRatePercentage": 0.133
+            },
+            "updated": "2019-04-04T16:51:06.53Z"
+        },
+        {
+            "awarder": {
+                "id": 15675818,
+                "type": "Place"
+            },
+            "created": "2009-12-17T03:53:17.933Z",
+            "description": "Awarded to those who have beaten all levels through Level 30",
+            "displayDescription": "Awarded to those who have beaten all levels through Level 30",
+            "displayIconImageId": 19335624,
+            "displayName": "Wobbly Towers Advanced Winner",
+            "enabled": true,
+            "iconImageId": 19335624,
+            "id": 19335636,
+            "name": "Wobbly Towers Advanced Winner",
+            "statistics": {
+                "awardedCount": 4429,
+                "pastDayAwardedCount": 0,
+                "winRatePercentage": 0.0
+            },
+            "updated": "2019-04-04T16:51:20.133Z"
+        },
+        {
+            "awarder": {
+                "id": 18874219,
+                "type": "Place"
+            },
+            "created": "2009-12-09T04:53:20.527Z",
+            "description": "erik.cassel's last ROBLOX Badge. RIP.\r\n\r\n[ Deprecated ]\r\n\r\nThis badge can no longer be rewarded.",
+            "displayDescription": "erik.cassel's last ROBLOX Badge. RIP.\r\n\r\n[ Deprecated ]\r\n\r\nThis badge can no longer be rewarded.",
+            "displayIconImageId": 19012916,
+            "displayName": "I played some Ultimate Dodgeball!",
+            "enabled": true,
+            "iconImageId": 19012916,
+            "id": 19012922,
+            "name": "I played some Ultimate Dodgeball!",
+            "statistics": {
+                "awardedCount": 1143827,
+                "pastDayAwardedCount": 0,
+                "winRatePercentage": 0.0
+            },
+            "updated": "2015-11-29T00:28:19.42Z"
+        }
+    ],
+    "nextPageCursor": "eyJrZXkiOiIxOTAxMjkyMjo2MzQwMzEwNjM5OTAwMDAwMDAiLCJzb3J0T3JkZXIiOiJBc2MiLCJwYWdpbmdEaXJlY3Rpb24iOiJGb3J3YXJkIiwicGFnZU51bWJlciI6MiwiZGlzY3JpbWluYXRvciI6InVzZXJJZDo1NzI1NDc1IiwiY291bnQiOjEwfQoxZjg2MjU1Zjk3YmYwOGRlNjU0MWVlNGMwYzgxNzE1Y2VjM2I2Yjg4NzdlOTM1NGNkNjU0MGFkYzFmMGRhYzQ4",
+    "previousPageCursor": null
+}
