@@ -152,85 +152,34 @@ namespace RoPP
     class Session
     {
         public:
-            /*
-            * @brief gets the CSRF token of the cookie
-            * @return CSRF token
-            */
+
+            //get requests
+
             std::string GetCSRF();
-
-            /*
-            * @brief gets the auth ticket of the cookie
-            * @return Authentication ticket
-            */
             std::string GetAuthTicket();
-
-            /*
-            * @brief gets the username of the cookie
-            * @return Username
-            */
             std::string GetUsername();
-
-            /*
-            * @brief gets the description of the cookie
-            * @return Description
-            */
             std::string GetDescription();
 
-            /*
-            * @brief gets the birthdate of the cookie
-            * @return Birthdate json object
-            */
             json GetBirthDate();
-
-            /*
-            * @brief gets the verified phone number of the cookie
-            * @return Verified phone number information json object
-            */
             json GetPhoneInfo();
-
-            /*
-            * @brief gets friend requests of the cookie
-            * @return Friend requests json object
-            */
             json GetFriendRequests(string Sort="Asc", int Limit=10);
 
-            /*
-            * @brief gets the friend count of the cookie
-            * @return Friend count
-            */
             int GetFriendsCount();
 
-            /*
-            * @brief gets the UID of the cookie
-            * @return UID
-            */
             long GetUserID();
-            
-            /*
-            * @brief gets the robux balance of the cookie
-            * @return robux balance
-            */
             long GetRobuxBalance();
 
-            /*
-            * @brief checks if the cookie has Roblox premium
-            * @return true if premium, false if not
-            */
             bool HasPremium();
-
-            /*
-            * @brief checks if the specified game is favorited by the cookie
-            * @return true if favorited, false if not
-            */
             bool IsFavoriteGame(int PlaceID);
             
-            /*
-            * @brief sets the cookie to a new cookie
-            * @param cookie
-            */
-            void SetCookie(std::string Cookie);
+            //post requests
+
+            double UnlockPin(int Pin);
 
             void SetFavoriteGame(int PlaceID, bool Favorite);
+            
+
+            void SetCookie(std::string Cookie);
 
             Session(string Cookie)
             {

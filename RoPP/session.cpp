@@ -172,5 +172,29 @@ void RoPP::Session::SetFavoriteGame(int PlaceID, bool Favorite)
         json errorObject = errors.at(0);
         throw std::logic_error(errorObject["message"].get<string>().c_str());
     }
+}
 
+double RoPP::Session::UnlockPin(int Pin)
+{
+    json data = 
+    {
+        {"pin", Pin}
+    };
+
+    json res = Helper::MakeRobloxRequest
+        (
+            "https://auth.roblox.com/v1/account/pin/unlock",
+            "post",
+            this->Cookie,
+            data
+        ).JsonObj;
+
+    if (res.contains("errors"))
+    {
+        json errors = res["errors"];
+        json errorObject = errors.at(0);
+        throw std::logic_error(errorObject["message"].get<string>().c_str());
+    }
+
+    return res["unlockedUntil"]; 
 }
