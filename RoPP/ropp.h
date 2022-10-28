@@ -176,8 +176,9 @@ namespace RoPP
 
             double UnlockPin(int Pin);
 
+            bool LockPin();
+
             void SetFavoriteGame(int PlaceID, bool Favorite);
-            
 
             void SetCookie(std::string Cookie);
 

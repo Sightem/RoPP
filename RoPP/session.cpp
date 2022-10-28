@@ -198,3 +198,22 @@ double RoPP::Session::UnlockPin(int Pin)
 
     return res["unlockedUntil"]; 
 }
+
+bool RoPP::Session::LockPin()
+{
+    json res = Helper::MakeRobloxRequest
+        (
+            "https://auth.roblox.com/v1/account/pin/lock",
+            "post",
+            this->Cookie
+        ).JsonObj;
+
+    if (res.contains("errors"))
+    {
+        json errors = res["errors"];
+        json errorObject = errors.at(0);
+        throw std::logic_error(errorObject["message"].get<string>().c_str());
+    }
+
+    return res["success"];
+}
