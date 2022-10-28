@@ -17,7 +17,7 @@ They are inside the [RoPP/](https://github.com/Sightem/RoPP/tree/master/RoPP) an
 [TODO](https://github.com/Sightem/RoPP/wiki)
 
 ###  External Dependencies
-- [libcurl](https://curl.se)
+- [libcurl](https://curl.se/libcurl/)
 
 ### Credits
 - [nlohmanns json](https://github.com/nlohmann/json)
