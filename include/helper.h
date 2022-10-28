@@ -2,7 +2,8 @@
 #include "json.hpp"
 using json = nlohmann::json;
 
-namespace helper 
+//@Nowilltolife
+namespace Helper 
 {
     struct WebResponse 
     {
@@ -10,7 +11,7 @@ namespace helper
         Response Res;
     };
 
-    WebResponse makeRobloxRequest(std::string Url,
+    WebResponse MakeRobloxRequest(std::string Url,
         std::string Method,
         std::string Cookie,
         json Body = {},

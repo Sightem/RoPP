@@ -3,16 +3,17 @@
 #include "../include/helper.h"
 using json = nlohmann::json;
 
-helper::WebResponse helper::makeRobloxRequest(
-                       std::string url,
-                       std::string method,
-                       std::string cookie,
-                       json body,
-                       headers_t additional_headers,
-                       cookies_t additional_cookies)
+//@Nowilltolife
+Helper::WebResponse Helper::MakeRobloxRequest(
+                       std::string Url,
+                       std::string Method,
+                       std::string Cookie,
+                       json Body,
+                       headers_t Additional_headers,
+                       cookies_t Additional_cookies)
 {
     Request req("https://auth.roblox.com/v1/authentication-ticket");
-    req.set_cookie(".ROBLOSECURITY", cookie);
+    req.set_cookie(".ROBLOSECURITY", Cookie);
     req.set_header("Referer", "https://www.roblox.com/");
     req.set_header("Accept", "application/json");
     req.set_header("Content-Type", "application/json");
@@ -20,16 +21,16 @@ helper::WebResponse helper::makeRobloxRequest(
     Response res = req.post();
 
     req.set_header("x-csrf-token", res.headers["x-csrf-token"]);
-    req.set_url(url);
-    req.set_data(body.dump());
-    for (auto [key, value] : additional_headers)
+    req.set_url(Url);
+    req.set_data(Body.dump());
+    for (auto [key, value] : Additional_headers)
         req.set_header(key, value);
-    for (auto [key, value] : additional_cookies)
+    for (auto [key, value] : Additional_cookies)
         req.set_cookie(key, value);
 
-    if (method == "post") res = req.post();
-    else if (method == "get") res = req.get();
-    else res = req.request(method);
+    if (Method == "post") res = req.post();
+    else if (Method == "get") res = req.get();
+    else res = req.request(Method);
 
     return {json::parse(res.data), res};
 }

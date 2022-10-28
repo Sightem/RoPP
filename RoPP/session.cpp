@@ -158,7 +158,7 @@ void RoPP::Session::SetFavoriteGame(int PlaceID, bool Favorite)
         {"isFavorited", Favorite}
     };
 
-    json res = helper::makeRobloxRequest
+    json res = Helper::MakeRobloxRequest
         (
             "https://games.roblox.com/v1/games/" + std::to_string(UniverseID) + "/favorites",
             "post",
