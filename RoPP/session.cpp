@@ -1,5 +1,7 @@
 #include "ropp.h"
+#include "../include/helper.h"
 #include "../include/request.hpp"
+#include <exception>
 
 std::string RoPP::Session::GetCSRF()
 {
@@ -32,7 +34,7 @@ long RoPP::Session::GetUserID()
 {
     Request req("https://users.roblox.com/v1/users/authenticated");
     req.set_cookie(".ROBLOSECURITY", this->Cookie);
-    req.set_header("Referer", "https://www.roblox.com/");
+    req.set_header("Referexceptioner", "https://www.roblox.com/");
     req.initalize();
     Response res = req.get();
 
@@ -144,4 +146,31 @@ bool RoPP::Session::IsFavoriteGame(int PlaceID)
     Response res = req.get();
 
     return json::parse(res.data)["isFavorited"];
+}
+
+void RoPP::Session::SetFavoriteGame(int PlaceID, bool Favorite)
+{
+    RoPP::Other other;
+    int UniverseID = other.GetGameUniverseID(PlaceID);
+
+    json data = 
+    {
+        {"isFavorited", Favorite}
+    };
+
+    json res = helper::makeRobloxRequest
+        (
+            "https://games.roblox.com/v1/games/" + std::to_string(UniverseID) + "/favorites",
+            "post",
+            this->Cookie,
+            data
+        ).JsonObj;
+
+    if (res.contains("errors")) 
+    {
+        json errors = res["errors"];
+        json errorObject = errors.at(0);
+        throw std::logic_error(errorObject["message"].get<string>().c_str());
+    }
+
 }

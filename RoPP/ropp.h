@@ -230,6 +230,8 @@ namespace RoPP
             */
             void SetCookie(std::string Cookie);
 
+            void SetFavoriteGame(int PlaceID, bool Favorite);
+
             Session(string Cookie)
             {
                 this->Cookie = Cookie;
