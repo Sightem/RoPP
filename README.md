@@ -21,3 +21,6 @@ Few examples are available in the [examples/](https://github.com/Sightem/RoPP/tr
 
 ###  External Dependencies
 - [libcurl](https://curl.se)
+
+### Credits
+- [nlohmanns json](https://github.com/nlohmann/json)
