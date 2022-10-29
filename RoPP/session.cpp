@@ -217,3 +217,40 @@ bool RoPP::Session::LockPin()
 
     return res["success"];
 }
+
+void RoPP::Session::ChangePassword(string OldPassword, string NewPassword)
+{
+    json data = 
+    {
+        {"currentPassword", OldPassword},
+        {"newPassword", NewPassword}
+    };
+
+    Helper::WebResponse res = Helper::MakeRobloxRequest
+        (
+            "https://auth.roblox.com/v2/user/passwords/change",
+            "post",
+            this->Cookie,
+            data
+        );
+
+    if (res.JsonObj.contains("errors"))
+    {
+        json errors = res.JsonObj["errors"];
+        json errorObject = errors.at(0);
+        throw std::logic_error(errorObject["message"].get<string>() + std::to_string(res.Res.code));
+    }
+
+    if (!res.Res.cookies.empty())
+    {
+        if (res.Res.cookies.count(".ROBLOSECURITY") == 1)
+        {
+            this->Cookie = res.Res.cookies[".ROBLOSECURITY"];
+        }
+    }
+}
+
+std::string RoPP::Session::ReadCookie()
+{
+    return this->Cookie;
+}
