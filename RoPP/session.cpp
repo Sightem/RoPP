@@ -254,3 +254,81 @@ std::string RoPP::Session::ReadCookie()
 {
     return this->Cookie;
 }
+
+bool RoPP::Session::SendFriendRequest(long UID)
+{
+
+
+    json data = 
+    {
+        {"friendshipOriginSourceType", "Unknown"}
+    };
+
+    json res = Helper::MakeRobloxRequest
+        (
+            "https://friends.roblox.com/v1/users/" + std::to_string(UID) + "/request-friendship",
+            "post",
+            this->Cookie,
+            data
+        ).JsonObj;
+
+    if (res.contains("errors"))
+    {
+        json errors = res["errors"];
+        json errorObject = errors.at(0);
+        throw std::logic_error(errorObject["message"].get<string>().c_str());
+    }
+
+    return res["success"];
+}
+
+void RoPP::Session::AcceptFriendRequest(long UID)
+{
+    json res = Helper::MakeRobloxRequest
+        (
+            "https://friends.roblox.com/v1/users/" + std::to_string(UID) + "/accept-friendship-request",
+            "post",
+            this->Cookie
+        ).JsonObj;
+
+    if (res.contains("errors"))
+    {
+        json errors = res["errors"];
+        json errorObject = errors.at(0);
+        throw std::logic_error(errorObject["message"].get<string>().c_str());
+    }
+}
+
+void RoPP::Session::DeclineFriendRequest(long UID)
+{
+    json res = Helper::MakeRobloxRequest
+        (
+            "https://friends.roblox.com/v1/users/" + std::to_string(UID) + "/decline-friendship-request",
+            "post",
+            this->Cookie
+        ).JsonObj;
+
+    if (res.contains("errors"))
+    {
+        json errors = res["errors"];
+        json errorObject = errors.at(0);
+        throw std::logic_error(errorObject["message"].get<string>().c_str());
+    }
+}
+
+void RoPP::Session::DeclineAllFriendRequests()
+{
+    json res = Helper::MakeRobloxRequest
+        (
+            "https://friends.roblox.com/v1/user/friend-requests/decline-all",
+            "post",
+            this->Cookie
+        ).JsonObj;
+
+    if (res.contains("errors"))
+    {
+        json errors = res["errors"];
+        json errorObject = errors.at(0);
+        throw std::logic_error(errorObject["message"].get<string>().c_str());
+    }
+}

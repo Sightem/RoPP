@@ -176,10 +176,15 @@ namespace RoPP
 
             double UnlockPin(int Pin);
 
+            bool SendFriendRequest(long UID);
+
             bool LockPin();
 
             void SetFavoriteGame(int PlaceID, bool Favorite);
             void ChangePassword(string OldPassword, string NewPassword);
+            void AcceptFriendRequest(long UID);
+            void DeclineFriendRequest(long UID);
+            void DeclineAllFriendRequests();
 
             //
             void SetCookie(string Cookie);
