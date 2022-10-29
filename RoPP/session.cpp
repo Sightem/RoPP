@@ -3,16 +3,6 @@
 #include "../include/request.hpp"
 #include <exception>
 
-
-#define CHECK_ERRORS(res) \
-    if (res.contains("errors")) \
-    { \
-        json errors = res["errors"]; \
-        json errorObject = errors.at(0); \
-        throw std::logic_error(errorObject["message"].get<string>().c_str()); \
-    }
-
-
 std::string RoPP::Session::GetCSRF()
 {
     Request req("https://auth.roblox.com/v1/authentication-ticket");
@@ -175,8 +165,6 @@ void RoPP::Session::SetFavoriteGame(int PlaceID, bool Favorite)
             this->Cookie,
             data
         ).JsonObj;
-
-    CHECK_ERRORS(res)
 }
 
 double RoPP::Session::UnlockPin(int Pin)
@@ -194,7 +182,6 @@ double RoPP::Session::UnlockPin(int Pin)
             data
         ).JsonObj;
 
-    CHECK_ERRORS(res)
 
     return res["unlockedUntil"]; 
 }
@@ -207,8 +194,6 @@ bool RoPP::Session::LockPin()
             "post",
             this->Cookie
         ).JsonObj;
-
-    CHECK_ERRORS(res)
 
     return res["success"];
 }
@@ -229,13 +214,6 @@ void RoPP::Session::ChangePassword(string OldPassword, string NewPassword)
             data
         );
 
-    if (res.JsonObj.contains("errors"))
-    {
-        json errors = res.JsonObj["errors"];
-        json errorObject = errors.at(0);
-        throw std::logic_error(errorObject["message"].get<string>() + std::to_string(res.Res.code));
-    }
-
     if (!res.Res.cookies.empty())
     {
         if (res.Res.cookies.count(".ROBLOSECURITY") == 1)
@@ -252,8 +230,6 @@ std::string RoPP::Session::ReadCookie()
 
 bool RoPP::Session::SendFriendRequest(long UID)
 {
-
-
     json data = 
     {
         {"friendshipOriginSourceType", "Unknown"}
@@ -267,8 +243,6 @@ bool RoPP::Session::SendFriendRequest(long UID)
             data
         ).JsonObj;
 
-    CHECK_ERRORS(res)
-
     return res["success"];
 }
 
@@ -280,8 +254,6 @@ void RoPP::Session::AcceptFriendRequest(long UID)
             "post",
             this->Cookie
         ).JsonObj;
-
-    CHECK_ERRORS(res)
 }
 
 void RoPP::Session::DeclineFriendRequest(long UID)
@@ -292,8 +264,6 @@ void RoPP::Session::DeclineFriendRequest(long UID)
             "post",
             this->Cookie
         ).JsonObj;
-
-    CHECK_ERRORS(res)
 }
 
 void RoPP::Session::DeclineAllFriendRequests()
@@ -304,8 +274,6 @@ void RoPP::Session::DeclineAllFriendRequests()
             "post",
             this->Cookie
         ).JsonObj;
-
-    CHECK_ERRORS(res)
 }
 
 void RoPP::Session::BlockUser(long UID)
@@ -316,8 +284,6 @@ void RoPP::Session::BlockUser(long UID)
             "post",
             this->Cookie
         ).JsonObj;
-
-    CHECK_ERRORS(res)
 }
 
 void RoPP::Session::UnblockUser(long UID)
@@ -328,6 +294,4 @@ void RoPP::Session::UnblockUser(long UID)
             "post",
             this->Cookie
         ).JsonObj;
-
-    CHECK_ERRORS(res)
 }

@@ -32,5 +32,12 @@ Helper::WebResponse Helper::MakeRobloxRequest(
     else if (Method == "get") res = req.get();
     else res = req.request(Method);
 
+    if (res.data.find("errors") != std::string::npos)
+    {
+        json errors = json::parse(res.data)["errors"];
+        json errorObject = errors.at(0);
+        throw std::logic_error(errorObject["message"].get<std::string>() + " (" + std::to_string(errorObject["code"].get<int>()) + ")");
+    }
+
     return {json::parse(res.data), res};
 }
