@@ -185,6 +185,8 @@ namespace RoPP
             void AcceptFriendRequest(long UID);
             void DeclineFriendRequest(long UID);
             void DeclineAllFriendRequests();
+            void BlockUser(long UID);
+            void UnblockUser(long UID);
 
             //
             void SetCookie(string Cookie);

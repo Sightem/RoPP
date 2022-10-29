@@ -332,3 +332,37 @@ void RoPP::Session::DeclineAllFriendRequests()
         throw std::logic_error(errorObject["message"].get<string>().c_str());
     }
 }
+
+void RoPP::Session::BlockUser(long UID)
+{
+    json res = Helper::MakeRobloxRequest
+        (
+            "https://accountsettings.roblox.com/v1/users/" + std::to_string(UID) + "/block",
+            "post",
+            this->Cookie
+        ).JsonObj;
+
+    if (res.contains("errors"))
+    {
+        json errors = res["errors"];
+        json errorObject = errors.at(0);
+        throw std::logic_error(errorObject["message"].get<string>().c_str());
+    }
+}
+
+void RoPP::Session::UnblockUser(long UID)
+{
+    json res = Helper::MakeRobloxRequest
+        (
+            "https://accountsettings.roblox.com/v1/users/" + std::to_string(UID) + "/unblock",
+            "post",
+            this->Cookie
+        ).JsonObj;
+
+    if (res.contains("errors"))
+    {
+        json errors = res["errors"];
+        json errorObject = errors.at(0);
+        throw std::logic_error(errorObject["message"].get<string>().c_str());
+    }
+}
