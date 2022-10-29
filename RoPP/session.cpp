@@ -3,6 +3,16 @@
 #include "../include/request.hpp"
 #include <exception>
 
+
+#define CHECK_ERRORS(res) \
+    if (res.contains("errors")) \
+    { \
+        json errors = res["errors"]; \
+        json errorObject = errors.at(0); \
+        throw std::logic_error(errorObject["message"].get<string>().c_str()); \
+    }
+
+
 std::string RoPP::Session::GetCSRF()
 {
     Request req("https://auth.roblox.com/v1/authentication-ticket");
@@ -166,12 +176,7 @@ void RoPP::Session::SetFavoriteGame(int PlaceID, bool Favorite)
             data
         ).JsonObj;
 
-    if (res.contains("errors")) 
-    {
-        json errors = res["errors"];
-        json errorObject = errors.at(0);
-        throw std::logic_error(errorObject["message"].get<string>().c_str());
-    }
+    CHECK_ERRORS(res)
 }
 
 double RoPP::Session::UnlockPin(int Pin)
@@ -189,12 +194,7 @@ double RoPP::Session::UnlockPin(int Pin)
             data
         ).JsonObj;
 
-    if (res.contains("errors"))
-    {
-        json errors = res["errors"];
-        json errorObject = errors.at(0);
-        throw std::logic_error(errorObject["message"].get<string>().c_str());
-    }
+    CHECK_ERRORS(res)
 
     return res["unlockedUntil"]; 
 }
@@ -208,12 +208,7 @@ bool RoPP::Session::LockPin()
             this->Cookie
         ).JsonObj;
 
-    if (res.contains("errors"))
-    {
-        json errors = res["errors"];
-        json errorObject = errors.at(0);
-        throw std::logic_error(errorObject["message"].get<string>().c_str());
-    }
+    CHECK_ERRORS(res)
 
     return res["success"];
 }
@@ -272,12 +267,7 @@ bool RoPP::Session::SendFriendRequest(long UID)
             data
         ).JsonObj;
 
-    if (res.contains("errors"))
-    {
-        json errors = res["errors"];
-        json errorObject = errors.at(0);
-        throw std::logic_error(errorObject["message"].get<string>().c_str());
-    }
+    CHECK_ERRORS(res)
 
     return res["success"];
 }
@@ -291,12 +281,7 @@ void RoPP::Session::AcceptFriendRequest(long UID)
             this->Cookie
         ).JsonObj;
 
-    if (res.contains("errors"))
-    {
-        json errors = res["errors"];
-        json errorObject = errors.at(0);
-        throw std::logic_error(errorObject["message"].get<string>().c_str());
-    }
+    CHECK_ERRORS(res)
 }
 
 void RoPP::Session::DeclineFriendRequest(long UID)
@@ -308,12 +293,7 @@ void RoPP::Session::DeclineFriendRequest(long UID)
             this->Cookie
         ).JsonObj;
 
-    if (res.contains("errors"))
-    {
-        json errors = res["errors"];
-        json errorObject = errors.at(0);
-        throw std::logic_error(errorObject["message"].get<string>().c_str());
-    }
+    CHECK_ERRORS(res)
 }
 
 void RoPP::Session::DeclineAllFriendRequests()
@@ -325,12 +305,7 @@ void RoPP::Session::DeclineAllFriendRequests()
             this->Cookie
         ).JsonObj;
 
-    if (res.contains("errors"))
-    {
-        json errors = res["errors"];
-        json errorObject = errors.at(0);
-        throw std::logic_error(errorObject["message"].get<string>().c_str());
-    }
+    CHECK_ERRORS(res)
 }
 
 void RoPP::Session::BlockUser(long UID)
@@ -342,12 +317,7 @@ void RoPP::Session::BlockUser(long UID)
             this->Cookie
         ).JsonObj;
 
-    if (res.contains("errors"))
-    {
-        json errors = res["errors"];
-        json errorObject = errors.at(0);
-        throw std::logic_error(errorObject["message"].get<string>().c_str());
-    }
+    CHECK_ERRORS(res)
 }
 
 void RoPP::Session::UnblockUser(long UID)
@@ -359,10 +329,5 @@ void RoPP::Session::UnblockUser(long UID)
             this->Cookie
         ).JsonObj;
 
-    if (res.contains("errors"))
-    {
-        json errors = res["errors"];
-        json errorObject = errors.at(0);
-        throw std::logic_error(errorObject["message"].get<string>().c_str());
-    }
+    CHECK_ERRORS(res)
 }
