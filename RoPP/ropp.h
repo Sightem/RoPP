@@ -181,6 +181,8 @@ namespace RoPP
             bool LockPin();
 
             void SetFavoriteGame(int PlaceID, bool Favorite);
+            void SetDescription(string Description);
+            void SetGender(string Gender);
             void ChangePassword(string OldPassword, string NewPassword);
             void AcceptFriendRequest(long UID);
             void DeclineFriendRequest(long UID);

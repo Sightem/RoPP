@@ -295,3 +295,35 @@ void RoPP::Session::UnblockUser(long UID)
             this->Cookie
         ).JsonObj;
 }
+
+void RoPP::Session::SetDescription(string Description)
+{
+    json data = 
+    {
+        {"description", Description}
+    };
+
+    json res = Helper::MakeRobloxRequest
+        (
+            "https://accountinformation.roblox.com/v1/description",
+            "post",
+            this->Cookie,
+            data
+        ).JsonObj;
+}
+
+void RoPP::Session::SetGender(string Gender)
+{
+    json data = 
+    {
+        {"gender", Gender}
+    };
+
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://accountinformation.roblox.com/v1/gender",
+        "post",
+        this->Cookie,
+        data
+    ).JsonObj;
+} 
