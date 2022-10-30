@@ -1,24 +1,27 @@
 #include "ropp.h"
+#include "../include/helper.h"
 #include "../include/request.hpp"
 
 json RoPP::User::GetFriends(string Sort)
 {
-    Request req("https://friends.roblox.com/v1/users/" + std::to_string(this->UID) + "/friends?userSort=" + Sort);
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+   json res = Helper::MakeRobloxRequest
+    (
+        "https://friends.roblox.com/v1/users/" + std::to_string(this->UID) + "/friends?userSort=" + Sort,
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data);
+    return res;
 }
 
 json RoPP::User::GetFollowers(string Sort, int Limit)
 {
-    Request req("https://friends.roblox.com/v1/users/" + std::to_string(this->UID) + "/followers?sortOrder=" + Sort + "&limit=" + std::to_string(Limit));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://friends.roblox.com/v1/users/" + std::to_string(this->UID) + "/followers?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data);
+    return res;
 }
 
 json RoPP::User::GetFollowings(string Sort, int Limit)
@@ -33,174 +36,167 @@ json RoPP::User::GetFollowings(string Sort, int Limit)
 
 int RoPP::User::GetFriendsCount()
 {
-    Request req("https://friends.roblox.com/v1/users/" + std::to_string(this->UID) + "/friends/count");
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://friends.roblox.com/v1/users/" + std::to_string(this->UID) + "/friends/count",
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data)["count"];
+    return res["count"];
 }
 
 int RoPP::User::GetFollowersCount()
 {
-    Request req("https://friends.roblox.com/v1/users/" + std::to_string(this->UID) + "/followers/count");
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://friends.roblox.com/v1/users/" + std::to_string(this->UID) + "/followers/count",
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data)["count"];
+    return res["count"];
 }
 
 int RoPP::User::GetFollowingsCount()
 {
-    Request req("https://friends.roblox.com/v1/users/" + std::to_string(this->UID) + "/followings/count");
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://friends.roblox.com/v1/users/" + std::to_string(this->UID) + "/followings/count",
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data)["count"];
+    return res["count"];
 }
 
 json RoPP::User::GetFriendsOnline()
 {
-    Request req("https://friends.roblox.com/v1/users/" + std::to_string(this->UID) + "/friends/online");
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://friends.roblox.com/v1/users/" + std::to_string(this->UID) + "/friends/online",
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data);
+    return res;
 }
 
 std::string RoPP::User::GetUsername()
 {
-    Request req("https://users.roblox.com/v1/users/" + std::to_string(this->UID));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://users.roblox.com/v1/users/" + std::to_string(this->UID),
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data)["name"];
+    return res["name"];
 }
 
 std::string RoPP::User::GetDisplayName()
 {
-    Request req("https://users.roblox.com/v1/users/" + std::to_string(this->UID));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://users.roblox.com/v1/users/" + std::to_string(this->UID),
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data)["displayName"];
+    return res["displayName"];
 }
 
 std::string RoPP::User::GetDescription()
 {
-    Request req("https://users.roblox.com/v1/users/" + std::to_string(this->UID));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://users.roblox.com/v1/users/" + std::to_string(this->UID),
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data)["description"];
+    return res["description"];
 }
 
 json RoPP::User::GetGroups()
 {
-    Request req("https://groups.roblox.com/v1/users/" + std::to_string(this->UID) + "/groups/roles");
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://groups.roblox.com/v1/users/" + std::to_string(this->UID) + "/groups/roles",
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data);
+    return res;
 }
 
 int RoPP::User::GetGroupsCount()
 {
-    Request req("https://groups.roblox.com/v1/users/" + std::to_string(this->UID) + "/groups/roles");
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://groups.roblox.com/v1/users/" + std::to_string(this->UID) + "/groups/roles",
+        "GET"
+    ).JsonObj;
 
-    //Count the number of groups by counting the occurences of "group" in the string
-    std::string word = "group";
-    int count = 0;
-    for (size_t pos = res.data.find(word); pos != std::string::npos; pos = res.data.find(word, pos + word.length()))
-    {
-        ++count;
-    }
-
-    return count;
+    return res["data"].size();
 }
 
 json RoPP::User::GetBadges()
 {
-    Request req("https://badges.roblox.com/v1/users/" + std::to_string(this->UID) + "/badges");
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://badges.roblox.com/v1/users/" + std::to_string(this->UID) + "/badges",
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data);
+    return res;
 }
 
 int RoPP::User::GetBadgesCount()
 {
-    Request req("https://badges.roblox.com/v1/users/" + std::to_string(this->UID) + "/badges");
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://badges.roblox.com/v1/users/" + std::to_string(this->UID) + "/badges",
+        "GET"
+    ).JsonObj;
 
-    std::string word = "awarder";
-    int count = 0;
-    for (size_t pos = res.data.find(word); pos != std::string::npos; pos = res.data.find(word, pos + word.length()))
-    {
-        ++count;
-    }
-
-    return count;
+    return res["data"].size();
 }
 
 std::string RoPP::User::GetCreationDate()
 {
-    Request req("https://users.roblox.com/v1/users/" + std::to_string(this->UID));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://users.roblox.com/v1/users/" + std::to_string(this->UID),
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data)["created"];
+    return res["created"];
 }
 
 json RoPP::User::GetExperiences(string Sort, int limit)
 {
-    Request req("https://games.roblox.com/v2/users/" + std::to_string(this->UID) + "/games?sortOrder=" + Sort + "&limit=" + std::to_string(limit));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://users.roblox.com/v1/users/" + std::to_string(this->UID) + "/experiences?sortOrder=" + Sort + "&limit=" + std::to_string(limit),
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data);
+    return res;
 }
 
 int RoPP::User::GetExperiencesCount()
 {
-    Request req("https://games.roblox.com/v2/users/" + std::to_string(this->UID) + "/games");
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://users.roblox.com/v1/users/" + std::to_string(this->UID) + "/experiences",
+        "GET"
+    ).JsonObj;
 
-    std::string word = "name";
-    int count = 0;
-    for (size_t pos = res.data.find(word); pos != std::string::npos; pos = res.data.find(word, pos + word.length()))
-    {
-        ++count;
-    }
-
-    return count;
+    return res["data"].size();
 }
 
 json RoPP::User::GetFavoriteGames(string Sort, int limit)
 {
-    Request req("https://games.roblox.com/v1/users/" + std::to_string(this->UID) + "/favorites/games?sortOrder=" + Sort + "&limit=" + std::to_string(limit));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://users.roblox.com/v1/users/" + std::to_string(this->UID) + "/favorites/games?sortOrder=" + Sort + "&limit=" + std::to_string(limit),
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data);
+    return res;
 }
 
 json RoPP::User::GetPresence()
@@ -210,55 +206,56 @@ json RoPP::User::GetPresence()
         {"userIds", {this->UID}}
     };
 
-    Request req("https://presence.roblox.com/v1/presence/users");
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.set_header("Content-Type", "application/json");
-    req.set_header("Accept", "application/json");
-    req.set_data(data.dump());
-    req.initalize();
-    Response res = req.post();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://presence.roblox.com/v1/presence/users",
+        "POST",
+        data
+    ).JsonObj;
 
-    return json::parse(res.data);
+    return res;
 }
 
 json RoPP::User::GetPastUsernames(string Sort, int limit)
 {
-    Request req("https://users.roblox.com/v1/users/" + std::to_string(this->UID) + "/username-history?limit=" + std::to_string(limit) + "&sortOrder=" + Sort);
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://users.roblox.com/v1/users/" + std::to_string(this->UID) + "/usernames?sortOrder=" + Sort + "&limit=" + std::to_string(limit),
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data);
+    return res;
 }
 
 json RoPP::User::GetPrimaryGroup()
 {
-    Request req("https://groups.roblox.com/v1/users/" + std::to_string(this->UID) + "/groups/primary/role");
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://groups.roblox.com/v1/users/" + std::to_string(this->UID) + "/primary-group",
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data);
+    return res;
 }
 
 json RoPP::User::GetInventory(string AssetType, string Sort, int Limit)
-
 {
-    //https://inventory.roblox.com/v2/users/2207291/inventory?assetTypes=Hat&limit=10&sortOrder=Asc
-    Request req("https://inventory.roblox.com/v2/users/" + std::to_string(this->UID) + "/inventory?assetTypes=" + AssetType + "&limit=" + std::to_string(Limit) + "&sortOrder=" + Sort);
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://inventory.roblox.com/v1/users/" + std::to_string(this->UID) + "/assets/" + AssetType + "?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data);
+    return res;
 }
 
 bool RoPP::User::CanInventoryBeViewed()
 {
-    Request req("https://inventory.roblox.com/v1/users/" + std::to_string(this->UID) + "/can-view-inventory");
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://inventory.roblox.com/v1/users/" + std::to_string(this->UID) + "/can-view-inventory",
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data)["canViewInventory"];
+    return res["canView"];
 }

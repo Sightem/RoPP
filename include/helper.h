@@ -3,18 +3,30 @@
 using json = nlohmann::json;
 
 //@Nowilltolife
-namespace Helper 
+namespace Helper
 {
-    struct WebResponse 
+    struct WebResponse
     {
         json JsonObj;
         Response Res;
     };
 
-    WebResponse MakeRobloxRequest(std::string Url,
+    WebResponse MakeAuthedRobloxRequest
+    (
+        std::string Url,
         std::string Method,
         std::string Cookie,
         json Body = {},
         headers_t Additional_headers = {},
-        cookies_t Additional_cookies = {});
+        cookies_t Additional_cookies = {}
+    );
+
+    WebResponse MakeRobloxRequest
+    (
+        std::string Url,
+        std::string Method,
+        json Body = {},
+        headers_t Additional_headers = {},
+        cookies_t Additional_cookies = {}
+    );
 }
