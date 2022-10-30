@@ -1,7 +1,6 @@
 #include "ropp.h"
 #include "../include/helper.h"
 #include "../include/request.hpp"
-#include <exception>
 
 std::string RoPP::Session::GetCSRF()
 {
@@ -22,34 +21,37 @@ std::string RoPP::Session::GetAuthTicket()
     req.initalize();
     Response res = req.post();
 
-    string csrfToken = res.headers["x-csrf-token"];
+    std::string csrfToken = res.headers["x-csrf-token"];
     req.set_header("x-csrf-token", csrfToken);
 
     res = req.post();
-    string ticket = res.headers["rbx-authentication-ticket"];
+    std::string ticket = res.headers["rbx-authentication-ticket"];
     return ticket;
 }
 
 long RoPP::Session::GetUserID()
 {
-    Request req("https://users.roblox.com/v1/users/authenticated");
-    req.set_cookie(".ROBLOSECURITY", this->Cookie);
-    req.set_header("Referexceptioner", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    //example of how to use the helper function to convert old code to new
+   json res = Helper::MakeRobloxRequest
+    (
+        "https://users.roblox.com/v1/users/authenticated",
+        "get",
+        this->Cookie
+    ).JsonObj;
 
-    return json::parse(res.data)["id"];
+    return res["id"];
 }
 
 std::string RoPP::Session::GetUsername()
 {
-    Request req("https://users.roblox.com/v1/users/authenticated");
-    req.set_cookie(".ROBLOSECURITY", this->Cookie);
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://users.roblox.com/v1/users/authenticated",
+        "get",
+        this->Cookie
+    ).JsonObj;
 
-    return json::parse(res.data)["name"];
+    return res["name"];
 }
 
 void RoPP::Session::SetCookie(std::string cookie)
@@ -59,79 +61,86 @@ void RoPP::Session::SetCookie(std::string cookie)
 
 json RoPP::Session::GetBirthDate()
 {
-    Request req("https://accountinformation.roblox.com/v1/birthdate");
-    req.set_cookie(".ROBLOSECURITY", this->Cookie);
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://accountinformation.roblox.com/v1/birthdate",
+        "get",
+        this->Cookie
+    ).JsonObj;
 
-    return json::parse(res.data);
+    return res;
 }
 
 std::string RoPP::Session::GetDescription()
 {
-    Request req("https://accountinformation.roblox.com/v1/description");
-    req.set_cookie(".ROBLOSECURITY", this->Cookie);
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://accountinformation.roblox.com/v1/description",
+        "get",
+        this->Cookie
+    ).JsonObj;
 
-    return json::parse(res.data)["description"];
+    return res["description"];
 }
 
 json RoPP::Session::GetPhoneInfo()
 {
-    Request req("https://accountinformation.roblox.com/v1/phone");
-    req.set_cookie(".ROBLOSECURITY", this->Cookie);
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://accountinformation.roblox.com/v1/phone",
+        "get",
+        this->Cookie
+    ).JsonObj;
 
-    return json::parse(res.data);
+    return res;
 }
 
 long RoPP::Session::GetRobuxBalance()
 {
-    Request req("https://economy.roblox.com/v1/users/" + std::to_string(this->GetUserID()) + "/currency");
-    req.set_cookie(".ROBLOSECURITY", this->Cookie);
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://economy.roblox.com/v1/users/" + std::to_string(this->GetUserID()) + "/currency",
+        "get",
+        this->Cookie
+    ).JsonObj;
 
-    return json::parse(res.data)["robux"];
+    return res["robux"];
 }
 
 bool RoPP::Session::HasPremium()
 {
-    Request req("https://premiumfeatures.roblox.com/v1/users/" + std::to_string(this->GetUserID()) + "/validate-membership");
-    req.set_cookie(".ROBLOSECURITY", this->Cookie);
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://premiumfeatures.roblox.com/v1/users/" + std::to_string(this->GetUserID()) + "/validate-membership",
+        "get",
+        this->Cookie
+    ).JsonObj;
 
-    return json::parse(res.data);
+    return res;
 }
 
 int RoPP::Session::GetFriendsCount()
 {
-    Request req("https://friends.roblox.com/v1/my/friends/count");
-    req.set_cookie(".ROBLOSECURITY", this->Cookie);
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://friends.roblox.com/v1/my/friends/count",
+        "GET",
+        this->Cookie
+    ).JsonObj;
 
-    return json::parse(res.data)["count"];
+    return res["count"];
 }
 
 json RoPP::Session::GetFriendRequests(string Sort, int Limit)
 {
-    Request req("https://friends.roblox.com/v1/my/friends/requests?" + Sort + "&limit=" + std::to_string(Limit));
-    req.set_cookie(".ROBLOSECURITY", this->Cookie);
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://friends.roblox.com/v1/my/friends/requests?" + Sort + "&limit=" + std::to_string(Limit),
+        "GET",
+        this->Cookie
+    ).JsonObj;
 
-    return json::parse(res.data);
+    return res;
 }
 
 bool RoPP::Session::IsFavoriteGame(int PlaceID)
@@ -139,13 +148,14 @@ bool RoPP::Session::IsFavoriteGame(int PlaceID)
     RoPP::Other other;
     int UniverseID = other.GetGameUniverseID(PlaceID);
 
-    Request req("https://games.roblox.com/v1/games/" + std::to_string(UniverseID) + "/favorites");
-    req.set_cookie(".ROBLOSECURITY", this->Cookie);
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+   json res = Helper::MakeRobloxRequest
+    (
+        "https://games.roblox.com/v1/games/" + std::to_string(UniverseID) + "/favorites",
+        "GET",
+        this->Cookie
+    ).JsonObj;
 
-    return json::parse(res.data)["isFavorited"];
+    return res["isFavorited"];
 }
 
 void RoPP::Session::SetFavoriteGame(int PlaceID, bool Favorite)
