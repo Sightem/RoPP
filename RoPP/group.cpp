@@ -1,152 +1,89 @@
 #include "ropp.h"
+#include "../include/helper.h"
 #include "../include/request.hpp"
 
 json RoPP::Group::GetGroupInfo()
 {
-    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
-
-    return json::parse(res.data);
+    return Helper::MakeRobloxRequest
+    (
+        "https://groups.roblox.com/v1/groups/" + std::to_string(this->GID),
+        "GET"
+    ).JsonObj;
 }
 
 json RoPP::Group::GetGroupOwner()
 {
-    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
-
-    return json::parse(res.data)["owner"];
+    return GetGroupInfo()["owner"];
 }
 
 std::string RoPP::Group::GetGroupName()
 {
-    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
-
-    return json::parse(res.data)["name"];
+    return GetGroupInfo()["name"];
 }
 
 std::string RoPP::Group::GetGroupDescription()
 {
-    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
-
-    return json::parse(res.data)["description"];
+    return GetGroupInfo()["description"];
 }
 
 json RoPP::Group::GetGroupShout()
 {
-    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
-
-    return json::parse(res.data)["shout"];
+    return GetGroupInfo()["shout"];
 }
 
 long RoPP::Group::GetMemberCount()
 {
-    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
-
-    return json::parse(res.data)["memberCount"];
+    return GetGroupInfo()["memberCount"];
 }
 
 long RoPP::Group::GetOwnerID()
 {
-    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
-
-    return json::parse(res.data)["owner"]["userId"];
+    return GetGroupInfo()["owner"]["userId"];
 }
 
 std::string RoPP::Group::GetOwnerName()
 {
-    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
-
-    return json::parse(res.data)["owner"]["username"];
+    return GetGroupInfo()["owner"]["username"];
 }
 
 std::string RoPP::Group::GetOwnerDisplayName()
 {
-    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
-
-    return json::parse(res.data)["owner"]["displayName"];
+    return GetGroupInfo()["owner"]["displayName"];
 }
 
 json RoPP::Group::GetNameHistory(string Sort, int Limit)
 {
-    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID) + "/name-history?sortOrder=" + Sort + "&limit=" + std::to_string(Limit));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
-
-    return json::parse(res.data);
+    return Helper::MakeRobloxRequest
+    (
+        "https://groups.roblox.com/v1/groups/" + std::to_string(this->GID) + "/name-history?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
+        "GET"
+    ).JsonObj;
 }
 
 json RoPP::Group::GetGroupWall(string Sort, int Limit)
 {
-    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID) + "/wall/posts?sortOrder=" + Sort + "&limit=" + std::to_string(Limit));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
-
-    return json::parse(res.data);
-}
-
-bool RoPP::Group::IsGroupLocked()
-{
-    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
-
-    return json::parse(res.data)["isLocked"];
+    return Helper::MakeRobloxRequest
+    (
+        "https://groups.roblox.com/v1/groups/" + std::to_string(this->GID) + "/wall/posts?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
+        "GET"
+    ).JsonObj;
 }
 
 bool RoPP::Group::IsPublicEntryAllowed()
 {
-    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
-
-    return json::parse(res.data)["publicEntryAllowed"];
+    return GetGroupInfo()["publicEntryAllowed"];
 }
 
 bool RoPP::Group::IsBuildersClubOnly()
 {
-    Request req("https://groups.roblox.com/v1/groups/" + std::to_string(this->GID));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
-
-    return json::parse(res.data)["isBuildersClubOnly"];
+    return GetGroupInfo()["isBuildersClubOnly"];
 }
 
 json RoPP::Group::GetGames(string AccessFilter, string Sort, int Limit)
 {
-    Request req("https://games.roblox.com/v2/groups/" + std::to_string(this->GID) + "/games?accessFilter=" + AccessFilter + "&sortOrder=" + Sort + "&limit=" + std::to_string(Limit));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
-
-    return json::parse(res.data);
+    return Helper::MakeRobloxRequest
+    (
+        "https://games.roblox.com/v2/groups/" + std::to_string(this->GID) + "/games?accessFilter=" + AccessFilter + "&sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
+        "GET"
+    ).JsonObj;
 }

@@ -119,7 +119,6 @@ namespace RoPP
         long GetMemberCount();
         long GetOwnerID();
 
-        bool IsGroupLocked();
         bool IsPublicEntryAllowed();
         bool IsBuildersClubOnly();
 
