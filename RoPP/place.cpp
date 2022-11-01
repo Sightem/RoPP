@@ -1,26 +1,27 @@
 #include "ropp.h"
+#include "../include/helper.h"
 #include "../include/request.hpp"
 
 int RoPP::Place::GetUniverseID()
 {
-    Request req("https://api.roblox.com/universes/get-universe-containing-place?placeid=" + std::to_string(this->PID));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://api.roblox.com/universes/get-universe-containing-place?placeid=" + std::to_string(this->PID),
+        "GET"
+    ).JsonObj;
 
-    Response res = req.get();
-
-    return json::parse(res.data)["UniverseId"];
+    return res["UniverseId"];
 }
 
 json RoPP::Place::GetPlaceInfo()
 {
-    Request req("https://games.roblox.com/v1/games?universeIds=" + std::to_string(this->UniverseID));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://games.roblox.com/v1/games?universeIds=" + std::to_string(this->UniverseID),
+        "GET"
+    ).JsonObj;
 
-    Response res = req.get();
-
-    return json::parse(res.data);
+    return res;
 }
 
 std::string RoPP::Place::GetPlaceName()
@@ -48,7 +49,8 @@ std::string RoPP::Place::GetUpdatedDate()
     return GetPlaceInfo()["data"][0]["updated"];
 }
 
-std::string RoPP::Place::GetCreationDate()
+std::string RoPP::Place::GetCreationDate()add_executable(ropp-test main.cpp)
+target_link_libraries(ropp-test ropp)
 {
     return GetPlaceInfo()["data"][0]["created"];
 }
