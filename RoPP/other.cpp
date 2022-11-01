@@ -1,42 +1,48 @@
 #include "ropp.h"
+#include "../include/helper.h"
 #include "../include/request.hpp"
 
 
 json RoPP::Other::UserSearch(string Keyword, int Limit)
 {
-    Request req("https://users.roblox.com/v1/users/search?keyword=" + Keyword + "&limit=" + std::to_string(Limit));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://users.roblox.com/v1/users/search?keyword=" + Keyword + "&limit=" + std::to_string(Limit),
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data);
+    return res;
 }
 
 json RoPP::Other::GroupSearch(string Keyword, bool prioritizeExactMatch, int Limit)
 {
-    Request req("https://groups.roblox.com/v1/groups/search?keyword=" + Keyword + "&prioritizeExactMatch=" + std::to_string(prioritizeExactMatch) + "&limit=" + std::to_string(Limit));
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://groups.roblox.com/v1/groups/search?keyword=" + Keyword + "&prioritizeExactMatch=" + std::to_string(prioritizeExactMatch) + "&limit=" + std::to_string(Limit),
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data);
+    return res;
 }
 
 std::string RoPP::Other::ValidateUsername(std::string Username)
 {
-    Request req("https://auth.roblox.com/v2/usernames/validate?request.username=" + Username + "&request.birthday=1970-10-10");
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://auth.roblox.com/v2/usernames/validate?request.username=" + Username + "&request.birthday=1970-10-10",
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data)["message"];
+    return res["message"];
 }
 
 int RoPP::Other::GetGameUniverseID(int PlaceID)
 {
-    Request req("https://api.roblox.com/universes/get-universe-containing-place?placeid=2414851778");
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://api.roblox.com/universes/get-universe-containing-place?placeid=" + std::to_string(PlaceID),
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data)["UniverseId"];
+    return res["UniverseId"];
 }
