@@ -32,7 +32,7 @@ int main()
     std::cout << "Asset Is Limited Unique: " << asset.IsLimitedUnique() << std::endl;
 }
 ```
-*simple as.*
+[*simple as.*](https://github.com/Sightem/RoPP/tree/master/examples)
 
 Usage
 =========
