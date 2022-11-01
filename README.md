@@ -1,7 +1,6 @@
 
 
-RoPP
-=========
+<p align="center"><b>RoPP</b></p>
 
 <p align="center">
   <img src="https://img.shields.io/github/license/sightem/ropp">
