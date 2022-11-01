@@ -49,8 +49,7 @@ std::string RoPP::Place::GetUpdatedDate()
     return GetPlaceInfo()["data"][0]["updated"];
 }
 
-std::string RoPP::Place::GetCreationDate()add_executable(ropp-test main.cpp)
-target_link_libraries(ropp-test ropp)
+std::string RoPP::Place::GetCreationDate()
 {
     return GetPlaceInfo()["data"][0]["created"];
 }
