@@ -9,8 +9,7 @@ RoPP
   <img src="https://img.shields.io/github/commit-activity/w/sightem/ropp">
 </p>
 
-An API wrapper for Roblox written in C++20. This library is by far the most featureful and most maintained Roblox API wrapper made in C++, might as well be
-true as a whole, supporting not only GET requests, but many POST requests as well.
+An API wrapper for Roblox written in C++20. This library is by far the most featureful and most maintained Roblox API wrapper made in C++ supporting not only GET requests, but many authenticated POST requests as well. The goal is to keep the syntax as intuitive as possible, optimizing all the C++*ness* away.
 
 Contributions are always welcome. Feel free to create a Pull Request.
 
