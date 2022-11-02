@@ -27,6 +27,7 @@ namespace RoPP
             json GetBadges();
             json GetPresence();
             json GetPrimaryGroup();
+            json GetCurrentlyWearing();
             json GetInventory(string AssetType, string Sort="Asc", int Limit=10);
             
             int GetFriendsCount();
@@ -187,6 +188,7 @@ namespace RoPP
         std::string GetUpdatedDate();
 
         json GetAssetInfo();
+        json GetResaleData();
         json GetAssetCreator();
         json GetAssetOwners(string Sort="Asc", int Limit=10);
         json GetAssetResellers(string Sort="Asc", int Limit=10);

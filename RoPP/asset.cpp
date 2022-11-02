@@ -106,13 +106,20 @@ void RoPP::Asset::SetCookie(string Cookie)
 
 json RoPP::Asset::GetAssetResellers(string Sort, int Limit)
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    return Helper::MakeAuthedRobloxRequest
     (
-        //https://economy.roblox.com/v1/assets/94794774/resellers?sortOrder=Asc&limit=10
         "https://economy.roblox.com/v1/assets/" + std::to_string(this->AID) + "/resellers?" + Sort + "&limit=" + std::to_string(Limit),
         "GET",
         this->Cookie
     ).JsonObj;
+}
 
-    return res;
+json RoPP::Asset::GetResaleData()
+{
+    return Helper::MakeAuthedRobloxRequest
+    (
+        "https://economy.roblox.com/v1/assets/" + std::to_string(this->AID) + "/resale-data",
+        "GET",
+        this->Cookie
+    ).JsonObj;
 }
