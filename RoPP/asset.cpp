@@ -98,3 +98,21 @@ long RoPP::Asset::GetProductID()
 {
     return GetAssetInfo()["ProductId"];
 }
+
+void RoPP::Asset::SetCookie(string Cookie)
+{
+    this->Cookie = Cookie;
+}
+
+json RoPP::Asset::GetAssetResellers(string Sort, int Limit)
+{
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        //https://economy.roblox.com/v1/assets/94794774/resellers?sortOrder=Asc&limit=10
+        "https://economy.roblox.com/v1/assets/" + std::to_string(this->AID) + "/resellers?" + Sort + "&limit=" + std::to_string(Limit),
+        "GET",
+        this->Cookie
+    ).JsonObj;
+
+    return res;
+}

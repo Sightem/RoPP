@@ -189,6 +189,7 @@ namespace RoPP
         json GetAssetInfo();
         json GetAssetCreator();
         json GetAssetOwners(string Sort="Asc", int Limit=10);
+        json GetAssetResellers(string Sort="Asc", int Limit=10);
 
         int GetPrice();
 
@@ -201,6 +202,8 @@ namespace RoPP
         bool IsLimitedUnique();
         bool IsNew();
 
+        void SetCookie(string Cookie);
+
         Asset(long AID)
         {
             this->AID = AID;
@@ -208,6 +211,7 @@ namespace RoPP
 
         private:
             long AID = 0;
+            std::string Cookie;
 
             //https://github.com/ro-py/ro.py/blob/284b30dfef4c8117198b961c3b4b47c040da6af4/roblox/assets.py#L21 <3
            std::map<int, std::string> asset_type_names = 
