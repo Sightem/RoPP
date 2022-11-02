@@ -335,4 +335,25 @@ void RoPP::Session::SetGender(string Gender)
         this->Cookie,
         data
     ).JsonObj;
-} 
+}
+
+json RoPP::Session::BuyAsset(long AssetID)
+{
+    RoPP::Asset asset(AssetID);
+    json data = 
+    {
+        {"expectedCurrency", 1},
+        {"expectedPrice", asset.GetPrice()},
+        {"expectedSellerId", asset.GetCreatorID()}
+    };
+
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://economy.roblox.com/v1/purchases/products/" + std::to_string(asset.GetProductID()),
+        "POST",
+        this->Cookie,
+        data
+    ).JsonObj;
+
+    return res;
+}

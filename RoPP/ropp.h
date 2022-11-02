@@ -60,7 +60,7 @@ namespace RoPP
 
             json GetBirthDate();
             json GetPhoneInfo();
-            json BuyAsset(long AssetID, int Quantity=1);
+            json BuyAsset(long AssetID);
             json GetFriendRequests(string Sort="Asc", int Limit=10);
 
             int GetFriendsCount();
@@ -190,8 +190,9 @@ namespace RoPP
         json GetAssetCreator();
         json GetAssetOwners(string Sort="Asc", int Limit=10);
 
+        int GetPrice();
+
         long GetCreatorID();
-        long GetPrice();
         long GetSales();
         long GetProductID();
 

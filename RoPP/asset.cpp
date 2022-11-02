@@ -38,7 +38,7 @@ long RoPP::Asset::GetCreatorID()
     return GetAssetInfo()["Creator"]["Id"];
 }
 
-long RoPP::Asset::GetPrice()
+int RoPP::Asset::GetPrice()
 {
     return GetAssetInfo()["PriceInRobux"];
 }
