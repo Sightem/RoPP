@@ -1,4 +1,5 @@
 #include "ropp.h"
+#include "../include/helper.h"
 #include "../include/request.hpp"
 
 json RoPP::Asset::GetAssetInfo()
@@ -91,4 +92,9 @@ json RoPP::Asset::GetAssetOwners(string Sort, int Limit)
     Response res = req.get();
 
     return json::parse(res.data);
+}
+
+long RoPP::Asset::GetProductID()
+{
+    return GetAssetInfo()["ProductId"];
 }
