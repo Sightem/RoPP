@@ -28,6 +28,7 @@ namespace RoPP
             json GetPresence();
             json GetPrimaryGroup();
             json GetCurrentlyWearing();
+            json GetAvatar();
             json GetInventory(string AssetType, string Sort="Asc", int Limit=10);
             
             int GetFriendsCount();
@@ -63,6 +64,7 @@ namespace RoPP
             json GetPhoneInfo();
             json BuyAsset(long AssetID);
             json GetFriendRequests(string Sort="Asc", int Limit=10);
+            json GetAvatar();
 
             int GetFriendsCount();
 

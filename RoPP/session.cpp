@@ -357,3 +357,15 @@ json RoPP::Session::BuyAsset(long AssetID)
 
     return res;
 }
+
+json RoPP::Session::GetAvatar()
+{
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://avatar.roblox.com/v1/users/" + std::to_string(this->GetUserID()) + "/avatar",
+        "GET",
+        this->Cookie
+    ).JsonObj;
+
+    return res;
+}

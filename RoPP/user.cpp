@@ -269,3 +269,12 @@ json RoPP::User::GetCurrentlyWearing()
         "GET"
     ).JsonObj;;
 }
+
+json RoPP::User::GetAvatar()
+{
+    return Helper::MakeRobloxRequest
+    (
+        "https://avatar.roblox.com/v1/users/" + std::to_string(this->UID) + "/avatar",
+        "GET"
+    ).JsonObj;;
+}
