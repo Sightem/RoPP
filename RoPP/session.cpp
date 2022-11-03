@@ -387,3 +387,43 @@ json RoPP::Session::GetTradeInfo(long TradeID)
         this->Cookie
     ).JsonObj;
 }
+
+void RoPP::Session::AcceptTrade(long TradeID)
+{
+    Helper::MakeAuthedRobloxRequest
+    (
+        "https://trades.roblox.com/v1/trades/" + std::to_string(TradeID) + "/accept",
+        "POST",
+        this->Cookie
+    );
+}
+
+void RoPP::Session::DeclineTrade (long TradeID)
+{
+    Helper::MakeAuthedRobloxRequest
+    (
+        "https://trades.roblox.com/v1/trades/" + std::to_string(TradeID) + "/decline",
+        "POST",
+        this->Cookie
+    );
+}
+
+json RoPP::Session::CanTradeWith(long UID)
+{
+    return Helper::MakeAuthedRobloxRequest
+    (
+        "https://trades.roblox.com/v1/users/" + std::to_string(UID) + "/can-trade-with",
+        "GET",
+        this->Cookie
+    ).JsonObj;
+}
+
+int RoPP::Session::GetTradeCount(string TradeStatusType)
+{
+    return Helper::MakeAuthedRobloxRequest
+    (
+        "https://trades.roblox.com/v1/trades/" + TradeStatusType + "/count",
+        "GET",
+        this->Cookie
+    ).JsonObj["count"];
+}

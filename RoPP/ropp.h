@@ -68,8 +68,10 @@ namespace RoPP
             json GetAvatar();
             json GetTrades(string tradeStatusType="Inbound", string Sort="Asc", int Limit=10);
             json GetTradeInfo(long TradeID);
+            json CanTradeWith(long UserID);
 
             int GetFriendsCount();
+            int TradeCount(string TradeStatusType="Inbound");
 
             long GetUserID();
             long GetRobuxBalance();
@@ -93,6 +95,10 @@ namespace RoPP
             void DeclineAllFriendRequests();
             void BlockUser(long UID);
             void UnblockUser(long UID);
+            void AcceptTrade(long TradeID);
+            void DeclineTrade(long TradeID);
+
+            //SendTradeRequest
 
             void SetCookie(string Cookie);
 

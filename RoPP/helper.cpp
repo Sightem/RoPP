@@ -4,7 +4,7 @@
 using json = nlohmann::json;
 
 //@Nowilltolife
-Helper::WebResponse Helper::MakeAuthedRobloxRequest(
+[[maybe_unused]] Helper::WebResponse Helper::MakeAuthedRobloxRequest(
                        std::string Url,
                        std::string Method,
                        std::string Cookie,
@@ -40,7 +40,7 @@ Helper::WebResponse Helper::MakeAuthedRobloxRequest(
     return {json::parse(res.data), res};
 }
 
-Helper::WebResponse Helper::MakeRobloxRequest(
+[[maybe_unused]] Helper::WebResponse Helper::MakeRobloxRequest(
                        std::string Url,
                        std::string Method,
                        json Body,
