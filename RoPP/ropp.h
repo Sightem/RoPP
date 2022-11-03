@@ -59,12 +59,15 @@ namespace RoPP
             std::string GetAuthTicket();
             std::string GetUsername();
             std::string GetDescription();
+            std::string ReadCookie();
 
             json GetBirthDate();
             json GetPhoneInfo();
             json BuyAsset(long AssetID);
             json GetFriendRequests(string Sort="Asc", int Limit=10);
             json GetAvatar();
+            json GetTrades(string tradeStatusType="Inbound", string Sort="Asc", int Limit=10);
+            json GetTradeInfo(long TradeID);
 
             int GetFriendsCount();
 
@@ -92,7 +95,6 @@ namespace RoPP
             void UnblockUser(long UID);
 
             void SetCookie(string Cookie);
-            std::string ReadCookie();
 
             Session(string Cookie)
             {

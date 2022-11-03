@@ -360,12 +360,30 @@ json RoPP::Session::BuyAsset(long AssetID)
 
 json RoPP::Session::GetAvatar()
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    return Helper::MakeAuthedRobloxRequest
     (
         "https://avatar.roblox.com/v1/users/" + std::to_string(this->GetUserID()) + "/avatar",
         "GET",
         this->Cookie
     ).JsonObj;
+}
 
-    return res;
+json RoPP::Session::GetTrades(string tradeStatusType, string Sort, int Limit)
+{
+    return Helper::MakeAuthedRobloxRequest
+    (
+        "https://trades.roblox.com/v1/trades/" + tradeStatusType + "?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
+        "GET",
+        this->Cookie
+    ).JsonObj;
+}
+
+json RoPP::Session::GetTradeInfo(long TradeID)
+{
+    return Helper::MakeAuthedRobloxRequest
+    (
+        "https://trades.roblox.com/v1/trades/" + std::to_string(TradeID),
+        "GET",
+        this->Cookie
+    ).JsonObj;
 }
