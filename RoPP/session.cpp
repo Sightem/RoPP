@@ -427,3 +427,30 @@ int RoPP::Session::GetTradeCount(string TradeStatusType)
         this->Cookie
     ).JsonObj["count"];
 }
+
+int RoPP::Session::SendTradeRequest(long TargetUID, json UserOffer, json UserRequest)
+{
+    json data =
+    {
+        {"offers", {
+            {
+                {"userId", TargetUID},
+                {"userAssetIds", UserRequest["userAssetIds"]},
+                {"robux", UserRequest["robux"]}
+            },
+            {
+                {"userId", this->GetUserID()},
+                {"userAssetIds", UserOffer["userAssetIds"]},
+                {"robux", UserOffer["robux"]}
+            }
+        }}
+    };
+
+    return Helper::MakeAuthedRobloxRequest
+    (
+        "https://trades.roblox.com/v1/trades/send",
+        "POST",
+        this->Cookie,
+        data
+    ).JsonObj["id"];
+}

@@ -71,7 +71,7 @@ namespace RoPP
             json CanTradeWith(long UserID);
 
             int GetFriendsCount();
-            int TradeCount(string TradeStatusType="Inbound");
+            int GetTradeCount(string TradeStatusType="Inbound");
 
             long GetUserID();
             long GetRobuxBalance();
@@ -82,6 +82,8 @@ namespace RoPP
             //post requests
 
             double UnlockPin(int Pin);
+
+            int SendTradeRequest(long TargetUID, json UserOffer, json UserRequest);
 
             bool SendFriendRequest(long UID);
             bool LockPin();
@@ -97,8 +99,6 @@ namespace RoPP
             void UnblockUser(long UID);
             void AcceptTrade(long TradeID);
             void DeclineTrade(long TradeID);
-
-            //SendTradeRequest
 
             void SetCookie(string Cookie);
 
