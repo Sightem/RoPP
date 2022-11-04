@@ -24,6 +24,8 @@ json RoPP::Asset::GetAssetOwners(string Sort, int Limit)
     Response res = req.get();
 
     return json::parse(res.data);
+
+    //url for asset id 20052135 is https://inventory.roblox.com/v2/assets/20052135/owners?sortOrder=Asc&limit=100
 }
 
 void RoPP::Asset::SetCookie(string Cookie)
@@ -31,14 +33,16 @@ void RoPP::Asset::SetCookie(string Cookie)
     this->Cookie = Cookie;
 }
 
-json RoPP::Asset::GetAssetResellers(string Sort, int Limit)
+Resellers RoPP::Asset::GetAssetResellers(string Sort, int Limit)
 {
-    return Helper::MakeAuthedRobloxRequest
+    json res = Helper::MakeAuthedRobloxRequest
     (
         "https://economy.roblox.com/v1/assets/" + std::to_string(this->AID) + "/resellers?" + Sort + "&limit=" + std::to_string(Limit),
         "GET",
         this->Cookie
     ).JsonObj;
+    
+    return Resellers().Parse(res);
 }
 
 json RoPP::Asset::GetResaleData()

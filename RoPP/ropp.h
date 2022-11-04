@@ -191,9 +191,8 @@ namespace RoPP
         public:
         AssetInfo GetAssetInfo();
         json GetResaleData();
-        json GetAssetCreator();
         json GetAssetOwners(string Sort="Asc", int Limit=10);
-        json GetAssetResellers(string Sort="Asc", int Limit=10);
+        Resellers GetAssetResellers(string Sort="Asc", int Limit=10);
 
         void SetCookie(string Cookie);
 

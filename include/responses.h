@@ -27,16 +27,57 @@ struct Timestamp
     }
 };
 
+struct ResellerData
+{
+    int userAssetId;
+    int price;
+    int serialNumber;
+
+    std::string SellerUsername;
+    std::string SellerType;
+    long SellerId;
+
+
+    ResellerData Parse(json resellerData)
+    {
+        ResellerData r;
+        r.userAssetId = resellerData["userAssetId"];
+        r.price = resellerData["price"];
+        r.serialNumber = resellerData["serialNumber"];
+
+        r.SellerUsername = resellerData["seller"]["name"];
+        r.SellerType = resellerData["seller"]["type"];
+        r.SellerId = resellerData["seller"]["id"];
+
+        return r;
+    }
+};
+
+struct Resellers
+{
+    std::vector<ResellerData> sellers;
+
+    Resellers Parse(json resellers)
+    {
+        Resellers r;
+        for (int i = 0; i < resellers["data"].size(); i++)
+        {
+            r.sellers.push_back(ResellerData().Parse(resellers["data"][i]));
+        }
+        return r;
+    }
+};
+
 struct AssetCreator
 {
-    std::string Name;
+    std::string Username;
     std::string Type;
     long UID;
 
     AssetCreator Parse(json creator)
     {
         AssetCreator c;
-        c.Name = creator["Name"];
+        c.Username = creator["Name"];
         c.Type = creator["CreatorType"];
         c.UID = creator["Id"];
         return c;
@@ -45,7 +86,7 @@ struct AssetCreator
 
 struct AssetInfo
 {
-    std::string Name;
+    std::string Username;
     std::string Description;
     std::string AssetType;
     std::string CreatorName;
@@ -68,8 +109,7 @@ struct AssetInfo
     bool IsLimitedUnique;
 
     //https://github.com/ro-py/ro.py/blob/284b30dfef4c8117198b961c3b4b47c040da6af4/roblox/assets.py#L21 <3
-    std::map<int, std::string> asset_type_names = 
-    {
+    std::map<int, std::string> asset_type_names = {
         {1, "Image"},
         {2, "T-Shirt"},
         {3, "Audio"},
@@ -144,7 +184,7 @@ struct AssetInfo
     {
         AssetInfo info;
 
-        info.Name = Data["Name"];
+        info.Username = Data["Name"];
         info.Description = Data["Description"];
         info.AssetType = asset_type_names[Data["AssetTypeId"]];
         info.Created = Timestamp().Parse(Data["Created"]);
