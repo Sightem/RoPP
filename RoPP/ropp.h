@@ -190,7 +190,7 @@ namespace RoPP
     {
         public:
         AssetInfo GetAssetInfo();
-        json GetResaleData();
+        ResaleData GetResaleData();
         json GetAssetOwners(string Sort="Asc", int Limit=10);
         Resellers GetAssetResellers(string Sort="Asc", int Limit=10);
 

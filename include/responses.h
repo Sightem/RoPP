@@ -27,6 +27,68 @@ struct Timestamp
     }
 };
 
+struct PriceDataPoint
+{
+    long Price;
+    Timestamp timestamp;
+
+    PriceDataPoint Parse(json j)
+    {
+        PriceDataPoint p;
+        p.Price = j["value"];
+        p.timestamp = Timestamp().Parse(j["date"]);
+        return p;
+    }
+};
+
+struct VolumeDataPoint
+{
+    long Volume;
+    Timestamp timestamp;
+
+    VolumeDataPoint Parse(json j)
+    {
+        VolumeDataPoint v;
+        v.Volume = j["value"];
+        v.timestamp = Timestamp().Parse(j["date"]);
+        return v;
+    }
+};
+struct ResaleData
+{
+    int AssetStock;
+    int Sales;
+    int NumberRemaining;
+    int OriginalPrice;
+    
+    long RecentAveragePrice;
+
+    std::vector<PriceDataPoint> PriceData;
+    std::vector<VolumeDataPoint> VolumeData;
+
+    ResaleData Parse(json j)
+    {
+        ResaleData r;
+        r.AssetStock = j["assetStock"];
+        r.Sales = j["sales"];
+        r.NumberRemaining = j["numberRemaining"];
+        r.OriginalPrice = j["originalPrice"];
+        r.RecentAveragePrice = j["recentAveragePrice"];
+
+        for (int i = 0; i < j["priceDataPoints"].size(); i++)
+        {
+            r.PriceData.push_back(PriceDataPoint().Parse(j["priceDataPoints"][i]));
+        }
+
+        for (int i = 0; i < j["volumeDataPoints"].size(); i++)
+        {
+            r.VolumeData.push_back(VolumeDataPoint().Parse(j["volumeDataPoints"][i]));
+        }
+        
+        return r;
+    }
+};
+
 struct ResellerData
 {
     int userAssetId;
