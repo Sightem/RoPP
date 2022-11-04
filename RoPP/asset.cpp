@@ -13,8 +13,6 @@ AssetInfo RoPP::Asset::GetAssetInfo()
     Response res = req.get();
 
     return AssetInfo.Parse(json::parse(res.data));
-
-    //url for asset info: https://economy.roblox.com/v2/assets/440739240/details
 }
 
 json RoPP::Asset::GetAssetOwners(string Sort, int Limit)
@@ -26,7 +24,6 @@ json RoPP::Asset::GetAssetOwners(string Sort, int Limit)
     Response res = req.get();
 
     return json::parse(res.data);
-    //url for asset id 440739240 is https://inventory.roblox.com/v2/assets/440739240/owners?sortOrder=Asc&limit=10
 }
 
 void RoPP::Asset::SetCookie(string Cookie)
