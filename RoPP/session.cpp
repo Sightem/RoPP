@@ -1,6 +1,7 @@
 #include "ropp.h"
 #include "../include/helper.h"
 #include "../include/request.hpp"
+#include "../include/responses.h"
 
 std::string RoPP::Session::GetCSRF()
 {
@@ -340,16 +341,18 @@ void RoPP::Session::SetGender(string Gender)
 json RoPP::Session::BuyAsset(long AssetID)
 {
     RoPP::Asset asset(AssetID);
+    AssetInfo info = asset.GetAssetInfo();
+
     json data = 
     {
         {"expectedCurrency", 1},
-        {"expectedPrice", asset.GetPrice()},
-        {"expectedSellerId", asset.GetCreatorID()}
+        {"expectedPrice", info.Price},
+        {"expectedSellerId", info.CreatorID},
     };
 
     json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://economy.roblox.com/v1/purchases/products/" + std::to_string(asset.GetProductID()),
+        "https://economy.roblox.com/v1/purchases/products/" + std::to_string(info.ProductID),
         "POST",
         this->Cookie,
         data
