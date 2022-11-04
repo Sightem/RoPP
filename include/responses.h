@@ -14,7 +14,6 @@ struct Timestamp
     int minute;
     int second;
     
-    //parser function, parses "2016-06-25T00:59:22.593Z" to timestamp and returns it
     Timestamp Parse(std::string timestamp)
     {
         Timestamp t;
@@ -25,6 +24,22 @@ struct Timestamp
         t.minute = std::stoi(timestamp.substr(14, 2));
         t.second = std::stoi(timestamp.substr(17, 2));
         return t;
+    }
+};
+
+struct AssetCreator
+{
+    std::string Name;
+    std::string Type;
+    long UID;
+
+    AssetCreator Parse(json creator)
+    {
+        AssetCreator c;
+        c.Name = creator["Name"];
+        c.Type = creator["CreatorType"];
+        c.UID = creator["Id"];
+        return c;
     }
 };
 
@@ -39,7 +54,7 @@ struct AssetInfo
     Timestamp Created;
     Timestamp Updated;
 
-    json Creator;
+    AssetCreator Creator;
 
     int Price;
 
@@ -136,7 +151,7 @@ struct AssetInfo
         info.Updated = Timestamp().Parse(Data["Updated"]);
         info.CreatorName = Data["Creator"]["Name"];
         info.CreatorType = Data["Creator"]["CreatorType"];
-        info.Creator = Data["Creator"];
+        info.Creator = AssetCreator().Parse(Data["Creator"]);
         info.Price = Data["PriceInRobux"];
         info.Sales = Data["Sales"];
         info.CreatorID = Data["Creator"]["Id"];
