@@ -5,15 +5,39 @@
 
 using json = nlohmann::json;
 
+struct Timestamp
+{
+    int year;
+    int month;
+    int day;
+    int hour;
+    int minute;
+    int second;
+    
+    //parser function, parses "2016-06-25T00:59:22.593Z" to timestamp and returns it
+    Timestamp Parse(std::string timestamp)
+    {
+        Timestamp t;
+        t.year = std::stoi(timestamp.substr(0, 4));
+        t.month = std::stoi(timestamp.substr(5, 2));
+        t.day = std::stoi(timestamp.substr(8, 2));
+        t.hour = std::stoi(timestamp.substr(11, 2));
+        t.minute = std::stoi(timestamp.substr(14, 2));
+        t.second = std::stoi(timestamp.substr(17, 2));
+        return t;
+    }
+};
+
 struct AssetInfo
 {
     std::string Name;
     std::string Description;
     std::string AssetType;
-    std::string Created;
-    std::string Updated;
     std::string CreatorName;
     std::string CreatorType;
+
+    Timestamp Created;
+    Timestamp Updated;
 
     json Creator;
 
@@ -108,8 +132,8 @@ struct AssetInfo
         info.Name = Data["Name"];
         info.Description = Data["Description"];
         info.AssetType = asset_type_names[Data["AssetTypeId"]];
-        info.Created = Data["Created"];
-        info.Updated = Data["Updated"];
+        info.Created = Timestamp().Parse(Data["Created"]);
+        info.Updated = Timestamp().Parse(Data["Updated"]);
         info.CreatorName = Data["Creator"]["Name"];
         info.CreatorType = Data["Creator"]["CreatorType"];
         info.Creator = Data["Creator"];
