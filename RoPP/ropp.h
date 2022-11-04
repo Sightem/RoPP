@@ -189,18 +189,23 @@ namespace RoPP
     class Asset
     {
         public:
-        AssetInfo GetAssetInfo();
-        ResaleData GetResaleData();
-        json GetAssetOwners(string Sort="Asc", int Limit=10);
-        Resellers GetAssetResellers(string Sort="Asc", int Limit=10);
-
-        void SetCookie(string Cookie);
-
-        Asset(long AID)
-        {
-            this->AID = AID;
-        }
-
+            AssetInfo GetAssetInfo();
+            ResaleData GetResaleData();
+            Resellers GetAssetResellers(string Sort="Asc", int Limit=10);
+    
+            void SetCookie(string Cookie);
+    
+            Asset(long AID)
+            {
+                this->AID = AID;
+            }
+    
+            Asset(long AID, string Cookie)
+            {
+                this->AID = AID;
+                this->Cookie = Cookie;
+            }
+    
         private:
             long AID = 0;
             std::string Cookie;
