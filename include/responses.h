@@ -98,8 +98,7 @@ struct ResellerData
     std::string SellerUsername;
     std::string SellerType;
     long SellerId;
-
-
+    
     ResellerData Parse(json resellerData)
     {
         ResellerData r;
