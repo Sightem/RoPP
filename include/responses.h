@@ -64,6 +64,23 @@ struct User
     }
 };
 
+struct FollowingsResponse
+{
+    std::vector<User> Followings;
+
+    FollowingsResponse Parse(json j)
+    {
+        FollowingsResponse f;
+
+        for (int i = 0; i < j["data"].size(); i++)
+        {
+            f.Followings.push_back(User().Parse(j["data"][i]));
+        }
+
+        return f;
+    }
+};
+
 struct FriendsResponse
 {
     std::vector<User> Friends;

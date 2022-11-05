@@ -25,7 +25,7 @@ FollowersResponse RoPP::User::GetFollowers(string Sort, int Limit)
     return FollowersResponse().Parse(res);
 }
 
-json RoPP::User::GetFollowings(string Sort, int Limit)
+FollowingsResponse RoPP::User::GetFollowings(string Sort, int Limit)
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -33,9 +33,7 @@ json RoPP::User::GetFollowings(string Sort, int Limit)
         "GET"
     ).JsonObj;
 
-    return res;
-
-    //link for uid 28741929 https://friends.roblox.com/v1/users/28741929/followings?sortOrder=Asc&limit=10
+    return FollowingsResponse().Parse(res);
 }
 
 int RoPP::User::GetFriendsCount()

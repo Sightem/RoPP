@@ -20,7 +20,7 @@ namespace RoPP
             FriendsResponse GetFriends(string Sort="Alphabetical");
             json GetFriendsOnline();
             FollowersResponse GetFollowers(string Sort="Asc", int Limit=10);
-            json GetFollowings(string Sort="Asc", int Limit=10);
+            FollowingsResponse GetFollowings(string Sort="Asc", int Limit=10);
             json GetExperiences(string Sort="Asc", int Limit=10);
             json GetFavoriteGames(string Sort="Asc", int Limit=10);
             json GetPastUsernames(string Sort="Asc", int Limit=10);
