@@ -1,8 +1,9 @@
 #include "ropp.h"
 #include "../include/helper.h"
 #include "../include/request.hpp"
+#include "../include/responses.h"
 
-json RoPP::User::GetFriends(string Sort)
+FriendsResponse RoPP::User::GetFriends(string Sort)
 {
    json res = Helper::MakeRobloxRequest
     (
@@ -10,10 +11,10 @@ json RoPP::User::GetFriends(string Sort)
         "GET"
     ).JsonObj;
 
-    return res;
+    return FriendsResponse().Parse(res);
 }
 
-json RoPP::User::GetFollowers(string Sort, int Limit)
+FollowersResponse RoPP::User::GetFollowers(string Sort, int Limit)
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -21,7 +22,7 @@ json RoPP::User::GetFollowers(string Sort, int Limit)
         "GET"
     ).JsonObj;
 
-    return res;
+    return FollowersResponse().Parse(res);
 }
 
 json RoPP::User::GetFollowings(string Sort, int Limit)
@@ -33,6 +34,8 @@ json RoPP::User::GetFollowings(string Sort, int Limit)
     ).JsonObj;
 
     return res;
+
+    //link for uid 28741929 https://friends.roblox.com/v1/users/28741929/followings?sortOrder=Asc&limit=10
 }
 
 int RoPP::User::GetFriendsCount()
@@ -77,6 +80,8 @@ json RoPP::User::GetFriendsOnline()
     ).JsonObj;
 
     return res;
+
+    //link for uid 28741929 https://friends.roblox.com/v1/users/28741929/friends/online
 }
 
 std::string RoPP::User::GetUsername()

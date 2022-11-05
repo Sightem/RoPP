@@ -17,9 +17,9 @@ namespace RoPP
             std::string GetDescription();
             std::string GetCreationDate();
 
-            json GetFriends(string Sort="Alphabetical");
+            FriendsResponse GetFriends(string Sort="Alphabetical");
             json GetFriendsOnline();
-            json GetFollowers(string Sort="Asc", int Limit=10);
+            FollowersResponse GetFollowers(string Sort="Asc", int Limit=10);
             json GetFollowings(string Sort="Asc", int Limit=10);
             json GetExperiences(string Sort="Asc", int Limit=10);
             json GetFavoriteGames(string Sort="Asc", int Limit=10);

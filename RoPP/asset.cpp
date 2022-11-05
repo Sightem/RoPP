@@ -15,17 +15,6 @@ AssetInfo RoPP::Asset::GetAssetInfo()
     return AssetInfo.Parse(json::parse(res.data));
 }
 
-json RoPP::Asset::GetAssetOwners(string Sort, int Limit)
-{
-    Request req("https://inventory.roblox.com/v2/assets/" + std::to_string(this->AID) + "/owners?" + Sort + "&limit=" + std::to_string(Limit));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-
-    Response res = req.get();
-
-    return json::parse(res.data);
-}
-
 void RoPP::Asset::SetCookie(string Cookie)
 {
     this->Cookie = Cookie;

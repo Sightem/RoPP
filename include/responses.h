@@ -27,6 +27,75 @@ struct Timestamp
     }
 };
 
+struct User
+{
+    std::string Username;
+    std::string DisplayName;
+
+    Timestamp Created;
+
+    int PresenceType;
+    int FriendFrequentScore;
+    int FriendFrequentRank;
+
+    long UID;
+
+    bool IsOnline;
+    bool IsDeleted;
+    bool HasVerifiedBadge;
+    bool IsBanned;
+
+    User Parse(json j)
+    {
+        User u;
+        if (j.contains("name")) u.Username = j["name"];
+        if (j.contains("displayName")) u.DisplayName = j["displayName"];
+        if (j.contains("created")) u.Created = Timestamp().Parse(j["created"]);
+        if (j.contains("presenceType")) u.PresenceType = j["presenceType"];
+        if (j.contains("friendFrequentScore")) u.FriendFrequentScore = j["friendFrequentScore"];
+        if (j.contains("friendFrequentRank")) u.FriendFrequentRank = j["friendFrequentRank"];
+        if (j.contains("id")) u.UID = j["id"];
+        if (j.contains("isOnline")) u.IsOnline = j["isOnline"];
+        if (j.contains("isDeleted")) u.IsDeleted = j["isDeleted"];
+        if (j.contains("hasVerifiedBadge")) u.HasVerifiedBadge = j["hasVerifiedBadge"];
+        if (j.contains("isBanned")) u.IsBanned = j["isBanned"];
+
+        return u;
+    }
+};
+
+struct FriendsResponse
+{
+    std::vector<User> Friends;
+
+    FriendsResponse Parse(json j)
+    {
+        FriendsResponse f;
+        for (int i = 0; i < j["data"].size(); i++)
+        {
+            f.Friends.push_back(User().Parse(j["data"][i]));
+        }
+
+        return f;
+    }
+};
+
+struct FollowersResponse
+{
+    std::vector<User> Followers;
+
+    FollowersResponse Parse(json j)
+    {
+        FollowersResponse f;
+        for (int i = 0; i < j["data"].size(); i++)
+        {
+            f.Followers.push_back(User().Parse(j["data"][i]));
+        }
+
+        return f;
+    }
+};
+
 struct PriceDataPoint
 {
     long Price;
