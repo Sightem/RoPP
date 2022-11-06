@@ -69,19 +69,6 @@ int RoPP::User::GetFollowingsCount()
     return res["count"];
 }
 
-json RoPP::User::GetFriendsOnline()
-{
-    json res = Helper::MakeRobloxRequest
-    (
-        "https://friends.roblox.com/v1/users/" + std::to_string(this->UID) + "/friends/online",
-        "GET"
-    ).JsonObj;
-
-    return res;
-
-    //link for uid 28741929 https://friends.roblox.com/v1/users/28741929/friends/online
-}
-
 std::string RoPP::User::GetUsername()
 {
     json res = Helper::MakeRobloxRequest

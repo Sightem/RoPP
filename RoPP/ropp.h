@@ -18,7 +18,6 @@ namespace RoPP
             std::string GetCreationDate();
 
             FriendsResponse GetFriends(string Sort="Alphabetical");
-            json GetFriendsOnline();
             FollowersResponse GetFollowers(string Sort="Asc", int Limit=10);
             FollowingsResponse GetFollowings(string Sort="Asc", int Limit=10);
             json GetExperiences(string Sort="Asc", int Limit=10);
@@ -62,6 +61,7 @@ namespace RoPP
             std::string GetDescription();
             std::string ReadCookie();
 
+            FriendsOnlineResponse GetFriendsOnline();
             json GetBirthDate();
             json GetPhoneInfo();
             json BuyAsset(long AssetID);

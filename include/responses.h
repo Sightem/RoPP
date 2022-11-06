@@ -64,6 +64,54 @@ struct User
     }
 };
 
+struct FriendsOnline
+{
+    std::string UserPresenceType;
+    std::string UserLocationType;
+    std::string lastLocation;
+    std::string GameInstanceId;
+    std::string Username;
+    std::string DisplayName;
+
+    long PlaceID;
+    long UniverseID;
+    long UID;
+
+    Timestamp LastOnline;
+
+    FriendsOnline Parse(json j)
+    {
+        FriendsOnline f;
+        if (j.contains("userPresenceType")) f.UserPresenceType = j["UserPresenceType"];
+        if (j.contains("userLocationType")) f.UserLocationType = j["UserLocationType"];
+        if (j.contains("lastLocation")) f.lastLocation = j["lastLocation"];
+        if (j.contains("gameInstanceId")) f.GameInstanceId = j["gameInstanceId"];
+        if (j.contains("name")) f.Username = j["name"];
+        if (j.contains("displayName")) f.DisplayName = j["displayName"];
+        if (j.contains("placeId")) f.PlaceID = j["placeId"];
+        if (j.contains("universeId")) f.UniverseID = j["universeId"];
+        if (j.contains("id")) f.UID = j["id"];
+        if (j.contains("lastOnline")) f.LastOnline = Timestamp().Parse(j["lastOnline"]);
+
+        return f;
+    }
+};
+
+struct FriendsOnlineResponse
+{
+    std::vector<FriendsOnline> Friends;
+
+    FriendsOnlineResponse Parse(json j)
+    {
+        FriendsOnlineResponse f;
+        for (int i = 0; i < j.size(); i++)
+        {
+            f.Friends.push_back(FriendsOnline().Parse(j["data"][i]));
+        }
+        return f;
+    }
+};
+
 struct FollowingsResponse
 {
     std::vector<User> Followings;

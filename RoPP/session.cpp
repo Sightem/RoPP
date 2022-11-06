@@ -457,3 +457,16 @@ int RoPP::Session::SendTradeRequest(long TargetUID, json UserOffer, json UserReq
         data
     ).JsonObj["id"];
 }
+
+
+FriendsOnlineResponse RoPP::Session::GetFriendsOnline()
+{
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://friends.roblox.com/v1/users/" + std::to_string(this->GetUserID()) + "/friends/online",
+        "GET",
+        this->Cookie
+    ).JsonObj;
+
+    return FriendsOnlineResponse().Parse(res);
+}
