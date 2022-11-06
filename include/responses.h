@@ -64,6 +64,58 @@ struct User
     }
 };
 
+struct UserExperience
+{
+    std::string Name;
+    std::string Description;
+    std::string CreatorType;
+    std::string PlaceType;
+
+    Timestamp Created;
+    Timestamp Updated;
+
+    long CreatorID;
+    long PlaceID;
+    long PlaceVisits;
+
+    UserExperience Parse(json j)
+    {
+        UserExperience e;
+        
+        if (j.contains("name") && !(j["name"].is_null())) e.Name = j["name"];
+        if (j.contains("description") && !(j["description"].is_null())) e.Description = j["description"];
+        if (j.contains("creator") && !(j["creator"]["type"].is_null())) e.CreatorType = j["creator"]["type"];
+        if (j.contains("rootPlace") && !(j["rootPlace"]["type"].is_null())) e.PlaceType = j["rootPlace"]["type"];
+        if (j.contains("created") && !(j["created"].is_null())) e.Created = Timestamp().Parse(j["created"]);
+        if (j.contains("updated") && !(j["updated"].is_null())) e.Updated = Timestamp().Parse(j["updated"]);
+        if (j.contains("creator") && !(j["creator"]["id"].is_null())) e.CreatorID = j["creator"]["id"];
+        if (j.contains("rootPlace") && !(j["rootPlace"]["id"].is_null())) e.PlaceID = j["rootPlace"]["id"];
+        if (j.contains("placeVisits") && !(j["placeVisits"].is_null())) e.PlaceVisits = j["placeVisits"];
+
+        return e;
+    }
+};
+
+struct UserExperienceResponse
+{
+    std::vector<UserExperience> Experiences;
+    int Count;
+
+    UserExperienceResponse Parse(json j)
+    {
+        UserExperienceResponse r;
+
+        for (int i = 0; i < j.size(); i++)
+        {
+            r.Experiences.push_back(UserExperience().Parse(j["data"][i]));
+        }
+
+        r.Count = j["data"].size();
+
+        return r;
+    }
+};
+
 struct FriendsOnline
 {
     std::string UserPresenceType;

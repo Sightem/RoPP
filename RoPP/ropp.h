@@ -20,7 +20,7 @@ namespace RoPP
             FriendsResponse GetFriends(string Sort="Alphabetical");
             FollowersResponse GetFollowers(string Sort="Asc", int Limit=10);
             FollowingsResponse GetFollowings(string Sort="Asc", int Limit=10);
-            json GetExperiences(string Sort="Asc", int Limit=10);
+            UserExperienceResponse GetExperiences(string Sort="Asc", int Limit=10);
             json GetFavoriteGames(string Sort="Asc", int Limit=10);
             json GetPastUsernames(string Sort="Asc", int Limit=10);
             json GetGroups();
@@ -36,7 +36,6 @@ namespace RoPP
             int GetFollowersCount();
             int GetGroupsCount();
             int GetBadgesCount();
-            int GetExperiencesCount();
 
             bool CanInventoryBeViewed();
 

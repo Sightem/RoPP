@@ -157,26 +157,15 @@ std::string RoPP::User::GetCreationDate()
     return res["created"];
 }
 
-json RoPP::User::GetExperiences(string Sort, int limit)
+UserExperienceResponse RoPP::User::GetExperiences(string Sort, int limit)
 {
     json res = Helper::MakeRobloxRequest
     (
-        "https://users.roblox.com/v1/users/" + std::to_string(this->UID) + "/experiences?sortOrder=" + Sort + "&limit=" + std::to_string(limit),
+        "https://games.roblox.com/v2/users/" + std::to_string(this->UID) + "/games?sortOrder=" + Sort + "&limit=" + std::to_string(limit),
         "GET"
     ).JsonObj;
 
-    return res;
-}
-
-int RoPP::User::GetExperiencesCount()
-{
-    json res = Helper::MakeRobloxRequest
-    (
-        "https://users.roblox.com/v1/users/" + std::to_string(this->UID) + "/experiences",
-        "GET"
-    ).JsonObj;
-
-    return res["data"].size();
+    return UserExperienceResponse().Parse(res);
 }
 
 json RoPP::User::GetFavoriteGames(string Sort, int limit)
