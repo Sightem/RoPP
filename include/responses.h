@@ -232,6 +232,7 @@ namespace Responses
     struct FollowingsResponse
     {
         std::vector<User> Followings;
+        int Count;
 
         FollowingsResponse Parse(json j)
         {
@@ -241,6 +242,8 @@ namespace Responses
             {
                 f.Followings.push_back(User().Parse(j["data"][i]));
             }
+
+            f.Count = j["data"].size();
 
             return f;
         }
@@ -269,6 +272,7 @@ namespace Responses
     struct FollowersResponse
     {
         std::vector<User> Followers;
+        int Count;
 
         FollowersResponse Parse(json j)
         {
@@ -277,6 +281,8 @@ namespace Responses
             {
                 f.Followers.push_back(User().Parse(j["data"][i]));
             }
+
+            f.Count = j["data"].size();
 
             return f;
         }
