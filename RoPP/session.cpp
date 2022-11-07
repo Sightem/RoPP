@@ -3,6 +3,8 @@
 #include "../include/request.hpp"
 #include "../include/responses.h"
 
+using namespace Responses;
+
 std::string RoPP::Session::GetCSRF()
 {
     Request req("https://auth.roblox.com/v1/authentication-ticket");
@@ -457,7 +459,6 @@ int RoPP::Session::SendTradeRequest(long TargetUID, json UserOffer, json UserReq
         data
     ).JsonObj["id"];
 }
-
 
 FriendsOnlineResponse RoPP::Session::GetFriendsOnline()
 {

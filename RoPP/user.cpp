@@ -3,6 +3,8 @@
 #include "../include/request.hpp"
 #include "../include/responses.h"
 
+using namespace Responses;
+
 FriendsResponse RoPP::User::GetFriends(string Sort)
 {
    json res = Helper::MakeRobloxRequest

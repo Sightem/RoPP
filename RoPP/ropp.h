@@ -5,7 +5,6 @@
 
 using json = nlohmann::json;
 using std::string;
-using namespace Responses;
 
 namespace RoPP
 {
@@ -14,14 +13,14 @@ namespace RoPP
         public:
 
             Responses::User GetUser();
-            Timestamp GetCreationDate();
+            Responses::Timestamp GetCreationDate();
 
-            FriendsResponse GetFriends(string Sort="Alphabetical");
-            FollowersResponse GetFollowers(string Sort="Asc", int Limit=10);
-            FollowingsResponse GetFollowings(string Sort="Asc", int Limit=10);
-            UserExperienceResponse GetExperiences(string Sort="Asc", int Limit=10);
-            UserFavoriteExperiences GetFavoriteExperiences(string Sort="Asc", int Limit=10);
-            PastUsernames GetPastUsernames(string Sort="Asc", int Limit=10);
+            Responses::FriendsResponse GetFriends(string Sort="Alphabetical");
+            Responses::FollowersResponse GetFollowers(string Sort="Asc", int Limit=10);
+            Responses::FollowingsResponse GetFollowings(string Sort="Asc", int Limit=10);
+            Responses::UserExperienceResponse GetExperiences(string Sort="Asc", int Limit=10);
+            Responses::UserFavoriteExperiences GetFavoriteExperiences(string Sort="Asc", int Limit=10);
+            Responses::PastUsernames GetPastUsernames(string Sort="Asc", int Limit=10);
             json GetGroups();
             json GetBadges();
             json GetPresence();
@@ -56,7 +55,7 @@ namespace RoPP
             std::string GetDescription();
             std::string ReadCookie();
 
-            FriendsOnlineResponse GetFriendsOnline();
+            Responses::FriendsOnlineResponse GetFriendsOnline();
             json GetBirthDate();
             json GetPhoneInfo();
             json BuyAsset(long AssetID);
@@ -184,9 +183,9 @@ namespace RoPP
     class Asset
     {
         public:
-            AssetInfo GetAssetInfo();
-            ResaleData GetResaleData();
-            Resellers GetAssetResellers(string Sort="Asc", int Limit=10);
+            Responses::AssetInfo GetAssetInfo();
+            Responses::ResaleData GetResaleData();
+            Responses::Resellers GetAssetResellers(string Sort="Asc", int Limit=10);
     
             void SetCookie(string Cookie);
     

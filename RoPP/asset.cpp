@@ -3,6 +3,8 @@
 #include "../include/request.hpp"
 #include "../include/responses.h"
 
+using namespace Responses;
+
 AssetInfo RoPP::Asset::GetAssetInfo()
 {
     AssetInfo AssetInfo;
