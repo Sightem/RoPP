@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <chrono>
 #include "json.hpp"
 
 using json = nlohmann::json;
@@ -13,7 +14,7 @@ struct Timestamp
     int hour;
     int minute;
     int second;
-    
+
     Timestamp Parse(std::string timestamp)
     {
         Timestamp t;
@@ -24,6 +25,24 @@ struct Timestamp
         t.minute = std::stoi(timestamp.substr(14, 2));
         t.second = std::stoi(timestamp.substr(17, 2));
         return t;
+    }
+
+    std::string ToISO8601()
+    {
+        return std::to_string(year) + "-" + std::to_string(month) + "-" + std::to_string(day);
+    }
+
+    long long ToUnix()
+    {
+        std::tm t = {0};
+        t.tm_year = year - 1900;
+        t.tm_mon = month - 1;
+        t.tm_mday = day;
+        t.tm_hour = hour;
+        t.tm_min = minute;
+        t.tm_sec = second;
+        std::time_t time = std::mktime(&t);
+        return time;
     }
 };
 
