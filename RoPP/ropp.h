@@ -22,7 +22,7 @@ namespace RoPP
             Responses::UserFavoriteExperiences GetFavoriteExperiences(string Sort="Asc", int Limit=10);
             Responses::PastUsernames GetPastUsernames(string Sort="Asc", int Limit=10);
             Responses::UserGroupsResponse GetGroups();
-            json GetBadges();
+            Responses::UserBadgesResponse GetBadges();
             json GetPresence();
             json GetPrimaryGroup();
             json GetCurrentlyWearing();

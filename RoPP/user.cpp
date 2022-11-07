@@ -60,7 +60,7 @@ int RoPP::User::GetGroupsCount()
     return res["data"].size();
 }
 
-json RoPP::User::GetBadges()
+UserBadgesResponse RoPP::User::GetBadges()
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -68,7 +68,7 @@ json RoPP::User::GetBadges()
         "GET"
     ).JsonObj;
 
-    return res;
+    return UserBadgesResponse().Parse(res);
 }
 
 int RoPP::User::GetBadgesCount()

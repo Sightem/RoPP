@@ -121,6 +121,81 @@ namespace Responses
         }
     };
 
+    struct BadgeStats
+    {
+        long PastDayAwardedCount;
+        long AwardedCount;
+        int WinRatePercentage;
+
+        BadgeStats Parse(json j)
+        {
+            BadgeStats b;
+
+            if (j.contains("pastDayAwardedCount")) b.PastDayAwardedCount = j["pastDayAwardedCount"];
+            if (j.contains("awardedCount")) b.AwardedCount = j["awardedCount"];
+            if (j.contains("winRatePercentage")) b.WinRatePercentage = j["winRatePercentage"];
+
+            return b;
+        }
+    };
+
+    struct Badge
+    {
+        std::string Name;
+        std::string Description;
+        std::string DisplayName;
+        std::string DisplayDescription;
+        std::string AwarderType;
+
+        Timestamp Created;
+        Timestamp Updated;
+
+        BadgeStats Statistics;
+        
+        long IconImageId;
+        long DisplayIconImageId;
+        long AwarderId;
+
+        bool Enabled;
+
+        Badge Parse(json j)
+        {
+            Badge b;
+
+            if (j.contains("name")) b.Name = j["name"];
+            if (j.contains("description")) b.Description = j["description"];
+            if (j.contains("displayName")) b.DisplayName = j["displayName"];
+            if (j.contains("displayDescription")) b.DisplayDescription = j["displayDescription"];
+            if (j.contains("awarder")) b.AwarderType = j["awarder"]["type"];
+            if (j.contains("created")) b.Created = Timestamp().Parse(j["created"]);
+            if (j.contains("updated")) b.Updated = Timestamp().Parse(j["updated"]);
+            if (j.contains("iconImageId")) b.IconImageId = j["iconImageId"];
+            if (j.contains("displayIconImageId")) b.DisplayIconImageId = j["displayIconImageId"];
+            if (j.contains("awarder")) b.AwarderId = j["awarder"]["id"];
+            if (j.contains("enabled")) b.Enabled = j["enabled"];
+            if (j.contains("statistics")) b.Statistics = BadgeStats().Parse(j["statistics"]);
+
+            return b;
+        }
+    };
+
+    struct UserBadgesResponse
+    {
+        std::vector<Badge> Badges;
+
+        UserBadgesResponse Parse(json j)
+        {
+            UserBadgesResponse u;
+
+            for (int i = 0; i < j.size(); i++)
+            {
+                u.Badges.push_back(Badge().Parse(j["data"][i]));
+            }
+
+            return u;
+        }
+    };
+
     struct Role
     {
         std::string Name;
