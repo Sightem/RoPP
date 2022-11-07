@@ -22,7 +22,7 @@ namespace RoPP
             FollowingsResponse GetFollowings(string Sort="Asc", int Limit=10);
             UserExperienceResponse GetExperiences(string Sort="Asc", int Limit=10);
             UserFavoriteExperiences GetFavoriteExperiences(string Sort="Asc", int Limit=10);
-            json GetPastUsernames(string Sort="Asc", int Limit=10);
+            PastUsernames GetPastUsernames(string Sort="Asc", int Limit=10);
             json GetGroups();
             json GetBadges();
             json GetPresence();

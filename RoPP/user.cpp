@@ -196,15 +196,15 @@ json RoPP::User::GetPresence()
     return res;
 }
 
-json RoPP::User::GetPastUsernames(string Sort, int limit)
+PastUsernames RoPP::User::GetPastUsernames(string Sort, int limit)
 {
     json res = Helper::MakeRobloxRequest
     (
-        "https://users.roblox.com/v1/users/" + std::to_string(this->UID) + "/usernames?sortOrder=" + Sort + "&limit=" + std::to_string(limit),
+        "https://users.roblox.com/v1/users/" + std::to_string(this->UID) + "/username-history?limit=" + std::to_string(limit) + "&sortOrder=" + Sort,
         "GET"
     ).JsonObj;
 
-    return res;
+    return PastUsernames().Parse(res);
 }
 
 json RoPP::User::GetPrimaryGroup()

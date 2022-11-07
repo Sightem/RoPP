@@ -96,6 +96,26 @@ struct Experience
     }
 };
 
+struct PastUsernames
+{
+    std::vector<std::string> Usernames;
+
+    PastUsernames Parse(json j)
+    {
+        PastUsernames p;
+
+        if (j.contains("data"))
+        {
+            for (auto& i : j["data"])
+            {
+                if (!(j["data"].empty())) p.Usernames.push_back(i["name"]);
+            }
+        }
+        
+        return p;
+    }
+};
+
 struct UserFavoriteExperiences
 {
     std::vector<Experience> Experiences;
