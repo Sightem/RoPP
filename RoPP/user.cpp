@@ -124,17 +124,6 @@ int RoPP::User::GetBadgesCount()
     return res["data"].size();
 }
 
-Timestamp RoPP::User::GetCreationDate()
-{
-    json res = Helper::MakeRobloxRequest
-    (
-        "https://users.roblox.com/v1/users/" + std::to_string(this->UID),
-        "GET"
-    ).JsonObj;
-
-    return Timestamp().Parse(res["created"]);
-}
-
 UserExperienceResponse RoPP::User::GetExperiences(string Sort, int limit)
 {
     json res = Helper::MakeRobloxRequest
