@@ -15,7 +15,7 @@ namespace RoPP
             std::string GetUsername();
             std::string GetDisplayName();
             std::string GetDescription();
-            std::string GetCreationDate();
+            Timestamp GetCreationDate();
 
             FriendsResponse GetFriends(string Sort="Alphabetical");
             FollowersResponse GetFollowers(string Sort="Asc", int Limit=10);
