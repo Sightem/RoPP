@@ -69,7 +69,7 @@ int RoPP::User::GetFollowingsCount()
     return res["count"];
 }
 
-std::string RoPP::User::GetUsername()
+Responses::User RoPP::User::GetUser()
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -77,29 +77,7 @@ std::string RoPP::User::GetUsername()
         "GET"
     ).JsonObj;
 
-    return res["name"];
-}
-
-std::string RoPP::User::GetDisplayName()
-{
-    json res = Helper::MakeRobloxRequest
-    (
-        "https://users.roblox.com/v1/users/" + std::to_string(this->UID),
-        "GET"
-    ).JsonObj;
-
-    return res["displayName"];
-}
-
-std::string RoPP::User::GetDescription()
-{
-    json res = Helper::MakeRobloxRequest
-    (
-        "https://users.roblox.com/v1/users/" + std::to_string(this->UID),
-        "GET"
-    ).JsonObj;
-
-    return res["description"];
+    return Responses::User().Parse(res);
 }
 
 json RoPP::User::GetGroups()

@@ -5,6 +5,7 @@
 
 using json = nlohmann::json;
 using std::string;
+using namespace Responses;
 
 namespace RoPP
 {
@@ -12,9 +13,7 @@ namespace RoPP
     {
         public:
 
-            std::string GetUsername();
-            std::string GetDisplayName();
-            std::string GetDescription();
+            Responses::User GetUser();
             Timestamp GetCreationDate();
 
             FriendsResponse GetFriends(string Sort="Alphabetical");
