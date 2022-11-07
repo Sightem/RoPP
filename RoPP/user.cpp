@@ -168,16 +168,15 @@ UserExperienceResponse RoPP::User::GetExperiences(string Sort, int limit)
     return UserExperienceResponse().Parse(res);
 }
 
-json RoPP::User::GetFavoriteGames(string Sort, int limit)
+UserFavoriteExperiences RoPP::User::GetFavoriteExperiences(string Sort, int limit)
 {
     json res = Helper::MakeRobloxRequest
     (
-        "https://users.roblox.com/v1/users/" + std::to_string(this->UID) + "/favorites/games?sortOrder=" + Sort + "&limit=" + std::to_string(limit),
+        "https://games.roblox.com/v2/users/" + std::to_string(this->UID) + "/favorite/games?sortOrder=" + Sort + "&limit=" + std::to_string(limit),
         "GET"
     ).JsonObj;
 
-    return res;
-    //link for uid 28741929 is https://users.roblox.com/v1/users/28741929/favorites/games?sortOrder=Asc&limit=10
+    return UserFavoriteExperiences().Parse(res);
 }
 
 json RoPP::User::GetPresence()

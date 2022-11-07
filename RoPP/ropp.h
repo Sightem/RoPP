@@ -21,7 +21,7 @@ namespace RoPP
             FollowersResponse GetFollowers(string Sort="Asc", int Limit=10);
             FollowingsResponse GetFollowings(string Sort="Asc", int Limit=10);
             UserExperienceResponse GetExperiences(string Sort="Asc", int Limit=10);
-            json GetFavoriteGames(string Sort="Asc", int Limit=10);
+            UserFavoriteExperiences GetFavoriteExperiences(string Sort="Asc", int Limit=10);
             json GetPastUsernames(string Sort="Asc", int Limit=10);
             json GetGroups();
             json GetBadges();

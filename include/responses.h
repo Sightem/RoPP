@@ -96,6 +96,27 @@ struct Experience
     }
 };
 
+struct UserFavoriteExperiences
+{
+    std::vector<Experience> Experiences;
+    int Count;
+
+    UserFavoriteExperiences Parse(json j)
+    {
+        UserFavoriteExperiences ufe;
+
+        for (int i = 0; i < j.size(); i++)
+        {
+            Experience e = Experience().Parse(j["data"][i]);
+            ufe.Experiences.push_back(e);
+        }
+
+        ufe.Count = j["data"].size();
+
+        return ufe;
+    }
+};
+
 struct UserExperienceResponse
 {
     std::vector<Experience> Experiences;
