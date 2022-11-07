@@ -108,10 +108,13 @@ struct PastUsernames
         {
             for (auto& i : j["data"])
             {
-                if (!(j["data"].empty())) p.Usernames.push_back(i["name"]);
+                p.Usernames.push_back(i["name"]);
             }
         }
-        
+
+        if (p.Usernames.empty())
+            p.Usernames.push_back("");
+
         return p;
     }
 };
