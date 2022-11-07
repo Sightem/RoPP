@@ -177,6 +177,7 @@ json RoPP::User::GetFavoriteGames(string Sort, int limit)
     ).JsonObj;
 
     return res;
+    //link for uid 28741929 is https://users.roblox.com/v1/users/28741929/favorites/games?sortOrder=Asc&limit=10
 }
 
 json RoPP::User::GetPresence()

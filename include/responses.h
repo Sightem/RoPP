@@ -64,7 +64,7 @@ struct User
     }
 };
 
-struct UserExperience
+struct Experience
 {
     std::string Name;
     std::string Description;
@@ -78,9 +78,9 @@ struct UserExperience
     long PlaceID;
     long PlaceVisits;
 
-    UserExperience Parse(json j)
+    Experience Parse(json j)
     {
-        UserExperience e;
+        Experience e;
         
         if (j.contains("name") && !(j["name"].is_null())) e.Name = j["name"];
         if (j.contains("description") && !(j["description"].is_null())) e.Description = j["description"];
@@ -98,7 +98,7 @@ struct UserExperience
 
 struct UserExperienceResponse
 {
-    std::vector<UserExperience> Experiences;
+    std::vector<Experience> Experiences;
     int Count;
 
     UserExperienceResponse Parse(json j)
@@ -107,7 +107,7 @@ struct UserExperienceResponse
 
         for (int i = 0; i < j.size(); i++)
         {
-            r.Experiences.push_back(UserExperience().Parse(j["data"][i]));
+            r.Experiences.push_back(Experience().Parse(j["data"][i]));
         }
 
         r.Count = j["data"].size();
