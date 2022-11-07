@@ -38,7 +38,7 @@ FollowingsResponse RoPP::User::GetFollowings(string Sort, int Limit)
     return FollowingsResponse().Parse(res);
 }
 
-json RoPP::User::GetGroups()
+UserGroupsResponse RoPP::User::GetGroups()
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -46,7 +46,7 @@ json RoPP::User::GetGroups()
         "GET"
     ).JsonObj;
 
-    return res;
+    return UserGroupsResponse().Parse(res);
 }
 
 int RoPP::User::GetGroupsCount()

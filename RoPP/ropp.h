@@ -21,7 +21,7 @@ namespace RoPP
             Responses::UserExperienceResponse GetExperiences(string Sort="Asc", int Limit=10);
             Responses::UserFavoriteExperiences GetFavoriteExperiences(string Sort="Asc", int Limit=10);
             Responses::PastUsernames GetPastUsernames(string Sort="Asc", int Limit=10);
-            json GetGroups();
+            Responses::UserGroupsResponse GetGroups();
             json GetBadges();
             json GetPresence();
             json GetPrimaryGroup();

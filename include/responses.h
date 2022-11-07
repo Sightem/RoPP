@@ -52,6 +52,7 @@ namespace Responses
     {
         std::string Username;
         std::string DisplayName;
+        std::string BuildersClubMembershipType;
 
         Timestamp Created;
 
@@ -70,16 +71,19 @@ namespace Responses
         {
             User u;
             if (j.contains("name")) u.Username = j["name"];
+            if (j.contains("username")) u.Username = j["username"];
             if (j.contains("displayName")) u.DisplayName = j["displayName"];
             if (j.contains("created")) u.Created = Timestamp().Parse(j["created"]);
             if (j.contains("presenceType")) u.PresenceType = j["presenceType"];
             if (j.contains("friendFrequentScore")) u.FriendFrequentScore = j["friendFrequentScore"];
             if (j.contains("friendFrequentRank")) u.FriendFrequentRank = j["friendFrequentRank"];
             if (j.contains("id")) u.UID = j["id"];
+            if (j.contains("userId")) u.UID = j["userId"];
             if (j.contains("isOnline")) u.IsOnline = j["isOnline"];
             if (j.contains("isDeleted")) u.IsDeleted = j["isDeleted"];
             if (j.contains("hasVerifiedBadge")) u.HasVerifiedBadge = j["hasVerifiedBadge"];
             if (j.contains("isBanned")) u.IsBanned = j["isBanned"];
+            if (j.contains("buildersClubMembershipType")) u.BuildersClubMembershipType = j["buildersClubMembershipType"];
 
             return u;
         }
@@ -116,6 +120,106 @@ namespace Responses
             return e;
         }
     };
+
+    struct Role
+    {
+        std::string Name;
+        int Rank;
+        long ID;
+
+        Role Parse(json j)
+        {
+            Role r;
+
+            if (j.contains("name")) r.Name = j["name"];
+            if (j.contains("rank")) r.Rank = j["rank"];
+            if (j.contains("id")) r.ID = j["id"];
+
+            return r;
+        }
+    };
+    struct Shout
+    {
+        std::string Body;
+        User Poster;
+
+        Timestamp Created;
+        Timestamp Updated;
+
+        Shout Parse(json j)
+        {
+            Shout s;
+
+            if (j.contains("body")) s.Body = j["body"];
+            if (j.contains("poster")) s.Poster = User().Parse(j["poster"]);
+            if (j.contains("created")) s.Created = Timestamp().Parse(j["created"]);
+            if (j.contains("updated")) s.Updated = Timestamp().Parse(j["updated"]);
+
+            return s;
+        }
+    };
+
+    struct Group
+    {
+        std::string Name;
+        std::string Description;
+        
+        User Owner;
+
+        Shout GShout;
+
+        Role role;
+
+        long GroupID;
+        long MemberCount;
+
+        bool IsBuildersClubOnly;
+        bool IsPublicEntryAllowed;
+        bool HasVerifiedBadge;
+
+        Group Parse(json j)
+        {
+            Group g;
+
+            if (j["group"].contains("name")) g.Name = j["group"]["name"];
+            if (j["group"].contains("description")) g.Description = j["group"]["description"];
+            if (j["group"].contains("owner")) g.Owner = User().Parse(j["group"]["owner"]);
+            if (j["group"].contains("shout") && !(j["group"]["shout"].is_null())) g.GShout = Shout().Parse(j["group"]["shout"]);
+            if (j["group"].contains("memberCount")) g.MemberCount = j["group"]["memberCount"];
+            if (j["group"].contains("id")) g.GroupID = j["group"]["id"];
+            if (j["group"].contains("isBuildersClubOnly")) g.IsBuildersClubOnly = j["group"]["isBuildersClubOnly"];
+            if (j["group"].contains("isPublicEntryAllowed")) g.IsPublicEntryAllowed = j["group"]["isPublicEntryAllowed"];
+            if (j["group"].contains("hasVerifiedBadge")) g.HasVerifiedBadge = j["group"]["hasVerifiedBadge"];
+
+            
+            if (j["role"].contains("name")) g.role.Name = j["role"]["name"];
+            if (j["role"].contains("rank")) g.role.Rank = j["role"]["rank"];
+            if (j["role"].contains("id")) g.role.ID = j["role"]["id"];
+
+    
+            return g;
+
+        }
+
+    };
+
+    struct UserGroupsResponse
+    {
+        std::vector<Group> Groups;
+
+        UserGroupsResponse Parse(json j)
+        {
+            UserGroupsResponse ugr;
+
+            for (int i = 0; i < j.size(); i++)
+            {
+                ugr.Groups.push_back(Group().Parse(j["data"][i]));
+            }
+
+            return ugr;
+        }
+    };
+
 
     struct PastUsernames
     {
