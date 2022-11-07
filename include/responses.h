@@ -249,14 +249,18 @@ namespace Responses
     struct FriendsResponse
     {
         std::vector<User> Friends;
+        int Count;
 
         FriendsResponse Parse(json j)
         {
             FriendsResponse f;
+
             for (int i = 0; i < j["data"].size(); i++)
             {
                 f.Friends.push_back(User().Parse(j["data"][i]));
             }
+
+            f.Count = j["data"].size();
 
             return f;
         }

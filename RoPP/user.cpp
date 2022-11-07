@@ -36,50 +36,6 @@ FollowingsResponse RoPP::User::GetFollowings(string Sort, int Limit)
     return FollowingsResponse().Parse(res);
 }
 
-int RoPP::User::GetFriendsCount()
-{
-    json res = Helper::MakeRobloxRequest
-    (
-        "https://friends.roblox.com/v1/users/" + std::to_string(this->UID) + "/friends/count",
-        "GET"
-    ).JsonObj;
-
-    return res["count"];
-}
-
-int RoPP::User::GetFollowersCount()
-{
-    json res = Helper::MakeRobloxRequest
-    (
-        "https://friends.roblox.com/v1/users/" + std::to_string(this->UID) + "/followers/count",
-        "GET"
-    ).JsonObj;
-
-    return res["count"];
-}
-
-int RoPP::User::GetFollowingsCount()
-{
-    json res = Helper::MakeRobloxRequest
-    (
-        "https://friends.roblox.com/v1/users/" + std::to_string(this->UID) + "/followings/count",
-        "GET"
-    ).JsonObj;
-
-    return res["count"];
-}
-
-Responses::User RoPP::User::GetUser()
-{
-    json res = Helper::MakeRobloxRequest
-    (
-        "https://users.roblox.com/v1/users/" + std::to_string(this->UID),
-        "GET"
-    ).JsonObj;
-
-    return Responses::User().Parse(res);
-}
-
 json RoPP::User::GetGroups()
 {
     json res = Helper::MakeRobloxRequest

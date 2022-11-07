@@ -30,7 +30,6 @@ namespace RoPP
             json GetAvatar();
             json GetInventory(string AssetType, string Sort="Asc", int Limit=10);
             
-            int GetFriendsCount();
             int GetFollowingsCount();
             int GetFollowersCount();
             int GetGroupsCount();
