@@ -121,6 +121,17 @@ namespace Responses
         }
     };
 
+    struct UserPresence
+    {
+        std::string LastLocation;
+
+        long PlaceID;
+        long RootPlaceID;
+
+        int UserPresenceType;
+    };
+
+
     struct BadgeStats
     {
         long PastDayAwardedCount;

@@ -471,3 +471,22 @@ FriendsOnlineResponse RoPP::Session::GetFriendsOnline()
 
     return FriendsOnlineResponse().Parse(res);
 }
+
+
+json RoPP::Session::GetUsersPresence(std::vector<long> UIDs)
+{
+    json data = 
+    {
+        {"userIds", UIDs}
+    };
+
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://presence.roblox.com/v1/presence/users",
+        "POST",
+        this->Cookie,
+        data
+    ).JsonObj;
+
+    return res;
+}

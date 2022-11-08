@@ -104,23 +104,6 @@ UserFavoriteExperiences RoPP::User::GetFavoriteExperiences(string Sort, int limi
     return UserFavoriteExperiences().Parse(res);
 }
 
-json RoPP::User::GetPresence()
-{
-    json data = 
-    {
-        {"userIds", {this->UID}}
-    };
-
-    json res = Helper::MakeRobloxRequest
-    (
-        "https://presence.roblox.com/v1/presence/users",
-        "POST",
-        data
-    ).JsonObj;
-
-    return res;
-}
-
 PastUsernames RoPP::User::GetPastUsernames(string Sort, int limit)
 {
     json res = Helper::MakeRobloxRequest

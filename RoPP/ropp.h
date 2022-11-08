@@ -23,7 +23,6 @@ namespace RoPP
             Responses::PastUsernames GetPastUsernames(string Sort="Asc", int Limit=10);
             Responses::UserGroupsResponse GetGroups();
             Responses::UserBadgesResponse GetBadges();
-            json GetPresence();
             json GetPrimaryGroup();
             json GetCurrentlyWearing();
             json GetAvatar();
@@ -56,6 +55,7 @@ namespace RoPP
             std::string ReadCookie();
 
             Responses::FriendsOnlineResponse GetFriendsOnline();
+            json GetUsersPresence(std::vector<long> UIDs);
             json GetBirthDate();
             json GetPhoneInfo();
             json BuyAsset(long AssetID);
