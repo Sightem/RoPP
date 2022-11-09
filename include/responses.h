@@ -121,6 +121,45 @@ namespace Responses
         }
     };
 
+    struct InventoryAsset
+    {   
+        std::string Name;
+        std::string AssetType;
+
+        Timestamp Created;
+
+        long AssetID;
+
+        InventoryAsset Parse(json j)
+        {
+            InventoryAsset a;
+
+            if (j.contains("name") && !(j["name"].is_null())) a.Name = j["name"];
+            if (j.contains("assetType") && !(j["assetType"].is_null())) a.AssetType = j["assetType"];
+            if (j.contains("created") && !(j["created"].is_null())) a.Created = Timestamp().Parse(j["created"]);
+            if (j.contains("assetId") && !(j["assetId"].is_null())) a.AssetID = j["assetId"];
+
+            return a;
+        }
+    };
+
+    struct InventoryResponse
+    {
+        std::vector<InventoryAsset> Assets;
+
+        InventoryResponse Parse(json j)
+        {
+            InventoryResponse r;
+
+            for (int i = 0; i < j.size(); i++)
+            {
+                r.Assets.push_back(InventoryAsset().Parse(j["data"][i]));
+            }
+
+            return r;
+        }
+    };
+
     struct UserPresence
     {
         std::string LastLocation;

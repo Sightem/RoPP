@@ -124,15 +124,24 @@ Responses::Group RoPP::User::GetPrimaryGroup()
     return Responses::Group().Parse(res);
 }
 
-json RoPP::User::GetInventory(string AssetType, string Sort, int Limit)
+Responses::InventoryResponse RoPP::User::GetInventory(std::vector<string> AssetType, string Sort, int Limit)
 {
+    string AssetTypeString = "";
+    for (int i = 0; i < AssetType.size(); i++)
+    {
+        AssetTypeString += AssetType[i];
+
+        if (i != AssetType.size() - 1)
+            AssetTypeString += ",";
+    }
+
     json res = Helper::MakeRobloxRequest
     (
-        "https://inventory.roblox.com/v1/users/" + std::to_string(this->UID) + "/assets/" + AssetType + "?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
+        "https://inventory.roblox.com/v2/users/" + std::to_string(this->UID) + "/inventory?assetTypes=" + AssetTypeString + "&sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
         "GET"
     ).JsonObj;
 
-    return res;
+    return Responses::InventoryResponse().Parse(res);
 }
 
 bool RoPP::User::CanInventoryBeViewed()

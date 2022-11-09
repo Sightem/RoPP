@@ -26,7 +26,7 @@ namespace RoPP
             Responses::Group GetPrimaryGroup();
             json GetCurrentlyWearing();
             json GetAvatar();
-            json GetInventory(string AssetType, string Sort="Asc", int Limit=10);
+            Responses::InventoryResponse GetInventory(std::vector<string> AssetType, string Sort="Asc", int Limit=10);
             
             int GetGroupsCount();
             int GetBadgesCount();
