@@ -3,9 +3,7 @@
 #include "../include/request.hpp"
 #include "../include/responses.h"
 
-using namespace Responses;
-
-FriendsResponse RoPP::User::GetFriends(string Sort)
+Responses::FriendsResponse RoPP::User::GetFriends(string Sort)
 {
    json res = Helper::MakeRobloxRequest
     (
@@ -13,10 +11,10 @@ FriendsResponse RoPP::User::GetFriends(string Sort)
         "GET"
     ).JsonObj;
 
-    return FriendsResponse().Parse(res);
+    return Responses::FriendsResponse().Parse(res);
 }
 
-FollowersResponse RoPP::User::GetFollowers(string Sort, int Limit)
+Responses::FollowersResponse RoPP::User::GetFollowers(string Sort, int Limit)
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -24,10 +22,10 @@ FollowersResponse RoPP::User::GetFollowers(string Sort, int Limit)
         "GET"
     ).JsonObj;
 
-    return FollowersResponse().Parse(res);
+    return Responses::FollowersResponse().Parse(res);
 }
 
-FollowingsResponse RoPP::User::GetFollowings(string Sort, int Limit)
+Responses::FollowingsResponse RoPP::User::GetFollowings(string Sort, int Limit)
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -35,10 +33,10 @@ FollowingsResponse RoPP::User::GetFollowings(string Sort, int Limit)
         "GET"
     ).JsonObj;
 
-    return FollowingsResponse().Parse(res);
+    return Responses::FollowingsResponse().Parse(res);
 }
 
-UserGroupsResponse RoPP::User::GetGroups()
+Responses::UserGroupsResponse RoPP::User::GetGroups()
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -46,7 +44,7 @@ UserGroupsResponse RoPP::User::GetGroups()
         "GET"
     ).JsonObj;
 
-    return UserGroupsResponse().Parse(res);
+    return Responses::UserGroupsResponse().Parse(res);
 }
 
 int RoPP::User::GetGroupsCount()
@@ -60,7 +58,7 @@ int RoPP::User::GetGroupsCount()
     return res["data"].size();
 }
 
-UserBadgesResponse RoPP::User::GetBadges()
+Responses::UserBadgesResponse RoPP::User::GetBadges()
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -68,7 +66,7 @@ UserBadgesResponse RoPP::User::GetBadges()
         "GET"
     ).JsonObj;
 
-    return UserBadgesResponse().Parse(res);
+    return Responses::UserBadgesResponse().Parse(res);
 }
 
 int RoPP::User::GetBadgesCount()
@@ -82,7 +80,7 @@ int RoPP::User::GetBadgesCount()
     return res["data"].size();
 }
 
-UserExperienceResponse RoPP::User::GetExperiences(string Sort, int limit)
+Responses::UserExperienceResponse RoPP::User::GetExperiences(string Sort, int limit)
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -90,10 +88,10 @@ UserExperienceResponse RoPP::User::GetExperiences(string Sort, int limit)
         "GET"
     ).JsonObj;
 
-    return UserExperienceResponse().Parse(res);
+    return Responses::UserExperienceResponse().Parse(res);
 }
 
-UserFavoriteExperiences RoPP::User::GetFavoriteExperiences(string Sort, int limit)
+Responses::UserFavoriteExperiences RoPP::User::GetFavoriteExperiences(string Sort, int limit)
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -101,10 +99,10 @@ UserFavoriteExperiences RoPP::User::GetFavoriteExperiences(string Sort, int limi
         "GET"
     ).JsonObj;
 
-    return UserFavoriteExperiences().Parse(res);
+    return Responses::UserFavoriteExperiences().Parse(res);
 }
 
-PastUsernames RoPP::User::GetPastUsernames(string Sort, int limit)
+Responses::PastUsernames RoPP::User::GetPastUsernames(string Sort, int limit)
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -112,18 +110,18 @@ PastUsernames RoPP::User::GetPastUsernames(string Sort, int limit)
         "GET"
     ).JsonObj;
 
-    return PastUsernames().Parse(res);
+    return Responses::PastUsernames().Parse(res);
 }
 
-json RoPP::User::GetPrimaryGroup()
+Responses::Group RoPP::User::GetPrimaryGroup()
 {
     json res = Helper::MakeRobloxRequest
     (
-        "https://groups.roblox.com/v1/users/" + std::to_string(this->UID) + "/primary-group",
+        "https://groups.roblox.com/v1/users/" + std::to_string(this->UID) + "/groups/primary/role",
         "GET"
     ).JsonObj;
 
-    return res;
+    return Responses::Group().Parse(res);
 }
 
 json RoPP::User::GetInventory(string AssetType, string Sort, int Limit)

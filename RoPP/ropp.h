@@ -23,7 +23,7 @@ namespace RoPP
             Responses::PastUsernames GetPastUsernames(string Sort="Asc", int Limit=10);
             Responses::UserGroupsResponse GetGroups();
             Responses::UserBadgesResponse GetBadges();
-            json GetPrimaryGroup();
+            Responses::Group GetPrimaryGroup();
             json GetCurrentlyWearing();
             json GetAvatar();
             json GetInventory(string AssetType, string Sort="Asc", int Limit=10);
