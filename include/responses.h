@@ -369,6 +369,7 @@ namespace Responses
     struct UserGroupsResponse
     {
         std::vector<Group> Groups;
+        int Count;
 
         UserGroupsResponse Parse(json j)
         {
@@ -378,6 +379,8 @@ namespace Responses
             {
                 ugr.Groups.push_back(Group().Parse(j["data"][i]));
             }
+
+            Count = j["data"].size();
 
             return ugr;
         }

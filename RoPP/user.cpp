@@ -47,17 +47,6 @@ Responses::UserGroupsResponse RoPP::User::GetGroups()
     return Responses::UserGroupsResponse().Parse(res);
 }
 
-int RoPP::User::GetGroupsCount()
-{
-    json res = Helper::MakeRobloxRequest
-    (
-        "https://groups.roblox.com/v1/users/" + std::to_string(this->UID) + "/groups/roles",
-        "GET"
-    ).JsonObj;
-
-    return res["data"].size();
-}
-
 Responses::UserBadgesResponse RoPP::User::GetBadges()
 {
     json res = Helper::MakeRobloxRequest
