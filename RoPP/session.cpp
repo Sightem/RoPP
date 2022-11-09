@@ -473,7 +473,7 @@ FriendsOnlineResponse RoPP::Session::GetFriendsOnline()
 }
 
 
-json RoPP::Session::GetUsersPresence(std::vector<long> UIDs)
+UserPresenceResponse RoPP::Session::GetUsersPresence(std::vector<long> UIDs)
 {
     json data = 
     {
@@ -488,5 +488,5 @@ json RoPP::Session::GetUsersPresence(std::vector<long> UIDs)
         data
     ).JsonObj;
 
-    return res;
+    return UserPresenceResponse().Parse(res);
 }

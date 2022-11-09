@@ -55,7 +55,7 @@ namespace RoPP
             std::string ReadCookie();
 
             Responses::FriendsOnlineResponse GetFriendsOnline();
-            json GetUsersPresence(std::vector<long> UIDs);
+            Responses::UserPresenceResponse GetUsersPresence(std::vector<long> UIDs);
             json GetBirthDate();
             json GetPhoneInfo();
             json BuyAsset(long AssetID);

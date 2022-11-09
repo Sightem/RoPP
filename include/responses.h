@@ -125,10 +125,46 @@ namespace Responses
     {
         std::string LastLocation;
 
+        Timestamp LastOnline;
+
         long PlaceID;
         long RootPlaceID;
+        long UniverseID;
+        long UserID;
 
         int UserPresenceType;
+
+        UserPresence Parse(json j)
+        {
+            UserPresence u;
+
+            if (j.contains("lastLocation") && !(j["lastLocation"].is_null())) u.LastLocation = j["lastLocation"];
+            if (j.contains("lastOnline") && !(j["lastOnline"].is_null())) u.LastOnline = Timestamp().Parse(j["lastOnline"]);
+            if (j.contains("placeId") && !(j["placeId"].is_null())) u.PlaceID = j["placeId"];
+            if (j.contains("rootPlaceId") && !(j["rootPlaceId"].is_null())) u.RootPlaceID = j["rootPlaceId"];
+            if (j.contains("universeId") && !(j["universeId"].is_null())) u.UniverseID = j["universeId"];
+            if (j.contains("userId") && !(j["userId"].is_null())) u.UserID = j["userId"];
+            if (j.contains("userPresenceType") && !(j["userPresenceType"].is_null())) u.UserPresenceType = j["userPresenceType"];
+
+            return u;
+        }
+    };
+
+    struct UserPresenceResponse
+    {
+        std::vector<UserPresence> UserPresences;
+
+        UserPresenceResponse Parse(json j)
+        {
+            UserPresenceResponse u;
+
+            for (int i = 0; i < j.size(); i++)
+            {
+                u.UserPresences.push_back(UserPresence().Parse(j["userPresences"][i]));
+            }
+
+            return u;
+        }
     };
 
 
