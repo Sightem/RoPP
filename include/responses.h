@@ -124,6 +124,7 @@ namespace Responses
     struct UserPresence
     {
         std::string LastLocation;
+        std::string GameId;
 
         Timestamp LastOnline;
 
@@ -145,6 +146,7 @@ namespace Responses
             if (j.contains("universeId") && !(j["universeId"].is_null())) u.UniverseID = j["universeId"];
             if (j.contains("userId") && !(j["userId"].is_null())) u.UserID = j["userId"];
             if (j.contains("userPresenceType") && !(j["userPresenceType"].is_null())) u.UserPresenceType = j["userPresenceType"];
+            if (j.contains("gameId") && !(j["gameId"].is_null())) u.GameId = j["gameId"];
 
             return u;
         }
