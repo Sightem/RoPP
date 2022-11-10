@@ -58,17 +58,6 @@ Responses::UserBadgesResponse RoPP::User::GetBadges()
     return Responses::UserBadgesResponse().Parse(res);
 }
 
-int RoPP::User::GetBadgesCount()
-{
-    json res = Helper::MakeRobloxRequest
-    (
-        "https://badges.roblox.com/v1/users/" + std::to_string(this->UID) + "/badges",
-        "GET"
-    ).JsonObj;
-
-    return res["data"].size();
-}
-
 Responses::UserExperienceResponse RoPP::User::GetExperiences(string Sort, int limit)
 {
     json res = Helper::MakeRobloxRequest

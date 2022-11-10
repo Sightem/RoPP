@@ -45,9 +45,10 @@ namespace RoPP
 
             //get requests
 
+
+            Responses::User GetUser();
             std::string GetCSRF();
             std::string GetAuthTicket();
-            std::string GetUsername();
             std::string GetDescription();
             std::string ReadCookie();
 

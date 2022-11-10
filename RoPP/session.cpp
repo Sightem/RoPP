@@ -44,18 +44,6 @@ long RoPP::Session::GetUserID()
     return res["id"];
 }
 
-std::string RoPP::Session::GetUsername()
-{
-    json res = Helper::MakeAuthedRobloxRequest
-    (
-        "https://users.roblox.com/v1/users/authenticated",
-        "GET",
-        this->Cookie
-    ).JsonObj;
-
-    return res["name"];
-}
-
 void RoPP::Session::SetCookie(std::string cookie)
 {
     this->Cookie = cookie;
@@ -489,4 +477,16 @@ UserPresenceResponse RoPP::Session::GetUsersPresence(std::vector<long> UIDs)
     ).JsonObj;
 
     return UserPresenceResponse().Parse(res);
+}
+
+Responses::User RoPP::Session::GetUser()
+{
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://users.roblox.com/v1/users/" + std::to_string(this->GetUserID()),
+        "GET",
+        this->Cookie
+    ).JsonObj;
+
+    return Responses::User().Parse(res);
 }
