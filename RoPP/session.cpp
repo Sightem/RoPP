@@ -49,7 +49,7 @@ void RoPP::Session::SetCookie(std::string cookie)
     this->Cookie = cookie;
 }
 
-json RoPP::Session::GetBirthDate()
+Responses::BirthdateResponse RoPP::Session::GetBirthDate()
 {
     json res = Helper::MakeAuthedRobloxRequest
     (
@@ -58,7 +58,7 @@ json RoPP::Session::GetBirthDate()
         this->Cookie
     ).JsonObj;
 
-    return res;
+    return Responses::BirthdateResponse().Parse(res);
 }
 
 std::string RoPP::Session::GetDescription()

@@ -121,6 +121,22 @@ namespace Responses
         }
     };
 
+    struct BirthdateResponse
+    {
+        int Year;
+        int Month;
+        int Day;
+
+        BirthdateResponse Parse(json j)
+        {
+            BirthdateResponse b;
+            if (j.contains("birthYear")) b.Year = j["birthYear"];
+            if (j.contains("birthMonth")) b.Month = j["birthMonth"];
+            if (j.contains("birthDay")) b.Day = j["birthDay"];
+            return b;
+        }
+    };
+
     struct InventoryAsset
     {   
         std::string Name;
