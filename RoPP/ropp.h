@@ -27,8 +27,6 @@ namespace RoPP
             json GetCurrentlyWearing();
             json GetAvatar();
             Responses::InventoryResponse GetInventory(std::vector<string> AssetType, string Sort="Asc", int Limit=10);
-            
-            int GetBadgesCount();
 
             bool CanInventoryBeViewed();
 

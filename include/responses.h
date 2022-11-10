@@ -270,6 +270,7 @@ namespace Responses
     struct UserBadgesResponse
     {
         std::vector<Badge> Badges;
+        int Count = 0;
 
         UserBadgesResponse Parse(json j)
         {
@@ -279,6 +280,8 @@ namespace Responses
             {
                 u.Badges.push_back(Badge().Parse(j["data"][i]));
             }
+
+            Count = j["data"].size();
 
             return u;
         }
@@ -678,7 +681,7 @@ namespace Responses
 
     struct AssetInfo
     {
-        std::string Username;
+        std::string Name;
         std::string Description;
         std::string AssetType;
         std::string CreatorName;
@@ -776,7 +779,7 @@ namespace Responses
         {
             AssetInfo info;
 
-            info.Username = Data["Name"];
+            info.Name = Data["Name"];
             info.Description = Data["Description"];
             info.AssetType = asset_type_names[Data["AssetTypeId"]];
             info.Created = Timestamp().Parse(Data["Created"]);
