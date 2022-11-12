@@ -57,7 +57,7 @@ namespace RoPP
             Responses::BirthdateResponse GetBirthDate();
             Responses::PhoneInfo GetPhoneInfo();
             json BuyAsset(long AssetID);
-            json GetFriendRequests(string Sort="Asc", int Limit=10);
+            Responses::FriendRequestsResponse GetFriendRequests(string Sort="Asc", int Limit=10);
             json GetAvatar();
             json GetTrades(string tradeStatusType="Inbound", string Sort="Asc", int Limit=10);
             json GetTradeInfo(long TradeID);

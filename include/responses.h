@@ -123,6 +123,52 @@ namespace Responses
         }
     };
 
+    struct FriendRequest
+    {
+        std::string OriginSourceType;
+
+        Timestamp SentAt;
+
+        long SenderID;
+        long SourceUniverseID;
+
+        FriendRequest Parse(json j)
+        {
+            FriendRequest f;
+
+            if (j.contains("originSourceType")) f.OriginSourceType = j["originSourceType"];
+            if (j.contains("sentAt")) f.SentAt = Timestamp().Parse(j["sentAt"]);
+            if (j.contains("senderId")) f.SenderID = j["senderId"];
+            if (j.contains("sourceUniverseId") && !(j["sourceUniverseId"].is_null())) f.SourceUniverseID = j["sourceUniverseId"];
+
+            return f;
+        }
+
+    };
+
+    struct FriendRequestsResponse
+    {
+        std::vector<FriendRequest> FriendRequests;
+        std::vector<User> SenderInfo;
+
+        FriendRequestsResponse Parse(json j)
+        {
+            FriendRequestsResponse frr;
+
+            for (int i = 0; i < j["data"].size(); i++)
+            {
+                frr.FriendRequests.push_back(FriendRequest().Parse(j["data"][i]["friendRequest"]));
+            }
+
+            for (int i = 0; i < j.size(); i++)
+            {
+                frr.SenderInfo.push_back(User().Parse(j["data"][i]));
+            }
+
+            return frr;
+        }
+    };
+
     struct PhoneInfo
     {
         std::string CountryCode;

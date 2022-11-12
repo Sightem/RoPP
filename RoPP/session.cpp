@@ -121,7 +121,7 @@ int RoPP::Session::GetFriendsCount()
     return res["count"];
 }
 
-json RoPP::Session::GetFriendRequests(string Sort, int Limit)
+Responses::FriendRequestsResponse RoPP::Session::GetFriendRequests(string Sort, int Limit)
 {
     json res = Helper::MakeAuthedRobloxRequest
     (
@@ -130,7 +130,7 @@ json RoPP::Session::GetFriendRequests(string Sort, int Limit)
         this->Cookie
     ).JsonObj;
 
-    return res;
+    return Responses::FriendRequestsResponse().Parse(res);
 }
 
 bool RoPP::Session::IsFavoriteGame(int PlaceID)
