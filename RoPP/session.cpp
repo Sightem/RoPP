@@ -73,7 +73,7 @@ std::string RoPP::Session::GetDescription()
     return res["description"];
 }
 
-json RoPP::Session::GetPhoneInfo()
+Responses::PhoneInfo RoPP::Session::GetPhoneInfo()
 {
     json res = Helper::MakeAuthedRobloxRequest
     (
@@ -82,7 +82,7 @@ json RoPP::Session::GetPhoneInfo()
         this->Cookie
     ).JsonObj;
 
-    return res;
+    return Responses::PhoneInfo().Parse(res);
 }
 
 long RoPP::Session::GetRobuxBalance()

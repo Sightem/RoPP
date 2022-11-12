@@ -55,7 +55,7 @@ namespace RoPP
             Responses::FriendsOnlineResponse GetFriendsOnline();
             Responses::UserPresenceResponse GetUsersPresence(std::vector<long> UIDs);
             Responses::BirthdateResponse GetBirthDate();
-            json GetPhoneInfo();
+            Responses::PhoneInfo GetPhoneInfo();
             json BuyAsset(long AssetID);
             json GetFriendRequests(string Sort="Asc", int Limit=10);
             json GetAvatar();
