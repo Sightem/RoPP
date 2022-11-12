@@ -213,6 +213,6 @@ namespace RoPP
 
             std::string ValidateUsername(string Username);
 
-            int GetGameUniverseID(int PlaceID);
+            long GetGameUniverseID(int PlaceID);
     };
 }

@@ -36,13 +36,13 @@ std::string RoPP::Other::ValidateUsername(std::string Username)
     return res["message"];
 }
 
-int RoPP::Other::GetGameUniverseID(int PlaceID)
+long RoPP::Other::GetGameUniverseID(int PlaceID)
 {
     json res = Helper::MakeRobloxRequest
     (
-        "https://api.roblox.com/universes/get-universe-containing-place?placeid=" + std::to_string(PlaceID),
+        "https://apis.roblox.com/universes/v1/places/" + std::to_string(PlaceID) + "/universe",
         "GET"
     ).JsonObj;
 
-    return res["UniverseId"];
+    return res["universeId"];
 }
