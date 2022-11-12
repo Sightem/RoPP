@@ -120,6 +120,76 @@ namespace Responses
             return e;
         }
     };
+    struct bodyColors
+    {
+        int headColorId;
+        int torsoColorId;
+        int rightArmColorId;
+        int leftArmColorId;
+        int rightLegColorId;
+        int leftLegColorId;
+
+        bodyColors Parse(json j)
+        {
+            bodyColors b;
+            if (j.contains("headColorId")) b.headColorId = j["headColorId"];
+            if (j.contains("torsoColorId")) b.torsoColorId = j["torsoColorId"];
+            if (j.contains("rightArmColorId")) b.rightArmColorId = j["rightArmColorId"];
+            if (j.contains("leftArmColorId")) b.leftArmColorId = j["leftArmColorId"];
+            if (j.contains("rightLegColorId")) b.rightLegColorId = j["rightLegColorId"];
+            if (j.contains("leftLegColorId")) b.leftLegColorId = j["leftLegColorId"];
+            return b;
+        }
+    };
+    
+    struct AvatarAsset
+    {
+        std::string Name;
+        std::string AssetTypeName;
+        
+        int AssetTypeID;
+
+        long AssetID;
+        long CurrentVersionID;
+
+        AvatarAsset Parse(json j)
+        {
+            AvatarAsset a;
+
+            if (j.contains("name")) a.Name = j["name"];
+            if (j.contains("assetType"))  { a.AssetTypeID = j["assetType"]["id"]; a.AssetTypeName = j["assetType"]["name"]; }
+            if (j.contains("id")) a.AssetID = j["id"];
+            if (j.contains("currentVersionId")) a.CurrentVersionID = j["currentVersionId"];
+
+            return a;
+        }
+    };
+
+    struct AvatarResponse
+    {
+        std::string AvatarType;
+
+        bodyColors BodyColors;
+
+        std::vector<AvatarAsset> Assets;
+
+        AvatarResponse Parse(json j)
+        {
+            AvatarResponse a;
+
+            if (j.contains("playerAvatarType")) a.AvatarType = j["playerAvatarType"];
+            if (j.contains("bodyColors")) a.BodyColors = bodyColors().Parse(j["bodyColors"]);
+            if (j.contains("assets"))
+            {
+                for (auto& asset : j["assets"])
+                {
+                    a.Assets.push_back(AvatarAsset().Parse(asset));
+                }
+            }
+
+            return a;
+        }
+    };
 
     struct CurrentlyWearing
     {
