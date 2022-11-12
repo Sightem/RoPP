@@ -154,3 +154,14 @@ Responses::AvatarResponse RoPP::User::GetAvatar()
 
     return Responses::AvatarResponse().Parse(res);
 }
+
+Responses::User RoPP::User::GetUser()
+{
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://users.roblox.com/v1/users/" + std::to_string(this->UID),
+        "GET"
+    ).JsonObj;
+
+    return Responses::User().Parse(res);
+}

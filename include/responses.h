@@ -52,6 +52,7 @@ namespace Responses
     {
         std::string Username;
         std::string DisplayName;
+        std::string Description;
         std::string BuildersClubMembershipType;
 
         Timestamp Created;
@@ -73,6 +74,7 @@ namespace Responses
             if (j.contains("name")) u.Username = j["name"];
             if (j.contains("username")) u.Username = j["username"];
             if (j.contains("displayName")) u.DisplayName = j["displayName"];
+            if (j.contains("description") && !(j["description"].is_null())) u.Description = j["description"];
             if (j.contains("created")) u.Created = Timestamp().Parse(j["created"]);
             if (j.contains("presenceType")) u.PresenceType = j["presenceType"];
             if (j.contains("friendFrequentScore")) u.FriendFrequentScore = j["friendFrequentScore"];

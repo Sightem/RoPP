@@ -8,22 +8,46 @@ int main()
 {
     RoPP::User user(5725475);
 
-    std::cout << "User Name: " << user.GetUsername() << std::endl;
-    std::cout << "User Display name: " << user.GetDisplayName() << std::endl;
-    std::cout << "User Description: " << user.GetDescription() << std::endl;
-    std::cout << "User Creation Date: " << user.GetCreationDate() << std::endl;
+    Responses::User UserResponse = user.GetUser();
 
-    std::cout << "Get Friends: " << std::endl;
-    std::cout << user.GetFriends().dump(4) << std::endl;
+    std::cout << "User Name: " << UserResponse.Username << std::endl;
+    std::cout << "User Display name: " << UserResponse.DisplayName << std::endl;
+    std::cout << "User Creation Date: " <<  UserResponse.Created.ToISO8601() << std::endl;
+    std::cout << "User Description: " << UserResponse.Description << std::endl;
 
-    std::cout << "Get Groups: " << std::endl;
-    std::cout << user.GetGroups().dump(4) << std::endl;
+    Responses::FriendsResponse FriendsResponse = user.GetFriends();
+    std::cout << "Friends: ";
+    for (int i = 0; i < FriendsResponse.Friends.size(); i++)
+    {
+        std::cout << FriendsResponse.Friends[i].Username << std::endl;
+    }
 
-    std::cout << "User Experiences: " << std::endl;
-    std::cout << user.GetExperiences().dump(4) << std::endl;
-    
-    std::cout << "User Badges: " << std::endl;
-    std::cout << user.GetBadges().dump(4) << std::endl;
+    std::cout << std::endl;
 
-    //and many more functions, check out the documentation for more info
+    Responses::UserGroupsResponse UserGroupsResponse = user.GetGroups();
+    std::cout << "Groups: ";
+    for (int i = 0; i < UserGroupsResponse.Groups.size(); i++)
+    {
+        std::cout << UserGroupsResponse.Groups[i].Name << ", ";
+    }
+
+    std::cout << std::endl;
+
+    Responses::UserExperienceResponse UserExperienceResponse = user.GetExperiences();
+    std::cout << "Experiences: ";
+    for (int i = 0; i < UserExperienceResponse.Experiences.size(); i++)
+    {
+        std::cout << UserExperienceResponse.Experiences[i].Name << ", ";
+    }
+
+    std::cout << std::endl;
+
+    Responses::UserBadgesResponse UserBadgesResponse = user.GetBadges();
+    std::cout << "Badges: ";
+    for (int i = 0; i < UserBadgesResponse.Badges.size(); i++)
+    {
+        std::cout << UserBadgesResponse.Badges[i].Name << ", ";
+    }
+
+    std::cout << std::endl;
 }
