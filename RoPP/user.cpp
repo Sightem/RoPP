@@ -133,13 +133,15 @@ bool RoPP::User::CanInventoryBeViewed()
     return res["canView"];
 }
 
-json RoPP::User::GetCurrentlyWearing()
+Responses::CurrentlyWearing RoPP::User::GetCurrentlyWearing()
 {
-    return Helper::MakeRobloxRequest
+    json res = Helper::MakeRobloxRequest
     (
         "https://avatar.roblox.com/v1/users/" + std::to_string(this->UID) + "/currently-wearing",
         "GET"
-    ).JsonObj;;
+    ).JsonObj;
+
+    return Responses::CurrentlyWearing().Parse(res);
 }
 
 json RoPP::User::GetAvatar()

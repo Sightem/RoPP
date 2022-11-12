@@ -24,7 +24,7 @@ namespace RoPP
             Responses::UserGroupsResponse GetGroups();
             Responses::UserBadgesResponse GetBadges();
             Responses::Group GetPrimaryGroup();
-            json GetCurrentlyWearing();
+            Responses::CurrentlyWearing GetCurrentlyWearing();
             json GetAvatar();
             Responses::InventoryResponse GetInventory(std::vector<string> AssetType, string Sort="Asc", int Limit=10);
 
