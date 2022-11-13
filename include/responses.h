@@ -240,11 +240,31 @@ namespace Responses
         }
     };
 
+    struct AvatarScales
+    {
+        int height, width, depth, head, proportion, bodyType;
+
+        AvatarScales Parse(json j)
+        {
+            AvatarScales a;
+
+            if (j.contains("height")) a.height = j["height"];
+            if (j.contains("width")) a.width = j["width"];
+            if (j.contains("depth")) a.depth = j["depth"];
+            if (j.contains("head")) a.head = j["head"];
+            if (j.contains("proportion")) a.proportion = j["proportion"];
+            if (j.contains("bodyType")) a.bodyType = j["bodyType"];
+
+            return a;
+        }
+    };
+
     struct AvatarResponse
     {
         std::string AvatarType;
 
         bodyColors BodyColors;
+        AvatarScales Scales;
 
         std::vector<AvatarAsset> Assets;
 
@@ -254,6 +274,7 @@ namespace Responses
 
             if (j.contains("playerAvatarType")) a.AvatarType = j["playerAvatarType"];
             if (j.contains("bodyColors")) a.BodyColors = bodyColors().Parse(j["bodyColors"]);
+            if (j.contains("scales")) a.Scales = AvatarScales().Parse(j["scales"]);
             if (j.contains("assets"))
             {
                 for (auto& asset : j["assets"])
