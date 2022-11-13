@@ -37,11 +37,13 @@ json RoPP::Group::GetGroupWall(string Sort, int Limit)
     ).JsonObj;
 }
 
-json RoPP::Group::GetGames(string AccessFilter, string Sort, int Limit)
+Responses::GroupExperiencesResponse RoPP::Group::GetGames(string AccessFilter, string Sort, int Limit)
 {
-    return Helper::MakeRobloxRequest
+    json res = Helper::MakeRobloxRequest
     (
         "https://games.roblox.com/v2/groups/" + std::to_string(this->GID) + "/games?accessFilter=" + AccessFilter + "&sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
         "GET"
     ).JsonObj;
+
+    return Responses::GroupExperiencesResponse().Parse(res);
 }

@@ -123,6 +123,59 @@ namespace Responses
         }
     };
 
+    struct GroupExperience
+    {
+        std::string Name;
+        std::string Description;
+        std::string CreatorType;
+
+        Timestamp Created;
+        Timestamp Updated;
+
+        long CreatorID;
+        long PlaceID;
+        long UniverseID;
+        long PlaceVisits;
+
+        GroupExperience Parse(json j)
+        {
+            GroupExperience e;
+
+            if (j.contains("name")) e.Name = j["name"];
+            if (j.contains("description") && !(j["description"].is_null())) e.Description = j["description"];
+            if (j.contains("creator")) { e.CreatorType = j["creator"]["type"]; e.CreatorID = j["creator"]["id"]; }
+            if (j.contains("created")) e.Created = Timestamp().Parse(j["created"]);
+            if (j.contains("updated")) e.Updated = Timestamp().Parse(j["updated"]);
+            if (j.contains("id")) e.UniverseID = j["id"];
+            if (j.contains("rootPlace")) e.PlaceID = j["id"];
+            if (j.contains("placeVisits")) e.PlaceVisits = j["placeVisits"];
+
+            return e;
+        }
+
+    };
+
+    struct GroupExperiencesResponse
+    {
+        std::vector<GroupExperience> Experiences;
+
+        GroupExperiencesResponse Parse(json j)
+        {
+            GroupExperiencesResponse r;
+
+            if (j.contains("data"))
+            {
+                for (int i = 0; i < j["data"].size(); i++)
+                {
+                    GroupExperience e = GroupExperience().Parse(j["data"][i]);
+                    r.Experiences.push_back(e);
+                }
+            }
+
+            return r;
+        }
+    };
+
     struct FriendRequest
     {
         std::string OriginSourceType;
