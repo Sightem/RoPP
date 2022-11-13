@@ -2,53 +2,21 @@
 #include "../include/helper.h"
 #include "../include/request.hpp"
 
-json RoPP::Group::GetGroupInfo()
+Responses::Group RoPP::Group::GetGroupInfo()
 {
-    return Helper::MakeRobloxRequest
+    json res = Helper::MakeRobloxRequest
     (
         "https://groups.roblox.com/v1/groups/" + std::to_string(this->GID),
         "GET"
     ).JsonObj;
-}
 
-json RoPP::Group::GetGroupOwner()
-{
-    return GetGroupInfo()["owner"];
-}
+    //listen, i know this is bad, but it was either this or creating a new and almost identical group class
+    json hack = 
+    {
+        {"group", res}
+    };
 
-std::string RoPP::Group::GetGroupName()
-{
-    return GetGroupInfo()["name"];
-}
-
-std::string RoPP::Group::GetGroupDescription()
-{
-    return GetGroupInfo()["description"];
-}
-
-json RoPP::Group::GetGroupShout()
-{
-    return GetGroupInfo()["shout"];
-}
-
-long RoPP::Group::GetMemberCount()
-{
-    return GetGroupInfo()["memberCount"];
-}
-
-long RoPP::Group::GetOwnerID()
-{
-    return GetGroupInfo()["owner"]["userId"];
-}
-
-std::string RoPP::Group::GetOwnerName()
-{
-    return GetGroupInfo()["owner"]["username"];
-}
-
-std::string RoPP::Group::GetOwnerDisplayName()
-{
-    return GetGroupInfo()["owner"]["displayName"];
+    return Responses::Group().Parse(hack);
 }
 
 json RoPP::Group::GetNameHistory(string Sort, int Limit)
@@ -67,16 +35,6 @@ json RoPP::Group::GetGroupWall(string Sort, int Limit)
         "https://groups.roblox.com/v1/groups/" + std::to_string(this->GID) + "/wall/posts?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
         "GET"
     ).JsonObj;
-}
-
-bool RoPP::Group::IsPublicEntryAllowed()
-{
-    return GetGroupInfo()["publicEntryAllowed"];
-}
-
-bool RoPP::Group::IsBuildersClubOnly()
-{
-    return GetGroupInfo()["isBuildersClubOnly"];
 }
 
 json RoPP::Group::GetGames(string AccessFilter, string Sort, int Limit)

@@ -109,23 +109,10 @@ namespace RoPP
     {
         public:
 
-        std::string GetGroupName();
-        std::string GetGroupDescription();
-        std::string GetOwnerName();
-        std::string GetOwnerDisplayName();
-
-        json GetGroupInfo();
-        json GetGroupOwner();
-        json GetGroupShout();
+        Responses::Group GetGroupInfo();
         json GetNameHistory(string Sort="Asc", int Limit=10);
         json GetGroupWall(string Sort="Asc", int Limit=10);
         json GetGames(string AccessFilter="All", string Sort="Asc", int Limit=10);
-
-        long GetMemberCount();
-        long GetOwnerID();
-
-        bool IsPublicEntryAllowed();
-        bool IsBuildersClubOnly();
 
         Group(long GID)
         {
