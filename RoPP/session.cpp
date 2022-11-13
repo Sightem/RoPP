@@ -351,14 +351,16 @@ json RoPP::Session::BuyAsset(long AssetID)
     return res;
 }
 
-json RoPP::Session::GetAvatar()
+Responses::AvatarResponse RoPP::Session::GetAvatar()
 {
-    return Helper::MakeAuthedRobloxRequest
+    json res = Helper::MakeAuthedRobloxRequest
     (
         "https://avatar.roblox.com/v1/users/" + std::to_string(this->GetUserID()) + "/avatar",
         "GET",
         this->Cookie
     ).JsonObj;
+
+    return Responses::AvatarResponse().Parse(res);
 }
 
 json RoPP::Session::GetTrades(string tradeStatusType, string Sort, int Limit)
