@@ -111,7 +111,7 @@ namespace RoPP
 
         Responses::Group GetGroupInfo();
         Responses::NameHistoryResponse GetNameHistory(string Sort="Asc", int Limit=10);
-        json GetGroupWall(string Sort="Asc", int Limit=10);
+        Responses::GroupWallResponse GetGroupWall(string Sort="Asc", int Limit=10);
         Responses::GroupExperiencesResponse GetGames(string AccessFilter="All", string Sort="Asc", int Limit=10);
 
         Group(long GID)

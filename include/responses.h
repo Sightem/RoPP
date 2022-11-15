@@ -123,6 +123,48 @@ namespace Responses
         }
     };
 
+    struct GroupWallPost
+    {
+        std::string Body;
+
+        User Poster;
+
+        Timestamp Created;
+        Timestamp Updated;
+        
+        long PostID;
+
+        GroupWallPost Parse(json j)
+        {
+            GroupWallPost g;
+
+            if (j.contains("body")) g.Body = j["body"];
+            if (j.contains("poster")) g.Poster = User().Parse(j["poster"]);
+            if (j.contains("created")) g.Created = Timestamp().Parse(j["created"]);
+            if (j.contains("updated")) g.Updated = Timestamp().Parse(j["updated"]);
+            if (j.contains("id")) g.PostID = j["id"];
+
+            return g;
+        }
+    };
+
+    struct GroupWallResponse
+    {
+        std::vector<GroupWallPost> Posts;
+
+        GroupWallResponse Parse(json j)
+        {
+            GroupWallResponse g;
+
+            for (int i = 0; i < j.size(); i++)
+            {
+                g.Posts.push_back(GroupWallPost().Parse(j["data"][i]));
+            }
+
+            return g;
+        }
+    };
+
     struct Namehistory
     {
         std::string Name;

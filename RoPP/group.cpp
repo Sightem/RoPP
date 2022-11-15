@@ -30,13 +30,16 @@ Responses::NameHistoryResponse RoPP::Group::GetNameHistory(string Sort, int Limi
     return Responses::NameHistoryResponse().Parse(res);
 }
 
-json RoPP::Group::GetGroupWall(string Sort, int Limit)
+Responses::GroupWallResponse RoPP::Group::GetGroupWall(string Sort, int Limit)
 {
-    return Helper::MakeRobloxRequest
+    json res = Helper::MakeRobloxRequest
     (
         "https://groups.roblox.com/v1/groups/" + std::to_string(this->GID) + "/wall/posts?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
         "GET"
     ).JsonObj;
+
+    return Responses::GroupWallResponse().Parse(res);
+
 }
 
 Responses::GroupExperiencesResponse RoPP::Group::GetGames(string AccessFilter, string Sort, int Limit)
