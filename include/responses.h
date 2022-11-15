@@ -123,6 +123,37 @@ namespace Responses
         }
     };
 
+    struct Namehistory
+    {
+        std::string Name;
+        Timestamp Created;
+
+        Namehistory Parse(json j)
+        {
+            Namehistory n;
+            if (j.contains("name")) n.Name = j["name"];
+            if (j.contains("created")) n.Created = Timestamp().Parse(j["created"]);
+            return n;
+        }
+    };
+
+    struct NameHistoryResponse
+    {
+        std::vector<Namehistory> NameHistory;
+
+        NameHistoryResponse Parse(json j)
+        {
+            NameHistoryResponse n;
+
+            for (int i = 0; i < j.size(); i++)
+            {
+                n.NameHistory.push_back(Namehistory().Parse(j["data"][i]));
+            }
+
+            return n;
+        }
+    };
+
     struct GroupExperience
     {
         std::string Name;

@@ -110,7 +110,7 @@ namespace RoPP
         public:
 
         Responses::Group GetGroupInfo();
-        json GetNameHistory(string Sort="Asc", int Limit=10);
+        Responses::NameHistoryResponse GetNameHistory(string Sort="Asc", int Limit=10);
         json GetGroupWall(string Sort="Asc", int Limit=10);
         Responses::GroupExperiencesResponse GetGames(string AccessFilter="All", string Sort="Asc", int Limit=10);
 
