@@ -21,7 +21,7 @@ Responses::PlaceInfoResponse RoPP::Place::GetPlaceInfo()
         "GET"
     ).JsonObj;
 
-    return Responses::PlaceInfoResponse().Parse(res);
+    return Responses::PlaceInfoResponse().Parse(res["data"][0]);
 }
 
 long RoPP::Place::GetDownVotes()
