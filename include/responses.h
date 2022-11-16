@@ -3,6 +3,7 @@
 #include <string>
 #include <chrono>
 #include "json.hpp"
+#include "request.hpp"
 
 using json = nlohmann::json;
 
@@ -88,6 +89,19 @@ namespace Responses
             if (j.contains("buildersClubMembershipType")) u.BuildersClubMembershipType = j["buildersClubMembershipType"];
 
             return u;
+        }
+
+        void PopulateFromUID()
+        {   
+            Request req("https://users.roblox.com/v1/users/" + std::to_string(this->UID));
+            req.set_header("Referer", "https://www.roblox.com/users/" + std::to_string(this->UID) + "/profile");
+            req.set_header("Content", "application/json");
+            req.set_header("Accept", "application/json");
+            req.initalize();
+ 
+            Response res = req.get();
+
+            *this = Parse(json::parse(res.data));
         }
     };
 
