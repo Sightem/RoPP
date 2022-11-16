@@ -130,23 +130,11 @@ namespace RoPP
         public:
 
         Responses::PlaceInfoResponse GetPlaceInfo();
-        json GetPlaceCreator();
-        json GetAllowedGear();
         json GetGamepassInfo(string Sort="Asc", int Limit=10);
 
-        long GetPlaceVisits();
-        long GetCurrentPlayers();
-        long GetFavoriteCount();
         long GetUpVotes();
         long GetDownVotes();
         long GetUniverseID();
-        
-        int GetCreatorID();
-        int GetPrice();
-        int GetMaxPlayers();
-
-        bool IsCopyable();
-        bool IsVIPServerAllowed();
 
         Place(long PID)
         {
