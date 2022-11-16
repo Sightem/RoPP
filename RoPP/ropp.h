@@ -147,8 +147,8 @@ namespace RoPP
         long GetFavoriteCount();
         long GetUpVotes();
         long GetDownVotes();
-
-        int GetUniverseID();
+        long GetUniverseID();
+        
         int GetCreatorID();
         int GetPrice();
         int GetMaxPlayers();

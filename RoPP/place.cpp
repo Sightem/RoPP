@@ -2,7 +2,7 @@
 #include "../include/helper.h"
 #include "../include/request.hpp"
 
-int RoPP::Place::GetUniverseID()
+long RoPP::Place::GetUniverseID()
 {
     json res = Helper::MakeRobloxRequest
     (
