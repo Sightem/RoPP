@@ -137,6 +137,65 @@ namespace Responses
         }
     };
 
+    struct PlaceInfoResponse
+    {
+        std::string Name;
+        std::string Description;
+        std::string SourceName;
+        std::string SourceDescription;
+        std::string UniverseAvatarType;
+        std::string Genre;
+
+        long UniverseID;
+        long PlaceID;
+        long CurrentPlayers;
+        long Visits;
+        long FavoritedCount;
+
+        int Price;
+        int MaxPlayers;
+
+        User Creator;
+        Timestamp Created;
+        Timestamp Updated;
+        
+        bool IsGenreEnforced;
+        bool CopyingAllowed;
+        bool StudioAccessToApisAllowed;
+        bool CreateVipServersAllowed;
+        bool IsAllGenre;
+
+        PlaceInfoResponse Parse(json j)
+        {
+            PlaceInfoResponse p;
+
+            if (j.contains("name")) p.Name = j["name"];
+            if (j.contains("description")) p.Description = j["description"];
+            if (j.contains("sourceName")) p.SourceName = j["sourceName"];
+            if (j.contains("sourceDescription")) p.SourceDescription = j["sourceDescription"];
+            if (j.contains("universeAvatarType")) p.UniverseAvatarType = j["universeAvatarType"];
+            if (j.contains("genre")) p.Genre = j["genre"];
+            if (j.contains("id")) p.UniverseID = j["id"];
+            if (j.contains("rootPlaceId")) p.PlaceID = j["rootPlaceId"];
+            if (j.contains("playing")) p.CurrentPlayers = j["playing"];
+            if (j.contains("visits")) p.Visits = j["visits"];
+            if (j.contains("favoritedCount")) p.FavoritedCount = j["favoritedCount"];
+            if (j.contains("price") && !(j["price"].is_null())) p.Price = j["price"];
+            if (j.contains("maxPlayers")) p.MaxPlayers = j["maxPlayers"];
+            if (j.contains("creator")) p.Creator = User().Parse(j["creator"]);
+            if (j.contains("created")) p.Created = Timestamp().Parse(j["created"]);
+            if (j.contains("updated")) p.Updated = Timestamp().Parse(j["updated"]);
+            if (j.contains("isGenreEnforced")) p.IsGenreEnforced = j["isGenreEnforced"];
+            if (j.contains("copyingAllowed")) p.CopyingAllowed = j["copyingAllowed"];
+            if (j.contains("studioAccessToApisAllowed")) p.StudioAccessToApisAllowed = j["studioAccessToApisAllowed"];
+            if (j.contains("createVipServersAllowed")) p.CreateVipServersAllowed = j["createVipServersAllowed"];
+            if (j.contains("isAllGenre")) p.IsAllGenre = j["isAllGenre"];
+
+            return p;
+        }
+
+    };
+
     struct GroupWallPost
     {
         std::string Body;

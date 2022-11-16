@@ -129,15 +129,7 @@ namespace RoPP
     {
         public:
 
-        std::string GetPlaceName();
-        std::string GetPlaceDescription();
-        std::string GetCreatorName();
-        std::string GetCreatorType();
-        std::string GetCreationDate();
-        std::string GetUpdatedDate();
-        std::string GetGenre();
-
-        json GetPlaceInfo();
+        Responses::PlaceInfoResponse GetPlaceInfo();
         json GetPlaceCreator();
         json GetAllowedGear();
         json GetGamepassInfo(string Sort="Asc", int Limit=10);
