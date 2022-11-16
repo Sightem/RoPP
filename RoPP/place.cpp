@@ -6,11 +6,11 @@ int RoPP::Place::GetUniverseID()
 {
     json res = Helper::MakeRobloxRequest
     (
-        "https://api.roblox.com/universes/get-universe-containing-place?placeid=" + std::to_string(this->PID),
+        "https://apis.roblox.com/universes/v1/places/" + std::to_string(this->PID) + "/universe",
         "GET"
     ).JsonObj;
 
-    return res["UniverseId"];
+    return res["universeId"];
 }
 
 json RoPP::Place::GetPlaceInfo()
