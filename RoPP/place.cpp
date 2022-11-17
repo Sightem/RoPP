@@ -24,7 +24,7 @@ Responses::PlaceInfoResponse RoPP::Place::GetPlaceInfo()
     return Responses::PlaceInfoResponse().Parse(res["data"][0]);
 }
 
-long RoPP::Place::GetDownVotes()
+Responses::ExperienceVotes RoPP::Place::GetVotes()
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -32,7 +32,7 @@ long RoPP::Place::GetDownVotes()
         "GET"
     ).JsonObj;
 
-    return res["data"][0]["downVotes"];
+    return Responses::ExperienceVotes().Parse(res["data"][0]);
 }
 
 Responses::ExperienceBadgesResponse RoPP::Place::GetGamepassInfo(std::string Sort, int Limit)

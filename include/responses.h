@@ -137,6 +137,22 @@ namespace Responses
         }
     };
 
+    struct ExperienceVotes
+    {
+        long Upvotes;
+        long Downvotes;
+
+        ExperienceVotes Parse(json j)
+        {
+            ExperienceVotes v;
+
+            if (j.contains("upVotes") && !(j["upVotes"].is_null())) v.Upvotes = j["upVotes"];
+            if (j.contains("downVotes") && !(j["downVotes"].is_null())) v.Downvotes = j["downVotes"];
+
+            return v;
+        }
+    };
+
     struct ExperienceBadge
     {
         std::string Name;

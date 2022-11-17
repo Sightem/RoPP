@@ -131,9 +131,8 @@ namespace RoPP
 
             Responses::PlaceInfoResponse GetPlaceInfo();
             Responses::ExperienceBadgesResponse GetGamepassInfo(string Sort="Asc", int Limit=10);
+            Responses::ExperienceVotes GetVotes();
 
-            long GetUpVotes();
-            long GetDownVotes();
             long GetUniverseID();
 
             Place(long PID)
