@@ -26,20 +26,22 @@ Responses::PlaceInfoResponse RoPP::Place::GetPlaceInfo()
 
 long RoPP::Place::GetDownVotes()
 {
-    Request req("https://games.roblox.com/v1/games/votes?universeIds=" + std::to_string(this->UniverseID));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://games.roblox.com/v1/games/votes?universeIds=" + std::to_string(this->UniverseID),
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data)["data"][0]["downVotes"];
+    return res["data"][0]["downVotes"];
 }
 
-json RoPP::Place::GetGamepassInfo(std::string Sort, int Limit)
+Responses::ExperienceBadgesResponse RoPP::Place::GetGamepassInfo(std::string Sort, int Limit)
 {
-    Request req("https://games.roblox.com/v1/games/" + std::to_string(this->UniverseID) + "/game-passes?sortOrder=" + Sort + "&limit=" + std::to_string(Limit));
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.get();
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://games.roblox.com/v1/games/" + std::to_string(this->UniverseID) + "/game-passes?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
+        "GET"
+    ).JsonObj;
 
-    return json::parse(res.data);
+    return Responses::ExperienceBadgesResponse().Parse(res);
 }

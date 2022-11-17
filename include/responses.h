@@ -137,6 +137,49 @@ namespace Responses
         }
     };
 
+    struct ExperienceBadge
+    {
+        std::string Name;
+        std::string DisplayName;
+
+        long BadgeID;
+        long CreatorID;
+        long ProductIdID;
+
+        int Price;
+
+        ExperienceBadge Parse(json j)
+        {
+            ExperienceBadge b;
+
+            if (j.contains("name")) b.Name = j["name"];
+            if (j.contains("displayName")) b.DisplayName = j["displayName"];
+            if (j.contains("id")) b.BadgeID = j["id"];
+            if (j.contains("sellerId")) b.CreatorID = j["sellerId"];
+            if (j.contains("productId")) b.ProductIdID = j["productId"];
+            if (j.contains("price")) b.Price = j["price"];
+
+            return b;
+        }
+    };
+
+    struct ExperienceBadgesResponse
+    {
+        std::vector<ExperienceBadge> Badges;
+
+        ExperienceBadgesResponse Parse(json j)
+        {
+            ExperienceBadgesResponse r;
+
+            for (int i = 0; i < j["data"].size(); i++)
+            {
+                r.Badges.push_back(ExperienceBadge().Parse(j["data"][i]));
+            }
+
+            return r;
+        }
+    };
+    
     struct PlaceInfoResponse
     {
         std::string Name;

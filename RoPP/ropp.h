@@ -111,15 +111,15 @@ namespace RoPP
     {
         public:
 
-        Responses::Group GetGroupInfo();
-        Responses::NameHistoryResponse GetNameHistory(string Sort="Asc", int Limit=10);
-        Responses::GroupWallResponse GetGroupWall(string Sort="Asc", int Limit=10);
-        Responses::GroupExperiencesResponse GetGames(string AccessFilter="All", string Sort="Asc", int Limit=10);
+            Responses::Group GetGroupInfo();
+            Responses::NameHistoryResponse GetNameHistory(string Sort="Asc", int Limit=10);
+            Responses::GroupWallResponse GetGroupWall(string Sort="Asc", int Limit=10);
+            Responses::GroupExperiencesResponse GetGames(string AccessFilter="All", string Sort="Asc", int Limit=10);
 
-        Group(long GID)
-        {
-            this->GID = GID;
-        }
+            Group(long GID)
+            {
+                this->GID = GID;
+            }
 
         private:
             long GID = 0;
@@ -129,18 +129,18 @@ namespace RoPP
     {
         public:
 
-        Responses::PlaceInfoResponse GetPlaceInfo();
-        json GetGamepassInfo(string Sort="Asc", int Limit=10);
+            Responses::PlaceInfoResponse GetPlaceInfo();
+            Responses::ExperienceBadgesResponse GetGamepassInfo(string Sort="Asc", int Limit=10);
 
-        long GetUpVotes();
-        long GetDownVotes();
-        long GetUniverseID();
+            long GetUpVotes();
+            long GetDownVotes();
+            long GetUniverseID();
 
-        Place(long PID)
-        {
-            this->PID = PID;
-            this->UniverseID = GetUniverseID();
-        }
+            Place(long PID)
+            {
+                this->PID = PID;
+                this->UniverseID = GetUniverseID();
+            }
 
         private:
             long PID = 0;
