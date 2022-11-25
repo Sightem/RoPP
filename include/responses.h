@@ -137,6 +137,22 @@ namespace Responses
         }
     };
 
+    struct CanTradeWithResponse
+    {
+        std::string Status;
+        bool CanTrade;
+
+        CanTradeWithResponse Parse(json j)
+        {
+            CanTradeWithResponse c;
+
+            if (j.contains("status")) c.Status = j["status"];
+            if (j.contains("canTrade")) c.CanTrade = j["canTrade"];
+
+            return c;
+        }
+    };
+
     struct ExperienceVotes
     {
         long Upvotes;

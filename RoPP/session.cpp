@@ -403,14 +403,16 @@ void RoPP::Session::DeclineTrade (long TradeID)
     );
 }
 
-json RoPP::Session::CanTradeWith(long UID)
+Responses::CanTradeWithResponse RoPP::Session::CanTradeWith(long UserID)
 {
-    return Helper::MakeAuthedRobloxRequest
+    json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://trades.roblox.com/v1/users/" + std::to_string(UID) + "/can-trade-with",
+        "https://trades.roblox.com/v1/users/" + std::to_string(UserID) + "/can-trade-with",
         "GET",
         this->Cookie
     ).JsonObj;
+
+    return Responses::CanTradeWithResponse().Parse(res);
 }
 
 int RoPP::Session::GetTradeCount(string TradeStatusType)

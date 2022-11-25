@@ -63,7 +63,7 @@ namespace RoPP
             Responses::AvatarResponse GetAvatar();
             json GetTrades(string tradeStatusType="Inbound", string Sort="Asc", int Limit=10);
             json GetTradeInfo(long TradeID);
-            json CanTradeWith(long UserID);
+            Responses::CanTradeWithResponse CanTradeWith(long UserID);
 
             int GetFriendsCount();
             int GetTradeCount(string TradeStatusType="Inbound");
