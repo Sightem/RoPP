@@ -514,7 +514,7 @@ bool RoPP::Session::SetBodyScales(json Scales)
 {
     json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://avatar.roblox.com/v1/avatar/set-body-scales",
+        "https://avatar.roblox.com/v1/avatar/set-scales",
         "POST",
         this->Cookie,
         Scales
