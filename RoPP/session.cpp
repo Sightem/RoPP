@@ -507,4 +507,18 @@ bool RoPP::Session::SetBodyColors(json Colors)
         Colors
     ).JsonObj;
 
+    return res["success"];
+}
+
+bool RoPP::Session::SetBodyScales(json Scales)
+{
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://avatar.roblox.com/v1/avatar/set-body-scales",
+        "POST",
+        this->Cookie,
+        Scales
+    ).JsonObj;
+
+    return res["success"];
 }

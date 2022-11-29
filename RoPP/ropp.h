@@ -83,6 +83,7 @@ namespace RoPP
             bool SendFriendRequest(long UID);
             bool LockPin();
             bool SetBodyColors(json Colors);
+            bool SetBodyScales(json Scales);
 
             void SetFavoriteGame(int PlaceID, bool Favorite);
             void SetDescription(string Description);
