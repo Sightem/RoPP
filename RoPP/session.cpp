@@ -363,14 +363,16 @@ Responses::AvatarResponse RoPP::Session::GetAvatar()
     return Responses::AvatarResponse().Parse(res);
 }
 
-json RoPP::Session::GetTrades(string tradeStatusType, string Sort, int Limit)
+Responses::GetTradesResponse RoPP::Session::GetTrades(string tradeStatusType, string Sort, int Limit)
 {
-    return Helper::MakeAuthedRobloxRequest
+    json res = Helper::MakeAuthedRobloxRequest
     (
         "https://trades.roblox.com/v1/trades/" + tradeStatusType + "?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
         "GET",
         this->Cookie
     ).JsonObj;
+
+    return Responses::GetTradesResponse().Parse(res);
 }
 
 json RoPP::Session::GetTradeInfo(long TradeID)

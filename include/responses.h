@@ -137,6 +137,52 @@ namespace Responses
         }
     };
 
+    struct TradeData
+    {
+        std::string Status;
+
+        long TradeID;
+
+        User Sender;
+        Timestamp Created;
+        Timestamp Expiriation;
+
+        bool IsActive;
+
+        TradeData Parse(json j)
+        {
+            TradeData t;
+
+            if (j.contains("status")) t.Status = j["status"];
+            if (j.contains("id")) t.TradeID = j["id"];
+            if (j.contains("user")) t.Sender = User().Parse(j["user"]);
+            if (j.contains("created")) t.Created = Timestamp().Parse(j["created"]);
+            if (j.contains("expiration")) t.Expiriation = Timestamp().Parse(j["expiration"]);
+            if (j.contains("isActive")) t.IsActive = j["isActive"];
+
+            return t;
+        }
+    };
+
+    struct GetTradesResponse
+    {
+        std::vector<TradeData> Trades;
+
+        GetTradesResponse Parse(json j)
+        {
+            GetTradesResponse g;
+
+            if (j.contains("data"))
+            {
+                for (int i = 0; i < j["data"].size(); i++)
+                {
+                    g.Trades.push_back(TradeData().Parse(j["data"][i]));
+                }
+            }
+            return g;
+        }
+    };
+
     struct CanTradeWithResponse
     {
         std::string Status;

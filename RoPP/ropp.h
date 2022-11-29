@@ -61,7 +61,7 @@ namespace RoPP
             json BuyAsset(long AssetID);
             Responses::FriendRequestsResponse GetFriendRequests(string Sort="Asc", int Limit=10);
             Responses::AvatarResponse GetAvatar();
-            json GetTrades(string tradeStatusType="Inbound", string Sort="Asc", int Limit=10);
+            Responses::GetTradesResponse GetTrades(string tradeStatusType="Inbound", string Sort="Asc", int Limit=10);
             json GetTradeInfo(long TradeID);
             Responses::CanTradeWithResponse CanTradeWith(long UserID);
 
