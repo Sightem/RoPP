@@ -496,3 +496,15 @@ Responses::User RoPP::Session::GetUser()
 
     return Responses::User().Parse(res);
 }
+
+bool RoPP::Session::SetBodyColors(json Colors)
+{
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://avatar.roblox.com/v1/avatar/set-body-colors",
+        "POST",
+        this->Cookie,
+        Colors
+    ).JsonObj;
+
+}
