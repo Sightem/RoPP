@@ -84,6 +84,7 @@ namespace RoPP
             bool LockPin();
             bool SetBodyColors(json Colors);
             bool SetBodyScales(json Scales);
+            bool RemoveAsset(long AssetID);
 
             void SetFavoriteGame(int PlaceID, bool Favorite);
             void SetDescription(string Description);

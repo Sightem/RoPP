@@ -522,3 +522,15 @@ bool RoPP::Session::SetBodyScales(json Scales)
 
     return res["success"];
 }
+
+bool RoPP::Session::RemoveAsset(long AssetID)
+{
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://avatar.roblox.com/v1/avatar/assets/" + std::to_string(AssetID) + "/remove",
+        "POST",
+        this->Cookie
+    ).JsonObj;
+
+    return res["success"];
+}
