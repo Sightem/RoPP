@@ -30,6 +30,15 @@ namespace RoPP
     class Asset : public Base
     {
         public:
+            json BuyAsset(long AssetID);
+            //TODO: buy limited
+
+            Responses::AssetInfo GetAssetInfo();
+            Responses::ResaleData GetResaleData();
+            Responses::Resellers GetAssetResellers(string Sort="Asc", int Limit=10);
+
+
+        public:
             Asset(long AssetID, std::string_view Cookie)
             {
                 this->AssetID = AssetID;
@@ -237,7 +246,6 @@ namespace RoPP
             Responses::UserPresenceResponse GetUsersPresence(std::vector<long> UIDs);
             Responses::BirthdateResponse GetBirthDate();
             Responses::PhoneInfo GetPhoneInfo();
-            json BuyAsset(long AssetID);
             Responses::FriendRequestsResponse GetFriendRequests(string Sort="Asc", int Limit=10);
             Responses::AvatarResponse GetAvatar();
             Responses::GetTradesResponse GetTrades(string tradeStatusType="Inbound", string Sort="Asc", int Limit=10);
@@ -327,32 +335,6 @@ namespace RoPP
             long PID = 0;
             long UniverseID = 0;
     };
-
-    class Asset
-    {
-        public:
-            Responses::AssetInfo GetAssetInfo();
-            Responses::ResaleData GetResaleData();
-            Responses::Resellers GetAssetResellers(string Sort="Asc", int Limit=10);
-    
-            void SetCookie(string Cookie);
-    
-            Asset(long AID)
-            {
-                this->AID = AID;
-            }
-    
-            Asset(long AID, string Cookie)
-            {
-                this->AID = AID;
-                this->Cookie = Cookie;
-            }
-    
-        private:
-            long AID = 0;
-            std::string Cookie;
-    };
-
     class Other
     {
         public:
