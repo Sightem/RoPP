@@ -136,6 +136,124 @@ namespace Responses
             return e;
         }
     };
+    
+    struct bodyColors
+    {
+        int headColorId;
+        int torsoColorId;
+        int rightArmColorId;
+        int leftArmColorId;
+        int rightLegColorId;
+        int leftLegColorId;
+
+        bodyColors Parse(json j)
+        {
+            bodyColors b;
+            if (j.contains("headColorId")) b.headColorId = j["headColorId"];
+            if (j.contains("torsoColorId")) b.torsoColorId = j["torsoColorId"];
+            if (j.contains("rightArmColorId")) b.rightArmColorId = j["rightArmColorId"];
+            if (j.contains("leftArmColorId")) b.leftArmColorId = j["leftArmColorId"];
+            if (j.contains("rightLegColorId")) b.rightLegColorId = j["rightLegColorId"];
+            if (j.contains("leftLegColorId")) b.leftLegColorId = j["leftLegColorId"];
+            return b;
+        }
+    };
+
+
+    struct OutfitDetailsAsset
+    {
+        std::string Name;
+        std::string AssetTypeName;
+        long AssetID;
+        long AssetTypeID;
+        long CurrentVersionID;
+        
+        OutfitDetailsAsset Parse(json j)
+        {
+            OutfitDetailsAsset o;
+
+            if (j.contains("name")) o.Name = j["name"];
+            if (j.contains("assetType")) { o.AssetTypeID = j["assetType"]["id"]; o.AssetTypeName = j["assetType"]["name"]; }
+            if (j.contains("id")) o.AssetID = j["id"];
+            if (j.contains("currentVersion")) o.CurrentVersionID = j["currentVersionID"];
+
+            return o;
+        }
+    };
+    
+    struct GetOutfitsAsset
+    {
+        std::string Name;
+        long ID;
+        bool IsEditable;
+
+        GetOutfitsAsset Parse(json j)
+        {
+            GetOutfitsAsset o;
+
+            if (j.contains("name")) o.Name = j["name"];
+            if (j.contains("id")) o.ID = j["id"];
+            if (j.contains("isEditable")) o.IsEditable = j["isEditable"];
+
+            return o;
+        }
+    };
+
+    struct GetOutfitsResponse
+    {
+        std::vector<GetOutfitsAsset> Outfits;
+        int total;
+
+        GetOutfitsResponse Parse(json j)
+        {
+            GetOutfitsResponse o;
+
+            if (j.contains("data"))
+            {
+                for (int i = 0; i < j["data"].size(); i++)
+                    o.Outfits.push_back(GetOutfitsAsset().Parse(j["data"][i]));
+            }
+            if (j.contains("total")) o.total = j["total"];
+
+            return o;
+        }
+
+    };
+
+    struct OutfitDetailsResponse
+    {
+        std::string Name;
+        std::string PlayerAvatarType;
+        std::string OutfitType;
+
+        long ID;
+
+        std::vector<OutfitDetailsAsset> Assets;
+        bodyColors BodyColors;
+        AvatarScales Scales;
+
+        bool IsEditable;
+
+        OutfitDetailsResponse Parse(json j)
+        {
+            OutfitDetailsResponse o;
+
+            if (j.contains("name")) o.Name = j["name"];
+            if (j.contains("playerAvatarType")) o.PlayerAvatarType = j["playerAvatarType"];
+            if (j.contains("outfitType")) o.OutfitType = j["outfitType"];
+            if (j.contains("id")) o.ID = j["id"];
+            if (j.contains("bodyColors")) o.BodyColors = bodyColors().Parse(j["bodyColors"]);
+            if (j.contains("scale")) o.Scales = AvatarScales().Parse(j["scale"]);
+            if (j.contains("isEditable")) o.IsEditable = j["isEditable"];
+
+            for (int i = 0; i < j["assets"].size(); i++)
+            {
+                o.Assets.push_back(OutfitDetailsAsset().Parse(j["assets"][i]));
+            }
+
+            return o;
+        }
+    };
 
     struct TradeData
     {
@@ -514,27 +632,6 @@ namespace Responses
             return p;
         }
 
-    };
-    struct bodyColors
-    {
-        int headColorId;
-        int torsoColorId;
-        int rightArmColorId;
-        int leftArmColorId;
-        int rightLegColorId;
-        int leftLegColorId;
-
-        bodyColors Parse(json j)
-        {
-            bodyColors b;
-            if (j.contains("headColorId")) b.headColorId = j["headColorId"];
-            if (j.contains("torsoColorId")) b.torsoColorId = j["torsoColorId"];
-            if (j.contains("rightArmColorId")) b.rightArmColorId = j["rightArmColorId"];
-            if (j.contains("leftArmColorId")) b.leftArmColorId = j["leftArmColorId"];
-            if (j.contains("rightLegColorId")) b.rightLegColorId = j["rightLegColorId"];
-            if (j.contains("leftLegColorId")) b.leftLegColorId = j["leftLegColorId"];
-            return b;
-        }
     };
     
     struct AvatarAsset

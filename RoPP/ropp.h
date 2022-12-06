@@ -24,6 +24,12 @@ namespace RoPP
 
     class Avatar : public Base
     {
+        public:
+            Responses::CurrentlyWearing GetCurrentlyWearing(long UserID);
+            Responses::AvatarResponse GetAvatar(long UserID);
+            Responses::OutfitDetailsResponse GetOutfitDetails(long OutfitID);
+            Responses::GetOutfitsResponse GetOutfits(long UserID, int Page=1, int ItemsPerPage=25, bool IsEditable=false);
+
 
     };
     
@@ -214,8 +220,6 @@ namespace RoPP
             Responses::UserGroupsResponse GetGroups();
             Responses::UserBadgesResponse GetBadges();
             Responses::Group GetPrimaryGroup();
-            Responses::CurrentlyWearing GetCurrentlyWearing();
-            Responses::AvatarResponse GetAvatar();
             Responses::InventoryResponse GetInventory(std::vector<string> AssetType, string Sort="Asc", int Limit=10);
 
             bool CanInventoryBeViewed();

@@ -144,17 +144,6 @@ Responses::CurrentlyWearing RoPP::User::GetCurrentlyWearing()
     return Responses::CurrentlyWearing().Parse(res);
 }
 
-Responses::AvatarResponse RoPP::User::GetAvatar()
-{
-    json res = Helper::MakeRobloxRequest
-    (
-        "https://avatar.roblox.com/v1/users/" + std::to_string(this->UID) + "/avatar",
-        "GET"
-    ).JsonObj;
-
-    return Responses::AvatarResponse().Parse(res);
-}
-
 Responses::User RoPP::User::GetUser()
 {
     json res = Helper::MakeRobloxRequest
