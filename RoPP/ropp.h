@@ -10,6 +10,25 @@ using std::string;
 
 namespace RoPP
 {
+    class Chat
+    {
+
+    };
+
+    class Game
+    {
+            
+    };
+
+    class Group
+    {
+
+    };
+
+    class Trade
+    {
+
+    };
     class User
     {
         public:
