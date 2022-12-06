@@ -10,25 +10,170 @@ using std::string;
 
 namespace RoPP
 {
-    class Chat
+    class Base
     {
+        public:
+            void SetCookie(std::string_view Cookie)
+            {
+                this->Cookie = Cookie;
+            }
 
+        protected:
+            std::string Cookie;
     };
 
-    class Game
+    class Asset : public Base
     {
-            
+        public:
+            Asset(long AssetID, std::string_view Cookie)
+            {
+                this->AssetID = AssetID;
+                this->Cookie = Cookie;
+            }
+
+            Asset(long AssetID)
+            {
+                this->AssetID = AssetID;
+            }
+
+            void SetAssetID(long AssetID)
+            {
+                this->AssetID = AssetID;
+            }
+
+        private:
+            long AssetID = 0;
     };
 
-    class Group
+    class Chat : public Base
     {
+        public:
+            Chat(long ConversationID, std::string_view Cookie)
+            {
+                this->ConversationID = ConversationID;
+                this->Cookie = Cookie;
+            }
 
+            Chat(long ConversationID)
+            {
+                this->ConversationID = ConversationID;
+            }
+
+            Chat()
+            {
+                this->ConversationID = 0;
+            }
+
+            void SetConversationID(long ConversationID)
+            {
+                this->ConversationID = ConversationID;
+            }
+
+        private:
+            long ConversationID = 0;
     };
 
-    class Trade
+    class Game : public Base
     {
+        public:
+            Game(int PlaceID)
+            {
+                this->PlaceID = PlaceID;
+            }
 
+            Game()
+            {
+                this->PlaceID = 0;
+            }
+
+            void SetPlaceID(int PlaceID)
+            {
+                this->PlaceID = PlaceID;
+            }
+
+        private:
+            int PlaceID = 0;
     };
+
+    class Group : public Base
+    {
+        public:
+            Group(long GroupID)
+            {
+                this->GroupID = GroupID;
+            }
+
+            Group()
+            {
+                this->GroupID = 0;
+            }
+
+            void SetGroupID(long GroupID)
+            {
+                this->GroupID = GroupID;
+            }
+
+        private:
+            long GroupID = 0;
+    };
+
+    class Trade : public Base
+    {
+        public:
+            Trade(long TradeID, std::string_view Cookie)
+            {
+                this->TradeID = TradeID;
+                this->Cookie = Cookie;
+            }
+
+            Trade(long TradeID)
+            {
+                this->TradeID = TradeID;
+            }
+
+            Trade()
+            {
+                this->TradeID = 0;
+            }
+
+            void SetTradeID(long TradeID)
+            {
+                this->TradeID = TradeID;
+            }
+
+        private:
+            long TradeID = 0;
+    };
+
+    class User : public Base
+    {
+        public:
+            User(long UID, std::string_view Cookie)
+            {
+                this->UID = UID;
+                this->Cookie = Cookie;
+            }
+
+            User(long UID)
+            {
+                this->UID = UID;
+            }
+
+            User()
+            {
+                this->UID = 0;
+            }
+
+            void SetUID(long UID)
+            {
+                this->UID = UID;
+            }
+
+        private:
+            long UID = 0;
+    };
+
+
     class User
     {
         public:
