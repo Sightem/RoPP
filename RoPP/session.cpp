@@ -1,4 +1,4 @@
-#include "ropp.h"
+#include "../include/ropp.h"
 #include "../include/helper.h"
 #include "../include/request.hpp"
 #include "../include/responses.h"
@@ -326,95 +326,6 @@ void RoPP::Session::SetGender(string Gender)
         this->Cookie,
         data
     ).JsonObj;
-}
-
-json RoPP::Session::BuyAsset(long AssetID)
-{
-    RoPP::Asset asset(AssetID);
-    AssetInfo info = asset.GetAssetInfo();
-
-    json data = 
-    {
-        {"expectedCurrency", 1},
-        {"expectedPrice", info.Price},
-        {"expectedSellerId", info.CreatorID},
-    };
-
-    json res = Helper::MakeAuthedRobloxRequest
-    (
-        "https://economy.roblox.com/v1/purchases/products/" + std::to_string(info.ProductID),
-        "POST",
-        this->Cookie,
-        data
-    ).JsonObj;
-
-    return res;
-}
-
-Responses::AvatarResponse RoPP::Session::GetAvatar()
-{
-    json res = Helper::MakeAuthedRobloxRequest
-    (
-        "https://avatar.roblox.com/v1/users/" + std::to_string(this->GetUserID()) + "/avatar",
-        "GET",
-        this->Cookie
-    ).JsonObj;
-
-    return Responses::AvatarResponse().Parse(res);
-}
-
-Responses::GetTradesResponse RoPP::Session::GetTrades(string tradeStatusType, string Sort, int Limit)
-{
-    json res = Helper::MakeAuthedRobloxRequest
-    (
-        "https://trades.roblox.com/v1/trades/" + tradeStatusType + "?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
-        "GET",
-        this->Cookie
-    ).JsonObj;
-
-    return Responses::GetTradesResponse().Parse(res);
-}
-
-json RoPP::Session::GetTradeInfo(long TradeID)
-{
-    return Helper::MakeAuthedRobloxRequest
-    (
-        "https://trades.roblox.com/v1/trades/" + std::to_string(TradeID),
-        "GET",
-        this->Cookie
-    ).JsonObj;
-}
-
-void RoPP::Session::AcceptTrade(long TradeID)
-{
-    Helper::MakeAuthedRobloxRequest
-    (
-        "https://trades.roblox.com/v1/trades/" + std::to_string(TradeID) + "/accept",
-        "POST",
-        this->Cookie
-    );
-}
-
-void RoPP::Session::DeclineTrade (long TradeID)
-{
-    Helper::MakeAuthedRobloxRequest
-    (
-        "https://trades.roblox.com/v1/trades/" + std::to_string(TradeID) + "/decline",
-        "POST",
-        this->Cookie
-    );
-}
-
-Responses::CanTradeWithResponse RoPP::Session::CanTradeWith(long UserID)
-{
-    json res = Helper::MakeAuthedRobloxRequest
-    (
-        "https://trades.roblox.com/v1/users/" + std::to_string(UserID) + "/can-trade-with",
-        "GET",
-        this->Cookie
-    ).JsonObj;
-
-    return Responses::CanTradeWithResponse().Parse(res);
 }
 
 int RoPP::Session::GetTradeCount(string TradeStatusType)

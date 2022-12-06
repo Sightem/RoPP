@@ -156,6 +156,17 @@ namespace RoPP
     class Trade : public Base
     {
         public:
+            Responses::GetTradesResponse GetTrades(string tradeStatusType="Inbound", string Sort="Asc", int Limit=10);
+            json GetTradeInfo(long TradeID);
+            Responses::CanTradeWithResponse CanTradeWith(long UserID);
+            //TODO: counter
+            //TODO: send
+            void AcceptTrade(long TradeID);
+            void DeclineTrade(long TradeID);
+
+
+
+        public:
             Trade(long TradeID, std::string_view Cookie)
             {
                 this->TradeID = TradeID;
@@ -165,11 +176,6 @@ namespace RoPP
             Trade(long TradeID)
             {
                 this->TradeID = TradeID;
-            }
-
-            Trade()
-            {
-                this->TradeID = 0;
             }
 
             void SetTradeID(long TradeID)
@@ -255,10 +261,6 @@ namespace RoPP
             Responses::BirthdateResponse GetBirthDate();
             Responses::PhoneInfo GetPhoneInfo();
             Responses::FriendRequestsResponse GetFriendRequests(string Sort="Asc", int Limit=10);
-            Responses::AvatarResponse GetAvatar();
-            Responses::GetTradesResponse GetTrades(string tradeStatusType="Inbound", string Sort="Asc", int Limit=10);
-            json GetTradeInfo(long TradeID);
-            Responses::CanTradeWithResponse CanTradeWith(long UserID);
 
             int GetFriendsCount();
             int GetTradeCount(string TradeStatusType="Inbound");
@@ -287,8 +289,6 @@ namespace RoPP
             void DeclineAllFriendRequests();
             void BlockUser(long UID);
             void UnblockUser(long UID);
-            void AcceptTrade(long TradeID);
-            void DeclineTrade(long TradeID);
 
             void SetCookie(string Cookie);
 
