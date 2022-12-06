@@ -30,7 +30,11 @@ namespace RoPP
             Responses::OutfitDetailsResponse GetOutfitDetails(long OutfitID);
             Responses::GetOutfitsResponse GetOutfits(long UserID, int Page=1, int ItemsPerPage=25, bool IsEditable=false);
 
-
+            bool SetBodyColors(json Colors);
+            bool SetBodyScales(json Scales);
+            bool SetPlayerAvatarType(std::string_view AvatarType);
+            bool RemoveAsset(long AssetID);
+            bool WearAsset(long AssetID);
     };
     
     class Asset : public Base
@@ -273,9 +277,6 @@ namespace RoPP
 
             bool SendFriendRequest(long UID);
             bool LockPin();
-            bool SetBodyColors(json Colors);
-            bool SetBodyScales(json Scales);
-            bool RemoveAsset(long AssetID);
 
             void SetFavoriteGame(int PlaceID, bool Favorite);
             void SetDescription(string Description);

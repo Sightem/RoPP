@@ -46,3 +46,71 @@ Responses::GetOutfitsResponse RoPP::Avatar::GetOutfits(long UserID, int Page, in
 
     return Responses::GetOutfitsResponse().Parse(res);
 }
+
+bool RoPP::Avatar::SetBodyColors(json Colors)
+{
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://avatar.roblox.com/v1/avatar/set-body-colors",
+        "POST",
+        this->Cookie,
+        Colors
+    ).JsonObj;
+
+    return res["success"];
+}
+
+bool RoPP::Avatar::SetBodyScales(json Scales)
+{
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://avatar.roblox.com/v1/avatar/set-scales",
+        "POST",
+        this->Cookie,
+        Scales
+    ).JsonObj;
+
+    return res["success"];
+}
+
+bool RoPP::Avatar::RemoveAsset(long AssetID)
+{
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://avatar.roblox.com/v1/avatar/assets/" + std::to_string(AssetID) + "/remove",
+        "POST",
+        this->Cookie
+    ).JsonObj;
+
+    return res["success"];
+}
+
+bool RoPP::Avatar::SetPlayerAvatarType(std::string_view AvatarType)
+{
+    json data =
+    {
+        {"playerAvatarType", AvatarType}
+    };
+
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://avatar.roblox.com/v1/avatar/set-player-avatar-type",
+        "POST",
+        this->Cookie,
+        data
+    ).JsonObj;
+
+    return res["success"];
+}
+
+bool RoPP::Avatar::WearAsset(long AssetID)
+{
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://avatar.roblox.com/v1/avatar/assets/" + std::to_string(AssetID) + "/wear",
+        "POST",
+        this->Cookie
+    ).JsonObj;
+
+    return res["success"];
+}
