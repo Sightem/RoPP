@@ -22,6 +22,11 @@ namespace RoPP
             std::string Cookie;
     };
 
+    class Avatar : public Base
+    {
+
+    };
+    
     class Asset : public Base
     {
         public:
@@ -76,6 +81,12 @@ namespace RoPP
     class Game : public Base
     {
         public:
+            Game(int PlaceID, std::string_view Cookie)
+            {
+                this->PlaceID = PlaceID;
+                this->Cookie = Cookie;
+            }
+
             Game(int PlaceID)
             {
                 this->PlaceID = PlaceID;
@@ -98,6 +109,12 @@ namespace RoPP
     class Group : public Base
     {
         public:
+            Group(long GroupID, std::string_view Cookie)
+            {
+                this->GroupID = GroupID;
+                this->Cookie = Cookie;
+            }
+
             Group(long GroupID)
             {
                 this->GroupID = GroupID;
@@ -172,8 +189,6 @@ namespace RoPP
         private:
             long UID = 0;
     };
-
-
     class User
     {
         public:
