@@ -214,6 +214,7 @@ namespace RoPP
         private:
             long UID = 0;
     };
+
     class User
     {
         public:
@@ -300,7 +301,6 @@ namespace RoPP
         private:
             std::string Cookie;
     };
-
 
     class Group
     {

@@ -220,6 +220,25 @@ namespace Responses
 
     };
 
+    struct AvatarScales
+    {
+        int height, width, depth, head, proportion, bodyType;
+
+        AvatarScales Parse(json j)
+        {
+            AvatarScales a;
+
+            if (j.contains("height")) a.height = j["height"];
+            if (j.contains("width")) a.width = j["width"];
+            if (j.contains("depth")) a.depth = j["depth"];
+            if (j.contains("head")) a.head = j["head"];
+            if (j.contains("proportion")) a.proportion = j["proportion"];
+            if (j.contains("bodyType")) a.bodyType = j["bodyType"];
+
+            return a;
+        }
+    };
+
     struct OutfitDetailsResponse
     {
         std::string Name;
@@ -652,25 +671,6 @@ namespace Responses
             if (j.contains("assetType"))  { a.AssetTypeID = j["assetType"]["id"]; a.AssetTypeName = j["assetType"]["name"]; }
             if (j.contains("id")) a.AssetID = j["id"];
             if (j.contains("currentVersionId")) a.CurrentVersionID = j["currentVersionId"];
-
-            return a;
-        }
-    };
-
-    struct AvatarScales
-    {
-        int height, width, depth, head, proportion, bodyType;
-
-        AvatarScales Parse(json j)
-        {
-            AvatarScales a;
-
-            if (j.contains("height")) a.height = j["height"];
-            if (j.contains("width")) a.width = j["width"];
-            if (j.contains("depth")) a.depth = j["depth"];
-            if (j.contains("head")) a.head = j["head"];
-            if (j.contains("proportion")) a.proportion = j["proportion"];
-            if (j.contains("bodyType")) a.bodyType = j["bodyType"];
 
             return a;
         }
