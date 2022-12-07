@@ -3,6 +3,7 @@
 #include "../include/request.hpp"
 #include "../include/responses.h"
 
+/*
 Responses::FriendsResponse RoPP::User::GetFriends(string Sort)
 {
    json res = Helper::MakeRobloxRequest
@@ -154,3 +155,4 @@ Responses::User RoPP::User::GetUser()
 
     return Responses::User().Parse(res);
 }
+*/

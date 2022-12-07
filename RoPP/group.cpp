@@ -2,6 +2,7 @@
 #include "../include/helper.h"
 #include "../include/request.hpp"
 
+/*
 Responses::Group RoPP::Group::GetGroupInfo()
 {
     json res = Helper::MakeRobloxRequest
@@ -52,3 +53,4 @@ Responses::GroupExperiencesResponse RoPP::Group::GetGames(string AccessFilter, s
 
     return Responses::GroupExperiencesResponse().Parse(res);
 }
+*/

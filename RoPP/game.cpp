@@ -2,18 +2,18 @@
 #include "../include/helper.h"
 #include "../include/request.hpp"
 
-long RoPP::Place::GetUniverseID()
+long RoPP::Game::GetUniverseID()
 {
     json res = Helper::MakeRobloxRequest
     (
-        "https://apis.roblox.com/universes/v1/places/" + std::to_string(this->PID) + "/universe",
+        "https://apis.roblox.com/universes/v1/places/" + std::to_string(this->PlaceID) + "/universe",
         "GET"
     ).JsonObj;
 
     return res["universeId"];
 }
 
-Responses::PlaceInfoResponse RoPP::Place::GetPlaceInfo()
+Responses::PlaceInfoResponse RoPP::Game::GetPlaceInfo()
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -24,7 +24,7 @@ Responses::PlaceInfoResponse RoPP::Place::GetPlaceInfo()
     return Responses::PlaceInfoResponse().Parse(res["data"][0]);
 }
 
-Responses::ExperienceVotes RoPP::Place::GetVotes()
+Responses::ExperienceVotes RoPP::Game::GetVotes()
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -35,7 +35,7 @@ Responses::ExperienceVotes RoPP::Place::GetVotes()
     return Responses::ExperienceVotes().Parse(res["data"][0]);
 }
 
-Responses::ExperienceBadgesResponse RoPP::Place::GetGamepassInfo(std::string Sort, int Limit)
+Responses::ExperienceBadgesResponse RoPP::Game::GetGamepassInfo(std::string Sort, int Limit)
 {
     json res = Helper::MakeRobloxRequest
     (

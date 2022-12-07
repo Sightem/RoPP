@@ -100,6 +100,14 @@ namespace RoPP
     class Game : public Base
     {
         public:
+            Responses::PlaceInfoResponse GetPlaceInfo();
+            Responses::ExperienceBadgesResponse GetGamepassInfo(string Sort="Asc", int Limit=10);
+            Responses::ExperienceVotes GetVotes();
+
+            long GetUniverseID();
+
+
+        public:
             Game(int PlaceID, std::string_view Cookie)
             {
                 this->PlaceID = PlaceID;
@@ -109,6 +117,7 @@ namespace RoPP
             Game(int PlaceID)
             {
                 this->PlaceID = PlaceID;
+                this->UniverseID = GetUniverseID();
             }
 
             Game()
@@ -122,7 +131,8 @@ namespace RoPP
             }
 
         private:
-            int PlaceID = 0;
+            long PlaceID = 0;
+            long UniverseID = 0;
     };
 
     class Group : public Base
@@ -215,6 +225,7 @@ namespace RoPP
             long UID = 0;
     };
 
+/*
     class User
     {
         public:
@@ -243,6 +254,7 @@ namespace RoPP
         private:
             long UID = 0;
     };
+    */
 
     class Session
     {
@@ -302,6 +314,7 @@ namespace RoPP
             std::string Cookie;
     };
 
+/*
     class Group
     {
         public:
@@ -319,27 +332,7 @@ namespace RoPP
         private:
             long GID = 0;
     };
-
-    class Place
-    {
-        public:
-
-            Responses::PlaceInfoResponse GetPlaceInfo();
-            Responses::ExperienceBadgesResponse GetGamepassInfo(string Sort="Asc", int Limit=10);
-            Responses::ExperienceVotes GetVotes();
-
-            long GetUniverseID();
-
-            Place(long PID)
-            {
-                this->PID = PID;
-                this->UniverseID = GetUniverseID();
-            }
-
-        private:
-            long PID = 0;
-            long UniverseID = 0;
-    };
+*/
     class Other
     {
         public:
