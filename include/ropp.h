@@ -116,9 +116,6 @@ namespace RoPP
             Responses::ExperienceBadgesResponse GetGamepassInfo(string Sort="Asc", int Limit=10);
             Responses::ExperienceVotes GetVotes();
             Responses::DeveloperProductCreateResponse CreateDeveloperProduct(string Name, string Description, long Price, long IconImageAssetID=0);
-            
-            //Responses::GameInstancesResponse GetGameInstances();
-            //https://games.roblox.com/v1/games/2414851778/servers/Public?sortOrder=Asc&excludeFullGames=false&limit=100
             Responses::GameInstancesResponse GetGameInstances(string Type="Public", string Sort="Asc", int Limit=100, bool ExcludeFullGames=false);
             
             long GetUniverseID();
