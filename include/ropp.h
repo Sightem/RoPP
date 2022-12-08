@@ -114,6 +114,7 @@ namespace RoPP
         public:
             Responses::PlaceInfoResponse GetPlaceInfo();
             Responses::GamePassesResponse GetGamepassInfo(string Sort="Asc", int Limit=10);
+            Responses::GameBadges GetGameBadges(string Sort="Asc", int Limit=10);
             Responses::ExperienceVotes GetVotes();
             Responses::DeveloperProductCreateResponse CreateDeveloperProduct(string Name, string Description, long Price, long IconImageAssetID=0);
             Responses::GameInstancesResponse GetGameInstances(string Type="Public", string Sort="Asc", int Limit=100, bool ExcludeFullGames=false);

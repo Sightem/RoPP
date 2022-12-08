@@ -87,11 +87,23 @@ Responses::GameInstancesResponse RoPP::Game::GetGameInstances(string Type, strin
 
 Responses::GameSocialLinks RoPP::Game::GetSocialLinks()
 {
-    json res = Helper::MakeRobloxRequest
+    json res = Helper::MakeAuthedRobloxRequest
     (
         "https://games.roblox.com/v1/games/" + std::to_string(this->UniverseID) + "/social-links/list",
-        "GET"
+        "GET",
+        this->Cookie
     ).JsonObj;
 
     return Responses::GameSocialLinks().Parse(res);
+}
+
+Responses::GameBadges RoPP::Game::GetGameBadges(string Sort, int Limit)
+{
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://badges.roblox.com/v1/universes/" + std::to_string(this->UniverseID) + "/badges?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
+        "GET"
+    ).JsonObj;
+
+    return Responses::GameBadges().Parse(res);
 }

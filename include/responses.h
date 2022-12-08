@@ -416,7 +416,7 @@ namespace Responses
         std::string Name;
         std::string DisplayName;
 
-        long BadgeID;
+        long ID;
         long CreatorID;
         long ProductIdID;
 
@@ -428,7 +428,7 @@ namespace Responses
 
             if (j.contains("name")) b.Name = j["name"];
             if (j.contains("displayName")) b.DisplayName = j["displayName"];
-            if (j.contains("id")) b.BadgeID = j["id"];
+            if (j.contains("id")) b.ID = j["id"];
             if (j.contains("sellerId")) b.CreatorID = j["sellerId"];
             if (j.contains("productId")) b.ProductIdID = j["productId"];
             if (j.contains("price")) b.Price = j["price"];
@@ -942,6 +942,26 @@ namespace Responses
             if (j.contains("statistics")) b.Statistics = BadgeStats().Parse(j["statistics"]);
 
             return b;
+        }
+    };
+
+    struct GameBadges
+    {
+        std::vector<Badge> Badges;
+        int Count = 0;
+
+        GameBadges Parse(json j)
+        {
+            GameBadges g;
+
+            for (int i = 0; i < j.size(); i++)
+            {
+                g.Badges.push_back(Badge().Parse(j["data"][i]));
+            }
+
+            Count = j["data"].size();
+
+            return g;
         }
     };
 
