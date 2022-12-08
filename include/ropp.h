@@ -13,6 +13,18 @@ namespace RoPP
     class Base
     {
         public:
+            std::string GetCSRF()
+            {
+                Request req("https://auth.roblox.com/v1/authentication-ticket");
+                req.set_cookie(".ROBLOSECURITY", this->Cookie);
+                req.set_header("Referer", "https://www.roblox.com/");
+                req.initalize();
+                Response res = req.post();
+
+                return res.headers["x-csrf-token"];
+            }       
+
+        public:
             void SetCookie(std::string_view Cookie)
             {
                 this->Cookie = Cookie;
@@ -103,29 +115,30 @@ namespace RoPP
             Responses::PlaceInfoResponse GetPlaceInfo();
             Responses::ExperienceBadgesResponse GetGamepassInfo(string Sort="Asc", int Limit=10);
             Responses::ExperienceVotes GetVotes();
-
+            Responses::DeveloperProductCreateResponse CreateDeveloperProduct(string Name, string Description, long Price, long IconImageAssetID=0);
+            
+            //Responses::GameInstancesResponse GetGameInstances();
+            //https://games.roblox.com/v1/games/2414851778/servers/Public?sortOrder=Asc&excludeFullGames=false&limit=100
+            Responses::GameInstancesResponse GetGameInstances(string Type="Public", string Sort="Asc", int Limit=100, bool ExcludeFullGames=false);
+            
             long GetUniverseID();
 
 
         public:
-            Game(int PlaceID, std::string_view Cookie)
+            Game(long PlaceID, std::string_view Cookie)
             {
                 this->PlaceID = PlaceID;
+                this->UniverseID = GetUniverseID();
                 this->Cookie = Cookie;
             }
 
-            Game(int PlaceID)
+            Game(long PlaceID)
             {
                 this->PlaceID = PlaceID;
                 this->UniverseID = GetUniverseID();
             }
 
-            Game()
-            {
-                this->PlaceID = 0;
-            }
-
-            void SetPlaceID(int PlaceID)
+            void SetPlaceID(long PlaceID)
             {
                 this->PlaceID = PlaceID;
             }
