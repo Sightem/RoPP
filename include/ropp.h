@@ -113,7 +113,7 @@ namespace RoPP
     {
         public:
             Responses::PlaceInfoResponse GetPlaceInfo();
-            Responses::GamePassesResponse GetGamepassInfo(string Sort="Asc", int Limit=10);
+            Responses::GamePassesResponse GetGamepasses(string Sort="Asc", int Limit=10);
             Responses::GameBadges GetGameBadges(string Sort="Asc", int Limit=10);
             Responses::ExperienceVotes GetVotes();
             Responses::DeveloperProductCreateResponse CreateDeveloperProduct(string Name, string Description, long Price, long IconImageAssetID=0);

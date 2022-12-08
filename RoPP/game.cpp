@@ -35,7 +35,7 @@ Responses::ExperienceVotes RoPP::Game::GetVotes()
     return Responses::ExperienceVotes().Parse(res["data"][0]);
 }
 
-Responses::GamePassesResponse RoPP::Game::GetGamepassInfo(std::string Sort, int Limit)
+Responses::GamePassesResponse RoPP::Game::GetGamepasses(std::string Sort, int Limit)
 {
     json res = Helper::MakeRobloxRequest
     (
