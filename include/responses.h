@@ -439,7 +439,7 @@ namespace Responses
 
     struct GamePassesResponse
     {
-        std::vector<GamePass> Badges;
+        std::vector<GamePass> GamePasses;
 
         GamePassesResponse Parse(json j)
         {
@@ -447,7 +447,7 @@ namespace Responses
 
             for (int i = 0; i < j["data"].size(); i++)
             {
-                r.Badges.push_back(GamePass().Parse(j["data"][i]));
+                r.GamePasses.push_back(GamePass().Parse(j["data"][i]));
             }
 
             return r;
