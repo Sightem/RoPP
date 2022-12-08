@@ -137,6 +137,43 @@ namespace Responses
         }
     };
 
+    struct GameSocialLink
+    {
+        std::string Title;
+        std::string URL;
+        std::string Type;
+
+        long ID;
+
+        GameSocialLink Parse(json j)
+        {
+            GameSocialLink g;
+
+            if (j.contains("title")) g.Title = j["title"];
+            if (j.contains("url")) g.URL = j["url"];
+            if (j.contains("type")) g.Type = j["type"];
+            if (j.contains("id")) g.ID = j["id"];
+
+            return g;
+        }
+    };
+
+    struct GameSocialLinks
+    {
+        std::vector<GameSocialLink> Links;
+
+        GameSocialLinks Parse(json j)
+        {
+            GameSocialLinks g;
+
+            for (int i = 0; i < j.size(); i++)
+            {
+                g.Links.push_back(GameSocialLink().Parse(j["data"][i]));
+            }
+
+            return g;
+        }
+    };
     struct DeveloperProductCreateResponse
     {
         long ID;
@@ -374,7 +411,7 @@ namespace Responses
         }
     };
 
-    struct ExperienceBadge
+    struct GamePass
     {
         std::string Name;
         std::string DisplayName;
@@ -385,9 +422,9 @@ namespace Responses
 
         int Price;
 
-        ExperienceBadge Parse(json j)
+        GamePass Parse(json j)
         {
-            ExperienceBadge b;
+            GamePass b;
 
             if (j.contains("name")) b.Name = j["name"];
             if (j.contains("displayName")) b.DisplayName = j["displayName"];
@@ -400,17 +437,17 @@ namespace Responses
         }
     };
 
-    struct ExperienceBadgesResponse
+    struct GamePassesResponse
     {
-        std::vector<ExperienceBadge> Badges;
+        std::vector<GamePass> Badges;
 
-        ExperienceBadgesResponse Parse(json j)
+        GamePassesResponse Parse(json j)
         {
-            ExperienceBadgesResponse r;
+            GamePassesResponse r;
 
             for (int i = 0; i < j["data"].size(); i++)
             {
-                r.Badges.push_back(ExperienceBadge().Parse(j["data"][i]));
+                r.Badges.push_back(GamePass().Parse(j["data"][i]));
             }
 
             return r;

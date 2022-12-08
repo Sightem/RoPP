@@ -35,7 +35,7 @@ Responses::ExperienceVotes RoPP::Game::GetVotes()
     return Responses::ExperienceVotes().Parse(res["data"][0]);
 }
 
-Responses::ExperienceBadgesResponse RoPP::Game::GetGamepassInfo(std::string Sort, int Limit)
+Responses::GamePassesResponse RoPP::Game::GetGamepassInfo(std::string Sort, int Limit)
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -43,7 +43,7 @@ Responses::ExperienceBadgesResponse RoPP::Game::GetGamepassInfo(std::string Sort
         "GET"
     ).JsonObj;
 
-    return Responses::ExperienceBadgesResponse().Parse(res);
+    return Responses::GamePassesResponse().Parse(res);
 }
 
 Responses::DeveloperProductCreateResponse RoPP::Game::CreateDeveloperProduct(std::string Name, std::string Description, long Price, long IconImageAssetID)
@@ -83,4 +83,15 @@ Responses::GameInstancesResponse RoPP::Game::GetGameInstances(string Type, strin
     }
 
     return Responses::GameInstancesResponse().Parse(res);
+}
+
+Responses::GameSocialLinks RoPP::Game::GetSocialLinks()
+{
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://games.roblox.com/v1/games/" + std::to_string(this->UniverseID) + "/social-links/list",
+        "GET"
+    ).JsonObj;
+
+    return Responses::GameSocialLinks().Parse(res);
 }
