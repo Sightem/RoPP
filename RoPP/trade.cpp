@@ -57,3 +57,32 @@ Responses::CanTradeWithResponse RoPP::Trade::CanTradeWith(long UserID)
 
     return Responses::CanTradeWithResponse().Parse(res);
 }
+
+int RoPP::Trade::SendTradeRequest(long TargetUID, json UserOffer, json UserRequest)
+{
+    RoPP::Session Session(this->Cookie);
+
+    json data =
+    {
+        {"offers", {
+            {
+                {"userId", TargetUID},
+                {"userAssetIds", UserRequest["userAssetIds"]},
+                {"robux", UserRequest["robux"]}
+            },
+            {
+                {"userId", Session.GetUserID()},
+                {"userAssetIds", UserOffer["userAssetIds"]},
+                {"robux", UserOffer["robux"]}
+            }
+        }}
+    };
+
+    return Helper::MakeAuthedRobloxRequest
+    (
+        "https://trades.roblox.com/v1/trades/send",
+        "POST",
+        this->Cookie,
+        data
+    ).JsonObj["id"];
+}

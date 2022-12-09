@@ -4,6 +4,7 @@
 
 #include "../include/json.hpp"
 #include "../include/responses.h"
+#include "../include/helper.h"
 
 using json = nlohmann::json;
 using std::string;
@@ -13,25 +14,16 @@ namespace RoPP
     class Base
     {
         public:
-            std::string GetCSRF()
-            {
-                Request req("https://auth.roblox.com/v1/authentication-ticket");
-                req.set_cookie(".ROBLOSECURITY", this->Cookie);
-                req.set_header("Referer", "https://www.roblox.com/");
-                req.initalize();
-                Response res = req.post();
-
-                return res.headers["x-csrf-token"];
-            }       
-
-        public:
-            void SetCookie(std::string_view Cookie)
-            {
-                this->Cookie = Cookie;
-            }
-
+            std::string GetCSRF();
+            std::string GetAuthTicket();
+            std::string ReadCookie();
+            
+            void SetCookie(std::string_view Cookie);
         protected:
             std::string Cookie;
+
+        private:
+            void CookieCheck();
     };
 
     class Avatar : public Base
@@ -182,16 +174,19 @@ namespace RoPP
             json GetTradeInfo(long TradeID);
             Responses::CanTradeWithResponse CanTradeWith(long UserID);
             //TODO: counter
-            //TODO: send
+            int SendTradeRequest(long TargetUID, json UserOffer, json UserRequest);
             void AcceptTrade(long TradeID);
             void DeclineTrade(long TradeID);
-
-
 
         public:
             Trade(long TradeID, std::string_view Cookie)
             {
                 this->TradeID = TradeID;
+                this->Cookie = Cookie;
+            }
+
+            Trade(std::string_view Cookie)
+            {
                 this->Cookie = Cookie;
             }
 
@@ -268,7 +263,7 @@ namespace RoPP
     };
     */
 
-    class Session
+    class Session : public Base
     {
         public:
 
@@ -276,10 +271,8 @@ namespace RoPP
 
 
             Responses::User GetUser();
-            std::string GetCSRF();
-            std::string GetAuthTicket();
+            
             std::string GetDescription();
-            std::string ReadCookie();
 
             Responses::FriendsOnlineResponse GetFriendsOnline();
             Responses::UserPresenceResponse GetUsersPresence(std::vector<long> UIDs);
@@ -288,10 +281,9 @@ namespace RoPP
             Responses::FriendRequestsResponse GetFriendRequests(string Sort="Asc", int Limit=10);
 
             int GetFriendsCount();
-            int GetTradeCount(string TradeStatusType="Inbound");
 
-            long GetUserID();
             long GetRobuxBalance();
+            long GetUserID();
 
             bool HasPremium();
             bool IsFavoriteGame(int PlaceID);
@@ -299,8 +291,6 @@ namespace RoPP
             //post requests
 
             double UnlockPin(int Pin);
-
-            int SendTradeRequest(long TargetUID, json UserOffer, json UserRequest);
 
             bool SendFriendRequest(long UID);
             bool LockPin();
@@ -315,15 +305,10 @@ namespace RoPP
             void BlockUser(long UID);
             void UnblockUser(long UID);
 
-            void SetCookie(string Cookie);
-
-            Session(string Cookie)
+            Session(std::string_view Cookie)
             {
                 this->Cookie = Cookie;
             }
-
-        private:
-            std::string Cookie;
     };
 
 /*
