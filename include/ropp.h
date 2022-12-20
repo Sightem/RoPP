@@ -77,6 +77,7 @@ namespace RoPP
     {
         public:
             Responses::ConversationAddResponse AddUsersToConversation(std::vector<long> UserIDs);
+            Responses::ChatSettings GetChatSettings();
 
 
         public:

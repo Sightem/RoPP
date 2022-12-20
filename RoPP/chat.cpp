@@ -21,3 +21,15 @@ Responses::ConversationAddResponse RoPP::Chat::AddUsersToConversation(std::vecto
 
     return Responses::ConversationAddResponse().Parse(res);
 }
+
+Responses::ChatSettings RoPP::Chat::GetChatSettings()
+{
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://chat.roblox.com/v2/chat-settings",
+        "GET",
+        this->Cookie
+    ).JsonObj;
+
+    return Responses::ChatSettings().Parse(res);
+}

@@ -137,6 +137,24 @@ namespace Responses
         }
     };
 
+    struct ChatSettings
+    {
+        bool ChatEnabled;
+        bool IsActiveChatUser;
+        bool IsConnectTabEnabled;
+
+        ChatSettings Parse(json j)
+        {
+            ChatSettings c;
+
+            if (j.contains("chatEnabled")) c.ChatEnabled = j["chatEnabled"];
+            if (j.contains("isActiveChatUser")) c.IsActiveChatUser = j["isActiveChatUser"];
+            if (j.contains("isConnectTabEnabled")) c.IsConnectTabEnabled = j["isConnectTabEnabled"];
+
+            return c;
+        }
+    };
+
     struct RejectedParticipant
     {
         std::string RejectedReason;
