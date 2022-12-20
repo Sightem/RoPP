@@ -180,6 +180,51 @@ namespace Responses
             return r;
         }
     };
+    struct ChatMessage
+    {
+
+        std::string ID;
+        std::string SenderType;
+        std::string MessageType;
+        std::string Content;
+
+        Timestamp Sent;
+        bool Read;
+
+        long SenderTargetID;
+        ChatMessage Parse(json j)
+        {
+            ChatMessage c;
+
+            if (j.contains("id")) c.ID = j["id"];
+            if (j.contains("senderType")) c.SenderType = j["senderType"];
+            if (j.contains("messageType")) c.MessageType = j["messageType"];
+            if (j.contains("content")) c.Content = j["content"];
+            if (j.contains("sent")) c.Sent = Timestamp().Parse(j["sent"]);
+            if (j.contains("read")) c.Read = j["read"];
+            if (j.contains("senderTargetId")) c.SenderTargetID = j["senderTargetId"];
+            return c;
+        }
+    };
+
+    struct GetMessagesResponse
+    {
+        std::vector<ChatMessage> Messages;
+
+        GetMessagesResponse Parse(json j)
+        {
+            GetMessagesResponse c;
+            if (!j.empty())
+            {
+                for (int i = 0; i < j.size(); i++)
+                {
+                    c.Messages.push_back(ChatMessage().Parse(j[i]));
+                }
+            }
+
+            return c;
+        }
+    };
 
     struct ConversationAddResponse
     {
@@ -201,7 +246,7 @@ namespace Responses
             {
                 for (int i = 0; i < j["rejectedParticipants"].size(); i++)
                 {
-                    c.RejectedParticipants.push_back(RejectedParticipant().Parse(j["rejectedParticipants"]["data"][i]));
+                    c.RejectedParticipants.push_back(RejectedParticipant().Parse(j["rejectedParticipants"][i])); //?
                 }
             }
 

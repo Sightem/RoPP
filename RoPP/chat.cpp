@@ -33,3 +33,15 @@ Responses::ChatSettings RoPP::Chat::GetChatSettings()
 
     return Responses::ChatSettings().Parse(res);
 }
+
+Responses::GetMessagesResponse RoPP::Chat::GetMessages(int PageSize, long ExclusiveStartMessageID)
+{
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://chat.roblox.com/v2/get-messages?conversationId=" + std::to_string(this->ConversationID) + "&pageSize=" + std::to_string(PageSize) + (ExclusiveStartMessageID != 0 ? "&exclusiveStartMessageId=" + std::to_string(ExclusiveStartMessageID) : ""),
+        "GET",
+        this->Cookie
+    ).JsonObj;
+
+    return Responses::GetMessagesResponse().Parse(res);
+}
