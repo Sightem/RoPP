@@ -76,6 +76,10 @@ namespace RoPP
     class Chat : public Base
     {
         public:
+            Responses::ConversationAddResponse AddUsersToConversation(std::vector<long> UserIDs);
+
+
+        public:
             Chat(long ConversationID, std::string_view Cookie)
             {
                 this->ConversationID = ConversationID;
