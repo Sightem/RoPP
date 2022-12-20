@@ -53,8 +53,7 @@ Responses::DeveloperProductCreateResponse RoPP::Game::CreateDeveloperProduct(std
     (
         "https://develop.roblox.com/v1/universes/" + std::to_string(this->UniverseID) + "/developerproducts?name=" + Name + "&description=" + Description + "&priceInRobux=" + std::to_string(Price) + "&iconImageAssetId=" + std::to_string(IconImageAssetID),
         "POST",
-        this->Cookie,
-        {"X-CSRF-TOKEN", this->GetCSRF()}
+        this->Cookie
     ).JsonObj;
 
     return Responses::DeveloperProductCreateResponse().Parse(res);
