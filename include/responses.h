@@ -11,12 +11,7 @@ namespace Responses
 {
     struct Timestamp
     {
-        int year;
-        int month;
-        int day;
-        int hour;
-        int minute;
-        int second;
+        int year, month, day, hour, minute, second;
 
         std::string ToISO8601()
         {
@@ -266,17 +261,15 @@ namespace Responses
     {
         std::vector<GameSocialLink> Links;
 
-        GameSocialLinks Parse(json j)
+        explicit GameSocialLinks(json j)
         {
-            GameSocialLinks g;
-
             for (size_t i = 0; i < j.size(); i++)
             {
-                g.Links.push_back(GameSocialLink(j["data"][i]));
+                Links.push_back(GameSocialLink(j["data"][i]));
             }
-
-            return g;
         }
+
+        GameSocialLinks() = default;
     };
     struct DeveloperProductCreateResponse
     {
