@@ -273,24 +273,22 @@ namespace Responses
     };
     struct DeveloperProductCreateResponse
     {
+        std::string Name, Description;
+
         long ID;
-        std::string Name;
-        std::string Description;
         long ShopID;
         long IconImageAssetID;
 
-        DeveloperProductCreateResponse Parse(json j)
+        explicit DeveloperProductCreateResponse(json j)
         {
-            DeveloperProductCreateResponse d;
-
-            if (j.contains("id")) d.ID = j["id"];
-            if (j.contains("name")) d.Name = j["name"];
-            if (j.contains("description")) d.Description = j["description"];
-            if (j.contains("shopId")) d.ShopID = j["shopId"];
-            if (j.contains("iconImageAssetId")) d.IconImageAssetID = j["iconImageAssetId"];
-
-            return d;
+            if (j.contains("id")) ID = j["id"];
+            if (j.contains("name")) Name = j["name"];
+            if (j.contains("description")) Description = j["description"];
+            if (j.contains("shopId")) ShopID = j["shopId"];
+            if (j.contains("iconImageAssetId")) IconImageAssetID = j["iconImageAssetId"];
         }
+
+        DeveloperProductCreateResponse() = default;
     };
 
     struct bodyColors
@@ -1043,19 +1041,17 @@ namespace Responses
         std::vector<Badge> Badges;
         int Count = 0;
 
-        GameBadges Parse(json j)
+        explicit GameBadges(json j)
         {
-            GameBadges g;
-
             for (size_t i = 0; i < j.size(); i++)
             {
-                g.Badges.push_back(Badge(j["data"][i]));
+                Badges.push_back(Badge(j["data"][i]));
             }
 
             Count = j["data"].size();
-
-            return g;
         }
+
+        GameBadges() = default;
     };
 
     struct UserBadgesResponse
