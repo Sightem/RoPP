@@ -141,5 +141,5 @@ Responses::User RoPP::User::GetUser()
         "GET"
     ).JsonObj;
 
-    return Responses::User().Parse(res);
+    return Responses::User(res);
 }

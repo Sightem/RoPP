@@ -317,7 +317,7 @@ Responses::User RoPP::Session::GetUser()
         this->Cookie
     ).JsonObj;
 
-    return Responses::User().Parse(res);
+    return Responses::User(res);
 }
 
 long RoPP::Session::GetUserID()

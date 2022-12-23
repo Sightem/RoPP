@@ -23,7 +23,7 @@ namespace Responses
             return std::to_string(year) + "-" + std::to_string(month) + "-" + std::to_string(day);
         }
 
-        long long ToUnix()
+        std::time_t ToUnix()
         {
             std::tm t = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
             t.tm_year = year - 1900;
@@ -32,8 +32,7 @@ namespace Responses
             t.tm_hour = hour;
             t.tm_min = minute;
             t.tm_sec = second;
-            std::time_t time = std::mktime(&t);
-            return time;
+            return std::mktime(&t);
         }
 
         explicit Timestamp(std::string timestamp)
@@ -69,27 +68,26 @@ namespace Responses
         bool HasVerifiedBadge;
         bool IsBanned;
 
-        User Parse(json j)
+        explicit User(json j)
         {
-            User u;
-            if (j.contains("name")) u.Username = j["name"];
-            if (j.contains("username")) u.Username = j["username"];
-            if (j.contains("displayName")) u.DisplayName = j["displayName"];
-            if (j.contains("description") && !(j["description"].is_null())) u.Description = j["description"];
-            if (j.contains("created")) u.Created = Timestamp(j["created"]);
-            if (j.contains("presenceType")) u.PresenceType = j["presenceType"];
-            if (j.contains("friendFrequentScore")) u.FriendFrequentScore = j["friendFrequentScore"];
-            if (j.contains("friendFrequentRank")) u.FriendFrequentRank = j["friendFrequentRank"];
-            if (j.contains("id")) u.UID = j["id"];
-            if (j.contains("userId")) u.UID = j["userId"];
-            if (j.contains("isOnline")) u.IsOnline = j["isOnline"];
-            if (j.contains("isDeleted")) u.IsDeleted = j["isDeleted"];
-            if (j.contains("hasVerifiedBadge")) u.HasVerifiedBadge = j["hasVerifiedBadge"];
-            if (j.contains("isBanned")) u.IsBanned = j["isBanned"];
-            if (j.contains("buildersClubMembershipType")) u.BuildersClubMembershipType = j["buildersClubMembershipType"];
-
-            return u;
+            if (j.contains("name")) Username = j["name"];
+            if (j.contains("username")) Username = j["username"];
+            if (j.contains("displayName")) DisplayName = j["displayName"];
+            if (j.contains("description") && !(j["description"].is_null())) Description = j["description"];
+            if (j.contains("created")) Created = Timestamp(j["created"]);
+            if (j.contains("presenceType")) PresenceType = j["presenceType"];
+            if (j.contains("friendFrequentScore")) FriendFrequentScore = j["friendFrequentScore"];
+            if (j.contains("friendFrequentRank")) FriendFrequentRank = j["friendFrequentRank"];
+            if (j.contains("id")) UID = j["id"];
+            if (j.contains("userId")) UID = j["userId"];
+            if (j.contains("isOnline")) IsOnline = j["isOnline"];
+            if (j.contains("isDeleted")) IsDeleted = j["isDeleted"];
+            if (j.contains("hasVerifiedBadge")) HasVerifiedBadge = j["hasVerifiedBadge"];
+            if (j.contains("isBanned")) IsBanned = j["isBanned"];
+            if (j.contains("buildersClubMembershipType")) BuildersClubMembershipType = j["buildersClubMembershipType"];
         }
+
+        User() {}
 
         void PopulateFromUID()
         {   
@@ -98,10 +96,10 @@ namespace Responses
             req.set_header("Content", "application/json");
             req.set_header("Accept", "application/json");
             req.initalize();
- 
+
             Response res = req.get();
 
-            *this = Parse(json::parse(res.data));
+            *this = User(json::parse(res.data));
         }
     };
 
@@ -468,7 +466,7 @@ namespace Responses
 
             if (j.contains("status")) t.Status = j["status"];
             if (j.contains("id")) t.TradeID = j["id"];
-            if (j.contains("user")) t.Sender = User().Parse(j["user"]);
+            if (j.contains("user")) t.Sender = User(j["user"]);
             if (j.contains("created")) t.Created = Timestamp(j["created"]);
             if (j.contains("expiration")) t.Expiriation = Timestamp(j["expiration"]);
             if (j.contains("isActive")) t.IsActive = j["isActive"];
@@ -616,7 +614,7 @@ namespace Responses
             if (j.contains("favoritedCount")) p.FavoritedCount = j["favoritedCount"];
             if (j.contains("price") && !(j["price"].is_null())) p.Price = j["price"];
             if (j.contains("maxPlayers")) p.MaxPlayers = j["maxPlayers"];
-            if (j.contains("creator")) p.Creator = User().Parse(j["creator"]);
+            if (j.contains("creator")) p.Creator = User(j["creator"]);
             if (j.contains("created")) p.Created = Timestamp(j["created"]);
             if (j.contains("updated")) p.Updated = Timestamp(j["updated"]);
             if (j.contains("isGenreEnforced")) p.IsGenreEnforced = j["isGenreEnforced"];
@@ -646,7 +644,7 @@ namespace Responses
             GroupWallPost g;
 
             if (j.contains("body")) g.Body = j["body"];
-            if (j.contains("poster")) g.Poster = User().Parse(j["poster"]);
+            if (j.contains("poster")) g.Poster = User(j["poster"]);
             if (j.contains("created")) g.Created = Timestamp(j["created"]);
             if (j.contains("updated")) g.Updated = Timestamp(j["updated"]);
             if (j.contains("id")) g.PostID = j["id"];
@@ -795,7 +793,7 @@ namespace Responses
 
             for (size_t i = 0; i < j.size(); i++)
             {
-                frr.SenderInfo.push_back(User().Parse(j["data"][i]));
+                frr.SenderInfo.push_back(User(j["data"][i]["senderInfo"]));
             }
 
             return frr;
@@ -1132,7 +1130,7 @@ namespace Responses
             GShout s;
 
             if (j.contains("body")) s.Body = j["body"];
-            if (j.contains("poster")) s.Poster = User().Parse(j["poster"]);
+            if (j.contains("poster")) s.Poster = User(j["poster"]);
             if (j.contains("created")) s.Created = Timestamp(j["lastUpdated"]);
             if (j.contains("updated")) s.Updated = Timestamp(j["lastUpdated"]);
 
@@ -1164,7 +1162,7 @@ namespace Responses
 
             if (j["group"].contains("name")) g.Name = j["group"]["name"];
             if (j["group"].contains("description")) g.Description = j["group"]["description"];
-            if (j["group"].contains("owner")) g.Owner = User().Parse(j["group"]["owner"]);
+            if (j["group"].contains("owner")) g.Owner = User(j["group"]["owner"]);
             if (j["group"].contains("shout") && !(j["group"]["shout"].is_null())) g.Shout = GShout().Parse(j["group"]["shout"]);
             if (j["group"].contains("memberCount")) g.MemberCount = j["group"]["memberCount"];
             if (j["group"].contains("id")) g.GroupID = j["group"]["id"];
@@ -1227,12 +1225,12 @@ namespace Responses
         {
             if (j.contains("id")) ID = j["id"];
             if (j.contains("title")) Title = j["title"];
-            if (j.contains("initiator")) Initiator = User().Parse(j["initiator"]);
+            if (j.contains("initiator")) Initiator = User(j["initiator"]);
             if (j.contains("hasUnreadMessages")) HasUnreadMessages = j["hasUnreadMessages"];
             if (j.contains("participants"))
             {
                 for (size_t i = 0; i < j["participants"].size(); i++)
-                    Participants.push_back(User().Parse(j["participants"][i]));
+                    Participants.push_back(User(j["participants"][i]));
             }
             if (j.contains("conversationType")) ConversationType = j["conversationType"];
             if (j.contains("conversationTitle")) ConversationTitle = ChatConversationTitle(j["conversationTitle"]);
@@ -1397,7 +1395,7 @@ namespace Responses
 
             for (size_t i = 0; i < j["data"].size(); i++)
             {
-                f.Followings.push_back(User().Parse(j["data"][i]));
+                f.Followings.push_back(User(j["data"][i]));
             }
 
             f.Count = j["data"].size();
@@ -1417,7 +1415,7 @@ namespace Responses
 
             for (size_t i = 0; i < j["data"].size(); i++)
             {
-                f.Friends.push_back(User().Parse(j["data"][i]));
+                f.Friends.push_back(User(j["data"][i]));
             }
 
             f.Count = j["data"].size();
@@ -1436,7 +1434,7 @@ namespace Responses
             FollowersResponse f;
             for (size_t i = 0; i < j["data"].size(); i++)
             {
-                f.Followers.push_back(User().Parse(j["data"][i]));
+                f.Followers.push_back(User(j["data"][i]));
             }
 
             f.Count = j["data"].size();
@@ -1714,7 +1712,7 @@ namespace Responses
             if (instance.contains("ping")) i.Ping = instance["ping"];
             if (instance.contains("vipServerId")) i.VIPServerID = instance["vipServerId"];
             if (instance.contains("accessCode")) i.AccessCode = instance["accessCode"];
-            if (instance.contains("owner")) i.Owner = Responses::User().Parse(instance["owner"]);
+            if (instance.contains("owner")) i.Owner = Responses::User(instance["owner"]);
 
             return i;
         }
