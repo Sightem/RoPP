@@ -162,19 +162,17 @@ namespace Responses
 
         bool HasVerifiedBadge;
 
-        RejectedParticipant Parse(json j)
+        explicit RejectedParticipant(json j)
         {
-            RejectedParticipant r;
-
-            if (j.contains("rejectedReason")) r.RejectedReason = j["rejectedReason"];
-            if (j.contains("type")) r.Type = j["type"];
-            if (j.contains("name")) r.Name = j["name"];
-            if (j.contains("displayName")) r.DisplayName = j["displayName"];
-            if (j.contains("targetId")) r.TargetID = j["targetId"];
-            if (j.contains("hasVerifiedBadge")) r.HasVerifiedBadge = j["hasVerifiedBadge"];
-
-            return r;
+            if (j.contains("rejectedReason")) RejectedReason = j["rejectedReason"];
+            if (j.contains("type")) Type = j["type"];
+            if (j.contains("name")) Name = j["name"];
+            if (j.contains("displayName")) DisplayName = j["displayName"];
+            if (j.contains("targetId")) TargetID = j["targetId"];
+            if (j.contains("hasVerifiedBadge")) HasVerifiedBadge = j["hasVerifiedBadge"];
         }
+
+        RejectedParticipant() = default;
     };
     struct ChatMessage
     {
@@ -230,25 +228,20 @@ namespace Responses
 
         std::vector<RejectedParticipant> RejectedParticipants;
 
-        ConversationAddResponse Parse(json j)
-        {
-            ConversationAddResponse c;
+       explicit ConversationAddResponse(json j)
+       {
+           if (j.contains("resultType")) ResultType = j["resultType"];
+           if (j.contains("statusMessage")) StatusMessage = j["statusMessage"];
+           if (j.contains("conversationId")) ConversationID = j["conversationId"];
 
-            if (j.contains("resultType")) c.ResultType = j["resultType"];
-            if (j.contains("statusMessage")) c.StatusMessage = j["statusMessage"];
-            if (j.contains("conversationId")) c.ConversationID = j["conversationId"];
-
-            if (j.contains("rejectedParticipants") && !j["rejectedParticipants"].empty())
-            {
-                for (size_t i = 0; i < j["rejectedParticipants"].size(); i++)
-                {
-                    c.RejectedParticipants.push_back(RejectedParticipant().Parse(j["rejectedParticipants"][i])); //?
-                }
-            }
-
-            return c;
-        }
-
+           if (j.contains("rejectedParticipants") && !j["rejectedParticipants"].empty())
+           {
+               for (size_t i = 0; i < j["rejectedParticipants"].size(); i++)
+               {
+                   RejectedParticipants.push_back(RejectedParticipant(j["rejectedParticipants"][i])); //?
+               }
+           }
+       }
     };
     struct GameSocialLink
     {

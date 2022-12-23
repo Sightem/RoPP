@@ -19,7 +19,7 @@ Responses::ConversationAddResponse RoPP::Chat::AddUsersToConversation(std::vecto
         Body
     ).JsonObj;
 
-    return Responses::ConversationAddResponse().Parse(res);
+    return Responses::ConversationAddResponse(res);
 }
 
 Responses::ChatSettings RoPP::Chat::GetChatSettings()
