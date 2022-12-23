@@ -1,5 +1,5 @@
 #include "../include/json.hpp"
-#include "../RoPP/ropp.h"
+#include "../include/ropp.h"
 #include <iostream>
 #include <string>
 
@@ -18,8 +18,16 @@ int main()
     std::cout << "Friends: ";
     for (int i = 0; i < FriendsResponse.Friends.size(); i++)
     {
-        std::cout << FriendsResponse.Friends[i].Username << std::endl;
+        if (i == FriendsResponse.Friends.size() - 1)
+        {
+            std::cout << FriendsResponse.Friends[i].Username;
+        }
+        else
+        {
+            std::cout << FriendsResponse.Friends[i].Username << ", ";
+        }
     }
+    
 
     std::cout << std::endl;
 
@@ -27,7 +35,14 @@ int main()
     std::cout << "Groups: ";
     for (int i = 0; i < UserGroupsResponse.Groups.size(); i++)
     {
-        std::cout << UserGroupsResponse.Groups[i].Name << ", ";
+        if (i == UserGroupsResponse.Groups.size() - 1)
+        {
+            std::cout << UserGroupsResponse.Groups[i].Name;
+        }
+        else
+        {
+            std::cout << UserGroupsResponse.Groups[i].Name << ", ";
+        }
     }
 
     std::cout << std::endl;
@@ -36,7 +51,14 @@ int main()
     std::cout << "Experiences: ";
     for (int i = 0; i < UserExperienceResponse.Experiences.size(); i++)
     {
-        std::cout << UserExperienceResponse.Experiences[i].Name << ", ";
+        if (i == UserExperienceResponse.Experiences.size() - 1)
+        {
+            std::cout << UserExperienceResponse.Experiences[i].Name;
+        }
+        else
+        {
+            std::cout << UserExperienceResponse.Experiences[i].Name << ", ";
+        }
     }
 
     std::cout << std::endl;
@@ -45,8 +67,15 @@ int main()
     std::cout << "Badges: ";
     for (int i = 0; i < UserBadgesResponse.Badges.size(); i++)
     {
-        std::cout << UserBadgesResponse.Badges[i].Name << ", ";
+        if (i == UserBadgesResponse.Badges.size() - 1)
+        {
+            std::cout << UserBadgesResponse.Badges[i].Name;
+        }
+        else
+        {
+            std::cout << UserBadgesResponse.Badges[i].Name << ", ";
+        }
     }
-
+    
     std::cout << std::endl;
 }
