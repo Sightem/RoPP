@@ -45,7 +45,7 @@ namespace Responses
             second = std::stoi(timestamp.substr(17, 2));
         }
 
-        Timestamp() {}
+        Timestamp() = default;
     };
 
     struct User
@@ -87,7 +87,7 @@ namespace Responses
             if (j.contains("buildersClubMembershipType")) BuildersClubMembershipType = j["buildersClubMembershipType"];
         }
 
-        User() {}
+        User() = default;
 
         void PopulateFromUID()
         {   
@@ -130,7 +130,7 @@ namespace Responses
             if (j.contains("placeVisits") && !(j["placeVisits"].is_null())) PlaceVisits = j["placeVisits"];
         }
 
-        Experience() {}
+        Experience() = default;
     };
 
     struct ChatSettings
@@ -1189,7 +1189,7 @@ namespace Responses
             RootPlaceId = j["rootPlaceId"];
         }
 
-        ChatConversationUniverse() {}
+        ChatConversationUniverse() = default;
     };
 
     struct ChatConversationTitle 
