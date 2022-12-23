@@ -1,5 +1,4 @@
-#include "../include/json.hpp"
-#include "../RoPP/ropp.h"
+#include "../include/ropp.h"
 #include "../include/responses.h"
 #include <iostream>
 #include <string>
