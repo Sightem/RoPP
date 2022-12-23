@@ -1119,7 +1119,7 @@ namespace Responses
             return r;
         }
     };
-    struct Shout
+    struct GShout
     {
         std::string Body;
         User Poster;
@@ -1127,9 +1127,9 @@ namespace Responses
         Timestamp Created;
         Timestamp Updated;
 
-        Shout Parse(json j)
+        GShout Parse(json j)
         {
-            Shout s;
+            GShout s;
 
             if (j.contains("body")) s.Body = j["body"];
             if (j.contains("poster")) s.Poster = User().Parse(j["poster"]);
@@ -1147,7 +1147,7 @@ namespace Responses
         
         User Owner;
 
-        Shout GShout;
+        GShout Shout;
 
         Role role;
 
@@ -1165,7 +1165,7 @@ namespace Responses
             if (j["group"].contains("name")) g.Name = j["group"]["name"];
             if (j["group"].contains("description")) g.Description = j["group"]["description"];
             if (j["group"].contains("owner")) g.Owner = User().Parse(j["group"]["owner"]);
-            if (j["group"].contains("shout") && !(j["group"]["shout"].is_null())) g.GShout = Shout().Parse(j["group"]["shout"]);
+            if (j["group"].contains("shout") && !(j["group"]["shout"].is_null())) g.Shout = GShout().Parse(j["group"]["shout"]);
             if (j["group"].contains("memberCount")) g.MemberCount = j["group"]["memberCount"];
             if (j["group"].contains("id")) g.GroupID = j["group"]["id"];
             if (j["group"].contains("isBuildersClubOnly")) g.IsBuildersClubOnly = j["group"]["isBuildersClubOnly"];
