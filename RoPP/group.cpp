@@ -2,12 +2,11 @@
 #include "../include/helper.h"
 #include "../include/request.hpp"
 
-/*
 Responses::Group RoPP::Group::GetGroupInfo()
 {
     json res = Helper::MakeRobloxRequest
     (
-        "https://groups.roblox.com/v1/groups/" + std::to_string(this->GID),
+        "https://groups.roblox.com/v1/groups/" + std::to_string(this->GroupID),
         "GET"
     ).JsonObj;
 
@@ -24,7 +23,7 @@ Responses::NameHistoryResponse RoPP::Group::GetNameHistory(string Sort, int Limi
 {
     json res = Helper::MakeRobloxRequest
     (
-        "https://groups.roblox.com/v1/groups/" + std::to_string(this->GID) + "/name-history?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
+        "https://groups.roblox.com/v1/groups/" + std::to_string(this->GroupID) + "/name-history?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
         "GET"
     ).JsonObj;
 
@@ -35,7 +34,7 @@ Responses::GroupWallResponse RoPP::Group::GetGroupWall(string Sort, int Limit)
 {
     json res = Helper::MakeRobloxRequest
     (
-        "https://groups.roblox.com/v1/groups/" + std::to_string(this->GID) + "/wall/posts?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
+        "https://groups.roblox.com/v1/groups/" + std::to_string(this->GroupID) + "/wall/posts?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
         "GET"
     ).JsonObj;
 
@@ -47,10 +46,9 @@ Responses::GroupExperiencesResponse RoPP::Group::GetGames(string AccessFilter, s
 {
     json res = Helper::MakeRobloxRequest
     (
-        "https://games.roblox.com/v2/groups/" + std::to_string(this->GID) + "/games?accessFilter=" + AccessFilter + "&sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
+        "https://games.roblox.com/v2/groups/" + std::to_string(this->GroupID) + "/games?accessFilter=" + AccessFilter + "&sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
         "GET"
     ).JsonObj;
 
     return Responses::GroupExperiencesResponse().Parse(res);
 }
-*/

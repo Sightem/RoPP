@@ -147,6 +147,12 @@ namespace RoPP
     class Group : public Base
     {
         public:
+            Responses::Group GetGroupInfo();
+            Responses::NameHistoryResponse GetNameHistory(string Sort="Asc", int Limit=10);
+            Responses::GroupWallResponse GetGroupWall(string Sort="Asc", int Limit=10);
+            Responses::GroupExperiencesResponse GetGames(string AccessFilter="All", string Sort="Asc", int Limit=10);
+
+        public:
             Group(long GroupID, std::string_view Cookie)
             {
                 this->GroupID = GroupID;
@@ -209,15 +215,26 @@ namespace RoPP
             long TradeID = 0;
     };
 
-    class User : public Base
+    class User
     {
         public:
-            User(long UID, std::string_view Cookie)
-            {
-                this->UID = UID;
-                this->Cookie = Cookie;
-            }
+            Responses::User GetUser();
+            Responses::Timestamp GetCreationDate();
 
+            Responses::FriendsResponse GetFriends(string Sort="Alphabetical");
+            Responses::FollowersResponse GetFollowers(string Sort="Asc", int Limit=10);
+            Responses::FollowingsResponse GetFollowings(string Sort="Asc", int Limit=10);
+            Responses::UserExperienceResponse GetExperiences(string Sort="Asc", int Limit=10);
+            Responses::UserFavoriteExperiences GetFavoriteExperiences(string Sort="Asc", int Limit=10);
+            Responses::PastUsernames GetPastUsernames(string Sort="Asc", int Limit=10);
+            Responses::UserGroupsResponse GetGroups();
+            Responses::UserBadgesResponse GetBadges();
+            Responses::Group GetPrimaryGroup();
+            Responses::InventoryResponse GetInventory(std::vector<string> AssetType, string Sort="Asc", int Limit=10);
+
+            bool CanInventoryBeViewed();
+
+        public:
             User(long UID)
             {
                 this->UID = UID;
@@ -237,36 +254,6 @@ namespace RoPP
             long UID = 0;
     };
 
-/*
-    class User
-    {
-        public:
-
-            Responses::User GetUser();
-            Responses::Timestamp GetCreationDate();
-
-            Responses::FriendsResponse GetFriends(string Sort="Alphabetical");
-            Responses::FollowersResponse GetFollowers(string Sort="Asc", int Limit=10);
-            Responses::FollowingsResponse GetFollowings(string Sort="Asc", int Limit=10);
-            Responses::UserExperienceResponse GetExperiences(string Sort="Asc", int Limit=10);
-            Responses::UserFavoriteExperiences GetFavoriteExperiences(string Sort="Asc", int Limit=10);
-            Responses::PastUsernames GetPastUsernames(string Sort="Asc", int Limit=10);
-            Responses::UserGroupsResponse GetGroups();
-            Responses::UserBadgesResponse GetBadges();
-            Responses::Group GetPrimaryGroup();
-            Responses::InventoryResponse GetInventory(std::vector<string> AssetType, string Sort="Asc", int Limit=10);
-
-            bool CanInventoryBeViewed();
-
-            User(long UID)
-            {
-                this->UID = UID;
-            }
-
-        private:
-            long UID = 0;
-    };
-    */
 
     class Session : public Base
     {
@@ -316,25 +303,6 @@ namespace RoPP
             }
     };
 
-/*
-    class Group
-    {
-        public:
-
-            Responses::Group GetGroupInfo();
-            Responses::NameHistoryResponse GetNameHistory(string Sort="Asc", int Limit=10);
-            Responses::GroupWallResponse GetGroupWall(string Sort="Asc", int Limit=10);
-            Responses::GroupExperiencesResponse GetGames(string AccessFilter="All", string Sort="Asc", int Limit=10);
-
-            Group(long GID)
-            {
-                this->GID = GID;
-            }
-
-        private:
-            long GID = 0;
-    };
-*/
     class Other
     {
         public:

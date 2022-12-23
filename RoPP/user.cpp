@@ -3,7 +3,6 @@
 #include "../include/request.hpp"
 #include "../include/responses.h"
 
-/*
 Responses::FriendsResponse RoPP::User::GetFriends(string Sort)
 {
    json res = Helper::MakeRobloxRequest
@@ -134,17 +133,6 @@ bool RoPP::User::CanInventoryBeViewed()
     return res["canView"];
 }
 
-Responses::CurrentlyWearing RoPP::User::GetCurrentlyWearing()
-{
-    json res = Helper::MakeRobloxRequest
-    (
-        "https://avatar.roblox.com/v1/users/" + std::to_string(this->UID) + "/currently-wearing",
-        "GET"
-    ).JsonObj;
-
-    return Responses::CurrentlyWearing().Parse(res);
-}
-
 Responses::User RoPP::User::GetUser()
 {
     json res = Helper::MakeRobloxRequest
@@ -155,4 +143,3 @@ Responses::User RoPP::User::GetUser()
 
     return Responses::User().Parse(res);
 }
-*/
