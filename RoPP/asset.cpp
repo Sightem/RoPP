@@ -3,6 +3,23 @@
 #include "../include/request.hpp"
 #include "../include/responses.h"
 
+json RoPP::Asset::BuyAsset()
+{
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://economy.roblox.com/v1/purchases/products/" + std::to_string(ProductID),
+        "POST",
+        this->Cookie,
+        {
+            {"expectedCurrency", 1},
+            {"expectedPrice", this->GetAssetInfo().PriceInRobux},
+            {"expectedSellerId", this->GetAssetInfo().CreatorID}
+        }
+    ).JsonObj;
+
+    return res;
+}
+
 Responses::AssetInfo RoPP::Asset::GetAssetInfo()
 {
     json res = Helper::MakeRobloxRequest
