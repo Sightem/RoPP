@@ -61,5 +61,5 @@ Responses::ChatConversationsResponse RoPP::Chat::GetConversations(std::vector<lo
         this->Cookie
     ).JsonObj;
     
-    return Responses::ChatConversationsResponse().Parse(res);
+    return Responses::ChatConversationsResponse(res);
 }
