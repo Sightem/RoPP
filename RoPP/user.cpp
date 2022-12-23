@@ -105,7 +105,7 @@ Responses::Group RoPP::User::GetPrimaryGroup()
 Responses::InventoryResponse RoPP::User::GetInventory(std::vector<string> AssetType, string Sort, int Limit)
 {
     string AssetTypeString = "";
-    for (int i = 0; i < AssetType.size(); i++)
+    for (size_t i = 0; i < AssetType.size(); i++)
     {
         AssetTypeString += AssetType[i];
 

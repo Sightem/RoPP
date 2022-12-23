@@ -49,7 +49,7 @@ Responses::GetMessagesResponse RoPP::Chat::GetMessages(int PageSize, long Exclus
 Responses::ChatConversationsResponse RoPP::Chat::GetConversations(std::vector<long> ConversationIDs)
 {
     std::string URL = "https://chat.roblox.com/v2/get-conversations?";
-    for (int i = 0; i < ConversationIDs.size(); i++)
+    for (size_t i = 0; i < ConversationIDs.size(); i++)
     {
         URL += "conversationIds=" + std::to_string(ConversationIDs[i]) + (i != ConversationIDs.size() - 1 ? "&" : "");
     }

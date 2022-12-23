@@ -18,18 +18,6 @@ namespace Responses
         int minute;
         int second;
 
-        Timestamp Parse(std::string timestamp)
-        {
-            Timestamp t;
-            t.year = std::stoi(timestamp.substr(0, 4));
-            t.month = std::stoi(timestamp.substr(5, 2));
-            t.day = std::stoi(timestamp.substr(8, 2));
-            t.hour = std::stoi(timestamp.substr(11, 2));
-            t.minute = std::stoi(timestamp.substr(14, 2));
-            t.second = std::stoi(timestamp.substr(17, 2));
-            return t;
-        }
-
         std::string ToISO8601()
         {
             return std::to_string(year) + "-" + std::to_string(month) + "-" + std::to_string(day);
@@ -37,7 +25,7 @@ namespace Responses
 
         long long ToUnix()
         {
-            std::tm t = {0};
+            std::tm t = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
             t.tm_year = year - 1900;
             t.tm_mon = month - 1;
             t.tm_mday = day;
@@ -47,6 +35,18 @@ namespace Responses
             std::time_t time = std::mktime(&t);
             return time;
         }
+
+        explicit Timestamp(std::string timestamp)
+        {
+            year = std::stoi(timestamp.substr(0, 4));
+            month = std::stoi(timestamp.substr(5, 2));
+            day = std::stoi(timestamp.substr(8, 2));
+            hour = std::stoi(timestamp.substr(11, 2));
+            minute = std::stoi(timestamp.substr(14, 2));
+            second = std::stoi(timestamp.substr(17, 2));
+        }
+
+        Timestamp() {}
     };
 
     struct User
@@ -76,7 +76,7 @@ namespace Responses
             if (j.contains("username")) u.Username = j["username"];
             if (j.contains("displayName")) u.DisplayName = j["displayName"];
             if (j.contains("description") && !(j["description"].is_null())) u.Description = j["description"];
-            if (j.contains("created")) u.Created = Timestamp().Parse(j["created"]);
+            if (j.contains("created")) u.Created = Timestamp(j["created"]);
             if (j.contains("presenceType")) u.PresenceType = j["presenceType"];
             if (j.contains("friendFrequentScore")) u.FriendFrequentScore = j["friendFrequentScore"];
             if (j.contains("friendFrequentRank")) u.FriendFrequentRank = j["friendFrequentRank"];
@@ -127,8 +127,8 @@ namespace Responses
             if (j.contains("description") && !(j["description"].is_null())) e.Description = j["description"];
             if (j.contains("creator") && !(j["creator"]["type"].is_null())) e.CreatorType = j["creator"]["type"];
             if (j.contains("rootPlace") && !(j["rootPlace"]["type"].is_null())) e.PlaceType = j["rootPlace"]["type"];
-            if (j.contains("created") && !(j["created"].is_null())) e.Created = Timestamp().Parse(j["created"]);
-            if (j.contains("updated") && !(j["updated"].is_null())) e.Updated = Timestamp().Parse(j["updated"]);
+            if (j.contains("created") && !(j["created"].is_null())) e.Created = Timestamp(j["created"]);
+            if (j.contains("updated") && !(j["updated"].is_null())) e.Updated = Timestamp(j["updated"]);
             if (j.contains("creator") && !(j["creator"]["id"].is_null())) e.CreatorID = j["creator"]["id"];
             if (j.contains("rootPlace") && !(j["rootPlace"]["id"].is_null())) e.PlaceID = j["rootPlace"]["id"];
             if (j.contains("placeVisits") && !(j["placeVisits"].is_null())) e.PlaceVisits = j["placeVisits"];
@@ -200,7 +200,7 @@ namespace Responses
             if (j.contains("senderType")) c.SenderType = j["senderType"];
             if (j.contains("messageType")) c.MessageType = j["messageType"];
             if (j.contains("content")) c.Content = j["content"];
-            if (j.contains("sent")) c.Sent = Timestamp().Parse(j["sent"]);
+            if (j.contains("sent")) c.Sent = Timestamp(j["sent"]);
             if (j.contains("read")) c.Read = j["read"];
             if (j.contains("senderTargetId")) c.SenderTargetID = j["senderTargetId"];
             return c;
@@ -216,7 +216,7 @@ namespace Responses
             GetMessagesResponse c;
             if (!j.empty())
             {
-                for (int i = 0; i < j.size(); i++)
+                for (size_t i = 0; i < j.size(); i++)
                 {
                     c.Messages.push_back(ChatMessage().Parse(j[i]));
                 }
@@ -244,7 +244,7 @@ namespace Responses
 
             if (j.contains("rejectedParticipants") && !j["rejectedParticipants"].empty())
             {
-                for (int i = 0; i < j["rejectedParticipants"].size(); i++)
+                for (size_t i = 0; i < j["rejectedParticipants"].size(); i++)
                 {
                     c.RejectedParticipants.push_back(RejectedParticipant().Parse(j["rejectedParticipants"][i])); //?
                 }
@@ -283,7 +283,7 @@ namespace Responses
         {
             GameSocialLinks g;
 
-            for (int i = 0; i < j.size(); i++)
+            for (size_t i = 0; i < j.size(); i++)
             {
                 g.Links.push_back(GameSocialLink().Parse(j["data"][i]));
             }
@@ -386,7 +386,7 @@ namespace Responses
 
             if (j.contains("data"))
             {
-                for (int i = 0; i < j["data"].size(); i++)
+                for (size_t i = 0; i < j["data"].size(); i++)
                     o.Outfits.push_back(GetOutfitsAsset().Parse(j["data"][i]));
             }
             if (j.contains("total")) o.total = j["total"];
@@ -441,7 +441,7 @@ namespace Responses
             if (j.contains("scale")) o.Scales = AvatarScales().Parse(j["scale"]);
             if (j.contains("isEditable")) o.IsEditable = j["isEditable"];
 
-            for (int i = 0; i < j["assets"].size(); i++)
+            for (size_t i = 0; i < j["assets"].size(); i++)
             {
                 o.Assets.push_back(OutfitDetailsAsset().Parse(j["assets"][i]));
             }
@@ -469,8 +469,8 @@ namespace Responses
             if (j.contains("status")) t.Status = j["status"];
             if (j.contains("id")) t.TradeID = j["id"];
             if (j.contains("user")) t.Sender = User().Parse(j["user"]);
-            if (j.contains("created")) t.Created = Timestamp().Parse(j["created"]);
-            if (j.contains("expiration")) t.Expiriation = Timestamp().Parse(j["expiration"]);
+            if (j.contains("created")) t.Created = Timestamp(j["created"]);
+            if (j.contains("expiration")) t.Expiriation = Timestamp(j["expiration"]);
             if (j.contains("isActive")) t.IsActive = j["isActive"];
 
             return t;
@@ -487,7 +487,7 @@ namespace Responses
 
             if (j.contains("data"))
             {
-                for (int i = 0; i < j["data"].size(); i++)
+                for (size_t i = 0; i < j["data"].size(); i++)
                 {
                     g.Trades.push_back(TradeData().Parse(j["data"][i]));
                 }
@@ -562,7 +562,7 @@ namespace Responses
         {
             GamePassesResponse r;
 
-            for (int i = 0; i < j["data"].size(); i++)
+            for (size_t i = 0; i < j["data"].size(); i++)
             {
                 r.GamePasses.push_back(GamePass().Parse(j["data"][i]));
             }
@@ -617,8 +617,8 @@ namespace Responses
             if (j.contains("price") && !(j["price"].is_null())) p.Price = j["price"];
             if (j.contains("maxPlayers")) p.MaxPlayers = j["maxPlayers"];
             if (j.contains("creator")) p.Creator = User().Parse(j["creator"]);
-            if (j.contains("created")) p.Created = Timestamp().Parse(j["created"]);
-            if (j.contains("updated")) p.Updated = Timestamp().Parse(j["updated"]);
+            if (j.contains("created")) p.Created = Timestamp(j["created"]);
+            if (j.contains("updated")) p.Updated = Timestamp(j["updated"]);
             if (j.contains("isGenreEnforced")) p.IsGenreEnforced = j["isGenreEnforced"];
             if (j.contains("copyingAllowed")) p.CopyingAllowed = j["copyingAllowed"];
             if (j.contains("studioAccessToApisAllowed")) p.StudioAccessToApisAllowed = j["studioAccessToApisAllowed"];
@@ -647,8 +647,8 @@ namespace Responses
 
             if (j.contains("body")) g.Body = j["body"];
             if (j.contains("poster")) g.Poster = User().Parse(j["poster"]);
-            if (j.contains("created")) g.Created = Timestamp().Parse(j["created"]);
-            if (j.contains("updated")) g.Updated = Timestamp().Parse(j["updated"]);
+            if (j.contains("created")) g.Created = Timestamp(j["created"]);
+            if (j.contains("updated")) g.Updated = Timestamp(j["updated"]);
             if (j.contains("id")) g.PostID = j["id"];
 
             return g;
@@ -663,7 +663,7 @@ namespace Responses
         {
             GroupWallResponse g;
 
-            for (int i = 0; i < j.size(); i++)
+            for (size_t i = 0; i < j.size(); i++)
             {
                 g.Posts.push_back(GroupWallPost().Parse(j["data"][i]));
             }
@@ -681,7 +681,7 @@ namespace Responses
         {
             Namehistory n;
             if (j.contains("name")) n.Name = j["name"];
-            if (j.contains("created")) n.Created = Timestamp().Parse(j["created"]);
+            if (j.contains("created")) n.Created = Timestamp(j["created"]);
             return n;
         }
     };
@@ -694,7 +694,7 @@ namespace Responses
         {
             NameHistoryResponse n;
 
-            for (int i = 0; i < j.size(); i++)
+            for (size_t i = 0; i < j.size(); i++)
             {
                 n.NameHistory.push_back(Namehistory().Parse(j["data"][i]));
             }
@@ -724,8 +724,8 @@ namespace Responses
             if (j.contains("name")) e.Name = j["name"];
             if (j.contains("description") && !(j["description"].is_null())) e.Description = j["description"];
             if (j.contains("creator")) { e.CreatorType = j["creator"]["type"]; e.CreatorID = j["creator"]["id"]; }
-            if (j.contains("created")) e.Created = Timestamp().Parse(j["created"]);
-            if (j.contains("updated")) e.Updated = Timestamp().Parse(j["updated"]);
+            if (j.contains("created")) e.Created = Timestamp(j["created"]);
+            if (j.contains("updated")) e.Updated = Timestamp(j["updated"]);
             if (j.contains("id")) e.UniverseID = j["id"];
             if (j.contains("rootPlace")) e.PlaceID = j["id"];
             if (j.contains("placeVisits")) e.PlaceVisits = j["placeVisits"];
@@ -745,7 +745,7 @@ namespace Responses
 
             if (j.contains("data"))
             {
-                for (int i = 0; i < j["data"].size(); i++)
+                for (size_t i = 0; i < j["data"].size(); i++)
                 {
                     GroupExperience e = GroupExperience().Parse(j["data"][i]);
                     r.Experiences.push_back(e);
@@ -770,7 +770,7 @@ namespace Responses
             FriendRequest f;
 
             if (j.contains("originSourceType")) f.OriginSourceType = j["originSourceType"];
-            if (j.contains("sentAt")) f.SentAt = Timestamp().Parse(j["sentAt"]);
+            if (j.contains("sentAt")) f.SentAt = Timestamp(j["sentAt"]);
             if (j.contains("senderId")) f.SenderID = j["senderId"];
             if (j.contains("sourceUniverseId") && !(j["sourceUniverseId"].is_null())) f.SourceUniverseID = j["sourceUniverseId"];
 
@@ -788,12 +788,12 @@ namespace Responses
         {
             FriendRequestsResponse frr;
 
-            for (int i = 0; i < j["data"].size(); i++)
+            for (size_t i = 0; i < j["data"].size(); i++)
             {
                 frr.FriendRequests.push_back(FriendRequest().Parse(j["data"][i]["friendRequest"]));
             }
 
-            for (int i = 0; i < j.size(); i++)
+            for (size_t i = 0; i < j.size(); i++)
             {
                 frr.SenderInfo.push_back(User().Parse(j["data"][i]));
             }
@@ -931,7 +931,7 @@ namespace Responses
 
             if (j.contains("name") && !(j["name"].is_null())) a.Name = j["name"];
             if (j.contains("assetType") && !(j["assetType"].is_null())) a.AssetType = j["assetType"];
-            if (j.contains("created") && !(j["created"].is_null())) a.Created = Timestamp().Parse(j["created"]);
+            if (j.contains("created") && !(j["created"].is_null())) a.Created = Timestamp(j["created"]);
             if (j.contains("assetId") && !(j["assetId"].is_null())) a.AssetID = j["assetId"];
 
             return a;
@@ -946,7 +946,7 @@ namespace Responses
         {
             InventoryResponse r;
 
-            for (int i = 0; i < j.size(); i++)
+            for (size_t i = 0; i < j.size(); i++)
             {
                 r.Assets.push_back(InventoryAsset().Parse(j["data"][i]));
             }
@@ -974,7 +974,7 @@ namespace Responses
             UserPresence u;
 
             if (j.contains("lastLocation") && !(j["lastLocation"].is_null())) u.LastLocation = j["lastLocation"];
-            if (j.contains("lastOnline") && !(j["lastOnline"].is_null())) u.LastOnline = Timestamp().Parse(j["lastOnline"]);
+            if (j.contains("lastOnline") && !(j["lastOnline"].is_null())) u.LastOnline = Timestamp(j["lastOnline"]);
             if (j.contains("placeId") && !(j["placeId"].is_null())) u.PlaceID = j["placeId"];
             if (j.contains("rootPlaceId") && !(j["rootPlaceId"].is_null())) u.RootPlaceID = j["rootPlaceId"];
             if (j.contains("universeId") && !(j["universeId"].is_null())) u.UniverseID = j["universeId"];
@@ -994,7 +994,7 @@ namespace Responses
         {
             UserPresenceResponse u;
 
-            for (int i = 0; i < j.size(); i++)
+            for (size_t i = 0; i < j.size(); i++)
             {
                 u.UserPresences.push_back(UserPresence().Parse(j["userPresences"][i]));
             }
@@ -1050,8 +1050,8 @@ namespace Responses
             if (j.contains("displayName")) b.DisplayName = j["displayName"];
             if (j.contains("displayDescription")) b.DisplayDescription = j["displayDescription"];
             if (j.contains("awarder")) b.AwarderType = j["awarder"]["type"];
-            if (j.contains("created")) b.Created = Timestamp().Parse(j["created"]);
-            if (j.contains("updated")) b.Updated = Timestamp().Parse(j["updated"]);
+            if (j.contains("created")) b.Created = Timestamp(j["created"]);
+            if (j.contains("updated")) b.Updated = Timestamp(j["updated"]);
             if (j.contains("iconImageId")) b.IconImageId = j["iconImageId"];
             if (j.contains("displayIconImageId")) b.DisplayIconImageId = j["displayIconImageId"];
             if (j.contains("awarder")) b.AwarderId = j["awarder"]["id"];
@@ -1071,7 +1071,7 @@ namespace Responses
         {
             GameBadges g;
 
-            for (int i = 0; i < j.size(); i++)
+            for (size_t i = 0; i < j.size(); i++)
             {
                 g.Badges.push_back(Badge().Parse(j["data"][i]));
             }
@@ -1091,7 +1091,7 @@ namespace Responses
         {
             UserBadgesResponse u;
 
-            for (int i = 0; i < j.size(); i++)
+            for (size_t i = 0; i < j.size(); i++)
             {
                 u.Badges.push_back(Badge().Parse(j["data"][i]));
             }
@@ -1133,8 +1133,8 @@ namespace Responses
 
             if (j.contains("body")) s.Body = j["body"];
             if (j.contains("poster")) s.Poster = User().Parse(j["poster"]);
-            if (j.contains("created")) s.Created = Timestamp().Parse(j["created"]);
-            if (j.contains("updated")) s.Updated = Timestamp().Parse(j["updated"]);
+            if (j.contains("created")) s.Created = Timestamp(j["lastUpdated"]);
+            if (j.contains("updated")) s.Updated = Timestamp(j["lastUpdated"]);
 
             return s;
         }
@@ -1231,12 +1231,12 @@ namespace Responses
             if (j.contains("hasUnreadMessages")) HasUnreadMessages = j["hasUnreadMessages"];
             if (j.contains("participants"))
             {
-                for (int i = 0; i < j["participants"].size(); i++)
+                for (size_t i = 0; i < j["participants"].size(); i++)
                     Participants.push_back(User().Parse(j["participants"][i]));
             }
             if (j.contains("conversationType")) ConversationType = j["conversationType"];
             if (j.contains("conversationTitle")) ConversationTitle = ChatConversationTitle(j["conversationTitle"]);
-            if (j.contains("lastUpdated")) LastUpdated = Timestamp().Parse(j["lastUpdated"]);
+            if (j.contains("lastUpdated")) LastUpdated = Timestamp(j["lastUpdated"]);
             if (!j["conversationUniverse"].is_null()) ConversationUniverse = ChatConversationUniverse(j["conversationUniverse"]);
         }
     };
@@ -1247,7 +1247,7 @@ namespace Responses
 
        ChatConversationsResponse(json j)
        {
-           for (int i = 0; i < j.size(); i++)
+           for (size_t i = 0; i < j.size(); i++)
            {
                Conversations.push_back(ChatConversation(j[i]));
            }
@@ -1263,7 +1263,7 @@ namespace Responses
         {
             UserGroupsResponse ugr;
 
-            for (int i = 0; i < j.size(); i++)
+            for (size_t i = 0; i < j.size(); i++)
             {
                 ugr.Groups.push_back(Group().Parse(j["data"][i]));
             }
@@ -1307,7 +1307,7 @@ namespace Responses
         {
             UserFavoriteExperiences ufe;
 
-            for (int i = 0; i < j.size(); i++)
+            for (size_t i = 0; i < j.size(); i++)
             {
                 Experience e = Experience().Parse(j["data"][i]);
                 ufe.Experiences.push_back(e);
@@ -1328,7 +1328,7 @@ namespace Responses
         {
             UserExperienceResponse r;
 
-            for (int i = 0; i < j.size(); i++)
+            for (size_t i = 0; i < j.size(); i++)
             {
                 r.Experiences.push_back(Experience().Parse(j["data"][i]));
             }
@@ -1366,8 +1366,7 @@ namespace Responses
             if (j.contains("placeId")) f.PlaceID = j["placeId"];
             if (j.contains("universeId")) f.UniverseID = j["universeId"];
             if (j.contains("id")) f.UID = j["id"];
-            if (j.contains("lastOnline")) f.LastOnline = Timestamp().Parse(j["lastOnline"]);
-
+            if (j.contains("lastOnline")) f.LastOnline = Timestamp(j["lastOnline"]);
             return f;
         }
     };
@@ -1379,7 +1378,7 @@ namespace Responses
         FriendsOnlineResponse Parse(json j)
         {
             FriendsOnlineResponse f;
-            for (int i = 0; i < j.size(); i++)
+            for (size_t i = 0; i < j.size(); i++)
             {
                 f.Friends.push_back(FriendsOnline().Parse(j["data"][i]));
             }
@@ -1396,7 +1395,7 @@ namespace Responses
         {
             FollowingsResponse f;
 
-            for (int i = 0; i < j["data"].size(); i++)
+            for (size_t i = 0; i < j["data"].size(); i++)
             {
                 f.Followings.push_back(User().Parse(j["data"][i]));
             }
@@ -1416,7 +1415,7 @@ namespace Responses
         {
             FriendsResponse f;
 
-            for (int i = 0; i < j["data"].size(); i++)
+            for (size_t i = 0; i < j["data"].size(); i++)
             {
                 f.Friends.push_back(User().Parse(j["data"][i]));
             }
@@ -1435,7 +1434,7 @@ namespace Responses
         FollowersResponse Parse(json j)
         {
             FollowersResponse f;
-            for (int i = 0; i < j["data"].size(); i++)
+            for (size_t i = 0; i < j["data"].size(); i++)
             {
                 f.Followers.push_back(User().Parse(j["data"][i]));
             }
@@ -1455,7 +1454,7 @@ namespace Responses
         {
             PriceDataPoint p;
             p.Price = j["value"];
-            p.timestamp = Timestamp().Parse(j["date"]);
+            p.timestamp = Timestamp(j["date"]);
             return p;
         }
     };
@@ -1469,7 +1468,7 @@ namespace Responses
         {
             VolumeDataPoint v;
             v.Volume = j["value"];
-            v.timestamp = Timestamp().Parse(j["date"]);
+            v.timestamp = Timestamp(j["date"]);
             return v;
         }
     };
@@ -1494,12 +1493,12 @@ namespace Responses
             r.OriginalPrice = j["originalPrice"];
             r.RecentAveragePrice = j["recentAveragePrice"];
 
-            for (int i = 0; i < j["priceDataPoints"].size(); i++)
+            for (size_t i = 0; i < j["priceDataPoints"].size(); i++)
             {
                 r.PriceData.push_back(PriceDataPoint().Parse(j["priceDataPoints"][i]));
             }
 
-            for (int i = 0; i < j["volumeDataPoints"].size(); i++)
+            for (size_t i = 0; i < j["volumeDataPoints"].size(); i++)
             {
                 r.VolumeData.push_back(VolumeDataPoint().Parse(j["volumeDataPoints"][i]));
             }
@@ -1540,7 +1539,7 @@ namespace Responses
         Resellers Parse(json resellers)
         {
             Resellers r;
-            for (int i = 0; i < resellers["data"].size(); i++)
+            for (size_t i = 0; i < resellers["data"].size(); i++)
             {
                 r.sellers.push_back(ResellerData().Parse(resellers["data"][i]));
             }
@@ -1667,8 +1666,8 @@ namespace Responses
             info.Name = Data["Name"];
             info.Description = Data["Description"];
             info.AssetType = asset_type_names[Data["AssetTypeId"]];
-            info.Created = Timestamp().Parse(Data["Created"]);
-            info.Updated = Timestamp().Parse(Data["Updated"]);
+            info.Created = Timestamp(Data["Created"]);
+            info.Updated = Timestamp(Data["Updated"]);
             info.CreatorName = Data["Creator"]["Name"];
             info.CreatorType = Data["Creator"]["CreatorType"];
             info.Creator = AssetCreator().Parse(Data["Creator"]);
@@ -1706,7 +1705,7 @@ namespace Responses
             if (instance.contains("playing") && !instance["playing"].is_null()) i.Playing = instance["playing"];
             if (instance.contains("playerTokens"))
             {
-                for (int j = 0; j < instance["playerTokens"].size(); j++)
+                for (size_t j = 0; j < instance["playerTokens"].size(); j++)
                 {
                     i.PlayerTokens.push_back(instance["playerTokens"][j]);
                 }
@@ -1729,7 +1728,7 @@ namespace Responses
         {
             GameInstancesResponse i;
 
-            for (int j = 0; j < instances.size(); j++)
+            for (size_t j = 0; j < instances.size(); j++)
             {
                 i.Instances.push_back(GameInstance().Parse(instances["data"][j]));
             }

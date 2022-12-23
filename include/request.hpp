@@ -233,7 +233,7 @@ private:
 
         CURLcode curlCode = curl_easy_perform(curl);
 
-        if (curlCode != CURLE_OK) return { curlCode };
+        if (curlCode != CURLE_OK) return { curlCode, 0, "", "", {}, {}, {}, {} };
 
         // read into response data
         response.rawData = responseData;
