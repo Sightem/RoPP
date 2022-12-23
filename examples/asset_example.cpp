@@ -11,6 +11,8 @@ int main()
     Responses::AssetInfo AssetResponse = asset.GetAssetInfo();
     Responses::ResaleData ResaleResponse = asset.GetResaleData();
     
+    std::cout << std::boolalpha;
+
     std::cout << "Asset Name: " << AssetResponse.Name << std::endl;
     std::cout << "Asset Description: " << AssetResponse.Description << std::endl;
     std::cout << "Asset Creator: " << AssetResponse.Creator.Username << std::endl;
