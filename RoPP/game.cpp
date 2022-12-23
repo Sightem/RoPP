@@ -56,7 +56,7 @@ Responses::DeveloperProductCreateResponse RoPP::Game::CreateDeveloperProduct(std
         this->Cookie
     ).JsonObj;
 
-    return Responses::DeveloperProductCreateResponse().Parse(res);
+    return Responses::DeveloperProductCreateResponse(res);
 }
 
 Responses::GameInstancesResponse RoPP::Game::GetGameInstances(string Type, string Sort, int Limit, bool ExcludeFullGames)
@@ -93,7 +93,7 @@ Responses::GameSocialLinks RoPP::Game::GetSocialLinks()
         this->Cookie
     ).JsonObj;
 
-    return Responses::GameSocialLinks().Parse(res);
+    return Responses::GameSocialLinks(res);
 }
 
 Responses::GameBadges RoPP::Game::GetGameBadges(string Sort, int Limit)
@@ -104,5 +104,5 @@ Responses::GameBadges RoPP::Game::GetGameBadges(string Sort, int Limit)
         "GET"
     ).JsonObj;
 
-    return Responses::GameBadges().Parse(res);
+    return Responses::GameBadges(res);
 }

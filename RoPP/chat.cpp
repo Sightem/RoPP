@@ -31,7 +31,7 @@ Responses::ChatSettings RoPP::Chat::GetChatSettings()
         this->Cookie
     ).JsonObj;
 
-    return Responses::ChatSettings().Parse(res);
+    return Responses::ChatSettings(res);
 }
 
 Responses::GetMessagesResponse RoPP::Chat::GetMessages(int PageSize, long ExclusiveStartMessageID)

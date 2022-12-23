@@ -55,7 +55,7 @@ Responses::UserBadgesResponse RoPP::User::GetBadges()
         "GET"
     ).JsonObj;
 
-    return Responses::UserBadgesResponse().Parse(res);
+    return Responses::UserBadgesResponse(res);
 }
 
 Responses::UserExperienceResponse RoPP::User::GetExperiences(string Sort, int limit)
