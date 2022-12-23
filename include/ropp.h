@@ -44,7 +44,7 @@ namespace RoPP
     class Asset : public Base
     {
         public:
-            json BuyAsset(long AssetID);
+            json BuyAsset();
             //TODO: buy limited
 
             Responses::AssetInfo GetAssetInfo();

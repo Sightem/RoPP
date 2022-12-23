@@ -5,15 +5,16 @@
 
 json RoPP::Asset::BuyAsset()
 {
+    Responses::AssetInfo info = this->GetAssetInfo();
     json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://economy.roblox.com/v1/purchases/products/" + std::to_string(ProductID),
+        "https://economy.roblox.com/v1/purchases/products/" + std::to_string(info.ProductID),
         "POST",
         this->Cookie,
         {
             {"expectedCurrency", 1},
-            {"expectedPrice", this->GetAssetInfo().PriceInRobux},
-            {"expectedSellerId", this->GetAssetInfo().CreatorID}
+            {"expectedPrice", info.Price},
+            {"expectedSellerId", info.CreatorID}
         }
     ).JsonObj;
 
