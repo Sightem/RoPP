@@ -1,53 +1,7 @@
-#include "ropp.h"
+#include "../include/ropp.h"
 #include "../include/helper.h"
 #include "../include/request.hpp"
 #include "../include/responses.h"
-
-using namespace Responses;
-
-std::string RoPP::Session::GetCSRF()
-{
-    Request req("https://auth.roblox.com/v1/authentication-ticket");
-    req.set_cookie(".ROBLOSECURITY", this->Cookie);
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.post();
-
-    return res.headers["x-csrf-token"];
-}
-
-std::string RoPP::Session::GetAuthTicket()
-{
-    Request req("https://auth.roblox.com/v1/authentication-ticket");
-    req.set_cookie(".ROBLOSECURITY", this->Cookie);
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.post();
-
-    std::string csrfToken = res.headers["x-csrf-token"];
-    req.set_header("x-csrf-token", csrfToken);
-
-    res = req.post();
-    std::string ticket = res.headers["rbx-authentication-ticket"];
-    return ticket;
-}
-
-long RoPP::Session::GetUserID()
-{
-   json res = Helper::MakeAuthedRobloxRequest
-    (
-        "https://users.roblox.com/v1/users/authenticated",
-        "GET",
-        this->Cookie
-    ).JsonObj;
-
-    return res["id"];
-}
-
-void RoPP::Session::SetCookie(std::string cookie)
-{
-    this->Cookie = cookie;
-}
 
 Responses::BirthdateResponse RoPP::Session::GetBirthDate()
 {
@@ -223,11 +177,6 @@ void RoPP::Session::ChangePassword(string OldPassword, string NewPassword)
     }
 }
 
-std::string RoPP::Session::ReadCookie()
-{
-    return this->Cookie;
-}
-
 bool RoPP::Session::SendFriendRequest(long UID)
 {
     json data = 
@@ -250,7 +199,7 @@ void RoPP::Session::AcceptFriendRequest(long UID)
 {
     json res = Helper::MakeAuthedRobloxRequest
         (
-            "https://friends.roblox.com/v1/users/" + std::to_string(UID) + "/accept-friendship-request",
+            "https://friends.roblox.com/v1/users/" + std::to_string(UID) + "/accept-friend-request",
             "POST",
             this->Cookie
         ).JsonObj;
@@ -260,7 +209,7 @@ void RoPP::Session::DeclineFriendRequest(long UID)
 {
     json res = Helper::MakeAuthedRobloxRequest
         (
-            "https://friends.roblox.com/v1/users/" + std::to_string(UID) + "/decline-friendship-request",
+            "https://friends.roblox.com/v1/users/" + std::to_string(UID) + "/accept-friend-request",
             "POST",
             this->Cookie
         ).JsonObj;
@@ -328,133 +277,7 @@ void RoPP::Session::SetGender(string Gender)
     ).JsonObj;
 }
 
-json RoPP::Session::BuyAsset(long AssetID)
-{
-    RoPP::Asset asset(AssetID);
-    AssetInfo info = asset.GetAssetInfo();
-
-    json data = 
-    {
-        {"expectedCurrency", 1},
-        {"expectedPrice", info.Price},
-        {"expectedSellerId", info.CreatorID},
-    };
-
-    json res = Helper::MakeAuthedRobloxRequest
-    (
-        "https://economy.roblox.com/v1/purchases/products/" + std::to_string(info.ProductID),
-        "POST",
-        this->Cookie,
-        data
-    ).JsonObj;
-
-    return res;
-}
-
-Responses::AvatarResponse RoPP::Session::GetAvatar()
-{
-    json res = Helper::MakeAuthedRobloxRequest
-    (
-        "https://avatar.roblox.com/v1/users/" + std::to_string(this->GetUserID()) + "/avatar",
-        "GET",
-        this->Cookie
-    ).JsonObj;
-
-    return Responses::AvatarResponse().Parse(res);
-}
-
-Responses::GetTradesResponse RoPP::Session::GetTrades(string tradeStatusType, string Sort, int Limit)
-{
-    json res = Helper::MakeAuthedRobloxRequest
-    (
-        "https://trades.roblox.com/v1/trades/" + tradeStatusType + "?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
-        "GET",
-        this->Cookie
-    ).JsonObj;
-
-    return Responses::GetTradesResponse().Parse(res);
-}
-
-json RoPP::Session::GetTradeInfo(long TradeID)
-{
-    return Helper::MakeAuthedRobloxRequest
-    (
-        "https://trades.roblox.com/v1/trades/" + std::to_string(TradeID),
-        "GET",
-        this->Cookie
-    ).JsonObj;
-}
-
-void RoPP::Session::AcceptTrade(long TradeID)
-{
-    Helper::MakeAuthedRobloxRequest
-    (
-        "https://trades.roblox.com/v1/trades/" + std::to_string(TradeID) + "/accept",
-        "POST",
-        this->Cookie
-    );
-}
-
-void RoPP::Session::DeclineTrade (long TradeID)
-{
-    Helper::MakeAuthedRobloxRequest
-    (
-        "https://trades.roblox.com/v1/trades/" + std::to_string(TradeID) + "/decline",
-        "POST",
-        this->Cookie
-    );
-}
-
-Responses::CanTradeWithResponse RoPP::Session::CanTradeWith(long UserID)
-{
-    json res = Helper::MakeAuthedRobloxRequest
-    (
-        "https://trades.roblox.com/v1/users/" + std::to_string(UserID) + "/can-trade-with",
-        "GET",
-        this->Cookie
-    ).JsonObj;
-
-    return Responses::CanTradeWithResponse().Parse(res);
-}
-
-int RoPP::Session::GetTradeCount(string TradeStatusType)
-{
-    return Helper::MakeAuthedRobloxRequest
-    (
-        "https://trades.roblox.com/v1/trades/" + TradeStatusType + "/count",
-        "GET",
-        this->Cookie
-    ).JsonObj["count"];
-}
-
-int RoPP::Session::SendTradeRequest(long TargetUID, json UserOffer, json UserRequest)
-{
-    json data =
-    {
-        {"offers", {
-            {
-                {"userId", TargetUID},
-                {"userAssetIds", UserRequest["userAssetIds"]},
-                {"robux", UserRequest["robux"]}
-            },
-            {
-                {"userId", this->GetUserID()},
-                {"userAssetIds", UserOffer["userAssetIds"]},
-                {"robux", UserOffer["robux"]}
-            }
-        }}
-    };
-
-    return Helper::MakeAuthedRobloxRequest
-    (
-        "https://trades.roblox.com/v1/trades/send",
-        "POST",
-        this->Cookie,
-        data
-    ).JsonObj["id"];
-}
-
-FriendsOnlineResponse RoPP::Session::GetFriendsOnline()
+Responses::FriendsOnlineResponse RoPP::Session::GetFriendsOnline()
 {
     json res = Helper::MakeAuthedRobloxRequest
     (
@@ -463,11 +286,11 @@ FriendsOnlineResponse RoPP::Session::GetFriendsOnline()
         this->Cookie
     ).JsonObj;
 
-    return FriendsOnlineResponse().Parse(res);
+    return Responses::FriendsOnlineResponse().Parse(res);
 }
 
 
-UserPresenceResponse RoPP::Session::GetUsersPresence(std::vector<long> UIDs)
+Responses::UserPresenceResponse RoPP::Session::GetUsersPresence(std::vector<long> UIDs)
 {
     json data = 
     {
@@ -482,7 +305,7 @@ UserPresenceResponse RoPP::Session::GetUsersPresence(std::vector<long> UIDs)
         data
     ).JsonObj;
 
-    return UserPresenceResponse().Parse(res);
+    return Responses::UserPresenceResponse().Parse(res);
 }
 
 Responses::User RoPP::Session::GetUser()
@@ -497,40 +320,13 @@ Responses::User RoPP::Session::GetUser()
     return Responses::User().Parse(res);
 }
 
-bool RoPP::Session::SetBodyColors(json Colors)
+long RoPP::Session::GetUserID()
 {
-    json res = Helper::MakeAuthedRobloxRequest
+   json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://avatar.roblox.com/v1/avatar/set-body-colors",
-        "POST",
-        this->Cookie,
-        Colors
-    ).JsonObj;
-
-    return res["success"];
-}
-
-bool RoPP::Session::SetBodyScales(json Scales)
-{
-    json res = Helper::MakeAuthedRobloxRequest
-    (
-        "https://avatar.roblox.com/v1/avatar/set-scales",
-        "POST",
-        this->Cookie,
-        Scales
-    ).JsonObj;
-
-    return res["success"];
-}
-
-bool RoPP::Session::RemoveAsset(long AssetID)
-{
-    json res = Helper::MakeAuthedRobloxRequest
-    (
-        "https://avatar.roblox.com/v1/avatar/assets/" + std::to_string(AssetID) + "/remove",
-        "POST",
+        "https://users.roblox.com/v1/users/authenticated",
+        "GET",
         this->Cookie
     ).JsonObj;
-
-    return res["success"];
+    return res["id"];
 }

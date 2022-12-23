@@ -137,6 +137,319 @@ namespace Responses
         }
     };
 
+    struct ChatSettings
+    {
+        bool ChatEnabled;
+        bool IsActiveChatUser;
+        bool IsConnectTabEnabled;
+
+        ChatSettings Parse(json j)
+        {
+            ChatSettings c;
+
+            if (j.contains("chatEnabled")) c.ChatEnabled = j["chatEnabled"];
+            if (j.contains("isActiveChatUser")) c.IsActiveChatUser = j["isActiveChatUser"];
+            if (j.contains("isConnectTabEnabled")) c.IsConnectTabEnabled = j["isConnectTabEnabled"];
+
+            return c;
+        }
+    };
+
+    struct RejectedParticipant
+    {
+        std::string RejectedReason;
+        std::string Type;
+        std::string Name;
+        std::string DisplayName;
+
+        long TargetID;
+
+        bool HasVerifiedBadge;
+
+        RejectedParticipant Parse(json j)
+        {
+            RejectedParticipant r;
+
+            if (j.contains("rejectedReason")) r.RejectedReason = j["rejectedReason"];
+            if (j.contains("type")) r.Type = j["type"];
+            if (j.contains("name")) r.Name = j["name"];
+            if (j.contains("displayName")) r.DisplayName = j["displayName"];
+            if (j.contains("targetId")) r.TargetID = j["targetId"];
+            if (j.contains("hasVerifiedBadge")) r.HasVerifiedBadge = j["hasVerifiedBadge"];
+
+            return r;
+        }
+    };
+    struct ChatMessage
+    {
+
+        std::string ID;
+        std::string SenderType;
+        std::string MessageType;
+        std::string Content;
+
+        Timestamp Sent;
+        bool Read;
+
+        long SenderTargetID;
+        ChatMessage Parse(json j)
+        {
+            ChatMessage c;
+
+            if (j.contains("id")) c.ID = j["id"];
+            if (j.contains("senderType")) c.SenderType = j["senderType"];
+            if (j.contains("messageType")) c.MessageType = j["messageType"];
+            if (j.contains("content")) c.Content = j["content"];
+            if (j.contains("sent")) c.Sent = Timestamp().Parse(j["sent"]);
+            if (j.contains("read")) c.Read = j["read"];
+            if (j.contains("senderTargetId")) c.SenderTargetID = j["senderTargetId"];
+            return c;
+        }
+    };
+
+    struct GetMessagesResponse
+    {
+        std::vector<ChatMessage> Messages;
+
+        GetMessagesResponse Parse(json j)
+        {
+            GetMessagesResponse c;
+            if (!j.empty())
+            {
+                for (int i = 0; i < j.size(); i++)
+                {
+                    c.Messages.push_back(ChatMessage().Parse(j[i]));
+                }
+            }
+
+            return c;
+        }
+    };
+
+    struct ConversationAddResponse
+    {
+        std::string ResultType;
+        std::string StatusMessage;
+        long ConversationID;
+
+        std::vector<RejectedParticipant> RejectedParticipants;
+
+        ConversationAddResponse Parse(json j)
+        {
+            ConversationAddResponse c;
+
+            if (j.contains("resultType")) c.ResultType = j["resultType"];
+            if (j.contains("statusMessage")) c.StatusMessage = j["statusMessage"];
+            if (j.contains("conversationId")) c.ConversationID = j["conversationId"];
+
+            if (j.contains("rejectedParticipants") && !j["rejectedParticipants"].empty())
+            {
+                for (int i = 0; i < j["rejectedParticipants"].size(); i++)
+                {
+                    c.RejectedParticipants.push_back(RejectedParticipant().Parse(j["rejectedParticipants"][i])); //?
+                }
+            }
+
+            return c;
+        }
+
+    };
+    struct GameSocialLink
+    {
+        std::string Title;
+        std::string URL;
+        std::string Type;
+
+        long ID;
+
+        GameSocialLink Parse(json j)
+        {
+            GameSocialLink g;
+
+            if (j.contains("title")) g.Title = j["title"];
+            if (j.contains("url")) g.URL = j["url"];
+            if (j.contains("type")) g.Type = j["type"];
+            if (j.contains("id")) g.ID = j["id"];
+
+            return g;
+        }
+    };
+
+    struct GameSocialLinks
+    {
+        std::vector<GameSocialLink> Links;
+
+        GameSocialLinks Parse(json j)
+        {
+            GameSocialLinks g;
+
+            for (int i = 0; i < j.size(); i++)
+            {
+                g.Links.push_back(GameSocialLink().Parse(j["data"][i]));
+            }
+
+            return g;
+        }
+    };
+    struct DeveloperProductCreateResponse
+    {
+        long ID;
+        std::string Name;
+        std::string Description;
+        long ShopID;
+        long IconImageAssetID;
+
+        DeveloperProductCreateResponse Parse(json j)
+        {
+            DeveloperProductCreateResponse d;
+
+            if (j.contains("id")) d.ID = j["id"];
+            if (j.contains("name")) d.Name = j["name"];
+            if (j.contains("description")) d.Description = j["description"];
+            if (j.contains("shopId")) d.ShopID = j["shopId"];
+            if (j.contains("iconImageAssetId")) d.IconImageAssetID = j["iconImageAssetId"];
+
+            return d;
+        }
+    };
+
+    struct bodyColors
+    {
+        int headColorId;
+        int torsoColorId;
+        int rightArmColorId;
+        int leftArmColorId;
+        int rightLegColorId;
+        int leftLegColorId;
+
+        bodyColors Parse(json j)
+        {
+            bodyColors b;
+            if (j.contains("headColorId")) b.headColorId = j["headColorId"];
+            if (j.contains("torsoColorId")) b.torsoColorId = j["torsoColorId"];
+            if (j.contains("rightArmColorId")) b.rightArmColorId = j["rightArmColorId"];
+            if (j.contains("leftArmColorId")) b.leftArmColorId = j["leftArmColorId"];
+            if (j.contains("rightLegColorId")) b.rightLegColorId = j["rightLegColorId"];
+            if (j.contains("leftLegColorId")) b.leftLegColorId = j["leftLegColorId"];
+            return b;
+        }
+    };
+
+
+    struct OutfitDetailsAsset
+    {
+        std::string Name;
+        std::string AssetTypeName;
+        long AssetID;
+        long AssetTypeID;
+        long CurrentVersionID;
+        
+        OutfitDetailsAsset Parse(json j)
+        {
+            OutfitDetailsAsset o;
+
+            if (j.contains("name")) o.Name = j["name"];
+            if (j.contains("assetType")) { o.AssetTypeID = j["assetType"]["id"]; o.AssetTypeName = j["assetType"]["name"]; }
+            if (j.contains("id")) o.AssetID = j["id"];
+            if (j.contains("currentVersion")) o.CurrentVersionID = j["currentVersionID"];
+
+            return o;
+        }
+    };
+    
+    struct GetOutfitsAsset
+    {
+        std::string Name;
+        long ID;
+        bool IsEditable;
+
+        GetOutfitsAsset Parse(json j)
+        {
+            GetOutfitsAsset o;
+
+            if (j.contains("name")) o.Name = j["name"];
+            if (j.contains("id")) o.ID = j["id"];
+            if (j.contains("isEditable")) o.IsEditable = j["isEditable"];
+
+            return o;
+        }
+    };
+
+    struct GetOutfitsResponse
+    {
+        std::vector<GetOutfitsAsset> Outfits;
+        int total;
+
+        GetOutfitsResponse Parse(json j)
+        {
+            GetOutfitsResponse o;
+
+            if (j.contains("data"))
+            {
+                for (int i = 0; i < j["data"].size(); i++)
+                    o.Outfits.push_back(GetOutfitsAsset().Parse(j["data"][i]));
+            }
+            if (j.contains("total")) o.total = j["total"];
+
+            return o;
+        }
+
+    };
+
+    struct AvatarScales
+    {
+        int height, width, depth, head, proportion, bodyType;
+
+        AvatarScales Parse(json j)
+        {
+            AvatarScales a;
+
+            if (j.contains("height")) a.height = j["height"];
+            if (j.contains("width")) a.width = j["width"];
+            if (j.contains("depth")) a.depth = j["depth"];
+            if (j.contains("head")) a.head = j["head"];
+            if (j.contains("proportion")) a.proportion = j["proportion"];
+            if (j.contains("bodyType")) a.bodyType = j["bodyType"];
+
+            return a;
+        }
+    };
+
+    struct OutfitDetailsResponse
+    {
+        std::string Name;
+        std::string PlayerAvatarType;
+        std::string OutfitType;
+
+        long ID;
+
+        std::vector<OutfitDetailsAsset> Assets;
+        bodyColors BodyColors;
+        AvatarScales Scales;
+
+        bool IsEditable;
+
+        OutfitDetailsResponse Parse(json j)
+        {
+            OutfitDetailsResponse o;
+
+            if (j.contains("name")) o.Name = j["name"];
+            if (j.contains("playerAvatarType")) o.PlayerAvatarType = j["playerAvatarType"];
+            if (j.contains("outfitType")) o.OutfitType = j["outfitType"];
+            if (j.contains("id")) o.ID = j["id"];
+            if (j.contains("bodyColors")) o.BodyColors = bodyColors().Parse(j["bodyColors"]);
+            if (j.contains("scale")) o.Scales = AvatarScales().Parse(j["scale"]);
+            if (j.contains("isEditable")) o.IsEditable = j["isEditable"];
+
+            for (int i = 0; i < j["assets"].size(); i++)
+            {
+                o.Assets.push_back(OutfitDetailsAsset().Parse(j["assets"][i]));
+            }
+
+            return o;
+        }
+    };
+
     struct TradeData
     {
         std::string Status;
@@ -215,24 +528,24 @@ namespace Responses
         }
     };
 
-    struct ExperienceBadge
+    struct GamePass
     {
         std::string Name;
         std::string DisplayName;
 
-        long BadgeID;
+        long ID;
         long CreatorID;
         long ProductIdID;
 
         int Price;
 
-        ExperienceBadge Parse(json j)
+        GamePass Parse(json j)
         {
-            ExperienceBadge b;
+            GamePass b;
 
             if (j.contains("name")) b.Name = j["name"];
             if (j.contains("displayName")) b.DisplayName = j["displayName"];
-            if (j.contains("id")) b.BadgeID = j["id"];
+            if (j.contains("id")) b.ID = j["id"];
             if (j.contains("sellerId")) b.CreatorID = j["sellerId"];
             if (j.contains("productId")) b.ProductIdID = j["productId"];
             if (j.contains("price")) b.Price = j["price"];
@@ -241,17 +554,17 @@ namespace Responses
         }
     };
 
-    struct ExperienceBadgesResponse
+    struct GamePassesResponse
     {
-        std::vector<ExperienceBadge> Badges;
+        std::vector<GamePass> GamePasses;
 
-        ExperienceBadgesResponse Parse(json j)
+        GamePassesResponse Parse(json j)
         {
-            ExperienceBadgesResponse r;
+            GamePassesResponse r;
 
             for (int i = 0; i < j["data"].size(); i++)
             {
-                r.Badges.push_back(ExperienceBadge().Parse(j["data"][i]));
+                r.GamePasses.push_back(GamePass().Parse(j["data"][i]));
             }
 
             return r;
@@ -515,27 +828,6 @@ namespace Responses
         }
 
     };
-    struct bodyColors
-    {
-        int headColorId;
-        int torsoColorId;
-        int rightArmColorId;
-        int leftArmColorId;
-        int rightLegColorId;
-        int leftLegColorId;
-
-        bodyColors Parse(json j)
-        {
-            bodyColors b;
-            if (j.contains("headColorId")) b.headColorId = j["headColorId"];
-            if (j.contains("torsoColorId")) b.torsoColorId = j["torsoColorId"];
-            if (j.contains("rightArmColorId")) b.rightArmColorId = j["rightArmColorId"];
-            if (j.contains("leftArmColorId")) b.leftArmColorId = j["leftArmColorId"];
-            if (j.contains("rightLegColorId")) b.rightLegColorId = j["rightLegColorId"];
-            if (j.contains("leftLegColorId")) b.leftLegColorId = j["leftLegColorId"];
-            return b;
-        }
-    };
     
     struct AvatarAsset
     {
@@ -555,25 +847,6 @@ namespace Responses
             if (j.contains("assetType"))  { a.AssetTypeID = j["assetType"]["id"]; a.AssetTypeName = j["assetType"]["name"]; }
             if (j.contains("id")) a.AssetID = j["id"];
             if (j.contains("currentVersionId")) a.CurrentVersionID = j["currentVersionId"];
-
-            return a;
-        }
-    };
-
-    struct AvatarScales
-    {
-        int height, width, depth, head, proportion, bodyType;
-
-        AvatarScales Parse(json j)
-        {
-            AvatarScales a;
-
-            if (j.contains("height")) a.height = j["height"];
-            if (j.contains("width")) a.width = j["width"];
-            if (j.contains("depth")) a.depth = j["depth"];
-            if (j.contains("head")) a.head = j["head"];
-            if (j.contains("proportion")) a.proportion = j["proportion"];
-            if (j.contains("bodyType")) a.bodyType = j["bodyType"];
 
             return a;
         }
@@ -786,6 +1059,26 @@ namespace Responses
             if (j.contains("statistics")) b.Statistics = BadgeStats().Parse(j["statistics"]);
 
             return b;
+        }
+    };
+
+    struct GameBadges
+    {
+        std::vector<Badge> Badges;
+        int Count = 0;
+
+        GameBadges Parse(json j)
+        {
+            GameBadges g;
+
+            for (int i = 0; i < j.size(); i++)
+            {
+                g.Badges.push_back(Badge().Parse(j["data"][i]));
+            }
+
+            Count = j["data"].size();
+
+            return g;
         }
     };
 
@@ -1321,4 +1614,58 @@ namespace Responses
             return info;
         }
     };
+
+    struct GameInstance
+    {
+        std::string ID;
+        int MaxPlayers;
+        int Playing;
+        std::vector<std::string> PlayerTokens;
+        int FPS;
+        double Ping;
+        int VIPServerID;
+        std::string AccessCode;
+        Responses::User Owner;
+
+        GameInstance Parse(json instance)
+        {
+            GameInstance i;
+
+            if (instance.contains("id")) i.ID = instance["id"];
+            if (instance.contains("maxPlayers")) i.MaxPlayers = instance["maxPlayers"];
+            if (instance.contains("playing") && !instance["playing"].is_null()) i.Playing = instance["playing"];
+            if (instance.contains("playerTokens"))
+            {
+                for (int j = 0; j < instance["playerTokens"].size(); j++)
+                {
+                    i.PlayerTokens.push_back(instance["playerTokens"][j]);
+                }
+            }
+            if (instance.contains("fps")) i.FPS = instance["fps"];
+            if (instance.contains("ping")) i.Ping = instance["ping"];
+            if (instance.contains("vipServerId")) i.VIPServerID = instance["vipServerId"];
+            if (instance.contains("accessCode")) i.AccessCode = instance["accessCode"];
+            if (instance.contains("owner")) i.Owner = Responses::User().Parse(instance["owner"]);
+
+            return i;
+        }
+    };
+
+    struct GameInstancesResponse
+    {
+        std::vector<GameInstance> Instances;
+
+        GameInstancesResponse Parse(json instances)
+        {
+            GameInstancesResponse i;
+
+            for (int j = 0; j < instances.size(); j++)
+            {
+                i.Instances.push_back(GameInstance().Parse(instances["data"][j]));
+            }
+
+            return i;
+        }
+    };
+
 }

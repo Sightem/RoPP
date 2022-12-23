@@ -1,4 +1,4 @@
-#include "ropp.h"
+#include "../include/ropp.h"
 #include "../include/helper.h"
 #include "../include/request.hpp"
 #include "../include/responses.h"
@@ -131,28 +131,6 @@ bool RoPP::User::CanInventoryBeViewed()
     ).JsonObj;
 
     return res["canView"];
-}
-
-Responses::CurrentlyWearing RoPP::User::GetCurrentlyWearing()
-{
-    json res = Helper::MakeRobloxRequest
-    (
-        "https://avatar.roblox.com/v1/users/" + std::to_string(this->UID) + "/currently-wearing",
-        "GET"
-    ).JsonObj;
-
-    return Responses::CurrentlyWearing().Parse(res);
-}
-
-Responses::AvatarResponse RoPP::User::GetAvatar()
-{
-    json res = Helper::MakeRobloxRequest
-    (
-        "https://avatar.roblox.com/v1/users/" + std::to_string(this->UID) + "/avatar",
-        "GET"
-    ).JsonObj;
-
-    return Responses::AvatarResponse().Parse(res);
 }
 
 Responses::User RoPP::User::GetUser()

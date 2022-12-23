@@ -1,47 +1,57 @@
-#include "ropp.h"
+#include "../include/ropp.h"
 #include "../include/helper.h"
 #include "../include/request.hpp"
 #include "../include/responses.h"
 
-using namespace Responses;
-
-AssetInfo RoPP::Asset::GetAssetInfo()
-{
-    AssetInfo AssetInfo;
-    Request req("https://economy.roblox.com/v2/assets/" + std::to_string(this->AID) + "/details");
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-
-    Response res = req.get();
-
-    return AssetInfo.Parse(json::parse(res.data));
-}
-
-void RoPP::Asset::SetCookie(string Cookie)
-{
-    this->Cookie = Cookie;
-}
-
-Resellers RoPP::Asset::GetAssetResellers(string Sort, int Limit)
+json RoPP::Asset::BuyAsset()
 {
     json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://economy.roblox.com/v1/assets/" + std::to_string(this->AID) + "/resellers?" + Sort + "&limit=" + std::to_string(Limit),
+        "https://economy.roblox.com/v1/purchases/products/" + std::to_string(ProductID),
+        "POST",
+        this->Cookie,
+        {
+            {"expectedCurrency", 1},
+            {"expectedPrice", this->GetAssetInfo().PriceInRobux},
+            {"expectedSellerId", this->GetAssetInfo().CreatorID}
+        }
+    ).JsonObj;
+
+    return res;
+}
+
+Responses::AssetInfo RoPP::Asset::GetAssetInfo()
+{
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://economy.roblox.com/v2/assets/" + std::to_string(this->AssetID) + "/details",
+        "GET",
+        this->Cookie
+    ).JsonObj;
+
+    return Responses::AssetInfo().Parse(res);
+}
+
+Responses::Resellers RoPP::Asset::GetAssetResellers(string Sort, int Limit)
+{
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://economy.roblox.com/v1/assets/" + std::to_string(this->AssetID) + "/resellers?" + Sort + "&limit=" + std::to_string(Limit),
         "GET",
         this->Cookie
     ).JsonObj;
     
-    return Resellers().Parse(res);
+    return Responses::Resellers().Parse(res);
 }
 
-ResaleData RoPP::Asset::GetResaleData()
+Responses::ResaleData RoPP::Asset::GetResaleData()
 {
     json res =  Helper::MakeAuthedRobloxRequest
     (
-        "https://economy.roblox.com/v1/assets/" + std::to_string(this->AID) + "/resale-data",
+        "https://economy.roblox.com/v1/assets/" + std::to_string(this->AssetID) + "/resale-data",
         "GET",
         this->Cookie
     ).JsonObj;
 
-    return ResaleData().Parse(res);
+    return Responses::ResaleData().Parse(res);
 }
