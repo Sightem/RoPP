@@ -1078,16 +1078,14 @@ namespace Responses
         int Rank;
         long ID;
 
-        Role Parse(json j)
+        explicit Role(json j)
         {
-            Role r;
-
-            if (j.contains("name")) r.Name = j["name"];
-            if (j.contains("rank")) r.Rank = j["rank"];
-            if (j.contains("id")) r.ID = j["id"];
-
-            return r;
+            if (j.contains("name")) Name = j["name"];
+            if (j.contains("rank")) Rank = j["rank"];
+            if (j.contains("id")) ID = j["id"];
         }
+
+        Role() = default;
     };
     struct GShout
     {
