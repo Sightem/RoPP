@@ -251,17 +251,15 @@ namespace Responses
 
         long ID;
 
-        GameSocialLink Parse(json j)
+        explicit GameSocialLink(json j)
         {
-            GameSocialLink g;
-
-            if (j.contains("title")) g.Title = j["title"];
-            if (j.contains("url")) g.URL = j["url"];
-            if (j.contains("type")) g.Type = j["type"];
-            if (j.contains("id")) g.ID = j["id"];
-
-            return g;
+            if (j.contains("title")) Title = j["title"];
+            if (j.contains("url")) URL = j["url"];
+            if (j.contains("type")) Type = j["type"];
+            if (j.contains("id")) ID = j["id"];
         }
+
+        GameSocialLink() = default;
     };
 
     struct GameSocialLinks
@@ -274,7 +272,7 @@ namespace Responses
 
             for (size_t i = 0; i < j.size(); i++)
             {
-                g.Links.push_back(GameSocialLink().Parse(j["data"][i]));
+                g.Links.push_back(GameSocialLink(j["data"][i]));
             }
 
             return g;
