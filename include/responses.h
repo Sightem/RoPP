@@ -763,7 +763,6 @@ namespace Responses
 
             return f;
         }
-
     };
 
     struct FriendRequestsResponse
@@ -813,7 +812,6 @@ namespace Responses
 
             return p;
         }
-
     };
     
     struct AvatarAsset
@@ -1028,25 +1026,23 @@ namespace Responses
 
         bool Enabled;
 
-        Badge Parse(json j)
+        explicit Badge(json j)
         {
-            Badge b;
-
-            if (j.contains("name")) b.Name = j["name"];
-            if (j.contains("description")) b.Description = j["description"];
-            if (j.contains("displayName")) b.DisplayName = j["displayName"];
-            if (j.contains("displayDescription")) b.DisplayDescription = j["displayDescription"];
-            if (j.contains("awarder")) b.AwarderType = j["awarder"]["type"];
-            if (j.contains("created")) b.Created = Timestamp(j["created"]);
-            if (j.contains("updated")) b.Updated = Timestamp(j["updated"]);
-            if (j.contains("iconImageId")) b.IconImageId = j["iconImageId"];
-            if (j.contains("displayIconImageId")) b.DisplayIconImageId = j["displayIconImageId"];
-            if (j.contains("awarder")) b.AwarderId = j["awarder"]["id"];
-            if (j.contains("enabled")) b.Enabled = j["enabled"];
-            if (j.contains("statistics")) b.Statistics = BadgeStats().Parse(j["statistics"]);
-
-            return b;
+            if (j.contains("name")) Name = j["name"];
+            if (j.contains("description")) Description = j["description"];
+            if (j.contains("displayName")) DisplayName = j["displayName"];
+            if (j.contains("displayDescription")) DisplayDescription = j["displayDescription"];
+            if (j.contains("awarder")) AwarderType = j["awarder"]["type"];
+            if (j.contains("created")) Created = Timestamp(j["created"]);
+            if (j.contains("updated")) Updated = Timestamp(j["updated"]);
+            if (j.contains("iconImageId")) IconImageId = j["iconImageId"];
+            if (j.contains("displayIconImageId")) DisplayIconImageId = j["displayIconImageId"];
+            if (j.contains("awarder")) AwarderId = j["awarder"]["id"];
+            if (j.contains("enabled")) Enabled = j["enabled"];
+            if (j.contains("statistics")) Statistics = BadgeStats().Parse(j["statistics"]);
         }
+
+        Badge() = default;
     };
 
     struct GameBadges
@@ -1060,7 +1056,7 @@ namespace Responses
 
             for (size_t i = 0; i < j.size(); i++)
             {
-                g.Badges.push_back(Badge().Parse(j["data"][i]));
+                g.Badges.push_back(Badge(j["data"][i]));
             }
 
             Count = j["data"].size();
@@ -1074,19 +1070,17 @@ namespace Responses
         std::vector<Badge> Badges;
         int Count = 0;
 
-        UserBadgesResponse Parse(json j)
+        explicit UserBadgesResponse(json j)
         {
-            UserBadgesResponse u;
-
             for (size_t i = 0; i < j.size(); i++)
             {
-                u.Badges.push_back(Badge().Parse(j["data"][i]));
+                Badges.push_back(Badge(j["data"][i]));
             }
 
             Count = j["data"].size();
-
-            return u;
         }
+
+        UserBadgesResponse() = default;
     };
 
     struct Role
