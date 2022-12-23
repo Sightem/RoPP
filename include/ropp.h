@@ -79,6 +79,7 @@ namespace RoPP
             Responses::ConversationAddResponse AddUsersToConversation(std::vector<long> UserIDs);
             Responses::ChatSettings GetChatSettings();
             Responses::GetMessagesResponse GetMessages(int PageSize=10, long ExclusiveStartMessageID=0);
+            Responses::ChatConversationsResponse GetConversations(std::vector<long> ConversationIDs);
 
         public:
             Chat(long ConversationID, std::string_view Cookie)

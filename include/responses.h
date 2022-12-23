@@ -1179,9 +1179,90 @@ namespace Responses
 
     
             return g;
-
         }
+    };
 
+    struct ChatConversationUniverse
+    {
+        long UniverseId;
+        long RootPlaceId;
+
+        ChatConversationUniverse Parse(json j)
+        {
+            ChatConversationUniverse c;
+
+            if (j.contains("universeId")) c.UniverseId = j["universeId"];
+            if (j.contains("rootPlaceId")) c.RootPlaceId = j["rootPlaceId"];
+
+            return c;
+        }
+    };
+
+    struct ChatConversationTitle 
+    {
+        std::string TitleForViewer;
+
+        bool IsDefaultTitle;
+
+        ChatConversationTitle Parse(json j)
+        {
+            ChatConversationTitle c;
+
+            if (j.contains("titleForViewer")) c.TitleForViewer = j["titleForViewer"];
+            if (j.contains("isDefaultTitle")) c.IsDefaultTitle = j["isDefaultTitle"];
+
+            return c;
+        }
+    };
+
+    struct ChatConversation
+    {
+        long ID;
+        std::string Title;
+        User Initiator;
+        bool HasUnreadMessages;
+        std::vector<User> Participants;
+        std::string ConversationType;
+        ChatConversationTitle ConversationTitle;
+        Timestamp LastUpdated;
+        ChatConversationUniverse ConversationUniverse;
+
+        ChatConversation Parse(json j)
+        {
+            ChatConversation c;
+
+            if (j.contains("id")) c.ID = j["id"];
+            if (j.contains("title")) c.Title = j["title"];
+            if (j.contains("initiator")) c.Initiator = User().Parse(j["initiator"]);
+            if (j.contains("hasUnreadMessages")) c.HasUnreadMessages = j["hasUnreadMessages"];
+            if (j.contains("participants"))
+            {
+                for (int i = 0; i < j["participants"].size(); i++)
+                    c.Participants.push_back(User().Parse(j["participants"][i]));
+            }
+            if (j.contains("conversationType")) c.ConversationType = j["conversationType"];
+            if (j.contains("conversationTitle")) c.ConversationTitle = ChatConversationTitle().Parse(j["conversationTitle"]);
+            if (j.contains("lastUpdated")) c.LastUpdated = Timestamp().Parse(j["lastUpdated"]);
+            if (j.contains("conversationUniverse")) c.ConversationUniverse = ChatConversationUniverse().Parse(j["conversationUniverse"]);
+
+            return c;
+        }
+    };
+
+    struct ChatConversationsResponse
+    {
+        std::vector<ChatConversation> Conversations;
+
+        ChatConversationsResponse Parse(json j)
+        {
+            ChatConversationsResponse ccr;
+
+            for (int i = 0; i < j.size(); i++)
+            {
+                ccr.Conversations.push_back(ChatConversation().Parse(j[i]));
+            }
+            return ccr;
+        }
     };
 
     struct UserGroupsResponse

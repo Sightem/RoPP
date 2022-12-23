@@ -45,3 +45,21 @@ Responses::GetMessagesResponse RoPP::Chat::GetMessages(int PageSize, long Exclus
 
     return Responses::GetMessagesResponse().Parse(res);
 }
+
+Responses::ChatConversationsResponse RoPP::Chat::GetConversations(std::vector<long> ConversationIDs)
+{
+    std::string URL = "https://chat.roblox.com/v2/get-conversations?";
+    for (int i = 0; i < ConversationIDs.size(); i++)
+    {
+        URL += "conversationIds=" + std::to_string(ConversationIDs[i]) + (i != ConversationIDs.size() - 1 ? "&" : "");
+    }
+
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        URL,
+        "GET",
+        this->Cookie
+    ).JsonObj;
+    
+    return Responses::ChatConversationsResponse().Parse(res);
+}
