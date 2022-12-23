@@ -117,22 +117,20 @@ namespace Responses
         long PlaceID;
         long PlaceVisits;
 
-        Experience Parse(json j)
+        explicit Experience(json j)
         {
-            Experience e;
-
-            if (j.contains("name") && !(j["name"].is_null())) e.Name = j["name"];
-            if (j.contains("description") && !(j["description"].is_null())) e.Description = j["description"];
-            if (j.contains("creator") && !(j["creator"]["type"].is_null())) e.CreatorType = j["creator"]["type"];
-            if (j.contains("rootPlace") && !(j["rootPlace"]["type"].is_null())) e.PlaceType = j["rootPlace"]["type"];
-            if (j.contains("created") && !(j["created"].is_null())) e.Created = Timestamp(j["created"]);
-            if (j.contains("updated") && !(j["updated"].is_null())) e.Updated = Timestamp(j["updated"]);
-            if (j.contains("creator") && !(j["creator"]["id"].is_null())) e.CreatorID = j["creator"]["id"];
-            if (j.contains("rootPlace") && !(j["rootPlace"]["id"].is_null())) e.PlaceID = j["rootPlace"]["id"];
-            if (j.contains("placeVisits") && !(j["placeVisits"].is_null())) e.PlaceVisits = j["placeVisits"];
-
-            return e;
+            if (j.contains("name") && !(j["name"].is_null())) Name = j["name"];
+            if (j.contains("description") && !(j["description"].is_null())) Description = j["description"];
+            if (j.contains("creator") && !(j["creator"]["type"].is_null())) CreatorType = j["creator"]["type"];
+            if (j.contains("rootPlace") && !(j["rootPlace"]["type"].is_null())) PlaceType = j["rootPlace"]["type"];
+            if (j.contains("created") && !(j["created"].is_null())) Created = Timestamp(j["created"]);
+            if (j.contains("updated") && !(j["updated"].is_null())) Updated = Timestamp(j["updated"]);
+            if (j.contains("creator") && !(j["creator"]["id"].is_null())) CreatorID = j["creator"]["id"];
+            if (j.contains("rootPlace") && !(j["rootPlace"]["id"].is_null())) PlaceID = j["rootPlace"]["id"];
+            if (j.contains("placeVisits") && !(j["placeVisits"].is_null())) PlaceVisits = j["placeVisits"];
         }
+
+        Experience() {}
     };
 
     struct ChatSettings
@@ -1307,7 +1305,7 @@ namespace Responses
 
             for (size_t i = 0; i < j.size(); i++)
             {
-                Experience e = Experience().Parse(j["data"][i]);
+                Experience e = Experience(j["data"][i]);
                 ufe.Experiences.push_back(e);
             }
 
@@ -1328,7 +1326,7 @@ namespace Responses
 
             for (size_t i = 0; i < j.size(); i++)
             {
-                r.Experiences.push_back(Experience().Parse(j["data"][i]));
+                r.Experiences.push_back(Experience(j["data"][i]));
             }
 
             r.Count = j["data"].size();
