@@ -11,7 +11,7 @@ using std::string;
 
 namespace RoPP
 {
-    class Base
+    class Auth
     {
         public:
             std::string GetCSRF();
@@ -26,7 +26,7 @@ namespace RoPP
             void CookieCheck();
     };
 
-    class Avatar : public Base
+    class Avatar : public Auth
     {
         public:
             Responses::CurrentlyWearing GetCurrentlyWearing(long UserID);
@@ -41,7 +41,7 @@ namespace RoPP
             bool WearAsset(long AssetID);
     };
     
-    class Asset : public Base
+    class Asset : public Auth
     {
         public:
             json BuyAsset();
@@ -73,7 +73,7 @@ namespace RoPP
             long AssetID = 0;
     };
 
-    class Chat : public Base
+    class Chat : public Auth
     {
         public:
             Responses::ConversationAddResponse AddUsersToConversation(std::vector<long> UserIDs);
@@ -107,7 +107,7 @@ namespace RoPP
             long ConversationID = 0;
     };
 
-    class Game : public Base
+    class Game : public Auth
     {
         public:
             Responses::PlaceInfoResponse GetPlaceInfo();
@@ -145,7 +145,7 @@ namespace RoPP
             long UniverseID = 0;
     };
 
-    class Group : public Base
+    class Group : public Auth
     {
         public:
             Responses::Group GetGroupInfo();
@@ -179,7 +179,7 @@ namespace RoPP
             long GroupID = 0;
     };
 
-    class Trade : public Base
+    class Trade : public Auth
     {
         public:
             Responses::GetTradesResponse GetTrades(string tradeStatusType="Inbound", string Sort="Asc", int Limit=10);
@@ -256,7 +256,7 @@ namespace RoPP
     };
 
 
-    class Session : public Base
+    class Session : public Auth
     {
         public:
 

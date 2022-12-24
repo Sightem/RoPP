@@ -3,7 +3,7 @@
 #include "../include/request.hpp"
 #include "../include/responses.h"
 
-std::string RoPP::Base::GetCSRF()
+std::string RoPP::Auth::GetCSRF()
 {
     CookieCheck();
 
@@ -15,7 +15,7 @@ std::string RoPP::Base::GetCSRF()
     return res.headers["x-csrf-token"];
 }
 
-std::string RoPP::Base::GetAuthTicket()
+std::string RoPP::Auth::GetAuthTicket()
 {
     CookieCheck();
     
@@ -33,7 +33,7 @@ std::string RoPP::Base::GetAuthTicket()
     return ticket;
 }
 
-void RoPP::Base::CookieCheck()
+void RoPP::Auth::CookieCheck()
 {
     if (this->Cookie.empty())
     {
@@ -41,12 +41,12 @@ void RoPP::Base::CookieCheck()
     }
 }
 
-void RoPP::Base::SetCookie(std::string_view Cookie)
+void RoPP::Auth::SetCookie(std::string_view Cookie)
 {
     this->Cookie = Cookie;
 }
 
-std::string RoPP::Base::ReadCookie()
+std::string RoPP::Auth::ReadCookie()
 {
     return this->Cookie;
 }
