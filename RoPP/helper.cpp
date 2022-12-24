@@ -12,6 +12,8 @@ using json = nlohmann::json;
                        headers_t Additional_headers,
                        cookies_t Additional_cookies)
 {
+    if (Cookie.empty()) throw std::logic_error("Cookie is empty! (MakeAuthedRobloxRequest)");
+
     Request req("https://auth.roblox.com/v1/authentication-ticket");
     req.set_header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36");
     req.set_cookie(".ROBLOSECURITY", Cookie);

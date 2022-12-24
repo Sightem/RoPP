@@ -63,6 +63,20 @@ namespace Responses
         bool HasVerifiedBadge;
         bool IsBanned;
 
+        void PopulateFromUID()
+        {   
+            Request req("https://users.roblox.com/v1/users/" + std::to_string(this->UID));
+            req.set_header("Referer", "https://www.roblox.com/users/" + std::to_string(this->UID) + "/profile");
+            req.set_header("Content", "application/json");
+            req.set_header("Accept", "application/json");
+            req.initalize();
+
+            Response res = req.get();
+
+            *this = User(json::parse(res.data));
+        }
+
+    public:
         explicit User(json j)
         {
             if (j.contains("name")) Username = j["name"];
@@ -82,20 +96,59 @@ namespace Responses
             if (j.contains("buildersClubMembershipType")) BuildersClubMembershipType = j["buildersClubMembershipType"];
         }
 
-        User() = default;
-
-        void PopulateFromUID()
-        {   
-            Request req("https://users.roblox.com/v1/users/" + std::to_string(this->UID));
-            req.set_header("Referer", "https://www.roblox.com/users/" + std::to_string(this->UID) + "/profile");
-            req.set_header("Content", "application/json");
-            req.set_header("Accept", "application/json");
-            req.initalize();
-
-            Response res = req.get();
-
-            *this = User(json::parse(res.data));
+        User(const User& other)
+        {
+            Username = other.Username;
+            DisplayName = other.DisplayName;
+            Description = other.Description;
+            BuildersClubMembershipType = other.BuildersClubMembershipType;
+            Created = other.Created;
+            PresenceType = other.PresenceType;
+            FriendFrequentScore = other.FriendFrequentScore;
+            FriendFrequentRank = other.FriendFrequentRank;
+            UID = other.UID;
+            IsOnline = other.IsOnline;
+            IsDeleted = other.IsDeleted;
+            HasVerifiedBadge = other.HasVerifiedBadge;
+            IsBanned = other.IsBanned;
         }
+
+        User(User&& other) noexcept
+        {
+            Username = std::move(other.Username);
+            DisplayName = std::move(other.DisplayName);
+            Description = std::move(other.Description);
+            BuildersClubMembershipType = std::move(other.BuildersClubMembershipType);
+            Created = std::move(other.Created);
+            PresenceType = std::move(other.PresenceType);
+            FriendFrequentScore = std::move(other.FriendFrequentScore);
+            FriendFrequentRank = std::move(other.FriendFrequentRank);
+            UID = std::move(other.UID);
+            IsOnline = std::move(other.IsOnline);
+            IsDeleted = std::move(other.IsDeleted);
+            HasVerifiedBadge = std::move(other.HasVerifiedBadge);
+            IsBanned = std::move(other.IsBanned);
+        }
+
+        User& operator=(const User& other)
+        {
+            Username = other.Username;
+            DisplayName = other.DisplayName;
+            Description = other.Description;
+            BuildersClubMembershipType = other.BuildersClubMembershipType;
+            Created = other.Created;
+            PresenceType = other.PresenceType;
+            FriendFrequentScore = other.FriendFrequentScore;
+            FriendFrequentRank = other.FriendFrequentRank;
+            UID = other.UID;
+            IsOnline = other.IsOnline;
+            IsDeleted = other.IsDeleted;
+            HasVerifiedBadge = other.HasVerifiedBadge;
+            IsBanned = other.IsBanned;
+            return *this;
+        }
+
+        User() = default;
     };
 
     struct Experience
