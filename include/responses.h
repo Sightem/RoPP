@@ -98,19 +98,7 @@ namespace Responses
 
         User(const User& other)
         {
-            Username = other.Username;
-            DisplayName = other.DisplayName;
-            Description = other.Description;
-            BuildersClubMembershipType = other.BuildersClubMembershipType;
-            Created = other.Created;
-            PresenceType = other.PresenceType;
-            FriendFrequentScore = other.FriendFrequentScore;
-            FriendFrequentRank = other.FriendFrequentRank;
-            UID = other.UID;
-            IsOnline = other.IsOnline;
-            IsDeleted = other.IsDeleted;
-            HasVerifiedBadge = other.HasVerifiedBadge;
-            IsBanned = other.IsBanned;
+            *this = other;
         }
 
         User(User&& other) noexcept
