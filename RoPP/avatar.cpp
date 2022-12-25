@@ -44,7 +44,7 @@ Responses::GetOutfitsResponse RoPP::Avatar::GetOutfits(long UserID, int Page, in
         "GET"
     ).JsonObj;
 
-    return Responses::GetOutfitsResponse().Parse(res);
+    return Responses::GetOutfitsResponse(res);
 }
 
 bool RoPP::Avatar::SetBodyColors(json Colors)

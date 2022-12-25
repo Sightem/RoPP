@@ -363,16 +363,14 @@ namespace Responses
         long ID;
         bool IsEditable;
 
-        GetOutfitsAsset Parse(json j)
+        explicit GetOutfitsAsset(json j)
         {
-            GetOutfitsAsset o;
-
-            if (j.contains("name")) o.Name = j["name"];
-            if (j.contains("id")) o.ID = j["id"];
-            if (j.contains("isEditable")) o.IsEditable = j["isEditable"];
-
-            return o;
+            if (j.contains("name")) Name = j["name"];
+            if (j.contains("id")) ID = j["id"];
+            if (j.contains("isEditable")) IsEditable = j["isEditable"];
         }
+
+        GetOutfitsAsset() = default;
     };
 
     struct GetOutfitsResponse
@@ -380,20 +378,17 @@ namespace Responses
         std::vector<GetOutfitsAsset> Outfits;
         int total;
 
-        GetOutfitsResponse Parse(json j)
+        explicit GetOutfitsResponse(json j)
         {
-            GetOutfitsResponse o;
-
             if (j.contains("data"))
             {
-                for (size_t i = 0; i < j["data"].size(); i++)
-                    o.Outfits.push_back(GetOutfitsAsset().Parse(j["data"][i]));
+                for (auto& i : j["data"])
+                    Outfits.push_back(GetOutfitsAsset(i));
             }
-            if (j.contains("total")) o.total = j["total"];
-
-            return o;
+            if (j.contains("total")) total = j["total"];
         }
 
+        GetOutfitsResponse() = default;
     };
 
     struct AvatarScales
@@ -1740,5 +1735,4 @@ namespace Responses
             return i;
         }
     };
-
 }
