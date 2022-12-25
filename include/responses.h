@@ -101,23 +101,6 @@ namespace Responses
             *this = other;
         }
 
-        User(User&& other) noexcept
-        {
-            Username = std::move(other.Username);
-            DisplayName = std::move(other.DisplayName);
-            Description = std::move(other.Description);
-            BuildersClubMembershipType = std::move(other.BuildersClubMembershipType);
-            Created = std::move(other.Created);
-            PresenceType = std::move(other.PresenceType);
-            FriendFrequentScore = std::move(other.FriendFrequentScore);
-            FriendFrequentRank = std::move(other.FriendFrequentRank);
-            UID = std::move(other.UID);
-            IsOnline = std::move(other.IsOnline);
-            IsDeleted = std::move(other.IsDeleted);
-            HasVerifiedBadge = std::move(other.HasVerifiedBadge);
-            IsBanned = std::move(other.IsBanned);
-        }
-
         User& operator=(const User& other)
         {
             Username = other.Username;
@@ -1665,29 +1648,53 @@ namespace Responses
             {74, "Font Face"},
             {75, "MeshHiddenSurfaceRemoval"}
         };
-
-        AssetInfo Parse(json Data)
+        
+        explicit AssetInfo(json Data)
         {
-            AssetInfo info;
+            Name = Data["Name"];
+            Description = Data["Description"];
+            AssetType = asset_type_names[Data["AssetTypeId"]];
+            Created = Timestamp(Data["Created"]);
+            Updated = Timestamp(Data["Updated"]);
+            CreatorName = Data["Creator"]["Name"];
+            CreatorType = Data["Creator"]["CreatorType"];
+            Creator = AssetCreator().Parse(Data["Creator"]);
+            Price = Data["PriceInRobux"];
+            Sales = Data["Sales"];
+            CreatorID = Data["Creator"]["Id"];
+            IsNew = Data["IsNew"];
+            IsForSale = Data["IsForSale"];
+            IsLimited = Data["IsLimited"];
+            IsLimitedUnique = Data["IsLimitedUnique"];
+            ProductID = Data["ProductId"];
+        }
 
-            info.Name = Data["Name"];
-            info.Description = Data["Description"];
-            info.AssetType = asset_type_names[Data["AssetTypeId"]];
-            info.Created = Timestamp(Data["Created"]);
-            info.Updated = Timestamp(Data["Updated"]);
-            info.CreatorName = Data["Creator"]["Name"];
-            info.CreatorType = Data["Creator"]["CreatorType"];
-            info.Creator = AssetCreator().Parse(Data["Creator"]);
-            info.Price = Data["PriceInRobux"];
-            info.Sales = Data["Sales"];
-            info.CreatorID = Data["Creator"]["Id"];
-            info.IsNew = Data["IsNew"];
-            info.IsForSale = Data["IsForSale"];
-            info.IsLimited = Data["IsLimited"];
-            info.IsLimitedUnique = Data["IsLimitedUnique"];
-            info.ProductID = Data["ProductId"];
+        AssetInfo(const AssetInfo& other)
+        {
+            *this = other;
+        }
 
-            return info;
+        AssetInfo() = default;
+
+        AssetInfo& operator=(const AssetInfo& other)
+        {
+            Name = other.Name;
+            Description = other.Description;
+            AssetType = other.AssetType;
+            CreatorName = other.CreatorName;
+            CreatorType = other.CreatorType;
+            Created = other.Created;
+            Updated = other.Updated;
+            Creator = other.Creator;
+            Price = other.Price;
+            Sales = other.Sales;
+            CreatorID = other.CreatorID;
+            IsNew = other.IsNew;
+            IsForSale = other.IsForSale;
+            IsLimited = other.IsLimited;
+            IsLimitedUnique = other.IsLimitedUnique;
+            ProductID = other.ProductID;
+            return *this;
         }
     };
 

@@ -30,7 +30,7 @@ Responses::AssetInfo RoPP::Asset::GetAssetInfo()
         this->Cookie
     ).JsonObj;
 
-    return Responses::AssetInfo().Parse(res);
+    return Responses::AssetInfo(res);
 }
 
 Responses::Resellers RoPP::Asset::GetAssetResellers(string Sort, int Limit)
