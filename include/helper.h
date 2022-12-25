@@ -18,6 +18,7 @@ namespace Helper
         std::string Url,
         std::string Method,
         std::string Cookie,
+        bool CSRF,
         json Body = {},
         headers_t Additional_headers = {},
         cookies_t Additional_cookies = {}

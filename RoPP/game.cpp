@@ -53,7 +53,8 @@ Responses::DeveloperProductCreateResponse RoPP::Game::CreateDeveloperProduct(std
     (
         "https://develop.roblox.com/v1/universes/" + std::to_string(this->UniverseID) + "/developerproducts?name=" + Name + "&description=" + Description + "&priceInRobux=" + std::to_string(Price) + "&iconImageAssetId=" + std::to_string(IconImageAssetID),
         "POST",
-        this->Cookie
+        this->Cookie,
+        true
     ).JsonObj;
 
     return Responses::DeveloperProductCreateResponse(res);
@@ -77,7 +78,8 @@ Responses::GameInstancesResponse RoPP::Game::GetGameInstances(string Type, strin
         (
             "https://games.roblox.com/v1/games/" + std::to_string(this->PlaceID) + "/servers/" + Type + "?sortOrder=" + Sort + "&excludeFullGames=" + std::to_string(ExcludeFullGames) + "&limit=" + std::to_string(Limit),
             "GET",
-            this->Cookie
+            this->Cookie,
+            true
         ).JsonObj;
     }
 
@@ -90,7 +92,8 @@ Responses::GameSocialLinks RoPP::Game::GetSocialLinks()
     (
         "https://games.roblox.com/v1/games/" + std::to_string(this->UniverseID) + "/social-links/list",
         "GET",
-        this->Cookie
+        this->Cookie,
+        false
     ).JsonObj;
 
     return Responses::GameSocialLinks(res);

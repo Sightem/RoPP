@@ -16,6 +16,7 @@ Responses::ConversationAddResponse RoPP::Chat::AddUsersToConversation(std::vecto
         "https://chat.roblox.com/v2/add-to-conversation",
         "POST",
         this->Cookie,
+        true,
         Body
     ).JsonObj;
 
@@ -28,7 +29,8 @@ Responses::ChatSettings RoPP::Chat::GetChatSettings()
     (
         "https://chat.roblox.com/v2/chat-settings",
         "GET",
-        this->Cookie
+        this->Cookie,
+        false
     ).JsonObj;
 
     return Responses::ChatSettings(res);
@@ -40,7 +42,8 @@ Responses::GetMessagesResponse RoPP::Chat::GetMessages(int PageSize, long Exclus
     (
         "https://chat.roblox.com/v2/get-messages?conversationId=" + std::to_string(this->ConversationID) + "&pageSize=" + std::to_string(PageSize) + (ExclusiveStartMessageID != 0 ? "&exclusiveStartMessageId=" + std::to_string(ExclusiveStartMessageID) : ""),
         "GET",
-        this->Cookie
+        this->Cookie,
+        true
     ).JsonObj;
 
     return Responses::GetMessagesResponse().Parse(res);
@@ -58,7 +61,8 @@ Responses::ChatConversationsResponse RoPP::Chat::GetConversations(std::vector<lo
     (
         URL,
         "GET",
-        this->Cookie
+        this->Cookie,
+        true
     ).JsonObj;
     
     return Responses::ChatConversationsResponse(res);

@@ -54,6 +54,7 @@ bool RoPP::Avatar::SetBodyColors(json Colors)
         "https://avatar.roblox.com/v1/avatar/set-body-colors",
         "POST",
         this->Cookie,
+        true,
         Colors
     ).JsonObj;
 
@@ -67,6 +68,7 @@ bool RoPP::Avatar::SetBodyScales(json Scales)
         "https://avatar.roblox.com/v1/avatar/set-scales",
         "POST",
         this->Cookie,
+        true,
         Scales
     ).JsonObj;
 
@@ -79,7 +81,8 @@ bool RoPP::Avatar::RemoveAsset(long AssetID)
     (
         "https://avatar.roblox.com/v1/avatar/assets/" + std::to_string(AssetID) + "/remove",
         "POST",
-        this->Cookie
+        this->Cookie,
+        true
     ).JsonObj;
 
     return res["success"];
@@ -97,6 +100,7 @@ bool RoPP::Avatar::SetPlayerAvatarType(std::string_view AvatarType)
         "https://avatar.roblox.com/v1/avatar/set-player-avatar-type",
         "POST",
         this->Cookie,
+        true,
         data
     ).JsonObj;
 
@@ -109,7 +113,8 @@ bool RoPP::Avatar::WearAsset(long AssetID)
     (
         "https://avatar.roblox.com/v1/avatar/assets/" + std::to_string(AssetID) + "/wear",
         "POST",
-        this->Cookie
+        this->Cookie,
+        true
     ).JsonObj;
 
     return res["success"];

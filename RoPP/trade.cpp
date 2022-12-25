@@ -10,7 +10,8 @@ void RoPP::Trade::AcceptTrade(long TradeID)
     (
         "https://trades.roblox.com/v1/trades/" + std::to_string(TradeID) + "/accept",
         "POST",
-        this->Cookie
+        this->Cookie,
+        true
     );
 }
 
@@ -20,7 +21,8 @@ void RoPP::Trade::DeclineTrade (long TradeID)
     (
         "https://trades.roblox.com/v1/trades/" + std::to_string(TradeID) + "/decline",
         "POST",
-        this->Cookie
+        this->Cookie,
+        true
     );
 }
 
@@ -30,7 +32,8 @@ Responses::GetTradesResponse RoPP::Trade::GetTrades(string tradeStatusType, stri
     (
         "https://trades.roblox.com/v1/trades/" + tradeStatusType + "?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
         "GET",
-        this->Cookie
+        this->Cookie,
+        true
     ).JsonObj;
 
     return Responses::GetTradesResponse().Parse(res);
@@ -42,7 +45,8 @@ json RoPP::Trade::GetTradeInfo(long TradeID)
     (
         "https://trades.roblox.com/v1/trades/" + std::to_string(TradeID),
         "GET",
-        this->Cookie
+        this->Cookie,
+        true
     ).JsonObj;
 }
 
@@ -52,7 +56,8 @@ Responses::CanTradeWithResponse RoPP::Trade::CanTradeWith(long UserID)
     (
         "https://trades.roblox.com/v1/users/" + std::to_string(UserID) + "/can-trade-with",
         "GET",
-        this->Cookie
+        this->Cookie,
+        true
     ).JsonObj;
 
     return Responses::CanTradeWithResponse().Parse(res);
@@ -83,6 +88,7 @@ int RoPP::Trade::SendTradeRequest(long TargetUID, json UserOffer, json UserReque
         "https://trades.roblox.com/v1/trades/send",
         "POST",
         this->Cookie,
+        true,
         data
     ).JsonObj["id"];
 }
