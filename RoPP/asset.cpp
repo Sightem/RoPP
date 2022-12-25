@@ -11,6 +11,7 @@ json RoPP::Asset::BuyAsset()
         "https://economy.roblox.com/v1/purchases/products/" + std::to_string(info.ProductID),
         "POST",
         this->Cookie,
+        true,
         {
             {"expectedCurrency", 1},
             {"expectedPrice", info.Price},
@@ -33,16 +34,20 @@ Responses::AssetInfo RoPP::Asset::GetAssetInfo()
     return Responses::AssetInfo(res);
 }
 
-Responses::Resellers RoPP::Asset::GetAssetResellers(string Sort, int Limit)
+std::vector<Responses::ResellerData> RoPP::Asset::GetAssetResellers(string Sort, int Limit)
 {
     json res = Helper::MakeAuthedRobloxRequest
     (
         "https://economy.roblox.com/v1/assets/" + std::to_string(this->AssetID) + "/resellers?" + Sort + "&limit=" + std::to_string(Limit),
         "GET",
-        this->Cookie
+        this->Cookie,
+        false
     ).JsonObj;
     
-    return Responses::Resellers().Parse(res);
+    std::vector<Responses::ResellerData> resellers;
+    for (auto& i : res["data"]) resellers.push_back(Responses::ResellerData(i));
+
+    return resellers;
 }
 
 Responses::ResaleData RoPP::Asset::GetResaleData()
@@ -51,8 +56,9 @@ Responses::ResaleData RoPP::Asset::GetResaleData()
     (
         "https://economy.roblox.com/v1/assets/" + std::to_string(this->AssetID) + "/resale-data",
         "GET",
-        this->Cookie
+        this->Cookie,
+        false
     ).JsonObj;
 
-    return Responses::ResaleData().Parse(res);
+    return Responses::ResaleData(res);
 }

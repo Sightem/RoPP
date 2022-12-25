@@ -1474,27 +1474,37 @@ namespace Responses
         std::vector<PriceDataPoint> PriceData;
         std::vector<VolumeDataPoint> VolumeData;
 
-        ResaleData Parse(json j)
+        explicit ResaleData(json j)
         {
-            ResaleData r;
-            r.AssetStock = j["assetStock"];
-            r.Sales = j["sales"];
-            r.NumberRemaining = j["numberRemaining"];
-            r.OriginalPrice = j["originalPrice"];
-            r.RecentAveragePrice = j["recentAveragePrice"];
+            AssetStock = j["assetStock"];
+            Sales = j["sales"];
+            NumberRemaining = j["numberRemaining"];
+            OriginalPrice = j["originalPrice"];
+            RecentAveragePrice = j["recentAveragePrice"];
 
-            for (size_t i = 0; i < j["priceDataPoints"].size(); i++)
-            {
-                r.PriceData.push_back(PriceDataPoint().Parse(j["priceDataPoints"][i]));
-            }
+            for (auto& element : j["priceDataPoints"])
+                PriceData.push_back(PriceDataPoint().Parse(element));
 
-            for (size_t i = 0; i < j["volumeDataPoints"].size(); i++)
-            {
-                r.VolumeData.push_back(VolumeDataPoint().Parse(j["volumeDataPoints"][i]));
-            }
-
-            return r;
+            for (auto& element : j["volumeDataPoints"])
+                VolumeData.push_back(VolumeDataPoint().Parse(element));
         }
+
+        ResaleData() = default;
+    };
+
+    struct ResellerAgent
+    {
+        std::string Username;
+        std::string Type;
+        long UID;
+
+        explicit ResellerAgent(json j)
+        {
+            Username = j["name"];
+            Type = j["type"];
+            UID = j["id"];
+        }
+        ResellerAgent() = default;
     };
 
     struct ResellerData
@@ -1503,38 +1513,18 @@ namespace Responses
         int price;
         int serialNumber;
 
-        std::string SellerUsername;
-        std::string SellerType;
-        long SellerId;
+        ResellerAgent Seller;
 
-        ResellerData Parse(json resellerData)
+        explicit ResellerData(json resellerData)
         {
-            ResellerData r;
-            r.userAssetId = resellerData["userAssetId"];
-            r.price = resellerData["price"];
-            r.serialNumber = resellerData["serialNumber"];
+            userAssetId = resellerData["userAssetId"];
+            price = resellerData["price"];
+            serialNumber = resellerData["serialNumber"];
 
-            r.SellerUsername = resellerData["seller"]["name"];
-            r.SellerType = resellerData["seller"]["type"];
-            r.SellerId = resellerData["seller"]["id"];
-
-            return r;
+            Seller = ResellerAgent(resellerData["seller"]);
         }
-    };
 
-    struct Resellers
-    {
-        std::vector<ResellerData> sellers;
-
-        Resellers Parse(json resellers)
-        {
-            Resellers r;
-            for (size_t i = 0; i < resellers["data"].size(); i++)
-            {
-                r.sellers.push_back(ResellerData().Parse(resellers["data"][i]));
-            }
-            return r;
-        }
+        ResellerData() = default;
     };
 
     struct AssetCreator

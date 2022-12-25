@@ -49,7 +49,7 @@ namespace RoPP
 
             Responses::AssetInfo GetAssetInfo();
             Responses::ResaleData GetResaleData();
-            Responses::Resellers GetAssetResellers(string Sort="Asc", int Limit=10);
+            std::vector<Responses::ResellerData> GetAssetResellers(string Sort="Asc", int Limit=10);
 
 
         public:
