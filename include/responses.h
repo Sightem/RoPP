@@ -564,15 +564,12 @@ namespace Responses
     
     struct PlaceInfoResponse
     {
-        std::string Name;
-        std::string Description;
-        std::string SourceName;
-        std::string SourceDescription;
+        std::string Name, SourceName;
+        std::string Description, SourceDescription;
         std::string UniverseAvatarType;
         std::string Genre;
 
-        long UniverseID;
-        long PlaceID;
+        long UniverseID, PlaceID;
         long CurrentPlayers;
         long Visits;
         long FavoritedCount;
@@ -590,35 +587,32 @@ namespace Responses
         bool CreateVipServersAllowed;
         bool IsAllGenre;
 
-        PlaceInfoResponse Parse(json j)
+        explicit PlaceInfoResponse(json j)
         {
-            PlaceInfoResponse p;
-
-            if (j.contains("name")) p.Name = j["name"];
-            if (j.contains("description")) p.Description = j["description"];
-            if (j.contains("sourceName")) p.SourceName = j["sourceName"];
-            if (j.contains("sourceDescription")) p.SourceDescription = j["sourceDescription"];
-            if (j.contains("universeAvatarType")) p.UniverseAvatarType = j["universeAvatarType"];
-            if (j.contains("genre")) p.Genre = j["genre"];
-            if (j.contains("id")) p.UniverseID = j["id"];
-            if (j.contains("rootPlaceId")) p.PlaceID = j["rootPlaceId"];
-            if (j.contains("playing")) p.CurrentPlayers = j["playing"];
-            if (j.contains("visits")) p.Visits = j["visits"];
-            if (j.contains("favoritedCount")) p.FavoritedCount = j["favoritedCount"];
-            if (j.contains("price") && !(j["price"].is_null())) p.Price = j["price"];
-            if (j.contains("maxPlayers")) p.MaxPlayers = j["maxPlayers"];
-            if (j.contains("creator")) p.Creator = User(j["creator"]);
-            if (j.contains("created")) p.Created = Timestamp(j["created"]);
-            if (j.contains("updated")) p.Updated = Timestamp(j["updated"]);
-            if (j.contains("isGenreEnforced")) p.IsGenreEnforced = j["isGenreEnforced"];
-            if (j.contains("copyingAllowed")) p.CopyingAllowed = j["copyingAllowed"];
-            if (j.contains("studioAccessToApisAllowed")) p.StudioAccessToApisAllowed = j["studioAccessToApisAllowed"];
-            if (j.contains("createVipServersAllowed")) p.CreateVipServersAllowed = j["createVipServersAllowed"];
-            if (j.contains("isAllGenre")) p.IsAllGenre = j["isAllGenre"];
-
-            return p;
+            if (j.contains("name")) Name = j["name"];
+            if (j.contains("description")) Description = j["description"];
+            if (j.contains("sourceName")) SourceName = j["sourceName"];
+            if (j.contains("sourceDescription")) SourceDescription = j["sourceDescription"];
+            if (j.contains("universeAvatarType")) UniverseAvatarType = j["universeAvatarType"];
+            if (j.contains("genre")) Genre = j["genre"];
+            if (j.contains("id")) UniverseID = j["id"];
+            if (j.contains("rootPlaceId")) PlaceID = j["rootPlaceId"];
+            if (j.contains("playing")) CurrentPlayers = j["playing"];
+            if (j.contains("visits")) Visits = j["visits"];
+            if (j.contains("favoritedCount")) FavoritedCount = j["favoritedCount"];
+            if (j.contains("price") && !(j["price"].is_null())) Price = j["price"];
+            if (j.contains("maxPlayers")) MaxPlayers = j["maxPlayers"];
+            if (j.contains("creator")) Creator = User(j["creator"]);
+            if (j.contains("created")) Created = Timestamp(j["created"]);
+            if (j.contains("updated")) Updated = Timestamp(j["updated"]);
+            if (j.contains("isGenreEnforced")) IsGenreEnforced = j["isGenreEnforced"];
+            if (j.contains("copyingAllowed")) CopyingAllowed = j["copyingAllowed"];
+            if (j.contains("studioAccessToApisAllowed")) StudioAccessToApisAllowed = j["studioAccessToApisAllowed"];
+            if (j.contains("createVipServersAllowed")) CreateVipServersAllowed = j["createVipServersAllowed"];
+            if (j.contains("isAllGenre")) IsAllGenre = j["isAllGenre"];
         }
 
+        PlaceInfoResponse() = default;
     };
 
     struct GroupWallPost

@@ -21,7 +21,7 @@ Responses::PlaceInfoResponse RoPP::Game::GetPlaceInfo()
         "GET"
     ).JsonObj;
 
-    return Responses::PlaceInfoResponse().Parse(res["data"][0]);
+    return Responses::PlaceInfoResponse(res["data"][0]);
 }
 
 Responses::ExperienceVotes RoPP::Game::GetVotes()
