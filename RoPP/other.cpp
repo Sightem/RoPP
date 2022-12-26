@@ -36,7 +36,7 @@ std::string RoPP::Other::ValidateUsername(std::string Username)
     return res["message"];
 }
 
-long RoPP::Other::GetGameUniverseID(int PlaceID)
+long RoPP::Other::GetGameUniverseID(long PlaceID)
 {
     json res = Helper::MakeRobloxRequest
     (

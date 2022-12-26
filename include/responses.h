@@ -508,18 +508,15 @@ namespace Responses
 
     struct ExperienceVotes
     {
-        long Upvotes;
-        long Downvotes;
+        long Upvotes, Downvotes;
 
-        ExperienceVotes Parse(json j)
+        explicit ExperienceVotes(json j)
         {
-            ExperienceVotes v;
-
-            if (j.contains("upVotes") && !(j["upVotes"].is_null())) v.Upvotes = j["upVotes"];
-            if (j.contains("downVotes") && !(j["downVotes"].is_null())) v.Downvotes = j["downVotes"];
-
-            return v;
+            Upvotes = j["upVotes"];
+            Downvotes = j["downVotes"];
         }
+
+        ExperienceVotes() = default;
     };
 
     struct GamePass
