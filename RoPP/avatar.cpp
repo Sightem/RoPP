@@ -25,7 +25,7 @@ Responses::AvatarResponse RoPP::Avatar::GetAvatar(long UserID)
         "GET"
     ).JsonObj;
 
-    return Responses::AvatarResponse().Parse(res);
+    return Responses::AvatarResponse(res);
 }
 
 Responses::OutfitDetailsResponse RoPP::Avatar::GetOutfitDetails(long OutfitID)

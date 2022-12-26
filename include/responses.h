@@ -313,26 +313,21 @@ namespace Responses
         DeveloperProductCreateResponse() = default;
     };
 
-    struct bodyColors
+    struct BodyColors
     {
-        int headColorId;
-        int torsoColorId;
-        int rightArmColorId;
-        int leftArmColorId;
-        int rightLegColorId;
-        int leftLegColorId;
+        int headColorId, torsoColorId, rightArmColorId, leftArmColorId, rightLegColorId, leftLegColorId;
 
-        bodyColors Parse(json j)
+        explicit BodyColors(json j)
         {
-            bodyColors b;
-            if (j.contains("headColorId")) b.headColorId = j["headColorId"];
-            if (j.contains("torsoColorId")) b.torsoColorId = j["torsoColorId"];
-            if (j.contains("rightArmColorId")) b.rightArmColorId = j["rightArmColorId"];
-            if (j.contains("leftArmColorId")) b.leftArmColorId = j["leftArmColorId"];
-            if (j.contains("rightLegColorId")) b.rightLegColorId = j["rightLegColorId"];
-            if (j.contains("leftLegColorId")) b.leftLegColorId = j["leftLegColorId"];
-            return b;
+            if (j.contains("headColorId")) headColorId = j["headColorId"];
+            if (j.contains("torsoColorId")) torsoColorId = j["torsoColorId"];
+            if (j.contains("rightArmColorId")) rightArmColorId = j["rightArmColorId"];
+            if (j.contains("leftArmColorId")) leftArmColorId = j["leftArmColorId"];
+            if (j.contains("rightLegColorId")) rightLegColorId = j["rightLegColorId"];
+            if (j.contains("leftLegColorId")) leftLegColorId = j["leftLegColorId"];
         }
+
+        BodyColors() = default;
     };
 
 
@@ -395,19 +390,17 @@ namespace Responses
     {
         int height, width, depth, head, proportion, bodyType;
 
-        AvatarScales Parse(json j)
+        explicit AvatarScales(json j)
         {
-            AvatarScales a;
-
-            if (j.contains("height")) a.height = j["height"];
-            if (j.contains("width")) a.width = j["width"];
-            if (j.contains("depth")) a.depth = j["depth"];
-            if (j.contains("head")) a.head = j["head"];
-            if (j.contains("proportion")) a.proportion = j["proportion"];
-            if (j.contains("bodyType")) a.bodyType = j["bodyType"];
-
-            return a;
+            if (j.contains("height")) height = j["height"];
+            if (j.contains("width")) width = j["width"];
+            if (j.contains("depth")) depth = j["depth"];
+            if (j.contains("head")) head = j["head"];
+            if (j.contains("proportion")) proportion = j["proportion"];
+            if (j.contains("bodyType")) bodyType = j["bodyType"];
         }
+
+        AvatarScales() = default;
     };
 
     struct OutfitDetailsResponse
@@ -419,7 +412,7 @@ namespace Responses
         long ID;
 
         std::vector<OutfitDetailsAsset> Assets;
-        bodyColors BodyColors;
+        BodyColors Colors;
         AvatarScales Scales;
 
         bool IsEditable;
@@ -432,8 +425,8 @@ namespace Responses
             if (j.contains("playerAvatarType")) o.PlayerAvatarType = j["playerAvatarType"];
             if (j.contains("outfitType")) o.OutfitType = j["outfitType"];
             if (j.contains("id")) o.ID = j["id"];
-            if (j.contains("bodyColors")) o.BodyColors = bodyColors().Parse(j["bodyColors"]);
-            if (j.contains("scale")) o.Scales = AvatarScales().Parse(j["scale"]);
+            if (j.contains("bodyColors")) o.Colors = BodyColors(j["bodyColors"]);
+            if (j.contains("scale")) o.Scales = AvatarScales(j["scale"]);
             if (j.contains("isEditable")) o.IsEditable = j["isEditable"];
 
             for (size_t i = 0; i < j["assets"].size(); i++)
@@ -821,56 +814,62 @@ namespace Responses
             return p;
         }
     };
+
+    struct AvatarAssetType
+    {
+        std::string Name;
+        long ID;
+
+        explicit AvatarAssetType(json j)
+        {
+            Name = j["name"];
+            ID = j["id"];
+        }
+
+        AvatarAssetType() = default;
+    };
     
     struct AvatarAsset
     {
         std::string Name;
-        std::string AssetTypeName;
-        
-        int AssetTypeID;
+
+        AvatarAssetType AssetType;
 
         long AssetID;
         long CurrentVersionID;
 
-        AvatarAsset Parse(json j)
+        explicit AvatarAsset(json j)
         {
-            AvatarAsset a;
-
-            if (j.contains("name")) a.Name = j["name"];
-            if (j.contains("assetType"))  { a.AssetTypeID = j["assetType"]["id"]; a.AssetTypeName = j["assetType"]["name"]; }
-            if (j.contains("id")) a.AssetID = j["id"];
-            if (j.contains("currentVersionId")) a.CurrentVersionID = j["currentVersionId"];
-
-            return a;
+            Name = j["name"];
+            AssetType = AvatarAssetType(j["assetType"]);
+            AssetID = j["id"];
+            CurrentVersionID = j["currentVersionId"];
         }
+
+        AvatarAsset() = default;
     };
 
     struct AvatarResponse
     {
         std::string AvatarType;
 
-        bodyColors BodyColors;
+        BodyColors Colors;
         AvatarScales Scales;
 
         std::vector<AvatarAsset> Assets;
 
-        AvatarResponse Parse(json j)
+        explicit AvatarResponse(json j)
         {
-            AvatarResponse a;
-
-            if (j.contains("playerAvatarType")) a.AvatarType = j["playerAvatarType"];
-            if (j.contains("bodyColors")) a.BodyColors = bodyColors().Parse(j["bodyColors"]);
-            if (j.contains("scales")) a.Scales = AvatarScales().Parse(j["scales"]);
-            if (j.contains("assets"))
+            AvatarType = j["playerAvatarType"];
+            Colors = BodyColors(j["bodyColors"]);
+            Scales = AvatarScales(j["scales"]);
+            for (auto& asset : j["assets"])
             {
-                for (auto& asset : j["assets"])
-                {
-                    a.Assets.push_back(AvatarAsset().Parse(asset));
-                }
+                Assets.push_back(AvatarAsset(asset));
             }
-
-            return a;
         }
+
+        AvatarResponse() = default;
     };
 
     struct BirthdateResponse
