@@ -873,31 +873,9 @@ namespace Responses
         }
     };
 
-    struct CurrentlyWearing
-    {
-        std::vector<long> AssetIDs;
-
-        CurrentlyWearing Parse(json j)
-        {
-            CurrentlyWearing c;
-
-            if (j.contains("assetIds"))
-            {
-                for (auto& id : j["assetIds"])
-                {
-                    c.AssetIDs.push_back(id);
-                }
-            }
-
-            return c;
-        }
-    };
-
     struct BirthdateResponse
     {
-        int Year;
-        int Month;
-        int Day;
+        int Year, Month, Day;
 
         BirthdateResponse Parse(json j)
         {

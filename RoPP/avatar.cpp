@@ -3,7 +3,7 @@
 #include "../include/request.hpp"
 #include "../include/responses.h"
 
-Responses::CurrentlyWearing RoPP::Avatar::GetCurrentlyWearing(long UserID)
+std::vector<long> RoPP::Avatar::GetCurrentlyWearing(long UserID)
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -11,7 +11,10 @@ Responses::CurrentlyWearing RoPP::Avatar::GetCurrentlyWearing(long UserID)
         "GET"
     ).JsonObj;
 
-    return Responses::CurrentlyWearing().Parse(res);
+    std::vector<long> AssetIDs;
+    for (auto& id : res["assetIds"]) AssetIDs.push_back(id);
+
+    return AssetIDs;
 }
 
 Responses::AvatarResponse RoPP::Avatar::GetAvatar(long UserID)

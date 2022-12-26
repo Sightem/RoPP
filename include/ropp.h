@@ -29,7 +29,7 @@ namespace RoPP
     class Avatar : public Auth
     {
         public:
-            Responses::CurrentlyWearing GetCurrentlyWearing(long UserID);
+            std::vector<long> GetCurrentlyWearing(long UserID);
             Responses::AvatarResponse GetAvatar(long UserID);
             Responses::OutfitDetailsResponse GetOutfitDetails(long OutfitID);
             Responses::GetOutfitsResponse GetOutfits(long UserID, int Page=1, int ItemsPerPage=25, bool IsEditable=false);
