@@ -46,7 +46,7 @@ Responses::GetMessagesResponse RoPP::Chat::GetMessages(int PageSize, long Exclus
         true
     ).JsonObj;
 
-    return Responses::GetMessagesResponse().Parse(res);
+    return Responses::GetMessagesResponse(res);
 }
 
 Responses::ChatConversationsResponse RoPP::Chat::GetConversations(std::vector<long> ConversationIDs)

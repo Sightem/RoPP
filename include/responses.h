@@ -217,38 +217,37 @@ namespace Responses
         bool Read;
 
         long SenderTargetID;
-        ChatMessage Parse(json j)
-        {
-            ChatMessage c;
 
-            if (j.contains("id")) c.ID = j["id"];
-            if (j.contains("senderType")) c.SenderType = j["senderType"];
-            if (j.contains("messageType")) c.MessageType = j["messageType"];
-            if (j.contains("content")) c.Content = j["content"];
-            if (j.contains("sent")) c.Sent = Timestamp(j["sent"]);
-            if (j.contains("read")) c.Read = j["read"];
-            if (j.contains("senderTargetId")) c.SenderTargetID = j["senderTargetId"];
-            return c;
+        explicit ChatMessage(json j)
+        {
+            if (j.contains("id")) ID = j["id"];
+            if (j.contains("senderType")) SenderType = j["senderType"];
+            if (j.contains("messageType")) MessageType = j["messageType"];
+            if (j.contains("content")) Content = j["content"];
+            if (j.contains("sent")) Sent = Timestamp(j["sent"]);
+            if (j.contains("read")) Read = j["read"];
+            if (j.contains("senderTargetId")) SenderTargetID = j["senderTargetId"];
         }
+
+        ChatMessage() = default;
     };
 
     struct GetMessagesResponse
     {
         std::vector<ChatMessage> Messages;
 
-        GetMessagesResponse Parse(json j)
+        explicit GetMessagesResponse(json j)
         {
-            GetMessagesResponse c;
             if (!j.empty())
             {
-                for (size_t i = 0; i < j.size(); i++)
+                for (auto& i : j)
                 {
-                    c.Messages.push_back(ChatMessage().Parse(j[i]));
+                    Messages.push_back(ChatMessage(i));
                 }
             }
-
-            return c;
         }
+
+        GetMessagesResponse() = default;
     };
 
     struct ConversationAddResponse
