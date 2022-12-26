@@ -1655,53 +1655,33 @@ namespace Responses
     struct GameInstance
     {
         std::string ID;
+        std::string AccessCode;
+
+        int VIPServerID;
         int MaxPlayers;
         int Playing;
-        std::vector<std::string> PlayerTokens;
         int FPS;
         double Ping;
-        int VIPServerID;
-        std::string AccessCode;
         Responses::User Owner;
 
-        GameInstance Parse(json instance)
+        std::vector<std::string> PlayerTokens;
+        explicit GameInstance(json instance)
         {
-            GameInstance i;
-
-            if (instance.contains("id")) i.ID = instance["id"];
-            if (instance.contains("maxPlayers")) i.MaxPlayers = instance["maxPlayers"];
-            if (instance.contains("playing") && !instance["playing"].is_null()) i.Playing = instance["playing"];
+            if (instance.contains("id")) ID = instance["id"];
+            if (instance.contains("maxPlayers")) MaxPlayers = instance["maxPlayers"];
+            if (instance.contains("playing") && !instance["playing"].is_null()) Playing = instance["playing"];
             if (instance.contains("playerTokens"))
             {
-                for (size_t j = 0; j < instance["playerTokens"].size(); j++)
+                for (auto& element : instance["playerTokens"])
                 {
-                    i.PlayerTokens.push_back(instance["playerTokens"][j]);
+                    PlayerTokens.push_back(element);
                 }
             }
-            if (instance.contains("fps")) i.FPS = instance["fps"];
-            if (instance.contains("ping")) i.Ping = instance["ping"];
-            if (instance.contains("vipServerId")) i.VIPServerID = instance["vipServerId"];
-            if (instance.contains("accessCode")) i.AccessCode = instance["accessCode"];
-            if (instance.contains("owner")) i.Owner = Responses::User(instance["owner"]);
-
-            return i;
-        }
-    };
-
-    struct GameInstancesResponse
-    {
-        std::vector<GameInstance> Instances;
-
-        GameInstancesResponse Parse(json instances)
-        {
-            GameInstancesResponse i;
-
-            for (size_t j = 0; j < instances.size(); j++)
-            {
-                i.Instances.push_back(GameInstance().Parse(instances["data"][j]));
-            }
-
-            return i;
+            if (instance.contains("fps")) FPS = instance["fps"];
+            if (instance.contains("ping")) Ping = instance["ping"];
+            if (instance.contains("vipServerId")) VIPServerID = instance["vipServerId"];
+            if (instance.contains("accessCode")) AccessCode = instance["accessCode"];
+            if (instance.contains("owner")) Owner = Responses::User(instance["owner"]);
         }
     };
 }

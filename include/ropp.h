@@ -115,7 +115,7 @@ namespace RoPP
             Responses::GameBadges GetGameBadges(string Sort="Asc", int Limit=10);
             Responses::ExperienceVotes GetVotes();
             Responses::DeveloperProductCreateResponse CreateDeveloperProduct(string Name, string Description, long Price, long IconImageAssetID=0);
-            Responses::GameInstancesResponse GetGameInstances(string Type="Public", string Sort="Asc", int Limit=100, bool ExcludeFullGames=false);
+            std::vector<Responses::GameInstance> GetGameInstances(string Type="Public", string Sort="Asc", int Limit=100, bool ExcludeFullGames=false);
             Responses::GameSocialLinks GetSocialLinks();
 
             long GetUniverseID();

@@ -60,7 +60,7 @@ Responses::DeveloperProductCreateResponse RoPP::Game::CreateDeveloperProduct(std
     return Responses::DeveloperProductCreateResponse(res);
 }
 
-Responses::GameInstancesResponse RoPP::Game::GetGameInstances(string Type, string Sort, int Limit, bool ExcludeFullGames)
+std::vector<Responses::GameInstance> RoPP::Game::GetGameInstances(string Type, string Sort, int Limit, bool ExcludeFullGames)
 {
     json res;
     
@@ -83,7 +83,13 @@ Responses::GameInstancesResponse RoPP::Game::GetGameInstances(string Type, strin
         ).JsonObj;
     }
 
-    return Responses::GameInstancesResponse().Parse(res);
+    std::vector<Responses::GameInstance> instances;
+    for (auto& instance : res["data"])
+    {
+        instances.push_back(Responses::GameInstance(instance));
+    }
+
+    return instances;
 }
 
 Responses::GameSocialLinks RoPP::Game::GetSocialLinks()
