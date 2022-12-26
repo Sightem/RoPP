@@ -36,7 +36,7 @@ Responses::OutfitDetailsResponse RoPP::Avatar::GetOutfitDetails(long OutfitID)
         "GET"
     ).JsonObj;
 
-    return Responses::OutfitDetailsResponse().Parse(res);
+    return Responses::OutfitDetailsResponse(res);
 }
 
 Responses::GetOutfitsResponse RoPP::Avatar::GetOutfits(long UserID, int Page, int ItemsPerPage, bool IsEditable)

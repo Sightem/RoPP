@@ -152,6 +152,20 @@ namespace Responses
         Experience() = default;
     };
 
+    struct AvatarAssetType
+    {
+        std::string Name;
+        long ID;
+
+        explicit AvatarAssetType(json j)
+        {
+            Name = j["name"];
+            ID = j["id"];
+        }
+
+        AvatarAssetType() = default;
+    };
+    
     struct ChatSettings
     {
         bool ChatEnabled;
@@ -334,22 +348,21 @@ namespace Responses
     struct OutfitDetailsAsset
     {
         std::string Name;
-        std::string AssetTypeName;
-        long AssetID;
-        long AssetTypeID;
-        long CurrentVersionID;
         
-        OutfitDetailsAsset Parse(json j)
+        AvatarAssetType AssetType;
+
+        long AssetID;
+        long CurrentVersionID;
+
+        explicit OutfitDetailsAsset(json j)
         {
-            OutfitDetailsAsset o;
-
-            if (j.contains("name")) o.Name = j["name"];
-            if (j.contains("assetType")) { o.AssetTypeID = j["assetType"]["id"]; o.AssetTypeName = j["assetType"]["name"]; }
-            if (j.contains("id")) o.AssetID = j["id"];
-            if (j.contains("currentVersion")) o.CurrentVersionID = j["currentVersionID"];
-
-            return o;
+            Name = j["name"];
+            AssetType = AvatarAssetType(j["assetType"]);
+            AssetID = j["id"];
+            CurrentVersionID = j["currentVersion"];
         }
+
+        OutfitDetailsAsset() = default;
     };
     
     struct GetOutfitsAsset
@@ -417,24 +430,18 @@ namespace Responses
 
         bool IsEditable;
 
-        OutfitDetailsResponse Parse(json j)
+        explicit OutfitDetailsResponse(json j)
         {
-            OutfitDetailsResponse o;
+            if (j.contains("name")) Name = j["name"];
+            if (j.contains("playerAvatarType")) PlayerAvatarType = j["playerAvatarType"];
+            if (j.contains("outfitType")) OutfitType = j["outfitType"];
+            if (j.contains("id")) ID = j["id"];
+            if (j.contains("bodyColors")) Colors = BodyColors(j["bodyColors"]);
+            if (j.contains("scale")) Scales = AvatarScales(j["scale"]);
+            if (j.contains("isEditable")) IsEditable = j["isEditable"];
 
-            if (j.contains("name")) o.Name = j["name"];
-            if (j.contains("playerAvatarType")) o.PlayerAvatarType = j["playerAvatarType"];
-            if (j.contains("outfitType")) o.OutfitType = j["outfitType"];
-            if (j.contains("id")) o.ID = j["id"];
-            if (j.contains("bodyColors")) o.Colors = BodyColors(j["bodyColors"]);
-            if (j.contains("scale")) o.Scales = AvatarScales(j["scale"]);
-            if (j.contains("isEditable")) o.IsEditable = j["isEditable"];
-
-            for (size_t i = 0; i < j["assets"].size(); i++)
-            {
-                o.Assets.push_back(OutfitDetailsAsset().Parse(j["assets"][i]));
-            }
-
-            return o;
+            for (auto& asset : j["assets"])
+                Assets.push_back(OutfitDetailsAsset(asset));
         }
     };
 
@@ -815,20 +822,6 @@ namespace Responses
         }
     };
 
-    struct AvatarAssetType
-    {
-        std::string Name;
-        long ID;
-
-        explicit AvatarAssetType(json j)
-        {
-            Name = j["name"];
-            ID = j["id"];
-        }
-
-        AvatarAssetType() = default;
-    };
-    
     struct AvatarAsset
     {
         std::string Name;
