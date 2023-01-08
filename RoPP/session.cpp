@@ -297,7 +297,7 @@ void RoPP::Session::SetGender(string Gender)
     ).JsonObj;
 }
 
-Responses::FriendsOnlineResponse RoPP::Session::GetFriendsOnline()
+std::vector<Responses::FriendsOnline> RoPP::Session::GetFriendsOnline()
 {
     json res = Helper::MakeAuthedRobloxRequest
     (
@@ -307,7 +307,13 @@ Responses::FriendsOnlineResponse RoPP::Session::GetFriendsOnline()
         true
     ).JsonObj;
 
-    return Responses::FriendsOnlineResponse().Parse(res);
+    std::vector<Responses::FriendsOnline> Friends;
+    for (size_t i = 0; i < res["data"].size(); i++)
+    {
+        Friends.push_back(Responses::FriendsOnline(res["data"][i]));
+    }
+
+    return Friends;
 }
 
 Responses::User RoPP::Session::GetUser()

@@ -1279,36 +1279,21 @@ namespace Responses
 
         Timestamp LastOnline;
 
-        FriendsOnline Parse(json j)
+        explicit FriendsOnline(json j)
         {
-            FriendsOnline f;
-            if (j.contains("userPresenceType")) f.UserPresenceType = j["UserPresenceType"];
-            if (j.contains("userLocationType")) f.UserLocationType = j["UserLocationType"];
-            if (j.contains("lastLocation")) f.lastLocation = j["lastLocation"];
-            if (j.contains("gameInstanceId")) f.GameInstanceId = j["gameInstanceId"];
-            if (j.contains("name")) f.Username = j["name"];
-            if (j.contains("displayName")) f.DisplayName = j["displayName"];
-            if (j.contains("placeId")) f.PlaceID = j["placeId"];
-            if (j.contains("universeId")) f.UniverseID = j["universeId"];
-            if (j.contains("id")) f.UID = j["id"];
-            if (j.contains("lastOnline")) f.LastOnline = Timestamp(j["lastOnline"]);
-            return f;
+            if (j.contains("userPresenceType")) UserPresenceType = j["userPresenceType"];
+            if (j.contains("userLocationType")) UserLocationType = j["userLocationType"];
+            if (j.contains("lastLocation")) lastLocation = j["lastLocation"];
+            if (j.contains("gameInstanceId")) GameInstanceId = j["gameInstanceId"];
+            if (j.contains("name")) Username = j["name"];
+            if (j.contains("displayName")) DisplayName = j["displayName"];
+            if (j.contains("placeId")) PlaceID = j["placeId"];
+            if (j.contains("universeId")) UniverseID = j["universeId"];
+            if (j.contains("id")) UID = j["id"];
+            if (j.contains("lastOnline")) LastOnline = Timestamp(j["lastOnline"]);
         }
-    };
 
-    struct FriendsOnlineResponse
-    {
-        std::vector<FriendsOnline> Friends;
-
-        FriendsOnlineResponse Parse(json j)
-        {
-            FriendsOnlineResponse f;
-            for (size_t i = 0; i < j.size(); i++)
-            {
-                f.Friends.push_back(FriendsOnline().Parse(j["data"][i]));
-            }
-            return f;
-        }
+        FriendsOnline() = default;
     };
 
     struct FollowingsResponse

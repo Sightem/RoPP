@@ -267,7 +267,7 @@ namespace RoPP
             
             std::string GetDescription();
 
-            Responses::FriendsOnlineResponse GetFriendsOnline();
+            std::vector<Responses::FriendsOnline> GetFriendsOnline();
             Responses::BirthdateResponse GetBirthDate();
             Responses::PhoneInfo GetPhoneInfo();
             Responses::FriendRequestsResponse GetFriendRequests(string Sort="Asc", int Limit=10);
