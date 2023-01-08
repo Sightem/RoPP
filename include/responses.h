@@ -922,40 +922,20 @@ namespace Responses
 
         int UserPresenceType;
 
-        UserPresence Parse(json j)
+        explicit UserPresence(json j)
         {
-            UserPresence u;
-
-            if (j.contains("lastLocation") && !(j["lastLocation"].is_null())) u.LastLocation = j["lastLocation"];
-            if (j.contains("lastOnline") && !(j["lastOnline"].is_null())) u.LastOnline = Timestamp(j["lastOnline"]);
-            if (j.contains("placeId") && !(j["placeId"].is_null())) u.PlaceID = j["placeId"];
-            if (j.contains("rootPlaceId") && !(j["rootPlaceId"].is_null())) u.RootPlaceID = j["rootPlaceId"];
-            if (j.contains("universeId") && !(j["universeId"].is_null())) u.UniverseID = j["universeId"];
-            if (j.contains("userId") && !(j["userId"].is_null())) u.UserID = j["userId"];
-            if (j.contains("userPresenceType") && !(j["userPresenceType"].is_null())) u.UserPresenceType = j["userPresenceType"];
-            if (j.contains("gameId") && !(j["gameId"].is_null())) u.GameId = j["gameId"];
-
-            return u;
+            if (j.contains("lastLocation") && !(j["lastLocation"].is_null())) LastLocation = j["lastLocation"];
+            if (j.contains("lastOnline") && !(j["lastOnline"].is_null())) LastOnline = Timestamp(j["lastOnline"]);
+            if (j.contains("placeId") && !(j["placeId"].is_null())) PlaceID = j["placeId"];
+            if (j.contains("rootPlaceId") && !(j["rootPlaceId"].is_null())) RootPlaceID = j["rootPlaceId"];
+            if (j.contains("universeId") && !(j["universeId"].is_null())) UniverseID = j["universeId"];
+            if (j.contains("userId") && !(j["userId"].is_null())) UserID = j["userId"];
+            if (j.contains("userPresenceType") && !(j["userPresenceType"].is_null())) UserPresenceType = j["userPresenceType"];
+            if (j.contains("gameId") && !(j["gameId"].is_null())) GameId = j["gameId"];
         }
+
+        UserPresence() = default;
     };
-
-    struct UserPresenceResponse
-    {
-        std::vector<UserPresence> UserPresences;
-
-        UserPresenceResponse Parse(json j)
-        {
-            UserPresenceResponse u;
-
-            for (size_t i = 0; i < j.size(); i++)
-            {
-                u.UserPresences.push_back(UserPresence().Parse(j["userPresences"][i]));
-            }
-
-            return u;
-        }
-    };
-
 
     struct BadgeStats
     {

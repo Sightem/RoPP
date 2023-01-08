@@ -268,7 +268,6 @@ namespace RoPP
             std::string GetDescription();
 
             Responses::FriendsOnlineResponse GetFriendsOnline();
-            Responses::UserPresenceResponse GetUsersPresence(std::vector<long> UIDs);
             Responses::BirthdateResponse GetBirthDate();
             Responses::PhoneInfo GetPhoneInfo();
             Responses::FriendRequestsResponse GetFriendRequests(string Sort="Asc", int Limit=10);
@@ -307,6 +306,8 @@ namespace RoPP
     class Other : public Auth
     {
         public:
+
+            std::vector<Responses::UserPresence> GetUsersPresence(std::vector<long> UIDs);
 
             json UserSearch(string Keyword, int Limit=10);
 

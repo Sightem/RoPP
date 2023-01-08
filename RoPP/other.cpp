@@ -46,3 +46,41 @@ long RoPP::Other::GetGameUniverseID(long PlaceID)
 
     return res["universeId"];
 }
+
+std::vector<Responses::UserPresence> RoPP::Other::GetUsersPresence(std::vector<long> UIDs)
+{
+    json data = 
+    {
+        {"userIds", UIDs}
+    };
+
+    json res;
+    
+    if (!this->Cookie.empty())
+    {
+        res = Helper::MakeAuthedRobloxRequest
+        (
+            "https://presence.roblox.com/v1/presence/users",
+            "POST",
+            this->Cookie,
+            true,
+            data
+        ).JsonObj;
+    } else
+    {
+        res = Helper::MakeRobloxRequest
+        (
+            "https://presence.roblox.com/v1/presence/users",
+            "POST",
+            data
+        ).JsonObj;
+    }
+
+    std::vector<Responses::UserPresence> presences;
+    for (size_t i = 0; i < res["userPresences"].size(); i++)
+    {
+        presences.push_back(Responses::UserPresence(res["userPresences"][i]));
+    }
+
+    return presences;
+}
