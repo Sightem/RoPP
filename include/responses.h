@@ -859,14 +859,14 @@ namespace Responses
     {
         int Year, Month, Day;
 
-        BirthdateResponse Parse(json j)
+        explicit BirthdateResponse(json j)
         {
-            BirthdateResponse b;
-            if (j.contains("birthYear")) b.Year = j["birthYear"];
-            if (j.contains("birthMonth")) b.Month = j["birthMonth"];
-            if (j.contains("birthDay")) b.Day = j["birthDay"];
-            return b;
+            Year = j["birthYear"];
+            Month = j["birthMonth"];
+            Day = j["birthDay"];
         }
+
+        BirthdateResponse() = default;
     };
 
     struct InventoryAsset

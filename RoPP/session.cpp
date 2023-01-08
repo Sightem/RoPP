@@ -13,7 +13,7 @@ Responses::BirthdateResponse RoPP::Session::GetBirthDate()
         true
     ).JsonObj;
 
-    return Responses::BirthdateResponse().Parse(res);
+    return Responses::BirthdateResponse(res);
 }
 
 std::string RoPP::Session::GetDescription()
