@@ -304,7 +304,7 @@ namespace RoPP
             }
     };
 
-    class Other
+    class Other : public Auth
     {
         public:
 
