@@ -100,12 +100,12 @@ bool RoPP::Session::IsFavoriteGame(int PlaceID)
     int UniverseID = other.GetGameUniverseID(PlaceID);
 
    json res = Helper::MakeAuthedRobloxRequest
-    (
+   (
         "https://games.roblox.com/v1/games/" + std::to_string(UniverseID) + "/favorites",
         "GET",
         this->Cookie,
         false
-    ).JsonObj;
+   ).JsonObj;
 
     return res["isFavorited"];
 }
@@ -121,13 +121,13 @@ void RoPP::Session::SetFavoriteGame(int PlaceID, bool Favorite)
     };
 
     json res = Helper::MakeAuthedRobloxRequest
-        (
-            "https://games.roblox.com/v1/games/" + std::to_string(UniverseID) + "/favorites",
-            "POST",
-            this->Cookie,
-            true,
-            data
-        ).JsonObj;
+    (
+        "https://games.roblox.com/v1/games/" + std::to_string(UniverseID) + "/favorites",
+        "POST",
+        this->Cookie,
+        true,
+        data
+    ).JsonObj;
 }
 
 double RoPP::Session::UnlockPin(int Pin)
@@ -153,12 +153,12 @@ double RoPP::Session::UnlockPin(int Pin)
 bool RoPP::Session::LockPin()
 {
     json res = Helper::MakeAuthedRobloxRequest
-        (
-            "https://auth.roblox.com/v1/account/pin/lock",
-            "POST",
-            this->Cookie,
-            true
-        ).JsonObj;
+    (
+        "https://auth.roblox.com/v1/account/pin/lock",
+        "POST",
+        this->Cookie,
+        true
+    ).JsonObj;
 
     return res["success"];
 }
@@ -172,13 +172,13 @@ void RoPP::Session::ChangePassword(string OldPassword, string NewPassword)
     };
 
     Helper::WebResponse res = Helper::MakeAuthedRobloxRequest
-        (
-            "https://auth.roblox.com/v2/user/passwords/change",
-            "POST",
-            this->Cookie,
-            true,
-            data
-        );
+    (
+        "https://auth.roblox.com/v2/user/passwords/change",
+        "POST",
+        this->Cookie,
+        true,
+        data
+    );
 
     if (!res.Res.cookies.empty())
     {
@@ -197,13 +197,13 @@ bool RoPP::Session::SendFriendRequest(long UID)
     };
 
     json res = Helper::MakeAuthedRobloxRequest
-        (
-            "https://friends.roblox.com/v1/users/" + std::to_string(UID) + "/request-friendship",
-            "POST",
-            this->Cookie,
-            true,
-            data
-        ).JsonObj;
+    (
+        "https://friends.roblox.com/v1/users/" + std::to_string(UID) + "/request-friendship",
+        "POST",
+        this->Cookie,
+        true,
+        data
+    ).JsonObj;
 
     return res["success"];
 }
@@ -211,56 +211,56 @@ bool RoPP::Session::SendFriendRequest(long UID)
 void RoPP::Session::AcceptFriendRequest(long UID)
 {
     json res = Helper::MakeAuthedRobloxRequest
-        (
-            "https://friends.roblox.com/v1/users/" + std::to_string(UID) + "/accept-friend-request",
-            "POST",
-            this->Cookie,
-            true
-        ).JsonObj;
+    (
+        "https://friends.roblox.com/v1/users/" + std::to_string(UID) + "/accept-friend-request",
+        "POST",
+        this->Cookie,
+        true
+    ).JsonObj;
 }
 
 void RoPP::Session::DeclineFriendRequest(long UID)
 {
     json res = Helper::MakeAuthedRobloxRequest
-        (
-            "https://friends.roblox.com/v1/users/" + std::to_string(UID) + "/accept-friend-request",
-            "POST",
-            this->Cookie,
-            true
-        ).JsonObj;
+    (
+        "https://friends.roblox.com/v1/users/" + std::to_string(UID) + "/accept-friend-request",
+        "POST",
+        this->Cookie,
+        true
+    ).JsonObj;
 }
 
 void RoPP::Session::DeclineAllFriendRequests()
 {
     json res = Helper::MakeAuthedRobloxRequest
-        (
-            "https://friends.roblox.com/v1/user/friend-requests/decline-all",
-            "POST",
-            this->Cookie,
-            true
-        ).JsonObj;
+    (
+        "https://friends.roblox.com/v1/user/friend-requests/decline-all",
+        "POST",
+        this->Cookie,
+        true
+    ).JsonObj;
 }
 
 void RoPP::Session::BlockUser(long UID)
 {
     json res = Helper::MakeAuthedRobloxRequest
-        (
-            "https://accountsettings.roblox.com/v1/users/" + std::to_string(UID) + "/block",
-            "POST",
-            this->Cookie,
-            true
-        ).JsonObj;
+    (
+        "https://accountsettings.roblox.com/v1/users/" + std::to_string(UID) + "/block",
+        "POST",
+        this->Cookie,
+        true
+    ).JsonObj;
 }
 
 void RoPP::Session::UnblockUser(long UID)
 {
     json res = Helper::MakeAuthedRobloxRequest
-        (
-            "https://accountsettings.roblox.com/v1/users/" + std::to_string(UID) + "/unblock",
-            "POST",
-            this->Cookie,
-            true
-        ).JsonObj;
+    (
+        "https://accountsettings.roblox.com/v1/users/" + std::to_string(UID) + "/unblock",
+        "POST",
+        this->Cookie,
+        true
+    ).JsonObj;
 }
 
 void RoPP::Session::SetDescription(string Description)
@@ -271,13 +271,13 @@ void RoPP::Session::SetDescription(string Description)
     };
 
     json res = Helper::MakeAuthedRobloxRequest
-        (
-            "https://accountinformation.roblox.com/v1/description",
-            "POST",
-            this->Cookie,
-            true,
-            data
-        ).JsonObj;
+    (
+        "https://accountinformation.roblox.com/v1/description",
+        "POST",
+        this->Cookie,
+        true,
+        data
+    ).JsonObj;
 }
 
 void RoPP::Session::SetGender(string Gender)
@@ -332,11 +332,11 @@ Responses::User RoPP::Session::GetUser()
 long RoPP::Session::GetUserID()
 {
    json res = Helper::MakeAuthedRobloxRequest
-    (
-        "https://users.roblox.com/v1/users/authenticated",
-        "GET",
-        this->Cookie,
-        true
-    ).JsonObj;
+   (
+       "https://users.roblox.com/v1/users/authenticated",
+       "GET",
+       this->Cookie,
+       true
+   ).JsonObj;
     return res["id"];
 }
