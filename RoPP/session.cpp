@@ -91,7 +91,7 @@ Responses::FriendRequestsResponse RoPP::Session::GetFriendRequests(string Sort, 
         true
     ).JsonObj;
 
-    return Responses::FriendRequestsResponse().Parse(res);
+    return Responses::FriendRequestsResponse(res);
 }
 
 bool RoPP::Session::IsFavoriteGame(int PlaceID)

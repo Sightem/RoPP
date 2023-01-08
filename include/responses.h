@@ -750,17 +750,15 @@ namespace Responses
         long SenderID;
         long SourceUniverseID;
 
-        FriendRequest Parse(json j)
+        explicit FriendRequest(json j)
         {
-            FriendRequest f;
-
-            if (j.contains("originSourceType")) f.OriginSourceType = j["originSourceType"];
-            if (j.contains("sentAt")) f.SentAt = Timestamp(j["sentAt"]);
-            if (j.contains("senderId")) f.SenderID = j["senderId"];
-            if (j.contains("sourceUniverseId") && !(j["sourceUniverseId"].is_null())) f.SourceUniverseID = j["sourceUniverseId"];
-
-            return f;
+            if (j.contains("originSourceType")) OriginSourceType = j["originSourceType"];
+            if (j.contains("sentAt")) SentAt = Timestamp(j["sentAt"]);
+            if (j.contains("senderId")) SenderID = j["senderId"];
+            if (j.contains("sourceUniverseId") && !(j["sourceUniverseId"].is_null())) SourceUniverseID = j["sourceUniverseId"];
         }
+
+        FriendRequest() = default;
     };
 
     struct FriendRequestsResponse
@@ -768,22 +766,20 @@ namespace Responses
         std::vector<FriendRequest> FriendRequests;
         std::vector<User> SenderInfo;
 
-        FriendRequestsResponse Parse(json j)
+        explicit FriendRequestsResponse(json j)
         {
-            FriendRequestsResponse frr;
-
             for (size_t i = 0; i < j["data"].size(); i++)
             {
-                frr.FriendRequests.push_back(FriendRequest().Parse(j["data"][i]["friendRequest"]));
+                FriendRequests.push_back(FriendRequest(j["data"][i]["friendRequest"]));
             }
 
             for (size_t i = 0; i < j.size(); i++)
             {
-                frr.SenderInfo.push_back(User(j["data"][i]["senderInfo"]));
+                SenderInfo.push_back(User(j["data"][i]["senderInfo"]));
             }
-
-            return frr;
         }
+
+        FriendRequestsResponse() = default;
     };
 
     struct PhoneInfo
