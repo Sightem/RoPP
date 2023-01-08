@@ -39,7 +39,7 @@ Responses::PhoneInfo RoPP::Session::GetPhoneInfo()
         true
     ).JsonObj;
 
-    return Responses::PhoneInfo().Parse(res);
+    return Responses::PhoneInfo(res);
 }
 
 long RoPP::Session::GetRobuxBalance()

@@ -797,19 +797,17 @@ namespace Responses
         bool IsVerified;
         bool CanBypassPasswordForPhoneUpdate;
 
-        PhoneInfo Parse(json j)
+        explicit PhoneInfo(json j)
         {
-            PhoneInfo p;
-
-            if (j.contains("countryCode")) p.CountryCode = j["countryCode"];
-            if (j.contains("prefix")) p.Prefix = j["prefix"];
-            if (j.contains("phone")) p.Phone = j["phone"];
-            if (j.contains("verificationCodeLength")) p.VerificationCodeLength = j["verificationCodeLength"];
-            if (j.contains("isVerified")) p.IsVerified = j["isVerified"];
-            if (j.contains("canBypassPasswordForPhoneUpdate")) p.CanBypassPasswordForPhoneUpdate = j["canBypassPasswordForPhoneUpdate"];
-
-            return p;
+            CountryCode = j["countryCode"];
+            Prefix = j["prefix"];
+            Phone = j["phone"];
+            VerificationCodeLength = j["verificationCodeLength"];
+            IsVerified = j["isVerified"];
+            CanBypassPasswordForPhoneUpdate = j["canBypassPasswordForPhoneUpdate"];
         }
+
+        PhoneInfo() = default;
     };
 
     struct AvatarAsset
