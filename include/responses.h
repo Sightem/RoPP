@@ -182,6 +182,26 @@ namespace Responses
         ChatSettings() = default;
     };
 
+    struct SearchedUser
+    {
+        std::vector<std::string> PreviousUsernames;
+        bool HasVerifiedBadge;
+        long ID;
+        std::string Name;
+        std::string DisplayName;
+
+        explicit SearchedUser(json j)
+        {
+            if (j.contains("previousUsernames")) PreviousUsernames = j["previousUsernames"];
+            if (j.contains("hasVerifiedBadge")) HasVerifiedBadge = j["hasVerifiedBadge"];
+            if (j.contains("id")) ID = j["id"];
+            if (j.contains("name")) Name = j["name"];
+            if (j.contains("displayName")) DisplayName = j["displayName"];
+        }
+
+        SearchedUser() = default;
+    };
+
     struct RejectedParticipant
     {
         std::string RejectedReason;

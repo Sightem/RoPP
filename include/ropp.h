@@ -309,7 +309,7 @@ namespace RoPP
 
             std::vector<Responses::UserPresence> GetUsersPresence(std::vector<long> UIDs);
 
-            json UserSearch(string Keyword, int Limit=10);
+            std::vector<Responses::SearchedUser> UserSearch(string Keyword, int Limit=10);
 
             json GroupSearch(string Keyword, bool prioritizeExactMatch=true, int Limit=10);
 
