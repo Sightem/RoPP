@@ -96,16 +96,15 @@ Responses::FriendRequestsResponse RoPP::Session::GetFriendRequests(string Sort, 
 
 bool RoPP::Session::IsFavoriteGame(int PlaceID)
 {
-    RoPP::Other other;
-    int UniverseID = other.GetGameUniverseID(PlaceID);
+    int UniverseID = RoPP::Other().GetGameUniverseID(PlaceID);
 
-   json res = Helper::MakeAuthedRobloxRequest
-   (
+    json res = Helper::MakeAuthedRobloxRequest
+    (
         "https://games.roblox.com/v1/games/" + std::to_string(UniverseID) + "/favorites",
         "GET",
         this->Cookie,
         false
-   ).JsonObj;
+    ).JsonObj;
 
     return res["isFavorited"];
 }
