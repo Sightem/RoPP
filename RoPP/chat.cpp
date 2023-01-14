@@ -52,6 +52,8 @@ Responses::GetMessagesResponse RoPP::Chat::GetMessages(int PageSize, long Exclus
 
 Responses::ChatConversationsResponse RoPP::Chat::GetConversations(std::vector<long> ConversationIDs)
 {
+    if (ConversationIDs.empty()) ConversationIDs = { this->ConversationID };
+    
     std::string URL = "https://chat.roblox.com/v2/get-conversations?";
     for (size_t i = 0; i < ConversationIDs.size(); i++)
     {
@@ -105,4 +107,32 @@ int RoPP::Chat::GetUnreadConversationCount()
     ).JsonObj;
 
     return res["count"];
+}
+
+std::vector<Responses::ChatConversationWithMessages> RoPP::Chat::GetUnreadMessages(std::vector<long> ConversationIDs, int PageSize)
+{
+    if (ConversationIDs.empty()) ConversationIDs = { this->ConversationID };
+
+    std::string URL = "https://chat.roblox.com/v2/get-unread-messages?";
+    for (size_t i = 0; i < ConversationIDs.size(); i++)
+    {
+        URL += "conversationIds=" + std::to_string(ConversationIDs[i]) + (i != ConversationIDs.size() - 1 ? "&" : "");
+    }
+    URL += "&pageSize=" + std::to_string(PageSize);
+
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        URL,
+        "GET",
+        this->Cookie,
+        true
+    ).JsonObj;
+
+    std::vector<Responses::ChatConversationWithMessages> Conversations;
+    for (auto& i : res)
+    {
+        Conversations.emplace_back(i);
+    }
+
+    return Conversations;
 }

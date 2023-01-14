@@ -1666,4 +1666,19 @@ namespace Responses
             IsRolloutEnabled = feature["isRolloutEnabled"];
         }
     };
+
+    struct ChatConversationWithMessages
+    {
+        long ConversationId;
+        std::vector<Responses::ChatMessage> Messages;
+
+        explicit ChatConversationWithMessages(json conversation)
+        {
+            ConversationId = conversation["conversationId"];
+            for (auto& message : conversation["messages"])
+            {
+                Messages.emplace_back(message);
+            }
+        }
+    };
 }
