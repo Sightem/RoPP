@@ -2,7 +2,6 @@
 #include "../include/helper.h"
 #include "../include/request.hpp"
 #include "../include/responses.h"
-#include <iostream>
 
 using ordered_json = nlohmann::ordered_json;
 
