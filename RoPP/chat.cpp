@@ -2,6 +2,7 @@
 #include "../include/helper.h"
 #include "../include/request.hpp"
 #include "../include/responses.h"
+#include <iostream>
 
 using ordered_json = nlohmann::ordered_json;
 
@@ -66,4 +67,29 @@ Responses::ChatConversationsResponse RoPP::Chat::GetConversations(std::vector<lo
     ).JsonObj;
     
     return Responses::ChatConversationsResponse(res);
+}
+
+std::vector<Responses::RolloutFeature> RoPP::Chat::GetRolloutFeatures(std::vector<std::string> FeatureNames)
+{
+    std::string URL = "https://chat.roblox.com/v2/get-rollout-settings?";
+    for (size_t i = 0; i < FeatureNames.size(); i++)
+    {
+        URL += "featureNames=" + FeatureNames[i] + (i != FeatureNames.size() - 1 ? "&" : "");
+    }
+
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        URL,
+        "GET",
+        this->Cookie,
+        false
+    ).JsonObj;
+
+    std::vector<Responses::RolloutFeature> Features;
+    for (auto& i : res["rolloutFeatures"])
+    {
+        Features.emplace_back(i);
+    }
+
+    return Features;
 }

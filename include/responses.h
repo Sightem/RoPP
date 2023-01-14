@@ -1654,4 +1654,16 @@ namespace Responses
             if (instance.contains("owner")) Owner = Responses::User(instance["owner"]);
         }
     };
+
+    struct RolloutFeature
+    {
+        std::string FeatureName;
+        bool IsRolloutEnabled;
+
+        explicit RolloutFeature(json feature)
+        {
+            FeatureName = feature["featureName"];
+            IsRolloutEnabled = feature["isRolloutEnabled"];
+        }
+    };
 }
