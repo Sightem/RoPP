@@ -93,3 +93,16 @@ std::vector<Responses::RolloutFeature> RoPP::Chat::GetRolloutFeatures(std::vecto
 
     return Features;
 }
+
+int RoPP::Chat::GetUnreadConversationCount()
+{
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://chat.roblox.com/v2/get-unread-conversation-count",
+        "GET",
+        this->Cookie,
+        true
+    ).JsonObj;
+
+    return res["count"];
+}
