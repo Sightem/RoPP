@@ -135,3 +135,22 @@ std::vector<Responses::ChatConversationWithMessages> RoPP::Chat::GetUnreadMessag
 
     return Conversations;
 }
+
+std::vector<Responses::ChatConversation> RoPP::Chat::GetUserConversations(int PageNumber, int PageSize)
+{
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://chat.roblox.com/v2/get-user-conversations?pageNumber=" + std::to_string(PageNumber) + "&pageSize=" + std::to_string(PageSize),
+        "GET",
+        this->Cookie,
+        true
+    ).JsonObj;
+
+    std::vector<Responses::ChatConversation> Conversations;
+    for (auto& i : res)
+    {
+        Conversations.emplace_back(i);
+    }
+
+    return Conversations;
+}
