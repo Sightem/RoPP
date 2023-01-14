@@ -3,6 +3,8 @@
 #include "../include/helper.h"
 using json = nlohmann::json;
 
+#define USER_AGENT "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
+
 //@Nowilltolife
 [[maybe_unused]] Helper::WebResponse Helper::MakeAuthedRobloxRequest(
                        std::string Url,
@@ -17,7 +19,7 @@ using json = nlohmann::json;
     
     Request req("https://auth.roblox.com/v1/authentication-ticket");
     Response res;
-    req.set_header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36");
+    req.set_header("User-Agent", USER_AGENT);
     req.set_cookie(".ROBLOSECURITY", Cookie);
     req.set_header("Referer", "https://www.roblox.com/");
     req.set_header("Accept", "application/json");
@@ -56,7 +58,7 @@ using json = nlohmann::json;
                        cookies_t Additional_cookies)
 {
     Request req(Url);
-    req.set_header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36");
+    req.set_header("User-Agent", USER_AGENT);
     req.set_header("Referer", "https://www.roblox.com/");
     req.set_header("Accept", "application/json");
     req.set_header("Content-Type", "application/json");
