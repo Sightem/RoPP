@@ -53,7 +53,7 @@ Responses::GetMessagesResponse RoPP::Chat::GetMessages(int PageSize, long Exclus
 Responses::ChatConversationsResponse RoPP::Chat::GetConversations(std::vector<long> ConversationIDs)
 {
     if (ConversationIDs.empty()) ConversationIDs = { this->ConversationID };
-    
+
     std::string URL = "https://chat.roblox.com/v2/get-conversations?";
     for (size_t i = 0; i < ConversationIDs.size(); i++)
     {
@@ -125,7 +125,7 @@ std::vector<Responses::ChatConversationWithMessages> RoPP::Chat::GetUnreadMessag
         URL,
         "GET",
         this->Cookie,
-        true
+        false
     ).JsonObj;
 
     std::vector<Responses::ChatConversationWithMessages> Conversations;
