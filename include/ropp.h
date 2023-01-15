@@ -235,7 +235,7 @@ namespace RoPP
             std::vector<Responses::GroupWithRole> GetGroups();
             Responses::UserBadgesResponse GetBadges();
             Responses::Group GetPrimaryGroup();
-            Responses::InventoryResponse GetInventory(std::vector<string> AssetType, string Sort="Asc", int Limit=10);
+            std::vector<Responses::InventoryAsset>  GetInventory(std::vector<string> AssetType, string Sort="Asc", int Limit=10);
 
             bool CanInventoryBeViewed();
 

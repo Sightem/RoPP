@@ -786,23 +786,6 @@ namespace Responses
         }
     };
 
-    struct InventoryResponse
-    {
-        std::vector<InventoryAsset> Assets;
-
-        InventoryResponse Parse(json j)
-        {
-            InventoryResponse r;
-
-            for (size_t i = 0; i < j.size(); i++)
-            {
-                r.Assets.push_back(InventoryAsset().Parse(j["data"][i]));
-            }
-
-            return r;
-        }
-    };
-
     struct UserPresence
     {
         std::string LastLocation;

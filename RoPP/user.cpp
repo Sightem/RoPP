@@ -116,7 +116,7 @@ Responses::Group RoPP::User::GetPrimaryGroup()
     return Responses::Group(res);
 }
 
-Responses::InventoryResponse RoPP::User::GetInventory(std::vector<string> AssetType, string Sort, int Limit)
+std::vector<Responses::InventoryAsset> RoPP::User::GetInventory(std::vector<string> AssetType, string Sort, int Limit)
 {
     string AssetTypeString = "";
     for (size_t i = 0; i < AssetType.size(); i++)
@@ -133,7 +133,14 @@ Responses::InventoryResponse RoPP::User::GetInventory(std::vector<string> AssetT
         "GET"
     ).JsonObj;
 
-    return Responses::InventoryResponse().Parse(res);
+    std::vector<Responses::InventoryAsset> Assets;
+
+    for (auto& element : res["data"])
+    {
+        Assets.emplace_back(element);
+    }
+
+    return Assets;
 }
 
 bool RoPP::User::CanInventoryBeViewed()
