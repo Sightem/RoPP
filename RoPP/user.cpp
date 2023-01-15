@@ -83,15 +83,22 @@ Responses::UserExperienceResponse RoPP::User::GetExperiences(string Sort, int li
     return Responses::UserExperienceResponse().Parse(res);
 }
 
-Responses::UserFavoriteExperiences RoPP::User::GetFavoriteExperiences(string Sort, int limit)
+std::vector<Responses::Experience> RoPP::User::GetFavoriteExperiences(string Sort, int limit)
 {
     json res = Helper::MakeRobloxRequest
     (
         "https://games.roblox.com/v2/users/" + std::to_string(this->UID) + "/favorite/games?sortOrder=" + Sort + "&limit=" + std::to_string(limit),
         "GET"
     ).JsonObj;
+    
+    std::vector<Responses::Experience> Experiences;
 
-    return Responses::UserFavoriteExperiences().Parse(res);
+    for (auto& element : res["data"])
+    {
+        Experiences.emplace_back(element);
+    }
+
+    return Experiences;
 }
 
 std::vector<std::string> RoPP::User::GetPastUsernames(std::string Sort, int limit)
