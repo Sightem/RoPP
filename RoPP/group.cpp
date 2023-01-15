@@ -47,7 +47,7 @@ std::vector<Responses::GroupWallPost> RoPP::Group::GetGroupWall(std::string Sort
     return posts;
 }
 
-Responses::GroupExperiencesResponse RoPP::Group::GetGames(string AccessFilter, string Sort, int Limit)
+std::vector<Responses::GroupExperience> RoPP::Group::GetGames(string AccessFilter, string Sort, int Limit)
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -55,5 +55,11 @@ Responses::GroupExperiencesResponse RoPP::Group::GetGames(string AccessFilter, s
         "GET"
     ).JsonObj;
 
-    return Responses::GroupExperiencesResponse().Parse(res);
+    std::vector<Responses::GroupExperience> Experiences;
+    for (auto& element : res["data"])
+    {
+        Experiences.emplace_back(element);
+    }
+
+    return Experiences;
 }

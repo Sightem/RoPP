@@ -155,7 +155,7 @@ namespace RoPP
             Responses::Group GetGroupInfo();
             std::vector<Responses::GroupNamehistory> GetNameHistory(string Sort="Asc", int Limit=10);
             std::vector<Responses::GroupWallPost> GetGroupWall(string Sort="Asc", int Limit=10);
-            Responses::GroupExperiencesResponse GetGames(string AccessFilter="All", string Sort="Asc", int Limit=10);
+            std::vector<Responses::GroupExperience> GetGames(string AccessFilter="All", string Sort="Asc", int Limit=10);
 
         public:
             Group(long GroupID, std::string_view Cookie)
