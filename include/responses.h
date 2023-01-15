@@ -773,17 +773,15 @@ namespace Responses
 
         long AssetID;
 
-        InventoryAsset Parse(json j)
+        explicit InventoryAsset(json j)
         {
-            InventoryAsset a;
-
-            if (j.contains("name") && !(j["name"].is_null())) a.Name = j["name"];
-            if (j.contains("assetType") && !(j["assetType"].is_null())) a.AssetType = j["assetType"];
-            if (j.contains("created") && !(j["created"].is_null())) a.Created = Timestamp(j["created"]);
-            if (j.contains("assetId") && !(j["assetId"].is_null())) a.AssetID = j["assetId"];
-
-            return a;
+            if (j.contains("name") && !(j["name"].is_null())) Name = j["name"];
+            if (j.contains("assetType") && !(j["assetType"].is_null())) AssetType = j["assetType"];
+            if (j.contains("created") && !(j["created"].is_null())) Created = Timestamp(j["created"]);
+            if (j.contains("assetId") && !(j["assetId"].is_null())) AssetID = j["assetId"];
         }
+
+        InventoryAsset() = default;
     };
 
     struct UserPresence
