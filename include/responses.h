@@ -819,16 +819,14 @@ namespace Responses
         long AwardedCount;
         int WinRatePercentage;
 
-        BadgeStats Parse(json j)
+        explicit BadgeStats(json j)
         {
-            BadgeStats b;
-
-            if (j.contains("pastDayAwardedCount")) b.PastDayAwardedCount = j["pastDayAwardedCount"];
-            if (j.contains("awardedCount")) b.AwardedCount = j["awardedCount"];
-            if (j.contains("winRatePercentage")) b.WinRatePercentage = j["winRatePercentage"];
-
-            return b;
+            if (j.contains("pastDayAwardedCount")) PastDayAwardedCount = j["pastDayAwardedCount"];
+            if (j.contains("awardedCount")) AwardedCount = j["awardedCount"];
+            if (j.contains("winRatePercentage")) WinRatePercentage = j["winRatePercentage"];
         }
+
+        BadgeStats() = default;
     };
 
     struct Badge
@@ -863,28 +861,10 @@ namespace Responses
             if (j.contains("displayIconImageId")) DisplayIconImageId = j["displayIconImageId"];
             if (j.contains("awarder")) AwarderId = j["awarder"]["id"];
             if (j.contains("enabled")) Enabled = j["enabled"];
-            if (j.contains("statistics")) Statistics = BadgeStats().Parse(j["statistics"]);
+            if (j.contains("statistics")) Statistics = BadgeStats(j["statistics"]);
         }
 
         Badge() = default;
-    };
-
-    struct GameBadges
-    {
-        std::vector<Badge> Badges;
-        int Count = 0;
-
-        explicit GameBadges(json j)
-        {
-            for (size_t i = 0; i < j.size(); i++)
-            {
-                Badges.push_back(Badge(j["data"][i]));
-            }
-
-            Count = j["data"].size();
-        }
-
-        GameBadges() = default;
     };
 
     struct UserBadgesResponse

@@ -111,7 +111,7 @@ Responses::GameSocialLinks RoPP::Game::GetSocialLinks()
     return Responses::GameSocialLinks(res);
 }
 
-Responses::GameBadges RoPP::Game::GetGameBadges(string Sort, int Limit)
+std::vector<Responses::Badge> RoPP::Game::GetGameBadges(std::string Sort, int Limit)
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -119,5 +119,11 @@ Responses::GameBadges RoPP::Game::GetGameBadges(string Sort, int Limit)
         "GET"
     ).JsonObj;
 
-    return Responses::GameBadges(res);
+    std::vector<Responses::Badge> badges;
+    for (auto& badge : res["data"])
+    {
+        badges.emplace_back(badge);
+    }
+
+    return badges;
 }
