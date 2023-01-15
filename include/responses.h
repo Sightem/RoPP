@@ -1116,29 +1116,6 @@ namespace Responses
        }
     };
 
-    struct PastUsernames
-    {
-        std::vector<std::string> Usernames;
-
-        PastUsernames Parse(json j)
-        {
-            PastUsernames p;
-
-            if (j.contains("data"))
-            {
-                for (auto& i : j["data"])
-                {
-                    p.Usernames.push_back(i["name"]);
-                }
-            }
-
-            if (p.Usernames.empty())
-                p.Usernames.push_back("");
-
-            return p;
-        }
-    };
-
     struct UserFavoriteExperiences
     {
         std::vector<Experience> Experiences;
