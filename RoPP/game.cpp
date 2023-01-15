@@ -35,7 +35,7 @@ Responses::ExperienceVotes RoPP::Game::GetVotes()
     return Responses::ExperienceVotes(res["data"][0]);
 }
 
-Responses::GamePassesResponse RoPP::Game::GetGamepasses(std::string Sort, int Limit)
+std::vector<Responses::GamePass> RoPP::Game::GetGamepasses(std::string Sort, int Limit)
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -43,7 +43,13 @@ Responses::GamePassesResponse RoPP::Game::GetGamepasses(std::string Sort, int Li
         "GET"
     ).JsonObj;
 
-    return Responses::GamePassesResponse().Parse(res);
+    std::vector<Responses::GamePass> passes;
+    for (auto& pass : res["data"])
+    {
+        passes.emplace_back(pass);
+    }
+
+    return passes;
 }
 
 Responses::DeveloperProductCreateResponse RoPP::Game::CreateDeveloperProduct(std::string Name, std::string Description, long Price, long IconImageAssetID)

@@ -392,8 +392,7 @@ namespace Responses
         {
             if (j.contains("data"))
             {
-                for (auto& i : j["data"])
-                    Outfits.push_back(GetOutfitsAsset(i));
+                for (auto& i : j["data"]) Outfits.emplace_back(i);
             }
             if (j.contains("total")) total = j["total"];
         }
@@ -443,7 +442,7 @@ namespace Responses
             if (j.contains("isEditable")) IsEditable = j["isEditable"];
 
             for (auto& asset : j["assets"])
-                Assets.push_back(OutfitDetailsAsset(asset));
+                Assets.emplace_back(asset);
         }
     };
 
@@ -459,19 +458,17 @@ namespace Responses
 
         bool IsActive;
 
-        TradeData Parse(json j)
+        explicit TradeData(json j)
         {
-            TradeData t;
-
-            if (j.contains("status")) t.Status = j["status"];
-            if (j.contains("id")) t.TradeID = j["id"];
-            if (j.contains("user")) t.Sender = User(j["user"]);
-            if (j.contains("created")) t.Created = Timestamp(j["created"]);
-            if (j.contains("expiration")) t.Expiriation = Timestamp(j["expiration"]);
-            if (j.contains("isActive")) t.IsActive = j["isActive"];
-
-            return t;
+            if (j.contains("status")) Status = j["status"];
+            if (j.contains("id")) TradeID = j["id"];
+            if (j.contains("user")) Sender = User(j["user"]);
+            if (j.contains("created")) Created = Timestamp(j["created"]);
+            if (j.contains("expiration")) Expiriation = Timestamp(j["expiration"]);
+            if (j.contains("isActive")) IsActive = j["isActive"];
         }
+
+        TradeData() = default;
     };
 
     struct GetTradesResponse
@@ -484,10 +481,7 @@ namespace Responses
 
             if (j.contains("data"))
             {
-                for (size_t i = 0; i < j["data"].size(); i++)
-                {
-                    g.Trades.push_back(TradeData().Parse(j["data"][i]));
-                }
+                for (auto& i : j["data"]) g.Trades.emplace_back(i);
             }
             return g;
         }
@@ -533,36 +527,17 @@ namespace Responses
 
         int Price;
 
-        GamePass Parse(json j)
+        explicit GamePass(json j)
         {
-            GamePass b;
-
-            if (j.contains("name")) b.Name = j["name"];
-            if (j.contains("displayName")) b.DisplayName = j["displayName"];
-            if (j.contains("id")) b.ID = j["id"];
-            if (j.contains("sellerId")) b.CreatorID = j["sellerId"];
-            if (j.contains("productId")) b.ProductIdID = j["productId"];
-            if (j.contains("price")) b.Price = j["price"];
-
-            return b;
+            if (j.contains("name")) Name = j["name"];
+            if (j.contains("displayName")) DisplayName = j["displayName"];
+            if (j.contains("id")) ID = j["id"];
+            if (j.contains("sellerId")) CreatorID = j["sellerId"];
+            if (j.contains("productId")) ProductIdID = j["productId"];
+            if (j.contains("price")) Price = j["price"];
         }
-    };
 
-    struct GamePassesResponse
-    {
-        std::vector<GamePass> GamePasses;
-
-        GamePassesResponse Parse(json j)
-        {
-            GamePassesResponse r;
-
-            for (size_t i = 0; i < j["data"].size(); i++)
-            {
-                r.GamePasses.push_back(GamePass().Parse(j["data"][i]));
-            }
-
-            return r;
-        }
+        GamePass() = default;
     };
     
     struct PlaceInfoResponse
