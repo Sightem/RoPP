@@ -87,7 +87,7 @@ Responses::UserFavoriteExperiences RoPP::User::GetFavoriteExperiences(string Sor
     return Responses::UserFavoriteExperiences().Parse(res);
 }
 
-Responses::PastUsernames RoPP::User::GetPastUsernames(string Sort, int limit)
+std::vector<std::string> RoPP::User::GetPastUsernames(string Sort, int limit)
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -95,7 +95,14 @@ Responses::PastUsernames RoPP::User::GetPastUsernames(string Sort, int limit)
         "GET"
     ).JsonObj;
 
-    return Responses::PastUsernames().Parse(res);
+    std::vector<std::string> PastUsernames;
+
+    for (auto& element : res["data"])
+    {
+        PastUsernames.emplace_back(element["name"]);
+    }
+
+    return PastUsernames;
 }
 
 Responses::Group RoPP::User::GetPrimaryGroup()
