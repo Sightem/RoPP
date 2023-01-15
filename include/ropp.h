@@ -153,7 +153,7 @@ namespace RoPP
     {
         public:
             Responses::Group GetGroupInfo();
-            Responses::NameHistoryResponse GetNameHistory(string Sort="Asc", int Limit=10);
+            std::vector<Responses::GroupNamehistory> GetNameHistory(string Sort="Asc", int Limit=10);
             std::vector<Responses::GroupWallPost> GetGroupWall(string Sort="Asc", int Limit=10);
             Responses::GroupExperiencesResponse GetGames(string AccessFilter="All", string Sort="Asc", int Limit=10);
 

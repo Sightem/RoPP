@@ -13,7 +13,7 @@ Responses::Group RoPP::Group::GetGroupInfo()
     return Responses::Group(res);
 }
 
-Responses::NameHistoryResponse RoPP::Group::GetNameHistory(string Sort, int Limit)
+std::vector<Responses::GroupNamehistory> RoPP::Group::GetNameHistory(string Sort, int Limit)
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -21,7 +21,13 @@ Responses::NameHistoryResponse RoPP::Group::GetNameHistory(string Sort, int Limi
         "GET"
     ).JsonObj;
 
-    return Responses::NameHistoryResponse().Parse(res);
+    std::vector<Responses::GroupNamehistory> NameHistory;
+    for (auto& element : res["data"])
+    {
+        NameHistory.emplace_back(element);
+    }
+
+    return NameHistory;
 }
 
 std::vector<Responses::GroupWallPost> RoPP::Group::GetGroupWall(std::string Sort, int Limit)

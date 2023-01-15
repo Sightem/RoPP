@@ -598,35 +598,18 @@ namespace Responses
         GroupWallPost() = default;
     };
 
-    struct Namehistory
+    struct GroupNamehistory
     {
         std::string Name;
         Timestamp Created;
 
-        Namehistory Parse(json j)
+        explicit GroupNamehistory(json j)
         {
-            Namehistory n;
-            if (j.contains("name")) n.Name = j["name"];
-            if (j.contains("created")) n.Created = Timestamp(j["created"]);
-            return n;
+            if (j.contains("name")) Name = j["name"];
+            if (j.contains("created")) Created = Timestamp(j["created"]);
         }
-    };
 
-    struct NameHistoryResponse
-    {
-        std::vector<Namehistory> NameHistory;
-
-        NameHistoryResponse Parse(json j)
-        {
-            NameHistoryResponse n;
-
-            for (size_t i = 0; i < j.size(); i++)
-            {
-                n.NameHistory.push_back(Namehistory().Parse(j["data"][i]));
-            }
-
-            return n;
-        }
+        GroupNamehistory() = default;
     };
 
     struct GroupExperience
