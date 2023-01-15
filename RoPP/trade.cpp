@@ -26,7 +26,7 @@ void RoPP::Trade::DeclineTrade (long TradeID)
     );
 }
 
-Responses::GetTradesResponse RoPP::Trade::GetTrades(string tradeStatusType, string Sort, int Limit)
+std::vector<Responses::TradeData> RoPP::Trade::GetTrades(std::string tradeStatusType, std::string Sort, int Limit)
 {
     json res = Helper::MakeAuthedRobloxRequest
     (
@@ -36,7 +36,16 @@ Responses::GetTradesResponse RoPP::Trade::GetTrades(string tradeStatusType, stri
         true
     ).JsonObj;
 
-    return Responses::GetTradesResponse().Parse(res);
+    std::vector<Responses::TradeData> Trades;
+    if (res.contains("data"))
+    {
+        for (auto& i : res["data"])
+        {
+            Trades.emplace_back(i);
+        }
+    }
+
+    return Trades;
 }
 
 json RoPP::Trade::GetTradeInfo(long TradeID)
@@ -60,7 +69,7 @@ Responses::CanTradeWithResponse RoPP::Trade::CanTradeWith(long UserID)
         true
     ).JsonObj;
 
-    return Responses::CanTradeWithResponse().Parse(res);
+    return Responses::CanTradeWithResponse(res);
 }
 
 int RoPP::Trade::SendTradeRequest(long TargetUID, json UserOffer, json UserRequest)

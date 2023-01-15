@@ -10,13 +10,7 @@ Responses::Group RoPP::Group::GetGroupInfo()
         "GET"
     ).JsonObj;
 
-    //listen, i know this is bad, but it was either this or creating a new and almost identical group class
-    json hack = 
-    {
-        {"group", res}
-    };
-
-    return Responses::Group().Parse(hack);
+    return Responses::Group(res);
 }
 
 Responses::NameHistoryResponse RoPP::Group::GetNameHistory(string Sort, int Limit)
@@ -30,7 +24,7 @@ Responses::NameHistoryResponse RoPP::Group::GetNameHistory(string Sort, int Limi
     return Responses::NameHistoryResponse().Parse(res);
 }
 
-Responses::GroupWallResponse RoPP::Group::GetGroupWall(string Sort, int Limit)
+std::vector<Responses::GroupWallPost> RoPP::Group::GetGroupWall(std::string Sort, int Limit)
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -38,8 +32,13 @@ Responses::GroupWallResponse RoPP::Group::GetGroupWall(string Sort, int Limit)
         "GET"
     ).JsonObj;
 
-    return Responses::GroupWallResponse().Parse(res);
+    std::vector<Responses::GroupWallPost> posts;
+    for (auto& element : res["data"])
+    {
+        posts.emplace_back(element);
+    }
 
+    return posts;
 }
 
 Responses::GroupExperiencesResponse RoPP::Group::GetGames(string AccessFilter, string Sort, int Limit)

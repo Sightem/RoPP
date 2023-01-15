@@ -36,7 +36,7 @@ Responses::FollowingsResponse RoPP::User::GetFollowings(string Sort, int Limit)
     return Responses::FollowingsResponse().Parse(res);
 }
 
-Responses::UserGroupsResponse RoPP::User::GetGroups()
+std::vector<Responses::GroupWithRole> RoPP::User::GetGroups()
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -44,7 +44,14 @@ Responses::UserGroupsResponse RoPP::User::GetGroups()
         "GET"
     ).JsonObj;
 
-    return Responses::UserGroupsResponse().Parse(res);
+    std::vector<Responses::GroupWithRole> Groups;
+
+    for (auto& element : res["data"])
+    {
+        Groups.emplace_back(element);
+    }
+
+    return Groups;
 }
 
 Responses::UserBadgesResponse RoPP::User::GetBadges()
@@ -99,7 +106,7 @@ Responses::Group RoPP::User::GetPrimaryGroup()
         "GET"
     ).JsonObj;
 
-    return Responses::Group().Parse(res);
+    return Responses::Group(res);
 }
 
 Responses::InventoryResponse RoPP::User::GetInventory(std::vector<string> AssetType, string Sort, int Limit)

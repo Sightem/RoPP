@@ -471,36 +471,18 @@ namespace Responses
         TradeData() = default;
     };
 
-    struct GetTradesResponse
-    {
-        std::vector<TradeData> Trades;
-
-        GetTradesResponse Parse(json j)
-        {
-            GetTradesResponse g;
-
-            if (j.contains("data"))
-            {
-                for (auto& i : j["data"]) g.Trades.emplace_back(i);
-            }
-            return g;
-        }
-    };
-
     struct CanTradeWithResponse
     {
         std::string Status;
         bool CanTrade;
 
-        CanTradeWithResponse Parse(json j)
+        explicit CanTradeWithResponse(json j)
         {
-            CanTradeWithResponse c;
-
-            if (j.contains("status")) c.Status = j["status"];
-            if (j.contains("canTrade")) c.CanTrade = j["canTrade"];
-
-            return c;
+            if (j.contains("status")) Status = j["status"];
+            if (j.contains("canTrade")) CanTrade = j["canTrade"];
         }
+
+        CanTradeWithResponse() = default;
     };
 
     struct ExperienceVotes
@@ -604,35 +586,16 @@ namespace Responses
         
         long PostID;
 
-        GroupWallPost Parse(json j)
+        explicit GroupWallPost(json j)
         {
-            GroupWallPost g;
-
-            if (j.contains("body")) g.Body = j["body"];
-            if (j.contains("poster")) g.Poster = User(j["poster"]);
-            if (j.contains("created")) g.Created = Timestamp(j["created"]);
-            if (j.contains("updated")) g.Updated = Timestamp(j["updated"]);
-            if (j.contains("id")) g.PostID = j["id"];
-
-            return g;
+            if (j.contains("body")) Body = j["body"];
+            if (j.contains("poster")) Poster = User(j["poster"]);
+            if (j.contains("created")) Created = Timestamp(j["created"]);
+            if (j.contains("updated")) Updated = Timestamp(j["updated"]);
+            if (j.contains("id")) PostID = j["id"];
         }
-    };
 
-    struct GroupWallResponse
-    {
-        std::vector<GroupWallPost> Posts;
-
-        GroupWallResponse Parse(json j)
-        {
-            GroupWallResponse g;
-
-            for (size_t i = 0; i < j.size(); i++)
-            {
-                g.Posts.push_back(GroupWallPost().Parse(j["data"][i]));
-            }
-
-            return g;
-        }
+        GroupWallPost() = default;
     };
 
     struct Namehistory
@@ -1024,17 +987,15 @@ namespace Responses
         Timestamp Created;
         Timestamp Updated;
 
-        GShout Parse(json j)
+        explicit GShout(json j)
         {
-            GShout s;
-
-            if (j.contains("body")) s.Body = j["body"];
-            if (j.contains("poster")) s.Poster = User(j["poster"]);
-            if (j.contains("created")) s.Created = Timestamp(j["lastUpdated"]);
-            if (j.contains("updated")) s.Updated = Timestamp(j["lastUpdated"]);
-
-            return s;
+            if (j.contains("body")) Body = j["body"];
+            if (j.contains("poster")) Poster = User(j["poster"]);
+            if (j.contains("created")) Created = Timestamp(j["created"]);
+            if (j.contains("updated")) Updated = Timestamp(j["updated"]);
         }
+
+        GShout() = default;
     };
 
     struct Group
@@ -1046,8 +1007,6 @@ namespace Responses
 
         GShout Shout;
 
-        Role role;
-
         long GroupID;
         long MemberCount;
 
@@ -1055,28 +1014,34 @@ namespace Responses
         bool IsPublicEntryAllowed;
         bool HasVerifiedBadge;
 
-        Group Parse(json j)
+        explicit Group(json j)
         {
-            Group g;
-
-            if (j["group"].contains("name")) g.Name = j["group"]["name"];
-            if (j["group"].contains("description")) g.Description = j["group"]["description"];
-            if (j["group"].contains("owner")) g.Owner = User(j["group"]["owner"]);
-            if (j["group"].contains("shout") && !(j["group"]["shout"].is_null())) g.Shout = GShout().Parse(j["group"]["shout"]);
-            if (j["group"].contains("memberCount")) g.MemberCount = j["group"]["memberCount"];
-            if (j["group"].contains("id")) g.GroupID = j["group"]["id"];
-            if (j["group"].contains("isBuildersClubOnly")) g.IsBuildersClubOnly = j["group"]["isBuildersClubOnly"];
-            if (j["group"].contains("isPublicEntryAllowed")) g.IsPublicEntryAllowed = j["group"]["isPublicEntryAllowed"];
-            if (j["group"].contains("hasVerifiedBadge")) g.HasVerifiedBadge = j["group"]["hasVerifiedBadge"];
-
-            
-            if (j["role"].contains("name")) g.role.Name = j["role"]["name"];
-            if (j["role"].contains("rank")) g.role.Rank = j["role"]["rank"];
-            if (j["role"].contains("id")) g.role.ID = j["role"]["id"];
-
-    
-            return g;
+            if (j.contains("name")) Name = j["name"];
+            if (j.contains("description")) Description = j["description"];
+            if (j.contains("owner")) Owner = User(j["owner"]);
+            if (j.contains("shout") && !(j["shout"].is_null())) Shout = GShout(j["shout"]);
+            if (j.contains("memberCount")) MemberCount = j["memberCount"];
+            if (j.contains("id")) GroupID = j["id"];
+            if (j.contains("isBuildersClubOnly")) IsBuildersClubOnly = j["isBuildersClubOnly"];
+            if (j.contains("isPublicEntryAllowed")) IsPublicEntryAllowed = j["isPublicEntryAllowed"];
+            if (j.contains("hasVerifiedBadge")) HasVerifiedBadge = j["hasVerifiedBadge"];
         }
+
+        Group() = default;
+    };
+
+    struct GroupWithRole
+    {
+        Group group;
+        Role role;
+
+        explicit GroupWithRole(json j)
+        {
+            group = Group(j["group"]);
+            role = Role(j["role"]);
+        }
+
+        GroupWithRole() = default;
     };
 
     struct ChatConversationUniverse
@@ -1150,27 +1115,6 @@ namespace Responses
            }
        }
     };
-
-    struct UserGroupsResponse
-    {
-        std::vector<Group> Groups;
-        int Count;
-
-        UserGroupsResponse Parse(json j)
-        {
-            UserGroupsResponse ugr;
-
-            for (size_t i = 0; i < j.size(); i++)
-            {
-                ugr.Groups.push_back(Group().Parse(j["data"][i]));
-            }
-
-            Count = j["data"].size();
-
-            return ugr;
-        }
-    };
-
 
     struct PastUsernames
     {

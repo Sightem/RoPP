@@ -20,10 +20,10 @@ int main()
     std::cout << "Is Builders Club Only: " << groupResponse.IsBuildersClubOnly << std::endl;
     
     std::cout << "Group Wall: ";
-    Responses::GroupWallResponse GroupWall = group.GetGroupWall();
+    std::vector<Responses::GroupWallPost> groupWall = group.GetGroupWall("Asc", 10);
 
-    for (auto post : GroupWall.Posts)
+    for (auto post : groupWall)
     {
-         std::cout << post.Body << " (" << post.Created.ToISO8601() << ")" << std::endl;
+        std::cout << post.Body << " (" << post.Created.ToISO8601() << ")" << std::endl;
     }
 }

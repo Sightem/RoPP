@@ -31,17 +31,18 @@ int main()
 
     std::cout << std::endl;
 
-    Responses::UserGroupsResponse UserGroupsResponse = user.GetGroups();
+    std::vector<Responses::GroupWithRole> UserGroupsResponse = user.GetGroups();
     std::cout << "Groups: ";
-    for (int i = 0; i < UserGroupsResponse.Groups.size(); i++)
+
+    for (int i = 0; i < UserGroupsResponse.size(); i++)
     {
-        if (i == UserGroupsResponse.Groups.size() - 1)
+        if (i == UserGroupsResponse.size() - 1)
         {
-            std::cout << UserGroupsResponse.Groups[i].Name;
+            std::cout << UserGroupsResponse[i].group.Name;
         }
         else
         {
-            std::cout << UserGroupsResponse.Groups[i].Name << ", ";
+            std::cout << UserGroupsResponse[i].group.Name << ", ";
         }
     }
 

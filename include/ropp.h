@@ -154,7 +154,7 @@ namespace RoPP
         public:
             Responses::Group GetGroupInfo();
             Responses::NameHistoryResponse GetNameHistory(string Sort="Asc", int Limit=10);
-            Responses::GroupWallResponse GetGroupWall(string Sort="Asc", int Limit=10);
+            std::vector<Responses::GroupWallPost> GetGroupWall(string Sort="Asc", int Limit=10);
             Responses::GroupExperiencesResponse GetGames(string AccessFilter="All", string Sort="Asc", int Limit=10);
 
         public:
@@ -186,7 +186,7 @@ namespace RoPP
     class Trade : public Auth
     {
         public:
-            Responses::GetTradesResponse GetTrades(string tradeStatusType="Inbound", string Sort="Asc", int Limit=10);
+            std::vector<Responses::TradeData> GetTrades(std::string tradeStatusType="Inbound", std::string Sort="Asc", int Limit=10);
             json GetTradeInfo(long TradeID);
             Responses::CanTradeWithResponse CanTradeWith(long UserID);
             //TODO: counter
@@ -232,7 +232,7 @@ namespace RoPP
             Responses::UserExperienceResponse GetExperiences(string Sort="Asc", int Limit=10);
             Responses::UserFavoriteExperiences GetFavoriteExperiences(string Sort="Asc", int Limit=10);
             Responses::PastUsernames GetPastUsernames(string Sort="Asc", int Limit=10);
-            Responses::UserGroupsResponse GetGroups();
+            std::vector<Responses::GroupWithRole> GetGroups();
             Responses::UserBadgesResponse GetBadges();
             Responses::Group GetPrimaryGroup();
             Responses::InventoryResponse GetInventory(std::vector<string> AssetType, string Sort="Asc", int Limit=10);
