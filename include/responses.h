@@ -252,23 +252,6 @@ namespace Responses
         ChatMessage() = default;
     };
 
-    struct GetMessagesResponse
-    {
-        std::vector<ChatMessage> Messages;
-
-        explicit GetMessagesResponse(json j)
-        {
-            if (!j.empty())
-            {
-                for (auto& i : j)
-                {
-                    Messages.push_back(ChatMessage(i));
-                }
-            }
-        }
-
-        GetMessagesResponse() = default;
-    };
 
     struct ConversationAddResponse
     {

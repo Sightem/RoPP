@@ -36,17 +36,26 @@ Responses::ChatSettings RoPP::Chat::GetChatSettings()
     return Responses::ChatSettings(res);
 }
 
-Responses::GetMessagesResponse RoPP::Chat::GetMessages(int PageSize, long ExclusiveStartMessageID)
+std::vector<Responses::ChatMessage> RoPP::Chat::GetMessages(int PageSize, std::string ExclusiveStartMessageID)
 {
     json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://chat.roblox.com/v2/get-messages?conversationId=" + std::to_string(this->ConversationID) + "&pageSize=" + std::to_string(PageSize) + (ExclusiveStartMessageID != 0 ? "&exclusiveStartMessageId=" + std::to_string(ExclusiveStartMessageID) : ""),
+        "https://chat.roblox.com/v2/get-messages?conversationId=" + std::to_string(this->ConversationID) + "&pageSize=" + std::to_string(PageSize) + (ExclusiveStartMessageID != "" ? "&exclusiveStartMessageId=" + ExclusiveStartMessageID : ""),
         "GET",
         this->Cookie,
         true
     ).JsonObj;
 
-    return Responses::GetMessagesResponse(res);
+    std::vector<Responses::ChatMessage> Messages;
+    if (!res.empty())
+    {
+        for (auto& i : res)
+        {
+            Messages.emplace_back(i);
+        }
+    }
+
+    return Messages;
 }
 
 Responses::ChatConversationsResponse RoPP::Chat::GetConversations(std::vector<long> ConversationIDs)
