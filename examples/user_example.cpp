@@ -28,7 +28,6 @@ int main()
         }
     }
     
-
     std::cout << std::endl;
 
     std::vector<Responses::GroupWithRole> UserGroupsResponse = user.GetGroups();
@@ -64,17 +63,17 @@ int main()
 
     std::cout << std::endl;
 
-    Responses::UserBadgesResponse UserBadgesResponse = user.GetBadges();
+    std::vector<Responses::Badge> UserBadgesResponse = user.GetBadges();
     std::cout << "Badges: ";
-    for (int i = 0; i < UserBadgesResponse.Badges.size(); i++)
+    for (int i = 0; i < UserBadgesResponse.size(); i++)
     {
-        if (i == UserBadgesResponse.Badges.size() - 1)
+        if (i == UserBadgesResponse.size() - 1)
         {
-            std::cout << UserBadgesResponse.Badges[i].Name;
+            std::cout << UserBadgesResponse[i].Name;
         }
         else
         {
-            std::cout << UserBadgesResponse.Badges[i].Name << ", ";
+            std::cout << UserBadgesResponse[i].Name << ", ";
         }
     }
     
