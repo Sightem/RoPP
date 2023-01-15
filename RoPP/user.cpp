@@ -54,7 +54,7 @@ std::vector<Responses::GroupWithRole> RoPP::User::GetGroups()
     return Groups;
 }
 
-Responses::UserBadgesResponse RoPP::User::GetBadges()
+std::vector<Responses::Badge> RoPP::User::GetBadges()
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -62,7 +62,14 @@ Responses::UserBadgesResponse RoPP::User::GetBadges()
         "GET"
     ).JsonObj;
 
-    return Responses::UserBadgesResponse(res);
+    std::vector<Responses::Badge> Badges;
+
+    for (auto& element : res["data"])
+    {
+        Badges.emplace_back(element);
+    }
+
+    return Badges;
 }
 
 Responses::UserExperienceResponse RoPP::User::GetExperiences(string Sort, int limit)

@@ -233,7 +233,7 @@ namespace RoPP
             Responses::UserFavoriteExperiences GetFavoriteExperiences(string Sort="Asc", int Limit=10);
             std::vector<std::string> GetPastUsernames(string Sort="Asc", int Limit=10);
             std::vector<Responses::GroupWithRole> GetGroups();
-            Responses::UserBadgesResponse GetBadges();
+            std::vector<Responses::Badge> GetBadges();
             Responses::Group GetPrimaryGroup();
             std::vector<Responses::InventoryAsset>  GetInventory(std::vector<string> AssetType, string Sort="Asc", int Limit=10);
 

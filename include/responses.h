@@ -867,24 +867,6 @@ namespace Responses
         Badge() = default;
     };
 
-    struct UserBadgesResponse
-    {
-        std::vector<Badge> Badges;
-        int Count = 0;
-
-        explicit UserBadgesResponse(json j)
-        {
-            for (size_t i = 0; i < j.size(); i++)
-            {
-                Badges.push_back(Badge(j["data"][i]));
-            }
-
-            Count = j["data"].size();
-        }
-
-        UserBadgesResponse() = default;
-    };
-
     struct Role
     {
         std::string Name;
