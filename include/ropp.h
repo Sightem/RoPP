@@ -225,7 +225,7 @@ namespace RoPP
         public:
             Responses::User GetUser();
 
-            Responses::FriendsResponse GetFriends(string Sort="Alphabetical");
+            std::vector<Responses::User> GetFriends(string Sort="Alphabetical");
             std::vector<Responses::User> GetFollowers(string Sort="Asc", int Limit=10);
             std::vector<Responses::User> GetFollowings(string Sort="Asc", int Limit=10);
             std::vector<Responses::Experience> GetExperiences(string Sort="Asc", int Limit=10);

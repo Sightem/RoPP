@@ -1051,25 +1051,6 @@ namespace Responses
         FriendsOnline() = default;
     };
 
-    struct FriendsResponse
-    {
-        std::vector<User> Friends;
-        int Count;
-
-        FriendsResponse Parse(json j)
-        {
-            FriendsResponse f;
-
-            for (size_t i = 0; i < j["data"].size(); i++)
-            {
-                f.Friends.push_back(User(j["data"][i]));
-            }
-
-            f.Count = j["data"].size();
-
-            return f;
-        }
-    };
 
     struct PriceDataPoint
     {

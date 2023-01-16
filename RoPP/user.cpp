@@ -3,15 +3,22 @@
 #include "../include/request.hpp"
 #include "../include/responses.h"
 
-Responses::FriendsResponse RoPP::User::GetFriends(string Sort)
+std::vector<Responses::User> RoPP::User::GetFriends(std::string Sort)
 {
    json res = Helper::MakeRobloxRequest
     (
         "https://friends.roblox.com/v1/users/" + std::to_string(this->UID) + "/friends?userSort=" + Sort,
         "GET"
     ).JsonObj;
+    
+    std::vector<Responses::User> Friends;
 
-    return Responses::FriendsResponse().Parse(res);
+    for (auto& element : res["data"])
+    {
+        Friends.emplace_back(element);
+    }
+
+    return Friends;
 }
 
 std::vector<Responses::User> RoPP::User::GetFollowers(std::string Sort, int Limit)
