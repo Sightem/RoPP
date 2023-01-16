@@ -47,17 +47,17 @@ int main()
 
     std::cout << std::endl;
 
-    Responses::UserExperienceResponse UserExperienceResponse = user.GetExperiences();
+    std::vector<Responses::Experience> UserExperienceResponse = user.GetExperiences();
     std::cout << "Experiences: ";
-    for (int i = 0; i < UserExperienceResponse.Experiences.size(); i++)
+    for (int i = 0; i < UserExperienceResponse.size(); i++)
     {
-        if (i == UserExperienceResponse.Experiences.size() - 1)
+        if (i == UserExperienceResponse.size() - 1)
         {
-            std::cout << UserExperienceResponse.Experiences[i].Name;
+            std::cout << UserExperienceResponse[i].Name;
         }
         else
         {
-            std::cout << UserExperienceResponse.Experiences[i].Name << ", ";
+            std::cout << UserExperienceResponse[i].Name << ", ";
         }
     }
 
