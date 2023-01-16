@@ -32,7 +32,7 @@ std::vector<Responses::User> RoPP::User::GetFollowers(std::string Sort, int Limi
     return Followers;
 }
 
-Responses::FollowingsResponse RoPP::User::GetFollowings(string Sort, int Limit)
+std::vector<Responses::User> RoPP::User::GetFollowings(std::string Sort, int Limit)
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -40,7 +40,14 @@ Responses::FollowingsResponse RoPP::User::GetFollowings(string Sort, int Limit)
         "GET"
     ).JsonObj;
 
-    return Responses::FollowingsResponse().Parse(res);
+    std::vector<Responses::User> Followings;
+
+    for (auto& element : res["data"])
+    {
+        Followings.emplace_back(element);
+    }
+
+    return Followings;
 }
 
 std::vector<Responses::GroupWithRole> RoPP::User::GetGroups()

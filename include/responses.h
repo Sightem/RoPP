@@ -1051,26 +1051,6 @@ namespace Responses
         FriendsOnline() = default;
     };
 
-    struct FollowingsResponse
-    {
-        std::vector<User> Followings;
-        int Count;
-
-        FollowingsResponse Parse(json j)
-        {
-            FollowingsResponse f;
-
-            for (size_t i = 0; i < j["data"].size(); i++)
-            {
-                f.Followings.push_back(User(j["data"][i]));
-            }
-
-            f.Count = j["data"].size();
-
-            return f;
-        }
-    };
-
     struct FriendsResponse
     {
         std::vector<User> Friends;
