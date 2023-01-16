@@ -9,26 +9,30 @@ int main()
 
     Responses::User UserResponse = user.GetUser();
 
-    std::cout << "User Name: " << UserResponse.Username << std::endl;
-    std::cout << "User Display name: " << UserResponse.DisplayName << std::endl;
-    std::cout << "User Creation Date: " <<  UserResponse.Created.ToISO8601() << std::endl;
-    std::cout << "User Description: " << UserResponse.Description << std::endl;
-
-    Responses::FriendsResponse FriendsResponse = user.GetFriends();
-    std::cout << "Friends: ";
-    for (int i = 0; i < FriendsResponse.Friends.size(); i++)
+    std::string UserResStr
     {
-        if (i == FriendsResponse.Friends.size() - 1)
+        "User Name: " + UserResponse.Username + "\n"
+        "User Display name: " + UserResponse.DisplayName + "\n"
+        "User Creation Date: " + UserResponse.Created.ToISO8601() + "\n"
+        "User Description: " + UserResponse.Description + "\n"
+    };
+    std::cout << UserResStr;
+
+    std::vector<Responses::User> FriendsResponse = user.GetFriends();
+    std::cout << "Friends: ";
+    for (int i = 0; i < FriendsResponse.size(); i++)
+    {
+        if (i == FriendsResponse.size() - 1)
         {
-            std::cout << FriendsResponse.Friends[i].Username;
+            std::cout << FriendsResponse[i].Username;
         }
         else
         {
-            std::cout << FriendsResponse.Friends[i].Username << ", ";
+            std::cout << FriendsResponse[i].Username << ", ";
         }
     }
     
-    std::cout << std::endl;
+    std::cout << '\n';
 
     std::vector<Responses::GroupWithRole> UserGroupsResponse = user.GetGroups();
     std::cout << "Groups: ";
@@ -45,7 +49,7 @@ int main()
         }
     }
 
-    std::cout << std::endl;
+    std::cout << '\n';
 
     std::vector<Responses::Experience> UserExperienceResponse = user.GetExperiences();
     std::cout << "Experiences: ";
@@ -61,7 +65,7 @@ int main()
         }
     }
 
-    std::cout << std::endl;
+    std::cout << '\n';
 
     std::vector<Responses::Badge> UserBadgesResponse = user.GetBadges();
     std::cout << "Badges: ";
@@ -77,5 +81,5 @@ int main()
         }
     }
     
-    std::cout << std::endl;
+    std::cout << '\n';
 }
