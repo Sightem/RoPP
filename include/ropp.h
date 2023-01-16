@@ -228,7 +228,7 @@ namespace RoPP
             Responses::FriendsResponse GetFriends(string Sort="Alphabetical");
             Responses::FollowersResponse GetFollowers(string Sort="Asc", int Limit=10);
             Responses::FollowingsResponse GetFollowings(string Sort="Asc", int Limit=10);
-            Responses::UserExperienceResponse GetExperiences(string Sort="Asc", int Limit=10);
+            std::vector<Responses::Experience> GetExperiences(string Sort="Asc", int Limit=10);
             std::vector<Responses::Experience> GetFavoriteExperiences(string Sort="Asc", int Limit=10);
             std::vector<std::string> GetPastUsernames(string Sort="Asc", int Limit=10);
             std::vector<Responses::GroupWithRole> GetGroups();

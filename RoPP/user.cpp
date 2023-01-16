@@ -72,7 +72,7 @@ std::vector<Responses::Badge> RoPP::User::GetBadges()
     return Badges;
 }
 
-Responses::UserExperienceResponse RoPP::User::GetExperiences(string Sort, int limit)
+std::vector<Responses::Experience> RoPP::User::GetExperiences(string Sort, int limit)
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -80,7 +80,15 @@ Responses::UserExperienceResponse RoPP::User::GetExperiences(string Sort, int li
         "GET"
     ).JsonObj;
 
-    return Responses::UserExperienceResponse().Parse(res);
+    std::vector<Responses::Experience> Experiences;
+
+    for (auto& element : res["data"])
+    {
+        Experiences.emplace_back(element);
+    }
+
+    return Experiences;
+    
 }
 
 std::vector<Responses::Experience> RoPP::User::GetFavoriteExperiences(string Sort, int limit)
@@ -90,7 +98,7 @@ std::vector<Responses::Experience> RoPP::User::GetFavoriteExperiences(string Sor
         "https://games.roblox.com/v2/users/" + std::to_string(this->UID) + "/favorite/games?sortOrder=" + Sort + "&limit=" + std::to_string(limit),
         "GET"
     ).JsonObj;
-    
+
     std::vector<Responses::Experience> Experiences;
 
     for (auto& element : res["data"])

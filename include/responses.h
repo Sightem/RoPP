@@ -1019,27 +1019,6 @@ namespace Responses
        }
     };
 
-
-    struct UserExperienceResponse
-    {
-        std::vector<Experience> Experiences;
-        int Count;
-
-        UserExperienceResponse Parse(json j)
-        {
-            UserExperienceResponse r;
-
-            for (size_t i = 0; i < j.size(); i++)
-            {
-                r.Experiences.push_back(Experience(j["data"][i]));
-            }
-
-            r.Count = j["data"].size();
-
-            return r;
-        }
-    };
-
     struct FriendsOnline
     {
         std::string UserPresenceType;
