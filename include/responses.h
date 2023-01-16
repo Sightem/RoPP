@@ -1091,25 +1091,6 @@ namespace Responses
         }
     };
 
-    struct FollowersResponse
-    {
-        std::vector<User> Followers;
-        int Count;
-
-        FollowersResponse Parse(json j)
-        {
-            FollowersResponse f;
-            for (size_t i = 0; i < j["data"].size(); i++)
-            {
-                f.Followers.push_back(User(j["data"][i]));
-            }
-
-            f.Count = j["data"].size();
-
-            return f;
-        }
-    };
-
     struct PriceDataPoint
     {
         long Price;

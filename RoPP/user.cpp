@@ -14,7 +14,7 @@ Responses::FriendsResponse RoPP::User::GetFriends(string Sort)
     return Responses::FriendsResponse().Parse(res);
 }
 
-Responses::FollowersResponse RoPP::User::GetFollowers(string Sort, int Limit)
+std::vector<Responses::User> RoPP::User::GetFollowers(std::string Sort, int Limit)
 {
     json res = Helper::MakeRobloxRequest
     (
@@ -22,7 +22,14 @@ Responses::FollowersResponse RoPP::User::GetFollowers(string Sort, int Limit)
         "GET"
     ).JsonObj;
 
-    return Responses::FollowersResponse().Parse(res);
+    std::vector<Responses::User> Followers;
+
+    for (auto& element : res["data"])
+    {
+        Followers.emplace_back(element);
+    }
+
+    return Followers;
 }
 
 Responses::FollowingsResponse RoPP::User::GetFollowings(string Sort, int Limit)
