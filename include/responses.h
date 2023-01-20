@@ -1057,13 +1057,13 @@ namespace Responses
         long Price;
         Timestamp timestamp;
 
-        PriceDataPoint Parse(json j)
+        explicit PriceDataPoint(json j)
         {
-            PriceDataPoint p;
-            p.Price = j["value"];
-            p.timestamp = Timestamp(j["date"]);
-            return p;
+            Price = j["value"];
+            timestamp = Timestamp(j["date"]);
         }
+
+        PriceDataPoint() = default;
     };
 
     struct VolumeDataPoint
@@ -1071,13 +1071,13 @@ namespace Responses
         long Volume;
         Timestamp timestamp;
 
-        VolumeDataPoint Parse(json j)
+        explicit VolumeDataPoint(json j)
         {
-            VolumeDataPoint v;
-            v.Volume = j["value"];
-            v.timestamp = Timestamp(j["date"]);
-            return v;
+            Volume = j["value"];
+            timestamp = Timestamp(j["date"]);
         }
+
+        VolumeDataPoint() = default;
     };
     struct ResaleData
     {
@@ -1100,10 +1100,10 @@ namespace Responses
             RecentAveragePrice = j["recentAveragePrice"];
 
             for (auto& element : j["priceDataPoints"])
-                PriceData.push_back(PriceDataPoint().Parse(element));
+                PriceData.push_back(PriceDataPoint(element));
 
             for (auto& element : j["volumeDataPoints"])
-                VolumeData.push_back(VolumeDataPoint().Parse(element));
+                VolumeData.push_back(VolumeDataPoint(element));
         }
 
         ResaleData() = default;
@@ -1150,14 +1150,14 @@ namespace Responses
         std::string Type;
         long UID;
 
-        AssetCreator Parse(json creator)
+        explicit AssetCreator(json creator)
         {
-            AssetCreator c;
-            c.Username = creator["Name"];
-            c.Type = creator["CreatorType"];
-            c.UID = creator["Id"];
-            return c;
+            Username = creator["Name"];
+            Type = creator["CreatorType"];
+            UID = creator["Id"];
         }
+
+        AssetCreator() = default;
     };
 
     struct AssetInfo
@@ -1265,7 +1265,7 @@ namespace Responses
             Updated = Timestamp(Data["Updated"]);
             CreatorName = Data["Creator"]["Name"];
             CreatorType = Data["Creator"]["CreatorType"];
-            Creator = AssetCreator().Parse(Data["Creator"]);
+            Creator = AssetCreator(Data["Creator"]);
             Price = Data["PriceInRobux"];
             Sales = Data["Sales"];
             CreatorID = Data["Creator"]["Id"];
