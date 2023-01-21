@@ -269,10 +269,10 @@ namespace Responses
 
            if (j.contains("rejectedParticipants") && !j["rejectedParticipants"].empty())
            {
-               for (size_t i = 0; i < j["rejectedParticipants"].size(); i++)
-               {
-                   RejectedParticipants.push_back(RejectedParticipant(j["rejectedParticipants"][i])); //?
-               }
+                for (auto& i : j["rejectedParticipants"])
+                {
+                    RejectedParticipants.emplace_back(i);
+                }
            }
        }
     };
@@ -301,9 +301,9 @@ namespace Responses
 
         explicit GameSocialLinks(json j)
         {
-            for (size_t i = 0; i < j.size(); i++)
+            for (auto& i : j["data"])
             {
-                Links.push_back(GameSocialLink(j["data"][i]));
+                Links.emplace_back(i);
             }
         }
 
@@ -666,17 +666,22 @@ namespace Responses
     {
         std::vector<FriendRequest> FriendRequests;
         std::vector<User> SenderInfo;
+        std::vector<std::string> MutualFriendsList;
 
         explicit FriendRequestsResponse(json j)
         {
-            for (size_t i = 0; i < j["data"].size(); i++)
+            for (auto& i : j["data"])
             {
-                FriendRequests.push_back(FriendRequest(j["data"][i]["friendRequest"]));
+                FriendRequests.emplace_back(i["friendRequest"]);
+                SenderInfo.emplace_back(i);
             }
 
-            for (size_t i = 0; i < j.size(); i++)
+            if (j.contains("mutualFriendsList") && !j["mutualFriendsList"].empty())
             {
-                SenderInfo.push_back(User(j["data"][i]["senderInfo"]));
+                for (auto& i : j["mutualFriendsList"])
+                {
+                    MutualFriendsList.emplace_back(i);
+                }
             }
         }
 
@@ -743,7 +748,7 @@ namespace Responses
             Scales = AvatarScales(j["scales"]);
             for (auto& asset : j["assets"])
             {
-                Assets.push_back(AvatarAsset(asset));
+                Assets.emplace_back(asset);
             }
         }
 
@@ -996,8 +1001,8 @@ namespace Responses
             if (j.contains("hasUnreadMessages")) HasUnreadMessages = j["hasUnreadMessages"];
             if (j.contains("participants"))
             {
-                for (size_t i = 0; i < j["participants"].size(); i++)
-                    Participants.push_back(User(j["participants"][i]));
+                for (auto& user : j["participants"])
+                    Participants.emplace_back(user);
             }
             if (j.contains("conversationType")) ConversationType = j["conversationType"];
             if (j.contains("conversationTitle")) ConversationTitle = ChatConversationTitle(j["conversationTitle"]);
@@ -1012,10 +1017,8 @@ namespace Responses
 
        ChatConversationsResponse(json j)
        {
-           for (size_t i = 0; i < j.size(); i++)
-           {
-               Conversations.push_back(ChatConversation(j[i]));
-           }
+            for (auto& conversation : j) 
+                Conversations.emplace_back(conversation);
        }
     };
 
@@ -1100,10 +1103,10 @@ namespace Responses
             RecentAveragePrice = j["recentAveragePrice"];
 
             for (auto& element : j["priceDataPoints"])
-                PriceData.push_back(PriceDataPoint(element));
+                PriceData.emplace_back(element);
 
             for (auto& element : j["volumeDataPoints"])
-                VolumeData.push_back(VolumeDataPoint(element));
+                VolumeData.emplace_back(element);
         }
 
         ResaleData() = default;
@@ -1327,7 +1330,7 @@ namespace Responses
             {
                 for (auto& element : instance["playerTokens"])
                 {
-                    PlayerTokens.push_back(element);
+                    PlayerTokens.emplace_back(element);
                 }
             }
             if (instance.contains("fps")) FPS = instance["fps"];
