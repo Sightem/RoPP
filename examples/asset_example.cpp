@@ -7,28 +7,29 @@
 int main()
 {
     RoPP::Asset asset(2409285794);
+    asset.SetCookie("cookie");
 
     Responses::AssetInfo AssetResponse = asset.GetAssetInfo();
     Responses::ResaleData ResaleResponse = asset.GetResaleData();
     
     std::cout << std::boolalpha;
 
-    std::cout << "Asset Name: " << AssetResponse.Name << std::endl;
-    std::cout << "Asset Description: " << AssetResponse.Description << std::endl;
-    std::cout << "Asset Creator: " << AssetResponse.Creator.Username << std::endl;
-    std::cout << "Asset Creator ID: " << AssetResponse.Creator.UID << std::endl;
-    std::cout << "Asset Asset Type: " << AssetResponse.AssetType << std::endl;
-    std::cout << "Asset Product ID: " << AssetResponse.ProductID << std::endl;
-    std::cout << "Asset Price: " << AssetResponse.Price << std::endl;
-    std::cout << "Asset Sales: " << AssetResponse.Sales << std::endl;
-    std::cout << "Asset Is New: " << AssetResponse.IsNew << std::endl;
-    std::cout << "Asset Is Limited: " << AssetResponse.IsLimited << std::endl;
-    std::cout << "Asset Is Limited Unique: " << AssetResponse.IsLimitedUnique << std::endl;
-    std::cout << "Asset Is For Sale: " << AssetResponse.IsForSale << std::endl;
-    std::cout << "Asset Creation Date: " << AssetResponse.Created.ToISO8601() << std::endl;
-    std::cout << "Asset Updated Date: " << AssetResponse.Updated.ToISO8601() << std::endl;
+    std::string PrintString = "Asset Name: " + AssetResponse.Name + "\n" +
+                              "Asset Description: " + AssetResponse.Description + "\n" +
+                              "Asset Creator: " + AssetResponse.Creator.Username + "\n" +
+                              "Asset Creator ID: " + std::to_string(AssetResponse.Creator.UID) + "\n" +
+                              "Asset Asset Type: " + AssetResponse.AssetType + "\n" +
+                              "Asset Product ID: " + std::to_string(AssetResponse.ProductID) + "\n" +
+                              "Asset Price: " + std::to_string(AssetResponse.Price) + "\n" +
+                              "Asset Sales: " + std::to_string(AssetResponse.Sales) + "\n" +
+                              "Asset Is New: " + std::to_string(AssetResponse.IsNew) + "\n" +
+                              "Asset Is Limited: " + std::to_string(AssetResponse.IsLimited) + "\n" +
+                              "Asset Is Limited Unique: " + std::to_string(AssetResponse.IsLimitedUnique) + "\n" +
+                              "Asset Is For Sale: " + std::to_string(AssetResponse.IsForSale) + "\n" +
+                              "Asset Creation Date: " + AssetResponse.Created.ToISO8601() + "\n" +
+                              "Asset Updated Date: " + AssetResponse.Updated.ToISO8601() + "\n";
 
-    std::cout << std::endl;
+    std::cout << PrintString << std::endl;
 
     std::cout << "Recent Average Resale Price: " << ResaleResponse.RecentAveragePrice << std::endl;
 }
