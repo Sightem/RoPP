@@ -204,3 +204,29 @@ bool RoPP::Chat::mark_conversation_as_seen(std::vector<long> ConversationIDs)
 
     return res["resultType"] == "Success";
 }
+
+std::vector<Responses::ChatConversationWithMessages> RoPP::Chat::multi_get_latest_messages(std::vector<long> ConversationIDs, int PageSize)
+{
+    std::string URL = "https://chat.roblox.com/v2/multi-get-latest-messages?";
+    for (size_t i = 0; i < ConversationIDs.size(); i++)
+    {
+        URL += "conversationIds=" + std::to_string(ConversationIDs[i]) + (i != ConversationIDs.size() - 1 ? "&" : "");
+    }
+    URL += "&pageSize=" + std::to_string(PageSize);
+
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        URL,
+        "GET",
+        this->Cookie,
+        true
+    ).JsonObj;
+
+    std::vector<Responses::ChatConversationWithMessages> Conversations;
+    for (auto& i : res)
+    {
+        Conversations.emplace_back(i);
+    }
+
+    return Conversations;
+}

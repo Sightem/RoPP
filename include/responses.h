@@ -1361,7 +1361,7 @@ namespace Responses
         explicit ChatConversationWithMessages(json conversation)
         {
             ConversationId = conversation["conversationId"];
-            for (auto& message : conversation["messages"])
+            for (auto& message : conversation["chatMessages"])
             {
                 Messages.emplace_back(message);
             }
