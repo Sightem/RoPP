@@ -163,3 +163,23 @@ std::vector<Responses::ChatConversation> RoPP::Chat::GetUserConversations(int Pa
 
     return Conversations;
 }
+
+bool RoPP::Chat::mark_conversation_as_read(std::string EndMessageId)
+{
+    ordered_json Body = 
+    {
+        {"conversationId", this->ConversationID},
+        {"endMessageId", EndMessageId}
+    };
+
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://chat.roblox.com/v2/mark-as-read",
+        "POST",
+        this->Cookie,
+        true,
+        Body
+    ).JsonObj;
+
+    return res["resultType"] == "Success";
+}
