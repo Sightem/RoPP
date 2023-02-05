@@ -183,3 +183,24 @@ bool RoPP::Chat::mark_conversation_as_read(std::string EndMessageId)
 
     return res["resultType"] == "Success";
 }
+
+bool RoPP::Chat::mark_conversation_as_seen(std::vector<long> ConversationIDs)
+{
+    if (ConversationIDs.empty()) ConversationIDs = { this->ConversationID };
+
+    ordered_json Body =
+    {
+        {"conversationsToMarkSeen", ConversationIDs}
+    };
+
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://chat.roblox.com/v2/mark-as-seen",
+        "POST",
+        this->Cookie,
+        true,
+        Body
+    ).JsonObj;
+
+    return res["resultType"] == "Success";
+}
