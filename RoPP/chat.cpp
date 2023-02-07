@@ -250,3 +250,23 @@ Responses::RemoveFromConversationResponse RoPP::Chat::remove_from_conversation(l
 
     return Responses::RemoveFromConversationResponse(res);
 }
+
+Responses::RenameGroupConversationResponse RoPP::Chat::rename_group_conversation(std::string NewTitle)
+{
+    ordered_json Body =
+    {
+        {"conversationId", this->ConversationID},
+        {"newTitle", NewTitle}
+    };
+
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://chat.roblox.com/v2/rename-group-conversation",
+        "POST",
+        this->Cookie,
+        true,
+        Body
+    ).JsonObj;
+
+    return Responses::RenameGroupConversationResponse(res);
+}

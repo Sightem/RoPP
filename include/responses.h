@@ -1383,4 +1383,34 @@ namespace Responses
 
         RemoveFromConversationResponse() = default;
     };
+
+    struct RenameGroupConversationTitle
+    {
+        std::string TitleForViewer;
+        bool IsDefaultTitle;
+
+        explicit RenameGroupConversationTitle(json title)
+        {
+            TitleForViewer = title["titleForViewer"];
+            IsDefaultTitle = title["isDefaultTitle"];
+        }
+
+        RenameGroupConversationTitle() = default;
+    };
+
+    struct RenameGroupConversationResponse
+    {
+        std::string ConversationTitle;
+        std::string ResultType;
+        RenameGroupConversationTitle Title;
+        std::string StatusMessage;
+
+        explicit RenameGroupConversationResponse(json response)
+        {
+            ConversationTitle = response["conversationTitle"];
+            ResultType = response["resultType"];
+            Title = RenameGroupConversationTitle(response["title"]);
+            StatusMessage = response["statusMessage"];
+        }
+    };
 }
