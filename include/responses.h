@@ -1413,4 +1413,28 @@ namespace Responses
             StatusMessage = response["statusMessage"];
         }
     };
+
+    struct SendMessageResponse
+    {
+        std::string Content;
+        bool FilteredForReceivers;
+        std::string MessageId;
+        Timestamp Sent;
+        std::string MessageType;
+        std::string ResultType;
+        std::string StatusMessage;
+
+        explicit SendMessageResponse(json response)
+        {
+            if (!response["content"].is_null()) Content = response["content"];
+            FilteredForReceivers = response["filteredForReceivers"];
+            MessageId = response["messageId"];
+            if (!response["Sent"].is_null()) Sent = Timestamp(response["sent"]);
+            MessageType = response["messageType"];
+            ResultType = response["resultType"];
+            StatusMessage = response["statusMessage"];
+        }
+
+        SendMessageResponse() = default;
+    };
 }

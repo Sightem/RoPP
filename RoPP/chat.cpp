@@ -270,3 +270,28 @@ Responses::RenameGroupConversationResponse RoPP::Chat::rename_group_conversation
 
     return Responses::RenameGroupConversationResponse(res);
 }
+
+Responses::SendMessageResponse RoPP::Chat::send_message(std::string Message, bool IsExperienceInvite, std::vector<std::string> decorators)
+{
+    RoPP::Other other;
+
+    ordered_json Body =
+    {
+        {"message", Message},
+        {"isExperienceInvite", IsExperienceInvite},
+        {"userId", other.get_uid_from_cookie(this->Cookie)},
+        {"conversationId", this->ConversationID},
+        {"decorators", decorators}
+    };
+
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://chat.roblox.com/v2/send-message",
+        "POST",
+        this->Cookie,
+        true,
+        Body
+    ).JsonObj;
+
+    return Responses::SendMessageResponse(res);
+}

@@ -89,6 +89,7 @@ namespace RoPP
             std::vector<Responses::ChatConversationWithMessages> multi_get_latest_messages(std::vector<long> ConversationIDs, int PageSize=10);
             Responses::RemoveFromConversationResponse remove_from_conversation(long UserID);
             Responses::RenameGroupConversationResponse rename_group_conversation(std::string NewTitle);
+            Responses::SendMessageResponse send_message(std::string Message, bool IsExperienceInvite=false, std::vector<std::string> decorators={""});
 
         public:
             Chat(long ConversationID, std::string_view Cookie)
