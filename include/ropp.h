@@ -87,6 +87,7 @@ namespace RoPP
             bool mark_conversation_as_read(std::string EndMessageId);
             bool mark_conversation_as_seen(std::vector<long> ConversationIDs={});
             std::vector<Responses::ChatConversationWithMessages> multi_get_latest_messages(std::vector<long> ConversationIDs, int PageSize=10);
+            Responses::RemoveFromConversationResponse remove_from_conversation(long UserID);
 
         public:
             Chat(long ConversationID, std::string_view Cookie)

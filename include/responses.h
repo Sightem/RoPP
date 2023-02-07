@@ -1367,4 +1367,20 @@ namespace Responses
             }
         }
     };
+
+    struct RemoveFromConversationResponse
+    {
+        long ConversationId;
+        std::string ResultType;
+        std::string StatusMessage;
+
+        explicit RemoveFromConversationResponse(json response)
+        {
+            ConversationId = response["conversationId"];
+            ResultType = response["resultType"];
+            StatusMessage = response["statusMessage"];
+        }
+
+        RemoveFromConversationResponse() = default;
+    };
 }

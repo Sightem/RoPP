@@ -230,3 +230,23 @@ std::vector<Responses::ChatConversationWithMessages> RoPP::Chat::multi_get_lates
 
     return Conversations;
 }
+
+Responses::RemoveFromConversationResponse RoPP::Chat::remove_from_conversation(long UserID)
+{
+    ordered_json Body =
+    {
+        {"participantUserId", UserID},
+        {"conversationId", this->ConversationID}
+    };
+
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://chat.roblox.com/v2/remove-from-conversation",
+        "POST",
+        this->Cookie,
+        true,
+        Body
+    ).JsonObj;
+
+    return Responses::RemoveFromConversationResponse(res);
+}
