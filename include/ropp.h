@@ -316,13 +316,10 @@ namespace RoPP
         public:
 
             std::vector<Responses::UserPresence> GetUsersPresence(std::vector<long> UIDs);
-
             std::vector<Responses::SearchedUser> UserSearch(string Keyword, int Limit=10);
-
             json GroupSearch(string Keyword, bool prioritizeExactMatch=true, int Limit=10);
-
             std::string ValidateUsername(string Username);
-
             long GetGameUniverseID(long PlaceID);
+            long get_uid_from_cookie(std::string Cookie);
     };
 }

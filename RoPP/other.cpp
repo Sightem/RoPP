@@ -90,3 +90,16 @@ std::vector<Responses::UserPresence> RoPP::Other::GetUsersPresence(std::vector<l
 
     return presences;
 }
+
+long RoPP::Other::get_uid_from_cookie(std::string Cookie)
+{
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://users.roblox.com/v1/users/authenticated",
+        "GET",
+        Cookie,
+        false
+    ).JsonObj;
+
+    return res["id"];
+}
