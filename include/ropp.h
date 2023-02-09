@@ -90,6 +90,7 @@ namespace RoPP
             Responses::RemoveFromConversationResponse remove_from_conversation(long UserID);
             Responses::RenameGroupConversationResponse rename_group_conversation(std::string NewTitle);
             Responses::SendMessageResponse send_message(std::string Message, bool IsExperienceInvite=false, std::vector<std::string> decorators={""});
+            std::string update_user_typing_status(bool IsTyping);
 
         public:
             Chat(long ConversationID, std::string_view Cookie)

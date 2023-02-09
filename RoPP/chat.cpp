@@ -295,3 +295,23 @@ Responses::SendMessageResponse RoPP::Chat::send_message(std::string Message, boo
 
     return Responses::SendMessageResponse(res);
 }
+
+std::string RoPP::Chat::update_user_typing_status(bool IsTyping)
+{
+    ordered_json Body =
+    {
+        {"conversationId", this->ConversationID},
+        {"isTyping", IsTyping}
+    };
+
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://chat.roblox.com/v2/update-user-typing-status",
+        "POST",
+        this->Cookie,
+        true,
+        Body
+    ).JsonObj;
+
+    return res["statusMessage"];
+}
