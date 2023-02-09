@@ -91,6 +91,7 @@ namespace RoPP
             Responses::RenameGroupConversationResponse rename_group_conversation(std::string NewTitle);
             Responses::SendMessageResponse send_message(std::string Message, bool IsExperienceInvite=false, std::vector<std::string> decorators={""});
             std::string update_user_typing_status(bool IsTyping);
+            Responses::OneToOneConversationResponse start_one_to_one_conversation(long UserID);
 
         public:
             Chat(long ConversationID, std::string_view Cookie)

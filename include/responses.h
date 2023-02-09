@@ -998,7 +998,7 @@ namespace Responses
             if (j.contains("id")) ID = j["id"];
             if (j.contains("title")) Title = j["title"];
             if (j.contains("initiator")) Initiator = User(j["initiator"]);
-            if (j.contains("hasUnreadMessages")) HasUnreadMessages = j["hasUnreadMessages"];
+            if (j.contains("hasUnreadMessages") && !j["hasUnreadMessages"].is_null()) HasUnreadMessages = j["hasUnreadMessages"];
             if (j.contains("participants"))
             {
                 for (auto& user : j["participants"])
@@ -1009,6 +1009,8 @@ namespace Responses
             if (j.contains("lastUpdated")) LastUpdated = Timestamp(j["lastUpdated"]);
             if (!j["conversationUniverse"].is_null()) ConversationUniverse = ChatConversationUniverse(j["conversationUniverse"]);
         }
+
+        ChatConversation() = default;
     };
 
     struct ChatConversationsResponse
@@ -1052,6 +1054,25 @@ namespace Responses
         }
 
         FriendsOnline() = default;
+    };
+
+    struct OneToOneConversationResponse
+    {
+        ChatConversation Conversation;
+        std::vector<User> RejectedParticipants;
+        std::string ResultType;
+        std::string StatusMessage;
+
+        explicit OneToOneConversationResponse(json j)
+        {
+            Conversation = ChatConversation(j["conversation"]);
+            for (auto& user : j["rejectedParticipants"])
+                RejectedParticipants.emplace_back(user);
+            ResultType = j["resultType"];
+            StatusMessage = j["statusMessage"];
+        }
+
+        OneToOneConversationResponse() = default;
     };
 
 

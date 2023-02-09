@@ -315,3 +315,22 @@ std::string RoPP::Chat::update_user_typing_status(bool IsTyping)
 
     return res["statusMessage"];
 }
+
+Responses::OneToOneConversationResponse RoPP::Chat::start_one_to_one_conversation(long UserID)
+{
+    ordered_json Body =
+    {
+        {"participantUserId", UserID}
+    };
+
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://chat.roblox.com/v2/start-one-to-one-conversation",
+        "POST",
+        this->Cookie,
+        true,
+        Body
+    ).JsonObj;
+
+    return Responses::OneToOneConversationResponse(res);
+}
