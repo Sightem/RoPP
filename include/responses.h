@@ -1075,7 +1075,24 @@ namespace Responses
         OneToOneConversationResponse() = default;
     };
 
+    struct StartGroupConversationResponse
+    {
+        ChatConversation Conversation;
+        std::vector<User> RejectedParticipants;
+        std::string ResultType;
+        std::string StatusMessage;
 
+        explicit StartGroupConversationResponse(json j)
+        {
+            Conversation = ChatConversation(j["conversation"]);
+            for (auto& user : j["rejectedParticipants"])
+                RejectedParticipants.emplace_back(user);
+            ResultType = j["resultType"];
+            StatusMessage = j["statusMessage"];
+        }
+
+        StartGroupConversationResponse() = default;
+    };
     struct PriceDataPoint
     {
         long Price;

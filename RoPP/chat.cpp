@@ -334,3 +334,23 @@ Responses::OneToOneConversationResponse RoPP::Chat::start_one_to_one_conversatio
 
     return Responses::OneToOneConversationResponse(res);
 }
+
+Responses::StartGroupConversationResponse RoPP::Chat::start_group_conversation(std::vector<long> UserIDs, std::string Title)
+{
+    ordered_json Body =
+    {
+        {"participantUserIds", UserIDs},
+        {"title", Title}
+    };
+
+    json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://chat.roblox.com/v2/start-group-conversation",
+        "POST",
+        this->Cookie,
+        true,
+        Body
+    ).JsonObj;
+
+    return Responses::StartGroupConversationResponse(res);
+}
