@@ -96,29 +96,6 @@ namespace Responses
             if (j.contains("buildersClubMembershipType")) BuildersClubMembershipType = j["buildersClubMembershipType"];
         }
 
-        User(const User& other)
-        {
-            *this = other;
-        }
-
-        User& operator=(const User& other)
-        {
-            Username = other.Username;
-            DisplayName = other.DisplayName;
-            Description = other.Description;
-            BuildersClubMembershipType = other.BuildersClubMembershipType;
-            Created = other.Created;
-            PresenceType = other.PresenceType;
-            FriendFrequentScore = other.FriendFrequentScore;
-            FriendFrequentRank = other.FriendFrequentRank;
-            UID = other.UID;
-            IsOnline = other.IsOnline;
-            IsDeleted = other.IsDeleted;
-            HasVerifiedBadge = other.HasVerifiedBadge;
-            IsBanned = other.IsBanned;
-            return *this;
-        }
-
         User() = default;
     };
 
@@ -1317,33 +1294,7 @@ namespace Responses
             ProductID = Data["ProductId"];
         }
 
-        AssetInfo(const AssetInfo& other)
-        {
-            *this = other;
-        }
-
         AssetInfo() = default;
-
-        AssetInfo& operator=(const AssetInfo& other)
-        {
-            Name = other.Name;
-            Description = other.Description;
-            AssetType = other.AssetType;
-            CreatorName = other.CreatorName;
-            CreatorType = other.CreatorType;
-            Created = other.Created;
-            Updated = other.Updated;
-            Creator = other.Creator;
-            Price = other.Price;
-            Sales = other.Sales;
-            CreatorID = other.CreatorID;
-            IsNew = other.IsNew;
-            IsForSale = other.IsForSale;
-            IsLimited = other.IsLimited;
-            IsLimitedUnique = other.IsLimitedUnique;
-            ProductID = other.ProductID;
-            return *this;
-        }
     };
 
     struct GameInstance
