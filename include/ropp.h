@@ -106,6 +106,11 @@ namespace RoPP
                 this->ConversationID = ConversationID;
             }
 
+            Chat(std::string_view Cookie)
+            {
+                this->Cookie = Cookie;
+            }
+
             Chat()
             {
                 this->ConversationID = 0;
@@ -162,18 +167,19 @@ namespace RoPP
     {
         public:
             Responses::Group GetGroupInfo();
+            void delete_group_wall_post(int64_t PostID);
             std::vector<Responses::GroupNamehistory> GetNameHistory(string Sort="Asc", int Limit=10);
             std::vector<Responses::GroupWallPost> GetGroupWall(string Sort="Asc", int Limit=10);
             std::vector<Responses::GroupExperience> GetGames(string AccessFilter="All", string Sort="Asc", int Limit=10);
 
         public:
-            Group(long GroupID, std::string_view Cookie)
+            Group(int64_t GroupID, std::string_view Cookie)
             {
                 this->GroupID = GroupID;
                 this->Cookie = Cookie;
             }
 
-            Group(long GroupID)
+            Group(int64_t GroupID)
             {
                 this->GroupID = GroupID;
             }
@@ -183,13 +189,13 @@ namespace RoPP
                 this->GroupID = 0;
             }
 
-            void SetGroupID(long GroupID)
+            void SetGroupID(int64_t GroupID)
             {
                 this->GroupID = GroupID;
             }
 
         private:
-            long GroupID = 0;
+            int64_t GroupID = 0;
     };
 
     class Trade : public Auth

@@ -63,3 +63,14 @@ std::vector<Responses::GroupExperience> RoPP::Group::GetGames(string AccessFilte
 
     return Experiences;
 }
+
+void RoPP::Group::delete_group_wall_post(int64_t PostID)
+{
+    Helper::MakeAuthedRobloxRequest
+    (
+        "https://groups.roblox.com/v1/groups/" + std::to_string(this->GroupID) + "/wall/posts/" + std::to_string(PostID),
+        "DELETE",
+        this->Cookie,
+        CSRF_REQUIRED
+    );
+}
