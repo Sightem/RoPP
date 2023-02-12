@@ -9,13 +9,14 @@
 using CSRF_t = bool;
 
 using json = nlohmann::json;
+using ordered_json = nlohmann::ordered_json;
 
 //@Nowilltolife
 namespace Helper
 {
     struct WebResponse
     {
-        json JsonObj;
+        ordered_json JsonObj;
         Response Res;
     };
 
@@ -25,7 +26,7 @@ namespace Helper
         std::string Method,
         std::string Cookie,
         CSRF_t CSRF,
-        json Body = {},
+        ordered_json Body = {},
         headers_t Additional_headers = {},
         cookies_t Additional_cookies = {}
     );
@@ -34,7 +35,7 @@ namespace Helper
     (
         std::string Url,
         std::string Method,
-        json Body = {},
+        ordered_json Body = {},
         headers_t Additional_headers = {},
         cookies_t Additional_cookies = {}
     );
