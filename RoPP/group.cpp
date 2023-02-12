@@ -183,3 +183,14 @@ Responses::ChangeRoleResponse RoPP::Group::demote(int64_t UserID)
 {
     return this->change_role(UserID, -1);
 }
+
+void RoPP::Group::remove_user(int64_t UserID)
+{
+    Helper::MakeAuthedRobloxRequest
+    (
+        "https://groups.roblox.com/v1/groups/" + std::to_string(this->GroupID) + "/users/" + std::to_string(UserID),
+        "DELETE",
+        this->Cookie,
+        CSRF_REQUIRED
+    );
+}
