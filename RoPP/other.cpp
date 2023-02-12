@@ -69,7 +69,7 @@ std::vector<Responses::UserPresence> RoPP::Other::GetUsersPresence(std::vector<l
             "https://presence.roblox.com/v1/presence/users",
             "POST",
             this->Cookie,
-            true,
+            CSRF_REQUIRED,
             data
         ).JsonObj;
     } else
@@ -98,7 +98,7 @@ long RoPP::Other::get_uid_from_cookie(std::string Cookie)
         "https://users.roblox.com/v1/users/authenticated",
         "GET",
         Cookie,
-        false
+        CSRF_NOT_REQUIRED
     ).JsonObj;
 
     return res["id"];

@@ -11,7 +11,7 @@ json RoPP::Asset::BuyAsset()
         "https://economy.roblox.com/v1/purchases/products/" + std::to_string(info.ProductID),
         "POST",
         this->Cookie,
-        true,
+        CSRF_REQUIRED,
         {
             {"expectedCurrency", 1},
             {"expectedPrice", info.Price},
@@ -41,7 +41,7 @@ std::vector<Responses::ResellerData> RoPP::Asset::GetAssetResellers(string Sort,
         "https://economy.roblox.com/v1/assets/" + std::to_string(this->AssetID) + "/resellers?" + Sort + "&limit=" + std::to_string(Limit),
         "GET",
         this->Cookie,
-        false
+        CSRF_NOT_REQUIRED
     ).JsonObj;
     
     std::vector<Responses::ResellerData> resellers;
@@ -57,7 +57,7 @@ Responses::ResaleData RoPP::Asset::GetResaleData()
         "https://economy.roblox.com/v1/assets/" + std::to_string(this->AssetID) + "/resale-data",
         "GET",
         this->Cookie,
-        false
+        CSRF_NOT_REQUIRED
     ).JsonObj;
 
     return Responses::ResaleData(res);

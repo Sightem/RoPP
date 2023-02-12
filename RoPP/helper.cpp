@@ -1,14 +1,13 @@
 #include "../include/request.hpp"
 #include "../include/json.hpp"
 #include "../include/helper.h"
-using json = nlohmann::json;
 
 //@Nowilltolife
 [[maybe_unused]] Helper::WebResponse Helper::MakeAuthedRobloxRequest(
                        std::string Url,
                        std::string Method,
                        std::string Cookie,
-                       bool CSRF,
+                       CSRF_t CSRF,
                        json Body,
                        headers_t Additional_headers,
                        cookies_t Additional_cookies)

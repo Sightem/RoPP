@@ -10,7 +10,7 @@ Responses::BirthdateResponse RoPP::Session::GetBirthDate()
         "https://accountinformation.roblox.com/v1/birthdate",
         "GET",
         this->Cookie,
-        true
+        CSRF_REQUIRED
     ).JsonObj;
 
     return Responses::BirthdateResponse(res);
@@ -23,7 +23,7 @@ std::string RoPP::Session::GetDescription()
         "https://accountinformation.roblox.com/v1/description",
         "GET",
         this->Cookie,
-        true
+        CSRF_REQUIRED
     ).JsonObj;
 
     return res["description"];
@@ -36,7 +36,7 @@ Responses::PhoneInfo RoPP::Session::GetPhoneInfo()
         "https://accountinformation.roblox.com/v1/phone",
         "GET",
         this->Cookie,
-        true
+        CSRF_REQUIRED
     ).JsonObj;
 
     return Responses::PhoneInfo(res);
@@ -49,7 +49,7 @@ long RoPP::Session::GetRobuxBalance()
         "https://economy.roblox.com/v1/users/" + std::to_string(this->GetUserID()) + "/currency",
         "GET",
         this->Cookie,
-        true
+        CSRF_REQUIRED
     ).JsonObj;
 
     return res["robux"];
@@ -62,7 +62,7 @@ bool RoPP::Session::HasPremium()
         "https://premiumfeatures.roblox.com/v1/users/" + std::to_string(this->GetUserID()) + "/validate-membership",
         "GET",
         this->Cookie,
-        false
+        CSRF_NOT_REQUIRED
     ).JsonObj;
 
     return res;
@@ -75,7 +75,7 @@ int RoPP::Session::GetFriendsCount()
         "https://friends.roblox.com/v1/my/friends/count",
         "GET",
         this->Cookie,
-        false
+        CSRF_NOT_REQUIRED
     ).JsonObj;
 
     return res["count"];
@@ -88,7 +88,7 @@ Responses::FriendRequestsResponse RoPP::Session::GetFriendRequests(string Sort, 
         "https://friends.roblox.com/v1/my/friends/requests?" + Sort + "&limit=" + std::to_string(Limit),
         "GET",
         this->Cookie,
-        true
+        CSRF_REQUIRED
     ).JsonObj;
 
     return Responses::FriendRequestsResponse(res);
@@ -103,7 +103,7 @@ bool RoPP::Session::IsFavoriteGame(int PlaceID)
         "https://games.roblox.com/v1/games/" + std::to_string(UniverseID) + "/favorites",
         "GET",
         this->Cookie,
-        false
+        CSRF_NOT_REQUIRED
     ).JsonObj;
 
     return res["isFavorited"];
@@ -124,7 +124,7 @@ void RoPP::Session::SetFavoriteGame(int PlaceID, bool Favorite)
         "https://games.roblox.com/v1/games/" + std::to_string(UniverseID) + "/favorites",
         "POST",
         this->Cookie,
-        true,
+        CSRF_REQUIRED,
         data
     ).JsonObj;
 }
@@ -141,7 +141,7 @@ double RoPP::Session::UnlockPin(int Pin)
             "https://auth.roblox.com/v1/account/pin/unlock",
             "POST",
             this->Cookie,
-            true,
+            CSRF_NOT_REQUIRED,
             data
         ).JsonObj;
 
@@ -156,7 +156,7 @@ bool RoPP::Session::LockPin()
         "https://auth.roblox.com/v1/account/pin/lock",
         "POST",
         this->Cookie,
-        true
+        CSRF_NOT_REQUIRED
     ).JsonObj;
 
     return res["success"];
@@ -175,7 +175,7 @@ void RoPP::Session::ChangePassword(string OldPassword, string NewPassword)
         "https://auth.roblox.com/v2/user/passwords/change",
         "POST",
         this->Cookie,
-        true,
+        CSRF_REQUIRED,
         data
     );
 
@@ -200,7 +200,7 @@ bool RoPP::Session::SendFriendRequest(long UID)
         "https://friends.roblox.com/v1/users/" + std::to_string(UID) + "/request-friendship",
         "POST",
         this->Cookie,
-        true,
+        CSRF_REQUIRED,
         data
     ).JsonObj;
 
@@ -214,7 +214,7 @@ void RoPP::Session::AcceptFriendRequest(long UID)
         "https://friends.roblox.com/v1/users/" + std::to_string(UID) + "/accept-friend-request",
         "POST",
         this->Cookie,
-        true
+        CSRF_REQUIRED
     ).JsonObj;
 }
 
@@ -225,7 +225,7 @@ void RoPP::Session::DeclineFriendRequest(long UID)
         "https://friends.roblox.com/v1/users/" + std::to_string(UID) + "/accept-friend-request",
         "POST",
         this->Cookie,
-        true
+        CSRF_REQUIRED
     ).JsonObj;
 }
 
@@ -236,7 +236,7 @@ void RoPP::Session::DeclineAllFriendRequests()
         "https://friends.roblox.com/v1/user/friend-requests/decline-all",
         "POST",
         this->Cookie,
-        true
+        CSRF_REQUIRED
     ).JsonObj;
 }
 
@@ -247,7 +247,7 @@ void RoPP::Session::BlockUser(long UID)
         "https://accountsettings.roblox.com/v1/users/" + std::to_string(UID) + "/block",
         "POST",
         this->Cookie,
-        true
+        CSRF_REQUIRED
     ).JsonObj;
 }
 
@@ -258,7 +258,7 @@ void RoPP::Session::UnblockUser(long UID)
         "https://accountsettings.roblox.com/v1/users/" + std::to_string(UID) + "/unblock",
         "POST",
         this->Cookie,
-        true
+        CSRF_REQUIRED
     ).JsonObj;
 }
 
@@ -274,7 +274,7 @@ void RoPP::Session::SetDescription(string Description)
         "https://accountinformation.roblox.com/v1/description",
         "POST",
         this->Cookie,
-        true,
+        CSRF_REQUIRED,
         data
     ).JsonObj;
 }
@@ -291,7 +291,7 @@ void RoPP::Session::SetGender(string Gender)
         "https://accountinformation.roblox.com/v1/gender",
         "POST",
         this->Cookie,
-        true,
+        CSRF_REQUIRED,
         data
     ).JsonObj;
 }
@@ -303,7 +303,7 @@ std::vector<Responses::FriendsOnline> RoPP::Session::GetFriendsOnline()
         "https://friends.roblox.com/v1/users/" + std::to_string(this->GetUserID()) + "/friends/online",
         "GET",
         this->Cookie,
-        true
+        CSRF_REQUIRED
     ).JsonObj;
 
     std::vector<Responses::FriendsOnline> Friends;
@@ -322,7 +322,7 @@ Responses::User RoPP::Session::GetUser()
         "https://users.roblox.com/v1/users/" + std::to_string(this->GetUserID()),
         "GET",
         this->Cookie,
-        true
+        CSRF_REQUIRED
     ).JsonObj;
 
     return Responses::User(res);
@@ -335,7 +335,7 @@ long RoPP::Session::GetUserID()
        "https://users.roblox.com/v1/users/authenticated",
        "GET",
        this->Cookie,
-       true
+       CSRF_REQUIRED
    ).JsonObj;
     return res["id"];
 }
