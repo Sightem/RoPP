@@ -96,3 +96,20 @@ Responses::GroupRoles RoPP::Group::get_group_roles()
 
     return Responses::GroupRoles(res);
 }
+
+void RoPP::Group::set_group_role(int64_t UserID, int64_t RoleID)
+{
+    json body = 
+    {
+        {"roleId", RoleID}
+    };
+
+    Helper::MakeAuthedRobloxRequest
+    (
+        "https://groups.roblox.com/v1/groups/" + std::to_string(this->GroupID) + "/users/" + std::to_string(UserID),
+        "PATCH",
+        this->Cookie,
+        CSRF_REQUIRED,
+        body
+    );
+}
