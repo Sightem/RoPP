@@ -74,3 +74,14 @@ void RoPP::Group::delete_group_wall_post(int64_t PostID)
         CSRF_REQUIRED
     );
 }
+
+void RoPP::Group::delete_group_wall_posts_by_user(int64_t UserID)
+{
+    Helper::MakeAuthedRobloxRequest
+    (
+        "https://groups.roblox.com/v1/groups/" + std::to_string(this->GroupID) + "/wall/users/" + std::to_string(UserID) + "/posts",
+        "DELETE",
+        this->Cookie,
+        CSRF_REQUIRED
+    );
+}
