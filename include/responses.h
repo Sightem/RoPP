@@ -238,10 +238,13 @@ namespace Responses
 
         explicit GroupRole(json j)
         {
-            Name = j["name"];
             id = j["id"];
+            Name = j["name"];
             Rank = j["rank"];
-            MemberCount = j["memberCount"];
+            if (j.contains("memberCount"))
+            {
+                MemberCount = j["memberCount"];
+            }
         }
 
         GroupRole() = default;
@@ -264,6 +267,11 @@ namespace Responses
         GroupRoles() = default;
     };
 
+    struct ChangeRoleResponse
+    {
+        GroupRole OldRole;
+        GroupRole NewRole;
+    };
 
     struct ConversationAddResponse
     {
@@ -927,7 +935,7 @@ namespace Responses
 
         GShout Shout;
 
-        long GroupID;
+        int64_t GroupID;
         long MemberCount;
 
         bool IsBuildersClubOnly;

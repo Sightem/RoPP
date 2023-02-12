@@ -171,6 +171,8 @@ namespace RoPP
             void delete_group_wall_posts_by_user(int64_t UserID);
             Responses::GroupRoles get_group_roles();
             void set_group_role(int64_t UserID, int64_t RoleID);
+            Responses::GroupRole get_user_role(int64_t UserID);
+            Responses::ChangeRoleResponse change_role(int64_t UserID, int Change);
             std::vector<Responses::GroupNamehistory> GetNameHistory(string Sort="Asc", int Limit=10);
             std::vector<Responses::GroupWallPost> GetGroupWall(string Sort="Asc", int Limit=10);
             std::vector<Responses::GroupExperience> GetGames(string AccessFilter="All", string Sort="Asc", int Limit=10);
