@@ -4,7 +4,7 @@
 
 Responses::Group RoPP::Group::GetGroupInfo()
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://groups.roblox.com/v1/groups/" + std::to_string(this->GroupID),
         "GET"
@@ -15,7 +15,7 @@ Responses::Group RoPP::Group::GetGroupInfo()
 
 std::vector<Responses::GroupNamehistory> RoPP::Group::GetNameHistory(string Sort, int Limit)
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://groups.roblox.com/v1/groups/" + std::to_string(this->GroupID) + "/name-history?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
         "GET"
@@ -32,7 +32,7 @@ std::vector<Responses::GroupNamehistory> RoPP::Group::GetNameHistory(string Sort
 
 std::vector<Responses::GroupWallPost> RoPP::Group::GetGroupWall(std::string Sort, int Limit)
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://groups.roblox.com/v1/groups/" + std::to_string(this->GroupID) + "/wall/posts?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
         "GET"
@@ -49,7 +49,7 @@ std::vector<Responses::GroupWallPost> RoPP::Group::GetGroupWall(std::string Sort
 
 std::vector<Responses::GroupExperience> RoPP::Group::GetGames(string AccessFilter, string Sort, int Limit)
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://games.roblox.com/v2/groups/" + std::to_string(this->GroupID) + "/games?accessFilter=" + AccessFilter + "&sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
         "GET"
@@ -88,7 +88,7 @@ void RoPP::Group::delete_group_wall_posts_by_user(int64_t UserID)
 
 Responses::GroupRoles RoPP::Group::get_group_roles()
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://groups.roblox.com/v1/groups/" + std::to_string(this->GroupID) + "/roles",
         "GET"

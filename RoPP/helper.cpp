@@ -7,8 +7,8 @@
                        std::string Url,
                        std::string Method,
                        std::string Cookie,
-                       CSRF_t CSRF,
-                       json Body,
+                       bool CSRF,
+                       ordered_json Body,
                        headers_t Additional_headers,
                        cookies_t Additional_cookies)
 {
@@ -44,13 +44,13 @@
         throw std::logic_error(errorObject["message"].get<std::string>() + " (" + std::to_string(errorObject["code"].get<int>()) + ")");
     }
 
-    return {json::parse(res.data), res};
+    return {ordered_json::parse(res.data), res};
 }
 
 [[maybe_unused]] Helper::WebResponse Helper::MakeRobloxRequest(
                        std::string Url,
                        std::string Method,
-                       json Body,
+                       ordered_json Body,
                        headers_t Additional_headers,
                        cookies_t Additional_cookies)
 {
@@ -77,5 +77,5 @@
         throw std::logic_error(errorObject["message"].get<std::string>() + " (" + std::to_string(errorObject["code"].get<int>()) + ")");
     }
 
-    return {json::parse(res.data), res};
+    return {ordered_json::parse(res.data), res};
 }

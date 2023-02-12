@@ -5,7 +5,7 @@
 
 std::vector<Responses::SearchedUser> RoPP::Other::UserSearch(string Keyword, int Limit)
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://users.roblox.com/v1/users/search?keyword=" + Keyword + "&limit=" + std::to_string(Limit),
         "GET"
@@ -22,7 +22,7 @@ std::vector<Responses::SearchedUser> RoPP::Other::UserSearch(string Keyword, int
 
 json RoPP::Other::GroupSearch(string Keyword, bool prioritizeExactMatch, int Limit)
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://groups.roblox.com/v1/groups/search?keyword=" + Keyword + "&prioritizeExactMatch=" + std::to_string(prioritizeExactMatch) + "&limit=" + std::to_string(Limit),
         "GET"
@@ -33,7 +33,7 @@ json RoPP::Other::GroupSearch(string Keyword, bool prioritizeExactMatch, int Lim
 
 std::string RoPP::Other::ValidateUsername(std::string Username)
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://auth.roblox.com/v2/usernames/validate?request.username=" + Username + "&request.birthday=1970-10-10",
         "GET"
@@ -44,7 +44,7 @@ std::string RoPP::Other::ValidateUsername(std::string Username)
 
 long RoPP::Other::GetGameUniverseID(long PlaceID)
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://apis.roblox.com/universes/v1/places/" + std::to_string(PlaceID) + "/universe",
         "GET"
@@ -93,7 +93,7 @@ std::vector<Responses::UserPresence> RoPP::Other::GetUsersPresence(std::vector<l
 
 long RoPP::Other::get_uid_from_cookie(std::string Cookie)
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://users.roblox.com/v1/users/authenticated",
         "GET",

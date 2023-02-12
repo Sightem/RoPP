@@ -5,7 +5,7 @@
 
 std::vector<long> RoPP::Avatar::GetCurrentlyWearing(long UserID)
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://avatar.roblox.com/v1/users/" + std::to_string(UserID) + "/currently-wearing",
         "GET"
@@ -19,7 +19,7 @@ std::vector<long> RoPP::Avatar::GetCurrentlyWearing(long UserID)
 
 Responses::AvatarResponse RoPP::Avatar::GetAvatar(long UserID)
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://avatar.roblox.com/v1/users/" + std::to_string(UserID) + "/avatar",
         "GET"
@@ -30,7 +30,7 @@ Responses::AvatarResponse RoPP::Avatar::GetAvatar(long UserID)
 
 Responses::OutfitDetailsResponse RoPP::Avatar::GetOutfitDetails(long OutfitID)
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://avatar.roblox.com/v1/outfits/" + std::to_string(OutfitID) + "/details",
         "GET"
@@ -41,7 +41,7 @@ Responses::OutfitDetailsResponse RoPP::Avatar::GetOutfitDetails(long OutfitID)
 
 Responses::GetOutfitsResponse RoPP::Avatar::GetOutfits(long UserID, int Page, int ItemsPerPage, bool IsEditable)
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://avatar.roblox.com/v1/users/" + std::to_string(UserID) + "/outfits?page=" + std::to_string(Page) + "&itemsPerPage=" + std::to_string(ItemsPerPage) + "&isEditable=" + std::to_string(IsEditable),
         "GET"
@@ -52,7 +52,7 @@ Responses::GetOutfitsResponse RoPP::Avatar::GetOutfits(long UserID, int Page, in
 
 bool RoPP::Avatar::SetBodyColors(json Colors)
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://avatar.roblox.com/v1/avatar/set-body-colors",
         "POST",
@@ -66,7 +66,7 @@ bool RoPP::Avatar::SetBodyColors(json Colors)
 
 bool RoPP::Avatar::SetBodyScales(json Scales)
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://avatar.roblox.com/v1/avatar/set-scales",
         "POST",
@@ -80,7 +80,7 @@ bool RoPP::Avatar::SetBodyScales(json Scales)
 
 bool RoPP::Avatar::RemoveAsset(long AssetID)
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://avatar.roblox.com/v1/avatar/assets/" + std::to_string(AssetID) + "/remove",
         "POST",
@@ -98,7 +98,7 @@ bool RoPP::Avatar::SetPlayerAvatarType(std::string_view AvatarType)
         {"playerAvatarType", AvatarType}
     };
 
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://avatar.roblox.com/v1/avatar/set-player-avatar-type",
         "POST",
@@ -112,7 +112,7 @@ bool RoPP::Avatar::SetPlayerAvatarType(std::string_view AvatarType)
 
 bool RoPP::Avatar::WearAsset(long AssetID)
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://avatar.roblox.com/v1/avatar/assets/" + std::to_string(AssetID) + "/wear",
         "POST",

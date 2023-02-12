@@ -299,7 +299,7 @@ namespace RoPP
             long GetUserID();
 
             bool HasPremium();
-            bool IsFavoriteGame(int PlaceID);
+            bool IsFavoriteGame(int64_t PlaceID);
             
             //post requests
 

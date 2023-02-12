@@ -28,7 +28,7 @@ void RoPP::Trade::DeclineTrade (long TradeID)
 
 std::vector<Responses::TradeData> RoPP::Trade::GetTrades(std::string tradeStatusType, std::string Sort, int Limit)
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://trades.roblox.com/v1/trades/" + tradeStatusType + "?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
         "GET",
@@ -61,7 +61,7 @@ json RoPP::Trade::GetTradeInfo(long TradeID)
 
 Responses::CanTradeWithResponse RoPP::Trade::CanTradeWith(long UserID)
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://trades.roblox.com/v1/users/" + std::to_string(UserID) + "/can-trade-with",
         "GET",

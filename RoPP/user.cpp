@@ -5,7 +5,7 @@
 
 std::vector<Responses::User> RoPP::User::GetFriends(std::string Sort)
 {
-   json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://friends.roblox.com/v1/users/" + std::to_string(this->UID) + "/friends?userSort=" + Sort,
         "GET"
@@ -23,7 +23,7 @@ std::vector<Responses::User> RoPP::User::GetFriends(std::string Sort)
 
 std::vector<Responses::User> RoPP::User::GetFollowers(std::string Sort, int Limit)
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://friends.roblox.com/v1/users/" + std::to_string(this->UID) + "/followers?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
         "GET"
@@ -41,7 +41,7 @@ std::vector<Responses::User> RoPP::User::GetFollowers(std::string Sort, int Limi
 
 std::vector<Responses::User> RoPP::User::GetFollowings(std::string Sort, int Limit)
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://friends.roblox.com/v1/users/" + std::to_string(this->UID) + "/followings?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
         "GET"
@@ -59,7 +59,7 @@ std::vector<Responses::User> RoPP::User::GetFollowings(std::string Sort, int Lim
 
 std::vector<Responses::GroupWithRole> RoPP::User::GetGroups()
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://groups.roblox.com/v1/users/" + std::to_string(this->UID) + "/groups/roles",
         "GET"
@@ -77,7 +77,7 @@ std::vector<Responses::GroupWithRole> RoPP::User::GetGroups()
 
 std::vector<Responses::Badge> RoPP::User::GetBadges()
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://badges.roblox.com/v1/users/" + std::to_string(this->UID) + "/badges",
         "GET"
@@ -95,7 +95,7 @@ std::vector<Responses::Badge> RoPP::User::GetBadges()
 
 std::vector<Responses::Experience> RoPP::User::GetExperiences(string Sort, int limit)
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://games.roblox.com/v2/users/" + std::to_string(this->UID) + "/games?sortOrder=" + Sort + "&limit=" + std::to_string(limit),
         "GET"
@@ -114,7 +114,7 @@ std::vector<Responses::Experience> RoPP::User::GetExperiences(string Sort, int l
 
 std::vector<Responses::Experience> RoPP::User::GetFavoriteExperiences(string Sort, int limit)
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://games.roblox.com/v2/users/" + std::to_string(this->UID) + "/favorite/games?sortOrder=" + Sort + "&limit=" + std::to_string(limit),
         "GET"
@@ -132,7 +132,7 @@ std::vector<Responses::Experience> RoPP::User::GetFavoriteExperiences(string Sor
 
 std::vector<std::string> RoPP::User::GetPastUsernames(std::string Sort, int limit)
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://users.roblox.com/v1/users/" + std::to_string(this->UID) + "/username-history?limit=" + std::to_string(limit) + "&sortOrder=" + Sort,
         "GET"
@@ -150,7 +150,7 @@ std::vector<std::string> RoPP::User::GetPastUsernames(std::string Sort, int limi
 
 Responses::Group RoPP::User::GetPrimaryGroup()
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://groups.roblox.com/v1/users/" + std::to_string(this->UID) + "/groups/primary/role",
         "GET"
@@ -170,7 +170,7 @@ std::vector<Responses::InventoryAsset> RoPP::User::GetInventory(std::vector<stri
             AssetTypeString += ",";
     }
 
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://inventory.roblox.com/v2/users/" + std::to_string(this->UID) + "/inventory?assetTypes=" + AssetTypeString + "&sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
         "GET"
@@ -188,7 +188,7 @@ std::vector<Responses::InventoryAsset> RoPP::User::GetInventory(std::vector<stri
 
 bool RoPP::User::CanInventoryBeViewed()
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://inventory.roblox.com/v1/users/" + std::to_string(this->UID) + "/can-view-inventory",
         "GET"
@@ -199,7 +199,7 @@ bool RoPP::User::CanInventoryBeViewed()
 
 Responses::User RoPP::User::GetUser()
 {
-    json res = Helper::MakeRobloxRequest
+    ordered_json res = Helper::MakeRobloxRequest
     (
         "https://users.roblox.com/v1/users/" + std::to_string(this->UID),
         "GET"

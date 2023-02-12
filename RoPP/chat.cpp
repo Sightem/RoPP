@@ -5,11 +5,13 @@
 
 Responses::ConversationAddResponse RoPP::Chat::AddUsersToConversation(std::vector<long> UserIDs)
 {
-    ordered_json Body;
-    Body["participantUserIds"] = UserIDs;
-    Body["conversationId"] = this->ConversationID;
+    ordered_json Body = 
+    {
+        {"participantUserIds", UserIDs},
+        {"conversationId", this->ConversationID}
+    };
 
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://chat.roblox.com/v2/add-to-conversation",
         "POST",
@@ -23,7 +25,7 @@ Responses::ConversationAddResponse RoPP::Chat::AddUsersToConversation(std::vecto
 
 Responses::ChatSettings RoPP::Chat::GetChatSettings()
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://chat.roblox.com/v2/chat-settings",
         "GET",
@@ -36,7 +38,7 @@ Responses::ChatSettings RoPP::Chat::GetChatSettings()
 
 std::vector<Responses::ChatMessage> RoPP::Chat::GetMessages(int PageSize, std::string ExclusiveStartMessageID)
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://chat.roblox.com/v2/get-messages?conversationId=" + std::to_string(this->ConversationID) + "&pageSize=" + std::to_string(PageSize) + (ExclusiveStartMessageID != "" ? "&exclusiveStartMessageId=" + ExclusiveStartMessageID : ""),
         "GET",
@@ -66,7 +68,7 @@ Responses::ChatConversationsResponse RoPP::Chat::GetConversations(std::vector<lo
         URL += "conversationIds=" + std::to_string(ConversationIDs[i]) + (i != ConversationIDs.size() - 1 ? "&" : "");
     }
 
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         URL,
         "GET",
@@ -85,7 +87,7 @@ std::vector<Responses::RolloutFeature> RoPP::Chat::GetRolloutFeatures(std::vecto
         URL += "featureNames=" + FeatureNames[i] + (i != FeatureNames.size() - 1 ? "&" : "");
     }
 
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         URL,
         "GET",
@@ -104,7 +106,7 @@ std::vector<Responses::RolloutFeature> RoPP::Chat::GetRolloutFeatures(std::vecto
 
 int RoPP::Chat::GetUnreadConversationCount()
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://chat.roblox.com/v2/get-unread-conversation-count",
         "GET",
@@ -126,7 +128,7 @@ std::vector<Responses::ChatConversationWithMessages> RoPP::Chat::GetUnreadMessag
     }
     URL += "&pageSize=" + std::to_string(PageSize);
 
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         URL,
         "GET",
@@ -145,7 +147,7 @@ std::vector<Responses::ChatConversationWithMessages> RoPP::Chat::GetUnreadMessag
 
 std::vector<Responses::ChatConversation> RoPP::Chat::GetUserConversations(int PageNumber, int PageSize)
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://chat.roblox.com/v2/get-user-conversations?pageNumber=" + std::to_string(PageNumber) + "&pageSize=" + std::to_string(PageSize),
         "GET",
@@ -170,7 +172,7 @@ bool RoPP::Chat::mark_conversation_as_read(std::string EndMessageId)
         {"endMessageId", EndMessageId}
     };
 
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://chat.roblox.com/v2/mark-as-read",
         "POST",
@@ -191,7 +193,7 @@ bool RoPP::Chat::mark_conversation_as_seen(std::vector<long> ConversationIDs)
         {"conversationsToMarkSeen", ConversationIDs}
     };
 
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://chat.roblox.com/v2/mark-as-seen",
         "POST",
@@ -212,7 +214,7 @@ std::vector<Responses::ChatConversationWithMessages> RoPP::Chat::multi_get_lates
     }
     URL += "&pageSize=" + std::to_string(PageSize);
 
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         URL,
         "GET",
@@ -237,7 +239,7 @@ Responses::RemoveFromConversationResponse RoPP::Chat::remove_from_conversation(l
         {"conversationId", this->ConversationID}
     };
 
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://chat.roblox.com/v2/remove-from-conversation",
         "POST",
@@ -257,7 +259,7 @@ Responses::RenameGroupConversationResponse RoPP::Chat::rename_group_conversation
         {"newTitle", NewTitle}
     };
 
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://chat.roblox.com/v2/rename-group-conversation",
         "POST",
@@ -282,7 +284,7 @@ Responses::SendMessageResponse RoPP::Chat::send_message(std::string Message, boo
         {"decorators", decorators}
     };
 
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://chat.roblox.com/v2/send-message",
         "POST",
@@ -302,7 +304,7 @@ std::string RoPP::Chat::update_user_typing_status(bool IsTyping)
         {"isTyping", IsTyping}
     };
 
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://chat.roblox.com/v2/update-user-typing-status",
         "POST",
@@ -321,7 +323,7 @@ Responses::OneToOneConversationResponse RoPP::Chat::start_one_to_one_conversatio
         {"participantUserId", UserID}
     };
 
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://chat.roblox.com/v2/start-one-to-one-conversation",
         "POST",
@@ -341,7 +343,7 @@ Responses::StartGroupConversationResponse RoPP::Chat::start_group_conversation(s
         {"title", Title}
     };
 
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://chat.roblox.com/v2/start-group-conversation",
         "POST",

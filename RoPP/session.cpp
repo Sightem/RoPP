@@ -5,7 +5,7 @@
 
 Responses::BirthdateResponse RoPP::Session::GetBirthDate()
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://accountinformation.roblox.com/v1/birthdate",
         "GET",
@@ -18,7 +18,7 @@ Responses::BirthdateResponse RoPP::Session::GetBirthDate()
 
 std::string RoPP::Session::GetDescription()
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://accountinformation.roblox.com/v1/description",
         "GET",
@@ -31,7 +31,7 @@ std::string RoPP::Session::GetDescription()
 
 Responses::PhoneInfo RoPP::Session::GetPhoneInfo()
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://accountinformation.roblox.com/v1/phone",
         "GET",
@@ -44,7 +44,7 @@ Responses::PhoneInfo RoPP::Session::GetPhoneInfo()
 
 long RoPP::Session::GetRobuxBalance()
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://economy.roblox.com/v1/users/" + std::to_string(this->GetUserID()) + "/currency",
         "GET",
@@ -57,7 +57,7 @@ long RoPP::Session::GetRobuxBalance()
 
 bool RoPP::Session::HasPremium()
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://premiumfeatures.roblox.com/v1/users/" + std::to_string(this->GetUserID()) + "/validate-membership",
         "GET",
@@ -70,7 +70,7 @@ bool RoPP::Session::HasPremium()
 
 int RoPP::Session::GetFriendsCount()
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://friends.roblox.com/v1/my/friends/count",
         "GET",
@@ -83,7 +83,7 @@ int RoPP::Session::GetFriendsCount()
 
 Responses::FriendRequestsResponse RoPP::Session::GetFriendRequests(string Sort, int Limit)
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://friends.roblox.com/v1/my/friends/requests?" + Sort + "&limit=" + std::to_string(Limit),
         "GET",
@@ -94,11 +94,11 @@ Responses::FriendRequestsResponse RoPP::Session::GetFriendRequests(string Sort, 
     return Responses::FriendRequestsResponse(res);
 }
 
-bool RoPP::Session::IsFavoriteGame(int PlaceID)
+bool RoPP::Session::IsFavoriteGame(int64_t PlaceID)
 {
-    int UniverseID = RoPP::Other().GetGameUniverseID(PlaceID);
+    long UniverseID = RoPP::Other().GetGameUniverseID(PlaceID);
 
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://games.roblox.com/v1/games/" + std::to_string(UniverseID) + "/favorites",
         "GET",
@@ -119,7 +119,7 @@ void RoPP::Session::SetFavoriteGame(int PlaceID, bool Favorite)
         {"isFavorited", Favorite}
     };
 
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://games.roblox.com/v1/games/" + std::to_string(UniverseID) + "/favorites",
         "POST",
@@ -136,7 +136,7 @@ double RoPP::Session::UnlockPin(int Pin)
         {"pin", Pin}
     };
 
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
         (
             "https://auth.roblox.com/v1/account/pin/unlock",
             "POST",
@@ -151,7 +151,7 @@ double RoPP::Session::UnlockPin(int Pin)
 
 bool RoPP::Session::LockPin()
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://auth.roblox.com/v1/account/pin/lock",
         "POST",
@@ -195,7 +195,7 @@ bool RoPP::Session::SendFriendRequest(long UID)
         {"friendshipOriginSourceType", "Unknown"}
     };
 
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://friends.roblox.com/v1/users/" + std::to_string(UID) + "/request-friendship",
         "POST",
@@ -209,7 +209,7 @@ bool RoPP::Session::SendFriendRequest(long UID)
 
 void RoPP::Session::AcceptFriendRequest(long UID)
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://friends.roblox.com/v1/users/" + std::to_string(UID) + "/accept-friend-request",
         "POST",
@@ -220,7 +220,7 @@ void RoPP::Session::AcceptFriendRequest(long UID)
 
 void RoPP::Session::DeclineFriendRequest(long UID)
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://friends.roblox.com/v1/users/" + std::to_string(UID) + "/accept-friend-request",
         "POST",
@@ -231,7 +231,7 @@ void RoPP::Session::DeclineFriendRequest(long UID)
 
 void RoPP::Session::DeclineAllFriendRequests()
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://friends.roblox.com/v1/user/friend-requests/decline-all",
         "POST",
@@ -242,7 +242,7 @@ void RoPP::Session::DeclineAllFriendRequests()
 
 void RoPP::Session::BlockUser(long UID)
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://accountsettings.roblox.com/v1/users/" + std::to_string(UID) + "/block",
         "POST",
@@ -253,7 +253,7 @@ void RoPP::Session::BlockUser(long UID)
 
 void RoPP::Session::UnblockUser(long UID)
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://accountsettings.roblox.com/v1/users/" + std::to_string(UID) + "/unblock",
         "POST",
@@ -269,7 +269,7 @@ void RoPP::Session::SetDescription(string Description)
         {"description", Description}
     };
 
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://accountinformation.roblox.com/v1/description",
         "POST",
@@ -286,7 +286,7 @@ void RoPP::Session::SetGender(string Gender)
         {"gender", Gender}
     };
 
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://accountinformation.roblox.com/v1/gender",
         "POST",
@@ -298,7 +298,7 @@ void RoPP::Session::SetGender(string Gender)
 
 std::vector<Responses::FriendsOnline> RoPP::Session::GetFriendsOnline()
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://friends.roblox.com/v1/users/" + std::to_string(this->GetUserID()) + "/friends/online",
         "GET",
@@ -317,7 +317,7 @@ std::vector<Responses::FriendsOnline> RoPP::Session::GetFriendsOnline()
 
 Responses::User RoPP::Session::GetUser()
 {
-    json res = Helper::MakeAuthedRobloxRequest
+    ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://users.roblox.com/v1/users/" + std::to_string(this->GetUserID()),
         "GET",
@@ -330,7 +330,7 @@ Responses::User RoPP::Session::GetUser()
 
 long RoPP::Session::GetUserID()
 {
-   json res = Helper::MakeAuthedRobloxRequest
+   ordered_json res = Helper::MakeAuthedRobloxRequest
    (
        "https://users.roblox.com/v1/users/authenticated",
        "GET",
