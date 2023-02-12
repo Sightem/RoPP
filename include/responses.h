@@ -229,6 +229,41 @@ namespace Responses
         ChatMessage() = default;
     };
 
+    struct GroupRole
+    {
+        std::string Name;
+        long id;
+        int Rank;
+        int MemberCount;
+
+        explicit GroupRole(json j)
+        {
+            Name = j["name"];
+            id = j["id"];
+            Rank = j["rank"];
+            MemberCount = j["memberCount"];
+        }
+
+        GroupRole() = default;
+    };
+
+    struct GroupRoles
+    {
+        int64_t GroupID;
+        std::vector<GroupRole> Roles;
+
+        explicit GroupRoles(json j)
+        {
+            GroupID = j["groupId"];
+            for (auto& i : j["roles"])
+            {
+                Roles.emplace_back(i);
+            }
+        }
+
+        GroupRoles() = default;
+    };
+
 
     struct ConversationAddResponse
     {

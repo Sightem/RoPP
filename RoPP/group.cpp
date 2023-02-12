@@ -85,3 +85,14 @@ void RoPP::Group::delete_group_wall_posts_by_user(int64_t UserID)
         CSRF_REQUIRED
     );
 }
+
+Responses::GroupRoles RoPP::Group::get_group_roles()
+{
+    json res = Helper::MakeRobloxRequest
+    (
+        "https://groups.roblox.com/v1/groups/" + std::to_string(this->GroupID) + "/roles",
+        "GET"
+    ).JsonObj;
+
+    return Responses::GroupRoles(res);
+}
