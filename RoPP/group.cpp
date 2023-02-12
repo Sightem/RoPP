@@ -178,3 +178,8 @@ Responses::ChangeRoleResponse RoPP::Group::change_role(int64_t UserID, int Chang
     //return the new role
     return Responses::ChangeRoleResponse(roles.Roles[index], roles.Roles[new_index]);
 }
+
+Responses::ChangeRoleResponse RoPP::Group::demote(int64_t UserID)
+{
+    return this->change_role(UserID, -1);
+}
