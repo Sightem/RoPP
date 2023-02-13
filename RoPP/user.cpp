@@ -93,7 +93,7 @@ std::vector<Responses::Badge> RoPP::User::GetBadges()
     return Badges;
 }
 
-std::vector<Responses::Experience> RoPP::User::GetExperiences(string Sort, int limit)
+std::vector<Responses::Experience> RoPP::User::GetExperiences(std::string Sort, int limit)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -112,7 +112,7 @@ std::vector<Responses::Experience> RoPP::User::GetExperiences(string Sort, int l
     
 }
 
-std::vector<Responses::Experience> RoPP::User::GetFavoriteExperiences(string Sort, int limit)
+std::vector<Responses::Experience> RoPP::User::GetFavoriteExperiences(std::string Sort, int limit)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -159,9 +159,9 @@ Responses::Group RoPP::User::GetPrimaryGroup()
     return Responses::Group(res);
 }
 
-std::vector<Responses::InventoryAsset> RoPP::User::GetInventory(std::vector<string> AssetType, string Sort, int Limit)
+std::vector<Responses::InventoryAsset> RoPP::User::GetInventory(std::vector<std::string> AssetType, std::string Sort, int Limit)
 {
-    string AssetTypeString = "";
+    std::string AssetTypeString = "";
     for (size_t i = 0; i < AssetType.size(); i++)
     {
         AssetTypeString += AssetType[i];

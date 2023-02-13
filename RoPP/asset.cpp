@@ -34,7 +34,7 @@ Responses::AssetInfo RoPP::Asset::GetAssetInfo()
     return Responses::AssetInfo(res);
 }
 
-std::vector<Responses::ResellerData> RoPP::Asset::GetAssetResellers(string Sort, int Limit)
+std::vector<Responses::ResellerData> RoPP::Asset::GetAssetResellers(std::string Sort, int Limit)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (

@@ -3,7 +3,7 @@
 #include "../include/request.hpp"
 
 
-std::vector<Responses::SearchedUser> RoPP::Other::UserSearch(string Keyword, int Limit)
+std::vector<Responses::SearchedUser> RoPP::Other::UserSearch(std::string Keyword, int Limit)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -20,7 +20,7 @@ std::vector<Responses::SearchedUser> RoPP::Other::UserSearch(string Keyword, int
     return users;
 }
 
-json RoPP::Other::GroupSearch(string Keyword, bool prioritizeExactMatch, int Limit)
+json RoPP::Other::GroupSearch(std::string Keyword, bool prioritizeExactMatch, int Limit)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (

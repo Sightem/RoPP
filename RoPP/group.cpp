@@ -1,6 +1,5 @@
 #include "../include/ropp.h"
 #include "../include/helper.h"
-#include "../include/request.hpp"
 
 Responses::Group RoPP::Group::GetGroupInfo()
 {
@@ -13,7 +12,7 @@ Responses::Group RoPP::Group::GetGroupInfo()
     return Responses::Group(res);
 }
 
-std::vector<Responses::GroupNamehistory> RoPP::Group::GetNameHistory(string Sort, int Limit)
+std::vector<Responses::GroupNamehistory> RoPP::Group::GetNameHistory(std::string Sort, int Limit)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -47,7 +46,7 @@ std::vector<Responses::GroupWallPost> RoPP::Group::GetGroupWall(std::string Sort
     return posts;
 }
 
-std::vector<Responses::GroupExperience> RoPP::Group::GetGames(string AccessFilter, string Sort, int Limit)
+std::vector<Responses::GroupExperience> RoPP::Group::GetGames(std::string AccessFilter, std::string Sort, int Limit)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (

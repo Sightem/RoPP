@@ -2,12 +2,11 @@
 
 #include <string>
 
-#include "../include/json.hpp"
-#include "../include/responses.h"
-#include "../include/helper.h"
+#include "json.hpp"
+#include "responses.h"
+#include "helper.h"
 
 using json = nlohmann::json;
-using std::string;
 
 namespace RoPP
 {
@@ -49,7 +48,7 @@ namespace RoPP
 
             Responses::AssetInfo GetAssetInfo();
             Responses::ResaleData GetResaleData();
-            std::vector<Responses::ResellerData> GetAssetResellers(string Sort="Asc", int Limit=10);
+            std::vector<Responses::ResellerData> GetAssetResellers(std::string Sort="Asc", int Limit=10);
 
 
         public:
@@ -129,11 +128,11 @@ namespace RoPP
     {
         public:
             Responses::PlaceInfoResponse GetPlaceInfo();
-            std::vector<Responses::GamePass> GetGamepasses(string Sort="Asc", int Limit=10);
-            std::vector<Responses::Badge> GetGameBadges(string Sort="Asc", int Limit=10);
+            std::vector<Responses::GamePass> GetGamepasses(std::string Sort="Asc", int Limit=10);
+            std::vector<Responses::Badge> GetGameBadges(std::string Sort="Asc", int Limit=10);
             Responses::ExperienceVotes GetVotes();
-            Responses::DeveloperProductCreateResponse CreateDeveloperProduct(string Name, string Description, long Price, long IconImageAssetID=0);
-            std::vector<Responses::GameInstance> GetGameInstances(string Type="Public", string Sort="Asc", int Limit=100, bool ExcludeFullGames=false);
+            Responses::DeveloperProductCreateResponse CreateDeveloperProduct(std::string Name, std::string Description, long Price, long IconImageAssetID=0);
+            std::vector<Responses::GameInstance> GetGameInstances(std::string Type="Public", std::string Sort="Asc", int Limit=100, bool ExcludeFullGames=false);
             Responses::GameSocialLinks GetSocialLinks();
 
             long GetUniverseID();
@@ -175,9 +174,9 @@ namespace RoPP
             Responses::ChangeRoleResponse change_role(int64_t UserID, int Change);
             Responses::ChangeRoleResponse demote(int64_t UserID);
             void remove_user(int64_t UserID);
-            std::vector<Responses::GroupNamehistory> GetNameHistory(string Sort="Asc", int Limit=10);
-            std::vector<Responses::GroupWallPost> GetGroupWall(string Sort="Asc", int Limit=10);
-            std::vector<Responses::GroupExperience> GetGames(string AccessFilter="All", string Sort="Asc", int Limit=10);
+            std::vector<Responses::GroupNamehistory> GetNameHistory(std::string Sort="Asc", int Limit=10);
+            std::vector<Responses::GroupWallPost> GetGroupWall(std::string Sort="Asc", int Limit=10);
+            std::vector<Responses::GroupExperience> GetGames(std::string AccessFilter="All", std::string Sort="Asc", int Limit=10);
 
         public:
             Group(int64_t GroupID, std::string_view Cookie)
@@ -247,16 +246,16 @@ namespace RoPP
         public:
             Responses::User GetUser();
 
-            std::vector<Responses::User> GetFriends(string Sort="Alphabetical");
-            std::vector<Responses::User> GetFollowers(string Sort="Asc", int Limit=10);
-            std::vector<Responses::User> GetFollowings(string Sort="Asc", int Limit=10);
-            std::vector<Responses::Experience> GetExperiences(string Sort="Asc", int Limit=10);
-            std::vector<Responses::Experience> GetFavoriteExperiences(string Sort="Asc", int Limit=10);
-            std::vector<std::string> GetPastUsernames(string Sort="Asc", int Limit=10);
+            std::vector<Responses::User> GetFriends(std::string Sort="Alphabetical");
+            std::vector<Responses::User> GetFollowers(std::string Sort="Asc", int Limit=10);
+            std::vector<Responses::User> GetFollowings(std::string Sort="Asc", int Limit=10);
+            std::vector<Responses::Experience> GetExperiences(std::string Sort="Asc", int Limit=10);
+            std::vector<Responses::Experience> GetFavoriteExperiences(std::string Sort="Asc", int Limit=10);
+            std::vector<std::string> GetPastUsernames(std::string Sort="Asc", int Limit=10);
             std::vector<Responses::GroupWithRole> GetGroups();
             std::vector<Responses::Badge> GetBadges();
             Responses::Group GetPrimaryGroup();
-            std::vector<Responses::InventoryAsset>  GetInventory(std::vector<string> AssetType, string Sort="Asc", int Limit=10);
+            std::vector<Responses::InventoryAsset>  GetInventory(std::vector<std::string> AssetType, std::string Sort="Asc", int Limit=10);
 
             bool CanInventoryBeViewed();
 
@@ -295,7 +294,7 @@ namespace RoPP
             std::vector<Responses::FriendsOnline> GetFriendsOnline();
             Responses::BirthdateResponse GetBirthDate();
             Responses::PhoneInfo GetPhoneInfo();
-            Responses::FriendRequestsResponse GetFriendRequests(string Sort="Asc", int Limit=10);
+            Responses::FriendRequestsResponse GetFriendRequests(std::string Sort="Asc", int Limit=10);
 
             int GetFriendsCount();
 
@@ -313,9 +312,9 @@ namespace RoPP
             bool LockPin();
 
             void SetFavoriteGame(int PlaceID, bool Favorite);
-            void SetDescription(string Description);
-            void SetGender(string Gender);
-            void ChangePassword(string OldPassword, string NewPassword);
+            void SetDescription(std::string Description);
+            void SetGender(std::string Gender);
+            void ChangePassword(std::string OldPassword, std::string NewPassword);
             void AcceptFriendRequest(long UID);
             void DeclineFriendRequest(long UID);
             void DeclineAllFriendRequests();
@@ -333,9 +332,9 @@ namespace RoPP
         public:
 
             std::vector<Responses::UserPresence> GetUsersPresence(std::vector<long> UIDs);
-            std::vector<Responses::SearchedUser> UserSearch(string Keyword, int Limit=10);
-            json GroupSearch(string Keyword, bool prioritizeExactMatch=true, int Limit=10);
-            std::string ValidateUsername(string Username);
+            std::vector<Responses::SearchedUser> UserSearch(std::string Keyword, int Limit=10);
+            json GroupSearch(std::string Keyword, bool prioritizeExactMatch=true, int Limit=10);
+            std::string ValidateUsername(std::string Username);
             long GetGameUniverseID(long PlaceID);
             long get_uid_from_cookie(std::string Cookie);
     };

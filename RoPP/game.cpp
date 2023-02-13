@@ -66,7 +66,7 @@ Responses::DeveloperProductCreateResponse RoPP::Game::CreateDeveloperProduct(std
     return Responses::DeveloperProductCreateResponse(res);
 }
 
-std::vector<Responses::GameInstance> RoPP::Game::GetGameInstances(string Type, string Sort, int Limit, bool ExcludeFullGames)
+std::vector<Responses::GameInstance> RoPP::Game::GetGameInstances(std::string Type, std::string Sort, int Limit, bool ExcludeFullGames)
 {
     json res;
     

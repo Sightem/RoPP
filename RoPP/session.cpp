@@ -81,7 +81,7 @@ int RoPP::Session::GetFriendsCount()
     return res["count"];
 }
 
-Responses::FriendRequestsResponse RoPP::Session::GetFriendRequests(string Sort, int Limit)
+Responses::FriendRequestsResponse RoPP::Session::GetFriendRequests(std::string Sort, int Limit)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -162,7 +162,7 @@ bool RoPP::Session::LockPin()
     return res["success"];
 }
 
-void RoPP::Session::ChangePassword(string OldPassword, string NewPassword)
+void RoPP::Session::ChangePassword(std::string OldPassword, std::string NewPassword)
 {
     json data = 
     {
@@ -262,7 +262,7 @@ void RoPP::Session::UnblockUser(long UID)
     ).JsonObj;
 }
 
-void RoPP::Session::SetDescription(string Description)
+void RoPP::Session::SetDescription(std::string Description)
 {
     json data = 
     {
@@ -279,7 +279,7 @@ void RoPP::Session::SetDescription(string Description)
     ).JsonObj;
 }
 
-void RoPP::Session::SetGender(string Gender)
+void RoPP::Session::SetGender(std::string Gender)
 {
     json data = 
     {
