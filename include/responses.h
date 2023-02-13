@@ -5,8 +5,6 @@
 #include "json.hpp"
 #include "request.hpp"
 
-using json = nlohmann::json;
-
 namespace Responses
 {
     struct Timestamp
@@ -97,6 +95,27 @@ namespace Responses
         }
 
         User() = default;
+    };
+
+    struct ShorthandUser
+    {
+        std::string Username;
+        std::string DisplayName;
+        int64_t UID;
+
+        bool HasVerifiedBadge;
+
+        explicit ShorthandUser(json j)
+        {
+            if (j.contains("name")) Username = j["name"];
+            if (j.contains("username")) Username = j["username"];
+            if (j.contains("displayName")) DisplayName = j["displayName"];
+            if (j.contains("id")) UID = j["id"];
+            if (j.contains("userId")) UID = j["userId"];
+            if (j.contains("hasVerifiedBadge")) HasVerifiedBadge = j["hasVerifiedBadge"];
+        }
+
+        ShorthandUser() = default;
     };
 
     struct Experience
