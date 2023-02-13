@@ -112,7 +112,7 @@ void RoPP::Group::set_group_role(int64_t UserID, int64_t RoleID)
         body
     );
 }
-#include <iostream>
+
 Responses::GroupRole RoPP::Group::get_user_role(int64_t UserID)
 {
     ordered_json res = Helper::MakeRobloxRequest
@@ -192,4 +192,29 @@ void RoPP::Group::remove_user(int64_t UserID)
         this->Cookie,
         CSRF_REQUIRED
     );
+}
+
+Responses::AuditPage RoPP::Group::get_audit_log(std::string actionType, int64_t UID, std::string Sort, int Limit)
+{
+    std::string url = "https://groups.roblox.com/v1/groups/" + std::to_string(this->GroupID) + "/audit-log?limit=" + std::to_string(Limit) + "&sortOrder=" + Sort;
+
+    if (actionType != "")
+    {
+        url += "&actionType=" + actionType; //in case of all, this wont actually do anything
+    }
+
+    if (UID != 0)
+    {
+        url += "&userId=" + std::to_string(UID);
+    }
+
+    ordered_json res = Helper::MakeAuthedRobloxRequest
+    (
+        url,
+        "GET",
+        this->Cookie,
+        CSRF_REQUIRED
+    ).JsonObj;
+
+    return Responses::AuditPage(res);
 }

@@ -174,6 +174,7 @@ namespace RoPP
             Responses::ChangeRoleResponse change_role(int64_t UserID, int Change);
             Responses::ChangeRoleResponse demote(int64_t UserID);
             void remove_user(int64_t UserID);
+            Responses::AuditPage get_audit_log(std::string actionType="All", int64_t UID=0, std::string Sort="Asc", int Limit=10);
             std::vector<Responses::GroupNamehistory> GetNameHistory(std::string Sort="Asc", int Limit=10);
             std::vector<Responses::GroupWallPost> GetGroupWall(std::string Sort="Asc", int Limit=10);
             std::vector<Responses::GroupExperience> GetGames(std::string AccessFilter="All", std::string Sort="Asc", int Limit=10);

@@ -5,6 +5,8 @@
 #include "json.hpp"
 #include "request.hpp"
 
+using json = nlohmann::json;
+
 namespace Responses
 {
     struct Timestamp
@@ -926,6 +928,55 @@ namespace Responses
 
         Role() = default;
     };
+
+    struct AuditItemActor
+    {
+        ShorthandUser user;
+        Role role;
+
+        explicit AuditItemActor(json j)
+        {
+            if (j.contains("user")) user = ShorthandUser(j["user"]);
+            if (j.contains("role")) role = Role(j["role"]);
+        }
+
+        AuditItemActor() = default;
+    };
+
+    struct AuditItem
+    {
+        AuditItemActor actor;
+        std::string ActionType;
+        json Description;
+        Timestamp Created;
+
+        explicit AuditItem(json j)
+        {
+            if (j.contains("actor")) actor = AuditItemActor(j["actor"]);
+            if (j.contains("actionType")) ActionType = j["actionType"];
+            if (j.contains("description")) Description = j["description"];
+            if (j.contains("created")) Created = Timestamp(j["created"]);
+        }
+
+        AuditItem() = default;
+    };
+
+    struct AuditPage
+    {
+        std::vector<AuditItem> Items;
+
+        explicit AuditPage(json j)
+        {
+            if (j.contains("data"))
+            {
+                for (auto& item : j["data"])
+                {
+                    Items.push_back(AuditItem(item));
+                }
+            }
+        }
+    };
+
     struct GShout
     {
         std::string Body;
