@@ -152,13 +152,13 @@ namespace Responses
 
     struct AvatarAssetType
     {
-        std::string Name;
-        long ID;
+        std::string name;
+        long id;
 
         explicit AvatarAssetType(json j)
         {
-            Name = j["name"];
-            ID = j["id"];
+            name = j["name"];
+            id = j["id"];
         }
 
         AvatarAssetType() = default;
@@ -372,16 +372,21 @@ namespace Responses
 
     struct BodyColors
     {
-        int headColorId, torsoColorId, rightArmColorId, leftArmColorId, rightLegColorId, leftLegColorId;
+        int head_color_id;
+        int torso_color_id;
+        int right_arm_color_id;
+        int left_arm_color_id;
+        int right_leg_color_id;
+        int left_leg_color_id;
 
         explicit BodyColors(json j)
         {
-            if (j.contains("headColorId")) headColorId = j["headColorId"];
-            if (j.contains("torsoColorId")) torsoColorId = j["torsoColorId"];
-            if (j.contains("rightArmColorId")) rightArmColorId = j["rightArmColorId"];
-            if (j.contains("leftArmColorId")) leftArmColorId = j["leftArmColorId"];
-            if (j.contains("rightLegColorId")) rightLegColorId = j["rightLegColorId"];
-            if (j.contains("leftLegColorId")) leftLegColorId = j["leftLegColorId"];
+            if (j.contains("headColorId")) head_color_id = j["headColorId"];
+            if (j.contains("torsoColorId")) torso_color_id = j["torsoColorId"];
+            if (j.contains("rightArmColorId")) right_arm_color_id = j["rightArmColorId"];
+            if (j.contains("leftArmColorId")) left_arm_color_id = j["leftArmColorId"];
+            if (j.contains("rightLegColorId")) right_leg_color_id = j["rightLegColorId"];
+            if (j.contains("leftLegColorId")) left_leg_color_id = j["leftLegColorId"];
         }
 
         BodyColors() = default;
@@ -390,19 +395,19 @@ namespace Responses
 
     struct OutfitDetailsAsset
     {
-        std::string Name;
+        std::string name;
         
-        AvatarAssetType AssetType;
+        AvatarAssetType asset_type;
 
-        long AssetID;
-        long CurrentVersionID;
+        long asset_id;
+        long current_version_id;
 
         explicit OutfitDetailsAsset(json j)
         {
-            Name = j["name"];
-            AssetType = AvatarAssetType(j["assetType"]);
-            AssetID = j["id"];
-            CurrentVersionID = j["currentVersion"];
+            name = j["name"];
+            asset_type = AvatarAssetType(j["assetType"]);
+            asset_id = j["id"];
+            current_version_id = j["currentVersion"];
         }
 
         OutfitDetailsAsset() = default;
@@ -410,15 +415,15 @@ namespace Responses
     
     struct GetOutfitsAsset
     {
-        std::string Name;
-        long ID;
-        bool IsEditable;
+        std::string name;
+        long id;
+        bool is_editable;
 
         explicit GetOutfitsAsset(json j)
         {
-            if (j.contains("name")) Name = j["name"];
-            if (j.contains("id")) ID = j["id"];
-            if (j.contains("isEditable")) IsEditable = j["isEditable"];
+            if (j.contains("name")) name = j["name"];
+            if (j.contains("id")) id = j["id"];
+            if (j.contains("isEditable")) is_editable = j["isEditable"];
         }
 
         GetOutfitsAsset() = default;
@@ -426,14 +431,14 @@ namespace Responses
 
     struct GetOutfitsResponse
     {
-        std::vector<GetOutfitsAsset> Outfits;
+        std::vector<GetOutfitsAsset> outfits;
         int total;
 
         explicit GetOutfitsResponse(json j)
         {
             if (j.contains("data"))
             {
-                for (auto& i : j["data"]) Outfits.emplace_back(i);
+                for (auto& i : j["data"]) outfits.emplace_back(i);
             }
             if (j.contains("total")) total = j["total"];
         }
@@ -443,7 +448,7 @@ namespace Responses
 
     struct AvatarScales
     {
-        int height, width, depth, head, proportion, bodyType;
+        int height, width, depth, head, proportion, body_type;
 
         explicit AvatarScales(json j)
         {
@@ -452,7 +457,7 @@ namespace Responses
             if (j.contains("depth")) depth = j["depth"];
             if (j.contains("head")) head = j["head"];
             if (j.contains("proportion")) proportion = j["proportion"];
-            if (j.contains("bodyType")) bodyType = j["bodyType"];
+            if (j.contains("bodyType")) body_type = j["bodyType"];
         }
 
         AvatarScales() = default;
@@ -460,30 +465,30 @@ namespace Responses
 
     struct OutfitDetailsResponse
     {
-        std::string Name;
-        std::string PlayerAvatarType;
-        std::string OutfitType;
+        std::string name;
+        std::string player_avatar_type;
+        std::string outfit_type;
 
-        long ID;
+        long id;
 
-        std::vector<OutfitDetailsAsset> Assets;
-        BodyColors Colors;
-        AvatarScales Scales;
+        std::vector<OutfitDetailsAsset> assets;
+        BodyColors colors;
+        AvatarScales scales;
 
-        bool IsEditable;
+        bool is_editable;
 
         explicit OutfitDetailsResponse(json j)
         {
-            if (j.contains("name")) Name = j["name"];
-            if (j.contains("playerAvatarType")) PlayerAvatarType = j["playerAvatarType"];
-            if (j.contains("outfitType")) OutfitType = j["outfitType"];
-            if (j.contains("id")) ID = j["id"];
-            if (j.contains("bodyColors")) Colors = BodyColors(j["bodyColors"]);
-            if (j.contains("scale")) Scales = AvatarScales(j["scale"]);
-            if (j.contains("isEditable")) IsEditable = j["isEditable"];
+            if (j.contains("name")) name = j["name"];
+            if (j.contains("playerAvatarType")) player_avatar_type = j["playerAvatarType"];
+            if (j.contains("outfitType")) outfit_type = j["outfitType"];
+            if (j.contains("id")) id = j["id"];
+            if (j.contains("bodyColors")) colors = BodyColors(j["bodyColors"]);
+            if (j.contains("scale")) scales = AvatarScales(j["scale"]);
+            if (j.contains("isEditable")) is_editable = j["isEditable"];
 
             for (auto& asset : j["assets"])
-                Assets.emplace_back(asset);
+                assets.emplace_back(asset);
         }
     };
 
@@ -755,19 +760,19 @@ namespace Responses
 
     struct AvatarAsset
     {
-        std::string Name;
+        std::string name;
 
-        AvatarAssetType AssetType;
+        AvatarAssetType asset_type;
 
-        long AssetID;
-        long CurrentVersionID;
+        long asset_id;
+        long current_version_id;
 
         explicit AvatarAsset(json j)
         {
-            Name = j["name"];
-            AssetType = AvatarAssetType(j["assetType"]);
-            AssetID = j["id"];
-            CurrentVersionID = j["currentVersionId"];
+            name = j["name"];
+            asset_type = AvatarAssetType(j["assetType"]);
+            asset_id = j["id"];
+            current_version_id = j["currentVersionId"];
         }
 
         AvatarAsset() = default;
@@ -775,21 +780,21 @@ namespace Responses
 
     struct AvatarResponse
     {
-        std::string AvatarType;
+        std::string player_avatar_type;
 
-        BodyColors Colors;
-        AvatarScales Scales;
+        BodyColors colors;
+        AvatarScales scales;
 
-        std::vector<AvatarAsset> Assets;
+        std::vector<AvatarAsset> assets;
 
         explicit AvatarResponse(json j)
         {
-            AvatarType = j["playerAvatarType"];
-            Colors = BodyColors(j["bodyColors"]);
-            Scales = AvatarScales(j["scales"]);
+            player_avatar_type = j["playerAvatarType"];
+            colors = BodyColors(j["bodyColors"]);
+            scales = AvatarScales(j["scales"]);
             for (auto& asset : j["assets"])
             {
-                Assets.emplace_back(asset);
+                assets.emplace_back(asset);
             }
         }
 
