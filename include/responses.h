@@ -1190,13 +1190,13 @@ namespace Responses
     };
     struct PriceDataPoint
     {
-        long Price;
-        Timestamp timestamp;
+        long price;
+        Timestamp date;
 
         explicit PriceDataPoint(json j)
         {
-            Price = j["value"];
-            timestamp = Timestamp(j["date"]);
+            price = j["value"];
+            date = Timestamp(j["date"]);
         }
 
         PriceDataPoint() = default;
@@ -1204,42 +1204,42 @@ namespace Responses
 
     struct VolumeDataPoint
     {
-        long Volume;
-        Timestamp timestamp;
+        long volume;
+        Timestamp date;
 
         explicit VolumeDataPoint(json j)
         {
-            Volume = j["value"];
-            timestamp = Timestamp(j["date"]);
+            volume = j["value"];
+            date = Timestamp(j["date"]);
         }
 
         VolumeDataPoint() = default;
     };
     struct ResaleData
     {
-        int AssetStock;
-        int Sales;
-        int NumberRemaining;
-        int OriginalPrice;
+        int asset_stock;
+        int sales;
+        int number_remaining;
+        int original_price;
 
-        long RecentAveragePrice;
+        long recent_average_price;
 
-        std::vector<PriceDataPoint> PriceData;
-        std::vector<VolumeDataPoint> VolumeData;
+        std::vector<PriceDataPoint> price_data;
+        std::vector<VolumeDataPoint> volume_data;
 
         explicit ResaleData(json j)
         {
-            AssetStock = j["assetStock"];
-            Sales = j["sales"];
-            NumberRemaining = j["numberRemaining"];
-            OriginalPrice = j["originalPrice"];
-            RecentAveragePrice = j["recentAveragePrice"];
+            asset_stock = j["assetStock"];
+            sales = j["sales"];
+            number_remaining = j["numberRemaining"];
+            original_price = j["originalPrice"];
+            recent_average_price = j["recentAveragePrice"];
 
             for (auto& element : j["priceDataPoints"])
-                PriceData.emplace_back(element);
+                price_data.emplace_back(element);
 
             for (auto& element : j["volumeDataPoints"])
-                VolumeData.emplace_back(element);
+                volume_data.emplace_back(element);
         }
 
         ResaleData() = default;
@@ -1298,27 +1298,27 @@ namespace Responses
 
     struct AssetInfo
     {
-        std::string Name;
-        std::string Description;
-        std::string AssetType;
-        std::string CreatorName;
-        std::string CreatorType;
+        std::string name;
+        std::string description;
+        std::string asset_type;
+        std::string creator_name;
+        std::string creator_type;
 
-        Timestamp Created;
-        Timestamp Updated;
+        Timestamp created;
+        Timestamp updated;
 
-        AssetCreator Creator;
+        AssetCreator creator;
 
-        int Price;
+        int price;
 
-        long Sales;
-        long CreatorID;
-        long ProductID;
+        long sales;
+        long creator_id;
+        long product_id;
 
-        bool IsNew;
-        bool IsForSale;
-        bool IsLimited;
-        bool IsLimitedUnique;
+        bool is_new;
+        bool is_for_sale;
+        bool is_limited;
+        bool is_limited_unique;
 
         //https://github.com/ro-py/ro.py/blob/284b30dfef4c8117198b961c3b4b47c040da6af4/roblox/assets.py#L21 <3
         std::map<int, std::string> asset_type_names = {
@@ -1394,22 +1394,22 @@ namespace Responses
         
         explicit AssetInfo(json Data)
         {
-            Name = Data["Name"];
-            Description = Data["Description"];
-            AssetType = asset_type_names[Data["AssetTypeId"]];
-            Created = Timestamp(Data["Created"]);
-            Updated = Timestamp(Data["Updated"]);
-            CreatorName = Data["Creator"]["Name"];
-            CreatorType = Data["Creator"]["CreatorType"];
-            Creator = AssetCreator(Data["Creator"]);
-            Price = Data["PriceInRobux"];
-            Sales = Data["Sales"];
-            CreatorID = Data["Creator"]["Id"];
-            IsNew = Data["IsNew"];
-            IsForSale = Data["IsForSale"];
-            IsLimited = Data["IsLimited"];
-            IsLimitedUnique = Data["IsLimitedUnique"];
-            ProductID = Data["ProductId"];
+            name = Data["Name"];
+            description = Data["Description"];
+            asset_type = asset_type_names[Data["AssetTypeId"]];
+            created = Timestamp(Data["Created"]);
+            updated = Timestamp(Data["Updated"]);
+            creator_name = Data["Creator"]["Name"];
+            creator_type = Data["Creator"]["CreatorType"];
+            creator = AssetCreator(Data["Creator"]);
+            price = Data["PriceInRobux"];
+            sales = Data["Sales"];
+            creator_id = Data["Creator"]["Id"];
+            is_new = Data["IsNew"];
+            is_for_sale = Data["IsForSale"];
+            is_limited = Data["IsLimited"];
+            is_limited_unique = Data["IsLimitedUnique"];
+            product_id = Data["ProductId"];
         }
 
         AssetInfo() = default;
