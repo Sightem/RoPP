@@ -43,12 +43,12 @@ namespace RoPP
     class Asset : public Auth
     {
         public:
-            json BuyAsset();
+            json buy_asset();
             //TODO: buy limited
 
-            Responses::AssetInfo GetAssetInfo();
-            Responses::ResaleData GetResaleData();
-            std::vector<Responses::ResellerData> GetAssetResellers(std::string Sort="Asc", int Limit=10);
+            Responses::AssetInfo get_asset_info();
+            Responses::ResaleData get_resale_data();
+            std::vector<Responses::ResellerData> get_asset_resellers(std::string sort="Asc", int limit=10);
 
 
         public:
@@ -63,7 +63,7 @@ namespace RoPP
                 this->m_AssetID = asset_id;
             }
 
-            void SetAssetID(long asset_id)
+            void set_asset_id(long asset_id)
             {
                 this->m_AssetID = asset_id;
             }

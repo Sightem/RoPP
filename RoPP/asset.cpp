@@ -1,11 +1,9 @@
 #include "../include/ropp.h"
 #include "../include/helper.h"
-#include "../include/request.hpp"
-#include "../include/responses.h"
 
-json RoPP::Asset::BuyAsset()
+json RoPP::Asset::buy_asset()
 {
-    Responses::AssetInfo info = this->GetAssetInfo();
+    Responses::AssetInfo info = this->get_asset_info();
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://economy.roblox.com/v1/purchases/products/" + std::to_string(info.ProductID),
@@ -22,7 +20,7 @@ json RoPP::Asset::BuyAsset()
     return res;
 }
 
-Responses::AssetInfo RoPP::Asset::GetAssetInfo()
+Responses::AssetInfo RoPP::Asset::get_asset_info()
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -34,7 +32,7 @@ Responses::AssetInfo RoPP::Asset::GetAssetInfo()
     return Responses::AssetInfo(res);
 }
 
-std::vector<Responses::ResellerData> RoPP::Asset::GetAssetResellers(std::string Sort, int Limit)
+std::vector<Responses::ResellerData> RoPP::Asset::get_asset_resellers(std::string Sort, int Limit)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -50,7 +48,7 @@ std::vector<Responses::ResellerData> RoPP::Asset::GetAssetResellers(std::string 
     return resellers;
 }
 
-Responses::ResaleData RoPP::Asset::GetResaleData()
+Responses::ResaleData RoPP::Asset::get_resale_data()
 {
     ordered_json res =  Helper::MakeAuthedRobloxRequest
     (
