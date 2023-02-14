@@ -28,16 +28,16 @@ namespace RoPP
     class Avatar : public Auth
     {
         public:
-            std::vector<long> GetCurrentlyWearing(long UserID);
-            Responses::AvatarResponse GetAvatar(long UserID);
-            Responses::OutfitDetailsResponse GetOutfitDetails(long OutfitID);
-            Responses::GetOutfitsResponse GetOutfits(long UserID, int Page=1, int ItemsPerPage=25, bool IsEditable=false);
+            std::vector<long> get_currently_wearing(long user_id);
+            Responses::AvatarResponse get_avatar(long user_id);
+            Responses::OutfitDetailsResponse get_outfit_details(long outfit_id);
+            Responses::GetOutfitsResponse get_outfits(long user_id, int page=1, int items_per_page=25, bool is_editable=false);
 
-            bool SetBodyColors(json Colors);
-            bool SetBodyScales(json Scales);
-            bool SetPlayerAvatarType(std::string_view AvatarType);
-            bool RemoveAsset(long AssetID);
-            bool WearAsset(long AssetID);
+            bool set_body_colors(json colors);
+            bool set_body_scales(json scales);
+            bool set_player_avatar_type(std::string_view avatar_type);
+            bool remove_asset(long asset_id);
+            bool wear_asset(long asset_id);
     };
     
     class Asset : public Auth

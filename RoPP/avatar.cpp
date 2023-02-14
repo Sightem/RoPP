@@ -1,13 +1,12 @@
 #include "../include/ropp.h"
 #include "../include/helper.h"
-#include "../include/request.hpp"
 #include "../include/responses.h"
 
-std::vector<long> RoPP::Avatar::GetCurrentlyWearing(long UserID)
+std::vector<long> RoPP::Avatar::get_currently_wearing(long user_id)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
-        "https://avatar.roblox.com/v1/users/" + std::to_string(UserID) + "/currently-wearing",
+        "https://avatar.roblox.com/v1/users/" + std::to_string(user_id) + "/currently-wearing",
         "GET"
     ).JsonObj;
 
@@ -17,40 +16,40 @@ std::vector<long> RoPP::Avatar::GetCurrentlyWearing(long UserID)
     return AssetIDs;
 }
 
-Responses::AvatarResponse RoPP::Avatar::GetAvatar(long UserID)
+Responses::AvatarResponse RoPP::Avatar::get_avatar(long user_id)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
-        "https://avatar.roblox.com/v1/users/" + std::to_string(UserID) + "/avatar",
+        "https://avatar.roblox.com/v1/users/" + std::to_string(user_id) + "/avatar",
         "GET"
     ).JsonObj;
 
     return Responses::AvatarResponse(res);
 }
 
-Responses::OutfitDetailsResponse RoPP::Avatar::GetOutfitDetails(long OutfitID)
+Responses::OutfitDetailsResponse RoPP::Avatar::get_outfit_details(long outfit_id)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
-        "https://avatar.roblox.com/v1/outfits/" + std::to_string(OutfitID) + "/details",
+        "https://avatar.roblox.com/v1/outfits/" + std::to_string(outfit_id) + "/details",
         "GET"
     ).JsonObj;
 
     return Responses::OutfitDetailsResponse(res);
 }
 
-Responses::GetOutfitsResponse RoPP::Avatar::GetOutfits(long UserID, int Page, int ItemsPerPage, bool IsEditable)
+Responses::GetOutfitsResponse RoPP::Avatar::get_outfits(long user_id, int page, int items_per_page, bool is_editable)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
-        "https://avatar.roblox.com/v1/users/" + std::to_string(UserID) + "/outfits?page=" + std::to_string(Page) + "&itemsPerPage=" + std::to_string(ItemsPerPage) + "&isEditable=" + std::to_string(IsEditable),
+        "https://avatar.roblox.com/v1/users/" + std::to_string(user_id) + "/outfits?page=" + std::to_string(page) + "&itemsPerPage=" + std::to_string(items_per_page) + "&isEditable=" + std::to_string(is_editable),
         "GET"
     ).JsonObj;
 
     return Responses::GetOutfitsResponse(res);
 }
 
-bool RoPP::Avatar::SetBodyColors(json Colors)
+bool RoPP::Avatar::set_body_colors(json Colors)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -64,7 +63,7 @@ bool RoPP::Avatar::SetBodyColors(json Colors)
     return res["success"];
 }
 
-bool RoPP::Avatar::SetBodyScales(json Scales)
+bool RoPP::Avatar::set_body_scales(json scales)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -72,17 +71,17 @@ bool RoPP::Avatar::SetBodyScales(json Scales)
         "POST",
         this->m_Cookie,
         CSRF_REQUIRED,
-        Scales
+        scales
     ).JsonObj;
 
     return res["success"];
 }
 
-bool RoPP::Avatar::RemoveAsset(long AssetID)
+bool RoPP::Avatar::remove_asset(long asset_id)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://avatar.roblox.com/v1/avatar/assets/" + std::to_string(AssetID) + "/remove",
+        "https://avatar.roblox.com/v1/avatar/assets/" + std::to_string(asset_id) + "/remove",
         "POST",
         this->m_Cookie,
         CSRF_REQUIRED
@@ -91,11 +90,11 @@ bool RoPP::Avatar::RemoveAsset(long AssetID)
     return res["success"];
 }
 
-bool RoPP::Avatar::SetPlayerAvatarType(std::string_view AvatarType)
+bool RoPP::Avatar::set_player_avatar_type(std::string_view avatar_type)
 {
     json data =
     {
-        {"playerAvatarType", AvatarType}
+        {"playerAvatarType", avatar_type}
     };
 
     ordered_json res = Helper::MakeAuthedRobloxRequest
@@ -110,11 +109,11 @@ bool RoPP::Avatar::SetPlayerAvatarType(std::string_view AvatarType)
     return res["success"];
 }
 
-bool RoPP::Avatar::WearAsset(long AssetID)
+bool RoPP::Avatar::wear_asset(long asset_id)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://avatar.roblox.com/v1/avatar/assets/" + std::to_string(AssetID) + "/wear",
+        "https://avatar.roblox.com/v1/avatar/assets/" + std::to_string(asset_id) + "/wear",
         "POST",
         this->m_Cookie,
         CSRF_REQUIRED
