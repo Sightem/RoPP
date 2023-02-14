@@ -69,7 +69,7 @@ void RoPP::Group::delete_group_wall_post(int64_t PostID)
     (
         "https://groups.roblox.com/v1/groups/" + std::to_string(this->GroupID) + "/wall/posts/" + std::to_string(PostID),
         "DELETE",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_REQUIRED
     );
 }
@@ -80,7 +80,7 @@ void RoPP::Group::delete_group_wall_posts_by_user(int64_t UserID)
     (
         "https://groups.roblox.com/v1/groups/" + std::to_string(this->GroupID) + "/wall/users/" + std::to_string(UserID) + "/posts",
         "DELETE",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_REQUIRED
     );
 }
@@ -107,7 +107,7 @@ void RoPP::Group::set_group_role(int64_t UserID, int64_t RoleID)
     (
         "https://groups.roblox.com/v1/groups/" + std::to_string(this->GroupID) + "/users/" + std::to_string(UserID),
         "PATCH",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_REQUIRED,
         body
     );
@@ -189,7 +189,7 @@ void RoPP::Group::remove_user(int64_t UserID)
     (
         "https://groups.roblox.com/v1/groups/" + std::to_string(this->GroupID) + "/users/" + std::to_string(UserID),
         "DELETE",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_REQUIRED
     );
 }
@@ -212,7 +212,7 @@ Responses::AuditPage RoPP::Group::get_audit_log(std::string actionType, int64_t 
     (
         url,
         "GET",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_REQUIRED
     ).JsonObj;
 

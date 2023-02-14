@@ -15,7 +15,7 @@ Responses::ConversationAddResponse RoPP::Chat::AddUsersToConversation(std::vecto
     (
         "https://chat.roblox.com/v2/add-to-conversation",
         "POST",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_REQUIRED,
         Body
     ).JsonObj;
@@ -29,7 +29,7 @@ Responses::ChatSettings RoPP::Chat::GetChatSettings()
     (
         "https://chat.roblox.com/v2/chat-settings",
         "GET",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_REQUIRED
     ).JsonObj;
 
@@ -42,7 +42,7 @@ std::vector<Responses::ChatMessage> RoPP::Chat::GetMessages(int PageSize, std::s
     (
         "https://chat.roblox.com/v2/get-messages?conversationId=" + std::to_string(this->ConversationID) + "&pageSize=" + std::to_string(PageSize) + (ExclusiveStartMessageID != "" ? "&exclusiveStartMessageId=" + ExclusiveStartMessageID : ""),
         "GET",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_REQUIRED
     ).JsonObj;
 
@@ -72,7 +72,7 @@ Responses::ChatConversationsResponse RoPP::Chat::GetConversations(std::vector<lo
     (
         URL,
         "GET",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_REQUIRED
     ).JsonObj;
     
@@ -91,7 +91,7 @@ std::vector<Responses::RolloutFeature> RoPP::Chat::GetRolloutFeatures(std::vecto
     (
         URL,
         "GET",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_NOT_REQUIRED
     ).JsonObj;
 
@@ -110,7 +110,7 @@ int RoPP::Chat::GetUnreadConversationCount()
     (
         "https://chat.roblox.com/v2/get-unread-conversation-count",
         "GET",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_REQUIRED
     ).JsonObj;
 
@@ -132,7 +132,7 @@ std::vector<Responses::ChatConversationWithMessages> RoPP::Chat::GetUnreadMessag
     (
         URL,
         "GET",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_NOT_REQUIRED
     ).JsonObj;
 
@@ -151,7 +151,7 @@ std::vector<Responses::ChatConversation> RoPP::Chat::GetUserConversations(int Pa
     (
         "https://chat.roblox.com/v2/get-user-conversations?pageNumber=" + std::to_string(PageNumber) + "&pageSize=" + std::to_string(PageSize),
         "GET",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_REQUIRED
     ).JsonObj;
 
@@ -176,7 +176,7 @@ bool RoPP::Chat::mark_conversation_as_read(std::string EndMessageId)
     (
         "https://chat.roblox.com/v2/mark-as-read",
         "POST",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_REQUIRED,
         Body
     ).JsonObj;
@@ -197,7 +197,7 @@ bool RoPP::Chat::mark_conversation_as_seen(std::vector<long> ConversationIDs)
     (
         "https://chat.roblox.com/v2/mark-as-seen",
         "POST",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_REQUIRED,
         Body
     ).JsonObj;
@@ -218,7 +218,7 @@ std::vector<Responses::ChatConversationWithMessages> RoPP::Chat::multi_get_lates
     (
         URL,
         "GET",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_REQUIRED
     ).JsonObj;
 
@@ -243,7 +243,7 @@ Responses::RemoveFromConversationResponse RoPP::Chat::remove_from_conversation(l
     (
         "https://chat.roblox.com/v2/remove-from-conversation",
         "POST",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_REQUIRED,
         Body
     ).JsonObj;
@@ -263,7 +263,7 @@ Responses::RenameGroupConversationResponse RoPP::Chat::rename_group_conversation
     (
         "https://chat.roblox.com/v2/rename-group-conversation",
         "POST",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_REQUIRED,
         Body
     ).JsonObj;
@@ -279,7 +279,7 @@ Responses::SendMessageResponse RoPP::Chat::send_message(std::string Message, boo
     {
         {"message", Message},
         {"isExperienceInvite", IsExperienceInvite},
-        {"userId", other.get_uid_from_cookie(this->Cookie)},
+        {"userId", other.get_uid_from_cookie(this->m_Cookie)},
         {"conversationId", this->ConversationID},
         {"decorators", decorators}
     };
@@ -288,7 +288,7 @@ Responses::SendMessageResponse RoPP::Chat::send_message(std::string Message, boo
     (
         "https://chat.roblox.com/v2/send-message",
         "POST",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_REQUIRED,
         Body
     ).JsonObj;
@@ -308,7 +308,7 @@ std::string RoPP::Chat::update_user_typing_status(bool IsTyping)
     (
         "https://chat.roblox.com/v2/update-user-typing-status",
         "POST",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_REQUIRED,
         Body
     ).JsonObj;
@@ -327,7 +327,7 @@ Responses::OneToOneConversationResponse RoPP::Chat::start_one_to_one_conversatio
     (
         "https://chat.roblox.com/v2/start-one-to-one-conversation",
         "POST",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_REQUIRED,
         Body
     ).JsonObj;
@@ -347,7 +347,7 @@ Responses::StartGroupConversationResponse RoPP::Chat::start_group_conversation(s
     (
         "https://chat.roblox.com/v2/start-group-conversation",
         "POST",
-        this->Cookie,
+        this->m_Cookie,
         CSRF_REQUIRED,
         Body
     ).JsonObj;

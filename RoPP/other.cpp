@@ -62,13 +62,13 @@ std::vector<Responses::UserPresence> RoPP::Other::GetUsersPresence(std::vector<l
 
     json res;
     
-    if (!this->Cookie.empty())
+    if (!this->m_Cookie.empty())
     {
         res = Helper::MakeAuthedRobloxRequest
         (
             "https://presence.roblox.com/v1/presence/users",
             "POST",
-            this->Cookie,
+            this->m_Cookie,
             CSRF_REQUIRED,
             data
         ).JsonObj;

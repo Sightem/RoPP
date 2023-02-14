@@ -13,16 +13,16 @@ namespace RoPP
     class Auth
     {
         public:
-            std::string GetCSRF();
-            std::string GetAuthTicket();
-            std::string ReadCookie();
+            std::string get_csrf();
+            std::string get_auth_ticket();
+            std::string read_cookie();
             
-            void SetCookie(std::string_view Cookie);
+            void set_cookie(std::string_view cookie);
         protected:
-            std::string Cookie;
+            std::string m_Cookie;
 
         private:
-            void CookieCheck();
+            void cookie_check();
     };
 
     class Avatar : public Auth
@@ -52,24 +52,24 @@ namespace RoPP
 
 
         public:
-            Asset(long AssetID, std::string_view Cookie)
+            Asset(long asset_id, std::string_view cookie)
             {
-                this->AssetID = AssetID;
-                this->Cookie = Cookie;
+                this->m_AssetID = asset_id;
+                this->m_Cookie = cookie;
             }
 
-            Asset(long AssetID)
+            Asset(long asset_id)
             {
-                this->AssetID = AssetID;
+                this->m_AssetID = asset_id;
             }
 
-            void SetAssetID(long AssetID)
+            void SetAssetID(long asset_id)
             {
-                this->AssetID = AssetID;
+                this->m_AssetID = asset_id;
             }
 
         private:
-            long AssetID = 0;
+            long m_AssetID = 0;
     };
 
     class Chat : public Auth
@@ -94,10 +94,10 @@ namespace RoPP
             Responses::StartGroupConversationResponse start_group_conversation(std::vector<long> UserIDs, std::string Title);
 
         public:
-            Chat(long ConversationID, std::string_view Cookie)
+            Chat(long ConversationID, std::string_view cookie)
             {
                 this->ConversationID = ConversationID;
-                this->Cookie = Cookie;
+                this->m_Cookie = cookie;
             }
 
             Chat(long ConversationID)
@@ -105,9 +105,9 @@ namespace RoPP
                 this->ConversationID = ConversationID;
             }
 
-            Chat(std::string_view Cookie)
+            Chat(std::string_view cookie)
             {
-                this->Cookie = Cookie;
+                this->m_Cookie = cookie;
             }
 
             Chat()
@@ -139,11 +139,11 @@ namespace RoPP
 
 
         public:
-            Game(long PlaceID, std::string_view Cookie)
+            Game(long PlaceID, std::string_view cookie)
             {
                 this->PlaceID = PlaceID;
                 this->UniverseID = GetUniverseID();
-                this->Cookie = Cookie;
+                this->m_Cookie = cookie;
             }
 
             Game(long PlaceID)
@@ -180,10 +180,10 @@ namespace RoPP
             std::vector<Responses::GroupExperience> GetGames(std::string AccessFilter="All", std::string Sort="Asc", int Limit=10);
 
         public:
-            Group(int64_t GroupID, std::string_view Cookie)
+            Group(int64_t GroupID, std::string_view cookie)
             {
                 this->GroupID = GroupID;
-                this->Cookie = Cookie;
+                this->m_Cookie = cookie;
             }
 
             Group(int64_t GroupID)
@@ -217,15 +217,15 @@ namespace RoPP
             void DeclineTrade(long TradeID);
 
         public:
-            Trade(long TradeID, std::string_view Cookie)
+            Trade(long TradeID, std::string_view cookie)
             {
                 this->TradeID = TradeID;
-                this->Cookie = Cookie;
+                this->m_Cookie = cookie;
             }
 
-            Trade(std::string_view Cookie)
+            Trade(std::string_view cookie)
             {
-                this->Cookie = Cookie;
+                this->m_Cookie = cookie;
             }
 
             Trade(long TradeID)
@@ -322,9 +322,9 @@ namespace RoPP
             void BlockUser(long UID);
             void UnblockUser(long UID);
 
-            Session(std::string_view Cookie)
+            Session(std::string_view cookie)
             {
-                this->Cookie = Cookie;
+                this->m_Cookie = cookie;
             }
     };
 
