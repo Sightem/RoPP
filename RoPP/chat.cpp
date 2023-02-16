@@ -3,12 +3,12 @@
 #include "../include/request.hpp"
 #include "../include/responses.h"
 
-Responses::ConversationAddResponse RoPP::Chat::AddUsersToConversation(std::vector<long> UserIDs)
+Responses::ConversationAddResponse RoPP::Chat::add_users_to_conversation(std::vector<int64_t> user_ids)
 {
     ordered_json Body = 
     {
-        {"participantUserIds", UserIDs},
-        {"conversationId", this->ConversationID}
+        {"participantUserIds", user_ids},
+        {"conversationId", this->m_ConversationID}
     };
 
     ordered_json res = Helper::MakeAuthedRobloxRequest
@@ -23,7 +23,7 @@ Responses::ConversationAddResponse RoPP::Chat::AddUsersToConversation(std::vecto
     return Responses::ConversationAddResponse(res);
 }
 
-Responses::ChatSettings RoPP::Chat::GetChatSettings()
+Responses::ChatSettings RoPP::Chat::get_chat_settings()
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -36,11 +36,11 @@ Responses::ChatSettings RoPP::Chat::GetChatSettings()
     return Responses::ChatSettings(res);
 }
 
-std::vector<Responses::ChatMessage> RoPP::Chat::GetMessages(int PageSize, std::string ExclusiveStartMessageID)
+std::vector<Responses::ChatMessage> RoPP::Chat::get_messages(int32_t page_size, std::string exclusive_start_messageid)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://chat.roblox.com/v2/get-messages?conversationId=" + std::to_string(this->ConversationID) + "&pageSize=" + std::to_string(PageSize) + (ExclusiveStartMessageID != "" ? "&exclusiveStartMessageId=" + ExclusiveStartMessageID : ""),
+        "https://chat.roblox.com/v2/get-messages?conversationId=" + std::to_string(this->m_ConversationID) + "&pageSize=" + std::to_string(page_size) + (exclusive_start_messageid != "" ? "&exclusiveStartMessageId=" + exclusive_start_messageid : ""),
         "GET",
         this->m_Cookie,
         CSRF_REQUIRED
@@ -58,14 +58,14 @@ std::vector<Responses::ChatMessage> RoPP::Chat::GetMessages(int PageSize, std::s
     return Messages;
 }
 
-Responses::ChatConversationsResponse RoPP::Chat::GetConversations(std::vector<long> ConversationIDs)
+Responses::ChatConversationsResponse RoPP::Chat::get_conversations(std::vector<int64_t> conversation_ids)
 {
-    if (ConversationIDs.empty()) ConversationIDs = { this->ConversationID };
+    if (conversation_ids.empty()) conversation_ids = { this->m_ConversationID };
 
     std::string URL = "https://chat.roblox.com/v2/get-conversations?";
-    for (size_t i = 0; i < ConversationIDs.size(); i++)
+    for (size_t i = 0; i < conversation_ids.size(); i++)
     {
-        URL += "conversationIds=" + std::to_string(ConversationIDs[i]) + (i != ConversationIDs.size() - 1 ? "&" : "");
+        URL += "conversationIds=" + std::to_string(conversation_ids[i]) + (i != conversation_ids.size() - 1 ? "&" : "");
     }
 
     ordered_json res = Helper::MakeAuthedRobloxRequest
@@ -79,12 +79,12 @@ Responses::ChatConversationsResponse RoPP::Chat::GetConversations(std::vector<lo
     return Responses::ChatConversationsResponse(res);
 }
 
-std::vector<Responses::RolloutFeature> RoPP::Chat::GetRolloutFeatures(std::vector<std::string> FeatureNames)
+std::vector<Responses::RolloutFeature> RoPP::Chat::get_rollout_features(std::vector<std::string> feature_names)
 {
     std::string URL = "https://chat.roblox.com/v2/get-rollout-settings?";
-    for (size_t i = 0; i < FeatureNames.size(); i++)
+    for (size_t i = 0; i < feature_names.size(); i++)
     {
-        URL += "featureNames=" + FeatureNames[i] + (i != FeatureNames.size() - 1 ? "&" : "");
+        URL += "featureNames=" + feature_names[i] + (i != feature_names.size() - 1 ? "&" : "");
     }
 
     ordered_json res = Helper::MakeAuthedRobloxRequest
@@ -95,16 +95,16 @@ std::vector<Responses::RolloutFeature> RoPP::Chat::GetRolloutFeatures(std::vecto
         CSRF_NOT_REQUIRED
     ).JsonObj;
 
-    std::vector<Responses::RolloutFeature> Features;
+    std::vector<Responses::RolloutFeature> features;
     for (auto& i : res["rolloutFeatures"])
     {
-        Features.emplace_back(i);
+        features.emplace_back(i);
     }
 
-    return Features;
+    return features;
 }
 
-int RoPP::Chat::GetUnreadConversationCount()
+int64_t RoPP::Chat::get_unread_conversation_count()
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -117,16 +117,16 @@ int RoPP::Chat::GetUnreadConversationCount()
     return res["count"];
 }
 
-std::vector<Responses::ChatConversationWithMessages> RoPP::Chat::GetUnreadMessages(std::vector<long> ConversationIDs, int PageSize)
+std::vector<Responses::ChatConversationWithMessages> RoPP::Chat::get_unread_messages(std::vector<int64_t> conversation_ids={}, int32_t page_size=10)
 {
-    if (ConversationIDs.empty()) ConversationIDs = { this->ConversationID };
+    if (conversation_ids.empty()) conversation_ids = { this->m_ConversationID };
 
     std::string URL = "https://chat.roblox.com/v2/get-unread-messages?";
-    for (size_t i = 0; i < ConversationIDs.size(); i++)
+    for (size_t i = 0; i < conversation_ids.size(); i++)
     {
-        URL += "conversationIds=" + std::to_string(ConversationIDs[i]) + (i != ConversationIDs.size() - 1 ? "&" : "");
+        URL += "conversationIds=" + std::to_string(conversation_ids[i]) + (i != conversation_ids.size() - 1 ? "&" : "");
     }
-    URL += "&pageSize=" + std::to_string(PageSize);
+    URL += "&pageSize=" + std::to_string(page_size);
 
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -145,31 +145,31 @@ std::vector<Responses::ChatConversationWithMessages> RoPP::Chat::GetUnreadMessag
     return Conversations;
 }
 
-std::vector<Responses::ChatConversation> RoPP::Chat::GetUserConversations(int PageNumber, int PageSize)
+std::vector<Responses::ChatConversation> RoPP::Chat::get_user_conversations(int32_t page_number, int32_t page_size)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://chat.roblox.com/v2/get-user-conversations?pageNumber=" + std::to_string(PageNumber) + "&pageSize=" + std::to_string(PageSize),
+        "https://chat.roblox.com/v2/get-user-conversations?pageNumber=" + std::to_string(page_number) + "&pageSize=" + std::to_string(page_size),
         "GET",
         this->m_Cookie,
         CSRF_REQUIRED
     ).JsonObj;
 
-    std::vector<Responses::ChatConversation> Conversations;
+    std::vector<Responses::ChatConversation> conversations;
     for (auto& i : res)
     {
-        Conversations.emplace_back(i);
+        conversations.emplace_back(i);
     }
 
-    return Conversations;
+    return conversations;
 }
 
-bool RoPP::Chat::mark_conversation_as_read(std::string EndMessageId)
+bool RoPP::Chat::mark_conversation_as_read(std::string end_message_id)
 {
     ordered_json Body = 
     {
-        {"conversationId", this->ConversationID},
-        {"endMessageId", EndMessageId}
+        {"conversationId", this->m_ConversationID},
+        {"endMessageId", end_message_id}
     };
 
     ordered_json res = Helper::MakeAuthedRobloxRequest
@@ -184,13 +184,13 @@ bool RoPP::Chat::mark_conversation_as_read(std::string EndMessageId)
     return res["resultType"] == "Success";
 }
 
-bool RoPP::Chat::mark_conversation_as_seen(std::vector<long> ConversationIDs)
+bool RoPP::Chat::mark_conversation_as_seen(std::vector<int64_t> conversation_ids)
 {
-    if (ConversationIDs.empty()) ConversationIDs = { this->ConversationID };
+    if (conversation_ids.empty()) conversation_ids = { this->m_ConversationID };
 
     ordered_json Body =
     {
-        {"conversationsToMarkSeen", ConversationIDs}
+        {"conversationsToMarkSeen", conversation_ids}
     };
 
     ordered_json res = Helper::MakeAuthedRobloxRequest
@@ -205,14 +205,14 @@ bool RoPP::Chat::mark_conversation_as_seen(std::vector<long> ConversationIDs)
     return res["resultType"] == "Success";
 }
 
-std::vector<Responses::ChatConversationWithMessages> RoPP::Chat::multi_get_latest_messages(std::vector<long> ConversationIDs, int PageSize)
+std::vector<Responses::ChatConversationWithMessages> RoPP::Chat::multi_get_latest_messages(std::vector<int64_t> conversation_ids, int32_t page_size)
 {
     std::string URL = "https://chat.roblox.com/v2/multi-get-latest-messages?";
-    for (size_t i = 0; i < ConversationIDs.size(); i++)
+    for (size_t i = 0; i < conversation_ids.size(); i++)
     {
-        URL += "conversationIds=" + std::to_string(ConversationIDs[i]) + (i != ConversationIDs.size() - 1 ? "&" : "");
+        URL += "conversationIds=" + std::to_string(conversation_ids[i]) + (i != conversation_ids.size() - 1 ? "&" : "");
     }
-    URL += "&pageSize=" + std::to_string(PageSize);
+    URL += "&pageSize=" + std::to_string(page_size);
 
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -222,21 +222,21 @@ std::vector<Responses::ChatConversationWithMessages> RoPP::Chat::multi_get_lates
         CSRF_REQUIRED
     ).JsonObj;
 
-    std::vector<Responses::ChatConversationWithMessages> Conversations;
+    std::vector<Responses::ChatConversationWithMessages> conversations;
     for (auto& i : res)
     {
-        Conversations.emplace_back(i);
+        conversations.emplace_back(i);
     }
 
-    return Conversations;
+    return conversations;
 }
 
-Responses::RemoveFromConversationResponse RoPP::Chat::remove_from_conversation(long UserID)
+Responses::RemoveFromConversationResponse RoPP::Chat::remove_from_conversation(int64_t user_id)
 {
     ordered_json Body =
     {
-        {"participantUserId", UserID},
-        {"conversationId", this->ConversationID}
+        {"participantUserId", user_id},
+        {"conversationId", this->m_ConversationID}
     };
 
     ordered_json res = Helper::MakeAuthedRobloxRequest
@@ -255,7 +255,7 @@ Responses::RenameGroupConversationResponse RoPP::Chat::rename_group_conversation
 {
     ordered_json Body =
     {
-        {"conversationId", this->ConversationID},
+        {"conversationId", this->m_ConversationID},
         {"newTitle", NewTitle}
     };
 
@@ -271,16 +271,16 @@ Responses::RenameGroupConversationResponse RoPP::Chat::rename_group_conversation
     return Responses::RenameGroupConversationResponse(res);
 }
 
-Responses::SendMessageResponse RoPP::Chat::send_message(std::string Message, bool IsExperienceInvite, std::vector<std::string> decorators)
+Responses::SendMessageResponse RoPP::Chat::send_message(std::string message, bool is_experience_invite, std::vector<std::string> decorators)
 {
     RoPP::Other other;
 
     ordered_json Body =
     {
-        {"message", Message},
-        {"isExperienceInvite", IsExperienceInvite},
+        {"message", message},
+        {"isExperienceInvite", is_experience_invite},
         {"userId", other.get_uid_from_cookie(this->m_Cookie)},
-        {"conversationId", this->ConversationID},
+        {"conversationId", this->m_ConversationID},
         {"decorators", decorators}
     };
 
@@ -296,12 +296,12 @@ Responses::SendMessageResponse RoPP::Chat::send_message(std::string Message, boo
     return Responses::SendMessageResponse(res);
 }
 
-std::string RoPP::Chat::update_user_typing_status(bool IsTyping)
+std::string RoPP::Chat::update_user_typing_status(bool is_typing)
 {
     ordered_json Body =
     {
-        {"conversationId", this->ConversationID},
-        {"isTyping", IsTyping}
+        {"conversationId", this->m_ConversationID},
+        {"isTyping", is_typing}
     };
 
     ordered_json res = Helper::MakeAuthedRobloxRequest
@@ -316,11 +316,11 @@ std::string RoPP::Chat::update_user_typing_status(bool IsTyping)
     return res["statusMessage"];
 }
 
-Responses::OneToOneConversationResponse RoPP::Chat::start_one_to_one_conversation(long UserID)
+Responses::OneToOneConversationResponse RoPP::Chat::start_one_to_one_conversation(int64_t user_id)
 {
     ordered_json Body =
     {
-        {"participantUserId", UserID}
+        {"participantUserId", user_id}
     };
 
     ordered_json res = Helper::MakeAuthedRobloxRequest

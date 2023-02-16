@@ -166,15 +166,15 @@ namespace Responses
     
     struct ChatSettings
     {
-        bool ChatEnabled;
-        bool IsActiveChatUser;
-        bool IsConnectTabEnabled;
+        bool chat_enabled;
+        bool is_active_chat_user;
+        bool is_connect_tab_enabled;
         
         explicit ChatSettings(json j)
         {
-            if (j.contains("chatEnabled")) ChatEnabled = j["chatEnabled"];
-            if (j.contains("isActiveChatUser")) IsActiveChatUser = j["isActiveChatUser"];
-            if (j.contains("isConnectTabEnabled")) IsConnectTabEnabled = j["isConnectTabEnabled"];
+            if (j.contains("chatEnabled")) chat_enabled = j["chatEnabled"];
+            if (j.contains("isActiveChatUser")) is_active_chat_user = j["isActiveChatUser"];
+            if (j.contains("isConnectTabEnabled")) is_connect_tab_enabled = j["isConnectTabEnabled"];
         }
 
         ChatSettings() = default;
@@ -202,23 +202,23 @@ namespace Responses
 
     struct RejectedParticipant
     {
-        std::string RejectedReason;
-        std::string Type;
-        std::string Name;
-        std::string DisplayName;
+        std::string rejected_reason;
+        std::string type;
+        std::string name;
+        std::string display_name;
 
-        long TargetID;
+        int64_t target_id;
 
-        bool HasVerifiedBadge;
+        bool has_verified_badge;
 
         explicit RejectedParticipant(json j)
         {
-            if (j.contains("rejectedReason")) RejectedReason = j["rejectedReason"];
-            if (j.contains("type")) Type = j["type"];
-            if (j.contains("name")) Name = j["name"];
-            if (j.contains("displayName")) DisplayName = j["displayName"];
-            if (j.contains("targetId")) TargetID = j["targetId"];
-            if (j.contains("hasVerifiedBadge")) HasVerifiedBadge = j["hasVerifiedBadge"];
+            if (j.contains("rejectedReason")) rejected_reason = j["rejectedReason"];
+            if (j.contains("type")) type = j["type"];
+            if (j.contains("name")) name = j["name"];
+            if (j.contains("displayName")) display_name = j["displayName"];
+            if (j.contains("targetId")) target_id = j["targetId"];
+            if (j.contains("hasVerifiedBadge")) has_verified_badge = j["hasVerifiedBadge"];
         }
 
         RejectedParticipant() = default;
@@ -226,25 +226,25 @@ namespace Responses
     struct ChatMessage
     {
 
-        std::string ID;
-        std::string SenderType;
-        std::string MessageType;
-        std::string Content;
+        std::string id;
+        std::string sender_type;
+        std::string message_type;
+        std::string content;
 
-        Timestamp Sent;
-        bool Read;
+        Timestamp sent;
+        bool read;
 
-        long SenderTargetID;
+        int64_t sender_target_id;
 
         explicit ChatMessage(json j)
         {
-            if (j.contains("id")) ID = j["id"];
-            if (j.contains("senderType")) SenderType = j["senderType"];
-            if (j.contains("messageType")) MessageType = j["messageType"];
-            if (j.contains("content")) Content = j["content"];
-            if (j.contains("sent")) Sent = Timestamp(j["sent"]);
-            if (j.contains("read")) Read = j["read"];
-            if (j.contains("senderTargetId")) SenderTargetID = j["senderTargetId"];
+            if (j.contains("id")) id = j["id"];
+            if (j.contains("senderType")) sender_type = j["senderType"];
+            if (j.contains("messageType")) message_type = j["messageType"];
+            if (j.contains("content")) content = j["content"];
+            if (j.contains("sent")) sent = Timestamp(j["sent"]);
+            if (j.contains("read")) read = j["read"];
+            if (j.contains("senderTargetId")) sender_target_id = j["senderTargetId"];
         }
 
         ChatMessage() = default;
@@ -296,23 +296,23 @@ namespace Responses
 
     struct ConversationAddResponse
     {
-        std::string ResultType;
-        std::string StatusMessage;
-        long ConversationID;
+        std::string result_type;
+        std::string status_message;
+        int64_t conersation_id;
 
-        std::vector<RejectedParticipant> RejectedParticipants;
+        std::vector<RejectedParticipant> rejected_participants;
 
        explicit ConversationAddResponse(json j)
        {
-           if (j.contains("resultType")) ResultType = j["resultType"];
-           if (j.contains("statusMessage")) StatusMessage = j["statusMessage"];
-           if (j.contains("conversationId")) ConversationID = j["conversationId"];
+           if (j.contains("resultType")) result_type = j["resultType"];
+           if (j.contains("statusMessage")) status_message = j["statusMessage"];
+           if (j.contains("conversationId")) conersation_id = j["conversationId"];
 
            if (j.contains("rejectedParticipants") && !j["rejectedParticipants"].empty())
            {
                 for (auto& i : j["rejectedParticipants"])
                 {
-                    RejectedParticipants.emplace_back(i);
+                    rejected_participants.emplace_back(i);
                 }
            }
        }
@@ -1049,13 +1049,13 @@ namespace Responses
 
     struct ChatConversationUniverse
     {
-        long UniverseId;
-        long RootPlaceId;
+        int64_t universe_id;
+        int64_t root_place_id;
 
         explicit ChatConversationUniverse(json j)
         {
-            UniverseId = j["universeId"];
-            RootPlaceId = j["rootPlaceId"];
+            universe_id = j["universeId"];
+            root_place_id = j["rootPlaceId"];
         }
 
         ChatConversationUniverse() = default;
@@ -1078,31 +1078,31 @@ namespace Responses
 
     struct ChatConversation
     {
-        long ID;
-        std::string Title;
-        User Initiator;
-        bool HasUnreadMessages;
-        std::vector<User> Participants;
-        std::string ConversationType;
-        ChatConversationTitle ConversationTitle;
-        Timestamp LastUpdated;
-        ChatConversationUniverse ConversationUniverse;
+        long id;
+        std::string title;
+        User initiator;
+        bool has_unread_messages;
+        std::vector<User> participants;
+        std::string conversation_type;
+        ChatConversationTitle conversation_title;
+        Timestamp last_updated;
+        ChatConversationUniverse conversation_universe;
 
         ChatConversation(json j)
         {
-            if (j.contains("id")) ID = j["id"];
-            if (j.contains("title")) Title = j["title"];
-            if (j.contains("initiator")) Initiator = User(j["initiator"]);
-            if (j.contains("hasUnreadMessages") && !j["hasUnreadMessages"].is_null()) HasUnreadMessages = j["hasUnreadMessages"];
+            if (j.contains("id")) id = j["id"];
+            if (j.contains("title")) title = j["title"];
+            if (j.contains("initiator")) initiator = User(j["initiator"]);
+            if (j.contains("hasUnreadMessages") && !j["hasUnreadMessages"].is_null()) has_unread_messages = j["hasUnreadMessages"];
             if (j.contains("participants"))
             {
                 for (auto& user : j["participants"])
-                    Participants.emplace_back(user);
+                    participants.emplace_back(user);
             }
-            if (j.contains("conversationType")) ConversationType = j["conversationType"];
-            if (j.contains("conversationTitle")) ConversationTitle = ChatConversationTitle(j["conversationTitle"]);
-            if (j.contains("lastUpdated")) LastUpdated = Timestamp(j["lastUpdated"]);
-            if (!j["conversationUniverse"].is_null()) ConversationUniverse = ChatConversationUniverse(j["conversationUniverse"]);
+            if (j.contains("conversationType")) conversation_type = j["conversationType"];
+            if (j.contains("conversationTitle")) conversation_title = ChatConversationTitle(j["conversationTitle"]);
+            if (j.contains("lastUpdated")) last_updated = Timestamp(j["lastUpdated"]);
+            if (!j["conversationUniverse"].is_null()) conversation_universe = ChatConversationUniverse(j["conversationUniverse"]);
         }
 
         ChatConversation() = default;
@@ -1153,18 +1153,18 @@ namespace Responses
 
     struct OneToOneConversationResponse
     {
-        ChatConversation Conversation;
-        std::vector<User> RejectedParticipants;
-        std::string ResultType;
-        std::string StatusMessage;
+        ChatConversation conversation;
+        std::vector<User> rejected_participants;
+        std::string result_type;
+        std::string status_message;
 
         explicit OneToOneConversationResponse(json j)
         {
-            Conversation = ChatConversation(j["conversation"]);
+            conversation = ChatConversation(j["conversation"]);
             for (auto& user : j["rejectedParticipants"])
-                RejectedParticipants.emplace_back(user);
-            ResultType = j["resultType"];
-            StatusMessage = j["statusMessage"];
+                rejected_participants.emplace_back(user);
+            result_type = j["resultType"];
+            status_message = j["statusMessage"];
         }
 
         OneToOneConversationResponse() = default;
@@ -1172,18 +1172,18 @@ namespace Responses
 
     struct StartGroupConversationResponse
     {
-        ChatConversation Conversation;
-        std::vector<User> RejectedParticipants;
-        std::string ResultType;
-        std::string StatusMessage;
+        ChatConversation conversation;
+        std::vector<User> rejected_participants;
+        std::string result_type;
+        std::string status_message;
 
         explicit StartGroupConversationResponse(json j)
         {
-            Conversation = ChatConversation(j["conversation"]);
+            conversation = ChatConversation(j["conversation"]);
             for (auto& user : j["rejectedParticipants"])
-                RejectedParticipants.emplace_back(user);
-            ResultType = j["resultType"];
-            StatusMessage = j["statusMessage"];
+                rejected_participants.emplace_back(user);
+            result_type = j["resultType"];
+            status_message = j["statusMessage"];
         }
 
         StartGroupConversationResponse() = default;
@@ -1450,42 +1450,42 @@ namespace Responses
 
     struct RolloutFeature
     {
-        std::string FeatureName;
-        bool IsRolloutEnabled;
+        std::string feature_name;
+        bool is_rollout_enabled;
 
         explicit RolloutFeature(json feature)
         {
-            FeatureName = feature["featureName"];
-            IsRolloutEnabled = feature["isRolloutEnabled"];
+            feature_name = feature["featureName"];
+            is_rollout_enabled = feature["isRolloutEnabled"];
         }
     };
 
     struct ChatConversationWithMessages
     {
-        long ConversationId;
-        std::vector<Responses::ChatMessage> Messages;
+        int64_t conversation_id;
+        std::vector<Responses::ChatMessage> messages;
 
         explicit ChatConversationWithMessages(json conversation)
         {
-            ConversationId = conversation["conversationId"];
+            conversation_id = conversation["conversationId"];
             for (auto& message : conversation["chatMessages"])
             {
-                Messages.emplace_back(message);
+                messages.emplace_back(message);
             }
         }
     };
 
     struct RemoveFromConversationResponse
     {
-        long ConversationId;
-        std::string ResultType;
-        std::string StatusMessage;
+        int64_t conversation_id;
+        std::string result_type;
+        std::string status_message;
 
         explicit RemoveFromConversationResponse(json response)
         {
-            ConversationId = response["conversationId"];
-            ResultType = response["resultType"];
-            StatusMessage = response["statusMessage"];
+            conversation_id = response["conversationId"];
+            result_type = response["resultType"];
+            status_message = response["statusMessage"];
         }
 
         RemoveFromConversationResponse() = default;
@@ -1523,23 +1523,23 @@ namespace Responses
 
     struct SendMessageResponse
     {
-        std::string Content;
-        bool FilteredForReceivers;
-        std::string MessageId;
-        Timestamp Sent;
-        std::string MessageType;
-        std::string ResultType;
-        std::string StatusMessage;
+        std::string content;
+        bool filtered_for_receivers;
+        std::string message_id;
+        Timestamp sent;
+        std::string message_type;
+        std::string result_type;
+        std::string status_message;
 
         explicit SendMessageResponse(json response)
         {
-            if (!response["content"].is_null()) Content = response["content"];
-            FilteredForReceivers = response["filteredForReceivers"];
-            MessageId = response["messageId"];
-            if (!response["Sent"].is_null()) Sent = Timestamp(response["sent"]);
-            MessageType = response["messageType"];
-            ResultType = response["resultType"];
-            StatusMessage = response["statusMessage"];
+            if (!response["content"].is_null()) content = response["content"];
+            filtered_for_receivers = response["filteredForReceivers"];
+            message_id = response["messageId"];
+            if (!response["Sent"].is_null()) sent = Timestamp(response["sent"]);
+            message_type = response["messageType"];
+            result_type = response["resultType"];
+            status_message = response["statusMessage"];
         }
 
         SendMessageResponse() = default;

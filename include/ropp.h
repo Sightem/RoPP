@@ -75,34 +75,34 @@ namespace RoPP
     class Chat : public Auth
     {
         public:
-            Responses::ConversationAddResponse AddUsersToConversation(std::vector<long> UserIDs);
-            Responses::ChatSettings GetChatSettings();
-            std::vector<Responses::ChatMessage> GetMessages(int PageSize=10, std::string ExclusiveStartMessageID="");
-            Responses::ChatConversationsResponse GetConversations(std::vector<long> ConversationIDs={});
-            std::vector<Responses::RolloutFeature> GetRolloutFeatures(std::vector<std::string> FeatureNames);
-            int GetUnreadConversationCount();
-            std::vector<Responses::ChatConversationWithMessages> GetUnreadMessages(std::vector<long> ConversationIDs={}, int PageSize=10);
-            std::vector<Responses::ChatConversation> GetUserConversations(int PageNumber=1, int PageSize=10);
-            bool mark_conversation_as_read(std::string EndMessageId);
-            bool mark_conversation_as_seen(std::vector<long> ConversationIDs={});
-            std::vector<Responses::ChatConversationWithMessages> multi_get_latest_messages(std::vector<long> ConversationIDs, int PageSize=10);
-            Responses::RemoveFromConversationResponse remove_from_conversation(long UserID);
+            Responses::ConversationAddResponse add_users_to_conversation(std::vector<int64_t> user_ids);
+            Responses::ChatSettings get_chat_settings();
+            std::vector<Responses::ChatMessage> get_messages(int32_t page_size=10, std::string exclusive_start_messageid="");
+            Responses::ChatConversationsResponse get_conversations(std::vector<int64_t> conversation_ids={});
+            std::vector<Responses::RolloutFeature> get_rollout_features(std::vector<std::string> feature_names);
+            int64_t get_unread_conversation_count();
+            std::vector<Responses::ChatConversationWithMessages> get_unread_messages(std::vector<int64_t> conversation_ids={}, int32_t page_size=10);
+            std::vector<Responses::ChatConversation> get_user_conversations(int32_t page_number=1, int32_t page_size=10);
+            bool mark_conversation_as_read(std::string end_message_id);
+            bool mark_conversation_as_seen(std::vector<int64_t> conversation_ids={});
+            std::vector<Responses::ChatConversationWithMessages> multi_get_latest_messages(std::vector<int64_t> conversation_ids, int32_t page_size=10);
+            Responses::RemoveFromConversationResponse remove_from_conversation(int64_t user_id);
             Responses::RenameGroupConversationResponse rename_group_conversation(std::string NewTitle);
-            Responses::SendMessageResponse send_message(std::string Message, bool IsExperienceInvite=false, std::vector<std::string> decorators={""});
-            std::string update_user_typing_status(bool IsTyping);
-            Responses::OneToOneConversationResponse start_one_to_one_conversation(long UserID);
-            Responses::StartGroupConversationResponse start_group_conversation(std::vector<long> UserIDs, std::string Title);
+            Responses::SendMessageResponse send_message(std::string message, bool is_experience_invite=false, std::vector<std::string> decorators={""});
+            std::string update_user_typing_status(bool is_typing);
+            Responses::OneToOneConversationResponse start_one_to_one_conversation(int64_t user_id);
+            Responses::StartGroupConversationResponse start_group_conversation(std::vector<int64_t> user_id, std::string title);
 
         public:
-            Chat(long ConversationID, std::string_view cookie)
+            Chat(int64_t conversation_id, std::string_view cookie)
             {
-                this->ConversationID = ConversationID;
+                this->m_ConversationID = conversation_id;
                 this->m_Cookie = cookie;
             }
 
-            Chat(long ConversationID)
+            Chat(int64_t conversation_id)
             {
-                this->ConversationID = ConversationID;
+                this->m_ConversationID = conversation_id;
             }
 
             Chat(std::string_view cookie)
@@ -112,16 +112,16 @@ namespace RoPP
 
             Chat()
             {
-                this->ConversationID = 0;
+                this->m_ConversationID = 0;
             }
 
-            void SetConversationID(long ConversationID)
+            void SetConversationID(long conversation_id)
             {
-                this->ConversationID = ConversationID;
+                this->m_ConversationID = conversation_id;
             }
 
         private:
-            long ConversationID = 0;
+            int64_t m_ConversationID = 0;
     };
 
     class Game : public Auth
