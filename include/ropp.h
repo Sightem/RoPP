@@ -208,38 +208,19 @@ namespace RoPP
     class Trade : public Auth
     {
         public:
-            std::vector<Responses::TradeData> GetTrades(std::string tradeStatusType="Inbound", std::string Sort="Asc", int Limit=10);
-            json GetTradeInfo(long TradeID);
-            Responses::CanTradeWithResponse CanTradeWith(long UserID);
+            std::vector<Responses::TradeData> get_trades(std::string trade_status_type="Inbound", std::string sort="Asc", int32_t limit=10);
+            json get_trade_info(int64_t trade_id);
+            Responses::CanTradeWithResponse can_trade_with(int64_t user_id);
             //TODO: counter
-            int SendTradeRequest(long TargetUID, json UserOffer, json UserRequest);
-            void AcceptTrade(long TradeID);
-            void DeclineTrade(long TradeID);
+            int send_trade_request(int64_t target_uid, json user_offer, json user_request);
+            void accept_trade(int64_t trade_id);
+            void decline_trade(int64_t trade_id);
 
         public:
-            Trade(long TradeID, std::string_view cookie)
-            {
-                this->TradeID = TradeID;
-                this->m_Cookie = cookie;
-            }
-
             Trade(std::string_view cookie)
             {
                 this->m_Cookie = cookie;
             }
-
-            Trade(long TradeID)
-            {
-                this->TradeID = TradeID;
-            }
-
-            void SetTradeID(long TradeID)
-            {
-                this->TradeID = TradeID;
-            }
-
-        private:
-            long TradeID = 0;
     };
 
     class User

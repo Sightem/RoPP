@@ -117,7 +117,7 @@ int64_t RoPP::Chat::get_unread_conversation_count()
     return res["count"];
 }
 
-std::vector<Responses::ChatConversationWithMessages> RoPP::Chat::get_unread_messages(std::vector<int64_t> conversation_ids={}, int32_t page_size=10)
+std::vector<Responses::ChatConversationWithMessages> RoPP::Chat::get_unread_messages(std::vector<int64_t> conversation_ids, int32_t page_size)
 {
     if (conversation_ids.empty()) conversation_ids = { this->m_ConversationID };
 

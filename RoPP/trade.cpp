@@ -4,33 +4,33 @@
 #include "../include/responses.h"
 
 
-void RoPP::Trade::AcceptTrade(long TradeID)
+void RoPP::Trade::accept_trade(int64_t trade_id)
 {
     Helper::MakeAuthedRobloxRequest
     (
-        "https://trades.roblox.com/v1/trades/" + std::to_string(TradeID) + "/accept",
+        "https://trades.roblox.com/v1/trades/" + std::to_string(trade_id) + "/accept",
         "POST",
         this->m_Cookie,
         CSRF_REQUIRED
     );
 }
 
-void RoPP::Trade::DeclineTrade (long TradeID)
+void RoPP::Trade::decline_trade(int64_t trade_id)
 {
     Helper::MakeAuthedRobloxRequest
     (
-        "https://trades.roblox.com/v1/trades/" + std::to_string(TradeID) + "/decline",
+        "https://trades.roblox.com/v1/trades/" + std::to_string(trade_id) + "/decline",
         "POST",
         this->m_Cookie,
         CSRF_REQUIRED
     );
 }
 
-std::vector<Responses::TradeData> RoPP::Trade::GetTrades(std::string tradeStatusType, std::string Sort, int Limit)
+std::vector<Responses::TradeData> RoPP::Trade::get_trades(std::string trade_status_type, std::string sort, int32_t limit)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://trades.roblox.com/v1/trades/" + tradeStatusType + "?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
+        "https://trades.roblox.com/v1/trades/" + trade_status_type + "?sortOrder=" + sort + "&limit=" + std::to_string(limit),
         "GET",
         this->m_Cookie,
         CSRF_REQUIRED
@@ -48,22 +48,22 @@ std::vector<Responses::TradeData> RoPP::Trade::GetTrades(std::string tradeStatus
     return Trades;
 }
 
-json RoPP::Trade::GetTradeInfo(long TradeID)
+json RoPP::Trade::get_trade_info(int64_t trade_id)
 {
     return Helper::MakeAuthedRobloxRequest
     (
-        "https://trades.roblox.com/v1/trades/" + std::to_string(TradeID),
+        "https://trades.roblox.com/v1/trades/" + std::to_string(trade_id),
         "GET",
         this->m_Cookie,
         CSRF_REQUIRED
     ).JsonObj;
 }
 
-Responses::CanTradeWithResponse RoPP::Trade::CanTradeWith(long UserID)
+Responses::CanTradeWithResponse RoPP::Trade::can_trade_with(int64_t user_id)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://trades.roblox.com/v1/users/" + std::to_string(UserID) + "/can-trade-with",
+        "https://trades.roblox.com/v1/users/" + std::to_string(user_id) + "/can-trade-with",
         "GET",
         this->m_Cookie,
         CSRF_REQUIRED
@@ -72,7 +72,7 @@ Responses::CanTradeWithResponse RoPP::Trade::CanTradeWith(long UserID)
     return Responses::CanTradeWithResponse(res);
 }
 
-int RoPP::Trade::SendTradeRequest(long TargetUID, json UserOffer, json UserRequest)
+int RoPP::Trade::send_trade_request(int64_t target_uid, json user_offer, json user_request)
 {
     RoPP::Session Session(this->m_Cookie);
 
@@ -80,14 +80,14 @@ int RoPP::Trade::SendTradeRequest(long TargetUID, json UserOffer, json UserReque
     {
         {"offers", {
             {
-                {"userId", TargetUID},
-                {"userAssetIds", UserRequest["userAssetIds"]},
-                {"robux", UserRequest["robux"]}
+                {"userId", target_uid},
+                {"userAssetIds", user_offer["userAssetIds"]},
+                {"robux", user_request["robux"]}
             },
             {
                 {"userId", Session.GetUserID()},
-                {"userAssetIds", UserOffer["userAssetIds"]},
-                {"robux", UserOffer["robux"]}
+                {"userAssetIds", user_offer["userAssetIds"]},
+                {"robux", user_request["robux"]}
             }
         }}
     };

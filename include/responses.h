@@ -494,24 +494,24 @@ namespace Responses
 
     struct TradeData
     {
-        std::string Status;
+        std::string status;
 
-        long TradeID;
+        int64_t trade_id;
 
-        User Sender;
-        Timestamp Created;
-        Timestamp Expiriation;
+        User sender;
+        Timestamp created;
+        Timestamp expiriation;
 
-        bool IsActive;
+        bool is_active;
 
         explicit TradeData(json j)
         {
-            if (j.contains("status")) Status = j["status"];
-            if (j.contains("id")) TradeID = j["id"];
-            if (j.contains("user")) Sender = User(j["user"]);
-            if (j.contains("created")) Created = Timestamp(j["created"]);
-            if (j.contains("expiration")) Expiriation = Timestamp(j["expiration"]);
-            if (j.contains("isActive")) IsActive = j["isActive"];
+            if (j.contains("status")) status = j["status"];
+            if (j.contains("id")) trade_id = j["id"];
+            if (j.contains("user")) sender = User(j["user"]);
+            if (j.contains("created")) created = Timestamp(j["created"]);
+            if (j.contains("expiration")) expiriation = Timestamp(j["expiration"]);
+            if (j.contains("isActive")) is_active = j["isActive"];
         }
 
         TradeData() = default;
@@ -519,13 +519,13 @@ namespace Responses
 
     struct CanTradeWithResponse
     {
-        std::string Status;
-        bool CanTrade;
+        std::string status;
+        bool can_trade;
 
         explicit CanTradeWithResponse(json j)
         {
-            if (j.contains("status")) Status = j["status"];
-            if (j.contains("canTrade")) CanTrade = j["canTrade"];
+            if (j.contains("status")) status = j["status"];
+            if (j.contains("canTrade")) can_trade = j["canTrade"];
         }
 
         CanTradeWithResponse() = default;
