@@ -165,44 +165,44 @@ namespace RoPP
     class Group : public Auth
     {
         public:
-            Responses::Group GetGroupInfo();
-            void delete_group_wall_post(int64_t PostID);
-            void delete_group_wall_posts_by_user(int64_t UserID);
+            Responses::Group get_group_info();
+            void delete_group_wall_post(int64_t post_id);
+            void delete_group_wall_posts_by_user(int64_t user_id);
             Responses::GroupRoles get_group_roles();
-            void set_group_role(int64_t UserID, int64_t RoleID);
-            Responses::GroupRole get_user_role(int64_t UserID);
-            Responses::ChangeRoleResponse change_role(int64_t UserID, int Change);
-            Responses::ChangeRoleResponse demote(int64_t UserID);
-            void remove_user(int64_t UserID);
-            Responses::AuditPage get_audit_log(std::string actionType="All", int64_t UID=0, std::string Sort="Asc", int Limit=10);
-            std::vector<Responses::GroupNamehistory> GetNameHistory(std::string Sort="Asc", int Limit=10);
-            std::vector<Responses::GroupWallPost> GetGroupWall(std::string Sort="Asc", int Limit=10);
-            std::vector<Responses::GroupExperience> GetGames(std::string AccessFilter="All", std::string Sort="Asc", int Limit=10);
+            void set_group_role(int64_t user_id, int64_t role_id);
+            Responses::GroupRole get_user_role(int64_t user_id);
+            Responses::ChangeRoleResponse change_role(int64_t user_id, int change);
+            Responses::ChangeRoleResponse demote(int64_t user_id);
+            void remove_user(int64_t user_id);
+            Responses::AuditPage get_audit_log(std::string action_type="All", int64_t user_id=0, std::string sort="Asc", int32_t limit=10);
+            std::vector<Responses::GroupNamehistory> get_name_history(std::string sort="Asc", int32_t limit=10);
+            std::vector<Responses::GroupWallPost> get_group_wall(std::string sort="Asc", int32_t limit=10);
+            std::vector<Responses::GroupExperience> get_games(std::string access_filter="All", std::string sort="Asc", int32_t limit=10);
 
         public:
-            Group(int64_t GroupID, std::string_view cookie)
+            Group(int64_t group_id, std::string_view cookie)
             {
-                this->GroupID = GroupID;
+                this->m_GroupID = group_id;
                 this->m_Cookie = cookie;
             }
 
-            Group(int64_t GroupID)
+            Group(int64_t group_id)
             {
-                this->GroupID = GroupID;
+                this->m_GroupID = group_id;
             }
 
             Group()
             {
-                this->GroupID = 0;
+                this->m_GroupID = 0;
             }
 
-            void SetGroupID(int64_t GroupID)
+            void SetGroupID(int64_t group_id)
             {
-                this->GroupID = GroupID;
+                this->m_GroupID = group_id;
             }
 
         private:
-            int64_t GroupID = 0;
+            int64_t m_GroupID = 0;
     };
 
     class Trade : public Auth

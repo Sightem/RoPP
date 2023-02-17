@@ -252,19 +252,19 @@ namespace Responses
 
     struct GroupRole
     {
-        std::string Name;
+        std::string name;
         long id;
-        int Rank;
-        int MemberCount;
+        int rank;
+        int member_count;
 
         explicit GroupRole(json j)
         {
             id = j["id"];
-            Name = j["name"];
-            Rank = j["rank"];
+            name = j["name"];
+            rank = j["rank"];
             if (j.contains("memberCount"))
             {
-                MemberCount = j["memberCount"];
+                member_count = j["memberCount"];
             }
         }
 
@@ -273,15 +273,15 @@ namespace Responses
 
     struct GroupRoles
     {
-        int64_t GroupID;
-        std::vector<GroupRole> Roles;
+        int64_t group_id;
+        std::vector<GroupRole> roles;
 
         explicit GroupRoles(json j)
         {
-            GroupID = j["groupId"];
+            group_id = j["groupId"];
             for (auto& i : j["roles"])
             {
-                Roles.emplace_back(i);
+                roles.emplace_back(i);
             }
         }
 
@@ -290,8 +290,8 @@ namespace Responses
 
     struct ChangeRoleResponse
     {
-        GroupRole OldRole;
-        GroupRole NewRole;
+        GroupRole old_role;
+        GroupRole new_role;
     };
 
     struct ConversationAddResponse
@@ -1003,31 +1003,31 @@ namespace Responses
 
     struct Group
     {
-        std::string Name;
-        std::string Description;
+        std::string name;
+        std::string description;
         
-        User Owner;
+        ShorthandUser owner;
 
-        GShout Shout;
+        GShout shout;
 
-        int64_t GroupID;
+        int64_t group_id;
         long MemberCount;
 
-        bool IsBuildersClubOnly;
-        bool IsPublicEntryAllowed;
-        bool HasVerifiedBadge;
+        bool is_builders_club_only;
+        bool is_public_entry_allowed;
+        bool has_verified_badge;
 
         explicit Group(json j)
         {
-            if (j.contains("name")) Name = j["name"];
-            if (j.contains("description")) Description = j["description"];
-            if (j.contains("owner")) Owner = User(j["owner"]);
-            if (j.contains("shout") && !(j["shout"].is_null())) Shout = GShout(j["shout"]);
+            if (j.contains("name")) name = j["name"];
+            if (j.contains("description")) description = j["description"];
+            if (j.contains("owner")) owner = ShorthandUser(j["owner"]);
+            if (j.contains("shout") && !(j["shout"].is_null())) shout = GShout(j["shout"]);
             if (j.contains("memberCount")) MemberCount = j["memberCount"];
-            if (j.contains("id")) GroupID = j["id"];
-            if (j.contains("isBuildersClubOnly")) IsBuildersClubOnly = j["isBuildersClubOnly"];
-            if (j.contains("isPublicEntryAllowed")) IsPublicEntryAllowed = j["isPublicEntryAllowed"];
-            if (j.contains("hasVerifiedBadge")) HasVerifiedBadge = j["hasVerifiedBadge"];
+            if (j.contains("id")) group_id = j["id"];
+            if (j.contains("isBuildersClubOnly")) is_builders_club_only = j["isBuildersClubOnly"];
+            if (j.contains("isPublicEntryAllowed")) is_public_entry_allowed = j["isPublicEntryAllowed"];
+            if (j.contains("hasVerifiedBadge")) has_verified_badge = j["hasVerifiedBadge"];
         }
 
         Group() = default;
