@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <regex>
 
 #include "json.hpp"
 #include "responses.h"
@@ -319,5 +320,7 @@ namespace RoPP
             std::string ValidateUsername(std::string Username);
             long GetGameUniverseID(long PlaceID);
             long get_uid_from_cookie(std::string Cookie);
+            void buy_gamepass(int64_t gamepass_id);
+
     };
 }
