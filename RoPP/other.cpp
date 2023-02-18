@@ -104,40 +104,24 @@ long RoPP::Other::get_uid_from_cookie(std::string Cookie)
     return res["id"];
 }
 
+Responses::GamePassProductInfoResponse RoPP::Other::get_gamepass_product_info(int64_t gamepass_id)
+{
+    ordered_json res = Helper::MakeRobloxRequest
+    (
+        "https://economy.roblox.com/v1/game-pass/" + std::to_string(gamepass_id) + "/game-pass-product-info",
+        "GET"
+    ).JsonObj;
+
+    return Responses::GamePassProductInfoResponse(res);
+}
+
 void RoPP::Other::buy_gamepass(int64_t gamepass_id)
 {
-    std::string gamepass_id_str = std::to_string(gamepass_id);
-    Request req("https://www.roblox.com/game-pass/" + gamepass_id_str);
-    req.set_header("User-Agent", USER_AGENT);
-    req.set_cookie(".ROBLOSECURITY", this->m_Cookie);
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.set_header("x-csrf-token", this->get_csrf());
-    req.initalize();
-
-    Response res = req.request("GET");
-
-    std::regex rgx("game-pass\\/\\d+\\/([A-z]+)");
-    std::smatch match;
-    std::string name = "";
-    if (std::regex_search(res.data, match, rgx))
-    {
-        name = match[1];
-    }
-
-    req.set_url("https://www.roblox.com/game-pass/" + gamepass_id_str + "/" + name);
-    res = req.request("GET");
-
-    std::regex rgx2("data-product-id=\"(\\d+)\"");
-    std::smatch match2;
-    std::string product_id = "";
-    if (std::regex_search(res.data, match2, rgx2))
-    {
-        product_id = match2[1];
-    }
+    Responses::GamePassProductInfoResponse info = this->get_gamepass_product_info(gamepass_id);
 
     Helper::MakeAuthedRobloxRequest
     (
-        "https://economy.roblox.com/v1/purchases/products/" + product_id,
+        "https://economy.roblox.com/v1/purchases/products/" + std::to_string(info.product_id),
         "OPTIONS",
         this->m_Cookie,
         CSRF_REQUIRED

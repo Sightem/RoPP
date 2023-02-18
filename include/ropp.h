@@ -320,6 +320,7 @@ namespace RoPP
             std::string ValidateUsername(std::string Username);
             long GetGameUniverseID(long PlaceID);
             long get_uid_from_cookie(std::string Cookie);
+            Responses::GamePassProductInfoResponse get_gamepass_product_info(int64_t gamepass_id);
             void buy_gamepass(int64_t gamepass_id);
 
     };

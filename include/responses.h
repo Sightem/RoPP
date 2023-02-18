@@ -1282,15 +1282,15 @@ namespace Responses
 
     struct AssetCreator
     {
-        std::string Username;
-        std::string Type;
-        long UID;
+        std::string name;
+        std::string creator_type;
+        int64_t user_id;
 
         explicit AssetCreator(json creator)
         {
-            Username = creator["Name"];
-            Type = creator["CreatorType"];
-            UID = creator["Id"];
+            name = creator["Name"];
+            creator_type = creator["CreatorType"];
+            user_id = creator["Id"];
         }
 
         AssetCreator() = default;
@@ -1543,5 +1543,54 @@ namespace Responses
         }
 
         SendMessageResponse() = default;
+    };
+
+
+    struct GamePassProductInfoResponse
+    {
+        int64_t target_id;
+        std::string product_type;
+        int64_t asset_id;
+        int64_t product_id;
+        std::string name;
+        std::string description;
+        int64_t asset_type_id;
+        Responses::AssetCreator creator;
+        int64_t icon_image_asset_id;
+        Timestamp created;
+        Timestamp updated;
+        int64_t price_in_robux;
+        int64_t sales;
+        bool is_new;
+        bool is_for_sale;
+        bool is_public_domain;
+        bool is_limited;
+        bool is_limited_unique;
+        int64_t minimum_membership_level;
+
+        explicit GamePassProductInfoResponse(json Data)
+        {
+            target_id = Data["TargetId"];
+            product_type = Data["ProductType"];
+            asset_id = Data["AssetId"];
+            product_id = Data["ProductId"];
+            name = Data["Name"];
+            description = Data["Description"];
+            asset_type_id = Data["AssetTypeId"];
+            creator = Responses::AssetCreator(Data["Creator"]);
+            icon_image_asset_id = Data["IconImageAssetId"];
+            created = Timestamp(Data["Created"]);
+            updated = Timestamp(Data["Updated"]);
+            price_in_robux = Data["PriceInRobux"];
+            sales = Data["Sales"];
+            is_new = Data["IsNew"];
+            is_for_sale = Data["IsForSale"];
+            is_public_domain = Data["IsPublicDomain"];
+            is_limited = Data["IsLimited"];
+            is_limited_unique = Data["IsLimitedUnique"];
+            minimum_membership_level = Data["MinimumMembershipLevel"];
+        }
+
+        GamePassProductInfoResponse() = default;
     };
 }
