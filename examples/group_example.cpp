@@ -7,23 +7,23 @@ int main()
 {
     RoPP::Group group(1103278);
 
-    Responses::Group groupResponse = group.GetGroupInfo();
+    Responses::Group groupResponse = group.get_group_info();
 
-    std::cout << "Group Name: " << groupResponse.Name << std::endl;
-    std::cout << "Group Description: " << groupResponse.Description << std::endl;
-    std::cout << "Group Shout: " << groupResponse.Shout.Body << std::endl;
-    std::cout << "Group Member Count: " << groupResponse.MemberCount << std::endl;
-    std::cout << "Group Owner ID: " << groupResponse.Owner.UID << std::endl;
-    std::cout << "Group Owner Name: " << groupResponse.Owner.Username << std::endl;
-    std::cout << "Group Owner Display Name: " << groupResponse.Owner.DisplayName << std::endl;
-    std::cout << "Is Public Entry Allowed: " << groupResponse.IsPublicEntryAllowed << std::endl;
-    std::cout << "Is Builders Club Only: " << groupResponse.IsBuildersClubOnly << std::endl;
+    std::cout << "Group Name: " << groupResponse.name << std::endl;
+    std::cout << "Group Description: " << groupResponse.description << std::endl;
+    std::cout << "Group Shout: " << groupResponse.shout.body << std::endl;
+    std::cout << "Group Member Count: " << groupResponse.member_count << std::endl;
+    std::cout << "Group Owner ID: " << groupResponse.owner.user_id << std::endl;
+    std::cout << "Group Owner Name: " << groupResponse.owner.username << std::endl;
+    std::cout << "Group Owner Display Name: " << groupResponse.owner.display_name << std::endl;
+    std::cout << "Is Public Entry Allowed: " << groupResponse.is_public_entry_allowed << std::endl;
+    std::cout << "Is Builders Club Only: " << groupResponse.is_builders_club_only << std::endl;
     
     std::cout << "Group Wall: ";
-    std::vector<Responses::GroupWallPost> groupWall = group.GetGroupWall("Asc", 10);
+    std::vector<Responses::GroupWallPost> group_wall = group.get_group_wall("Asc", 10);
 
-    for (auto post : groupWall)
+    for (auto& post : group_wall)
     {
-        std::cout << post.Body << " (" << post.Created.ToISO8601() << ")" << std::endl;
+        std::cout << post.body << " (" << post.created.to_ISO8601() << ")" << std::endl;
     }
 }
