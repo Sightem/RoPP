@@ -178,7 +178,7 @@ namespace RoPP
             Responses::AuditPage get_audit_log(std::string action_type="All", int64_t user_id=0, std::string sort="Asc", int32_t limit=10);
             std::vector<Responses::GroupNamehistory> get_name_history(std::string sort="Asc", int32_t limit=10);
             std::vector<Responses::GroupWallPost> get_group_wall(std::string sort="Asc", int32_t limit=10);
-            std::vector<Responses::GroupExperience> get_games(std::string access_filter="All", std::string sort="Asc", int32_t limit=10);
+            std::vector<Responses::GroupExperience> get_group_games(std::string access_filter="All", std::string sort="Asc", int32_t limit=10);
 
         public:
             Group(int64_t group_id, std::string_view cookie)

@@ -96,7 +96,7 @@ Responses::FriendRequestsResponse RoPP::Session::GetFriendRequests(std::string S
 
 bool RoPP::Session::IsFavoriteGame(int64_t PlaceID)
 {
-    long UniverseID = RoPP::Other().GetGameUniverseID(PlaceID);
+    int64_t UniverseID = RoPP::Other().get_game_universe_id(PlaceID);
 
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -111,8 +111,7 @@ bool RoPP::Session::IsFavoriteGame(int64_t PlaceID)
 
 void RoPP::Session::SetFavoriteGame(int PlaceID, bool Favorite)
 {
-    RoPP::Other other;
-    int UniverseID = other.GetGameUniverseID(PlaceID);
+    int64_t UniverseID = RoPP::Other().get_game_universe_id(PlaceID);
 
     json data = 
     {

@@ -13,7 +13,7 @@ namespace Responses
     {
         int year, month, day, hour, minute, second;
 
-        std::string ToISO8601()
+        const std::string to_ISO8601()
         {
             return std::to_string(year) + "-" + std::to_string(month) + "-" + std::to_string(day);
         }
@@ -101,20 +101,20 @@ namespace Responses
 
     struct ShorthandUser
     {
-        std::string Username;
-        std::string DisplayName;
-        int64_t UID;
+        std::string username;
+        std::string display_name;
+        int64_t user_id;
 
-        bool HasVerifiedBadge;
+        bool has_verified_badge;
 
         explicit ShorthandUser(json j)
         {
-            if (j.contains("name")) Username = j["name"];
-            if (j.contains("username")) Username = j["username"];
-            if (j.contains("displayName")) DisplayName = j["displayName"];
-            if (j.contains("id")) UID = j["id"];
-            if (j.contains("userId")) UID = j["userId"];
-            if (j.contains("hasVerifiedBadge")) HasVerifiedBadge = j["hasVerifiedBadge"];
+            if (j.contains("name")) username = j["name"];
+            if (j.contains("username")) username = j["username"];
+            if (j.contains("displayName")) display_name = j["displayName"];
+            if (j.contains("id")) user_id = j["id"];
+            if (j.contains("userId")) user_id = j["userId"];
+            if (j.contains("hasVerifiedBadge")) has_verified_badge = j["hasVerifiedBadge"];
         }
 
         ShorthandUser() = default;
@@ -623,22 +623,22 @@ namespace Responses
 
     struct GroupWallPost
     {
-        std::string Body;
+        std::string body;
 
-        ShorthandUser Poster;
+        ShorthandUser poster;
 
-        Timestamp Created;
-        Timestamp Updated;
+        Timestamp created;
+        Timestamp updated;
         
-        long PostID;
+        int64_t post_id;
 
         explicit GroupWallPost(json j)
         {
-            if (j.contains("body")) Body = j["body"];
-            if (j.contains("poster")) Poster = ShorthandUser(j["poster"]);
-            if (j.contains("created")) Created = Timestamp(j["created"]);
-            if (j.contains("updated")) Updated = Timestamp(j["updated"]);
-            if (j.contains("id")) PostID = j["id"];
+            if (j.contains("body")) body = j["body"];
+            if (j.contains("poster")) poster = ShorthandUser(j["poster"]);
+            if (j.contains("created")) created = Timestamp(j["created"]);
+            if (j.contains("updated")) updated = Timestamp(j["updated"]);
+            if (j.contains("id")) post_id = j["id"];
         }
 
         GroupWallPost() = default;
@@ -646,42 +646,56 @@ namespace Responses
 
     struct GroupNamehistory
     {
-        std::string Name;
-        Timestamp Created;
+        std::string name;
+        Timestamp created;
 
         explicit GroupNamehistory(json j)
         {
-            if (j.contains("name")) Name = j["name"];
-            if (j.contains("created")) Created = Timestamp(j["created"]);
+            if (j.contains("name")) name = j["name"];
+            if (j.contains("created")) created = Timestamp(j["created"]);
         }
 
         GroupNamehistory() = default;
     };
 
+    struct GroupExperienceCreator
+    {
+        int64_t id;
+        std::string type;
+        std::string name;
+
+        explicit GroupExperienceCreator(json j)
+        {
+            id = j["id"];
+            type = j["type"];
+            if (j.contains("name")) name = j["name"];
+        }
+
+        GroupExperienceCreator() = default;
+    };
     struct GroupExperience
     {
-        std::string Name;
-        std::string Description;
-        std::string CreatorType;
+        std::string name;
+        std::string description;
 
-        Timestamp Created;
-        Timestamp Updated;
+        Timestamp created;
+        Timestamp updated;
+        GroupExperienceCreator creator;
 
-        long CreatorID;
-        long PlaceID;
-        long UniverseID;
-        long PlaceVisits;
+        int64_t place_id;
+        int64_t universe_id;
+        long place_visits;
 
         explicit GroupExperience(json j)
         {
-            if (j.contains("name")) Name = j["name"];
-            if (j.contains("description") && !(j["description"].is_null())) Description = j["description"];
-            if (j.contains("creator")) { CreatorType = j["creator"]["type"]; CreatorID = j["creator"]["id"]; }
-            if (j.contains("created")) Created = Timestamp(j["created"]);
-            if (j.contains("updated")) Updated = Timestamp(j["updated"]);
-            if (j.contains("id")) UniverseID = j["id"];
-            if (j.contains("rootPlace")) PlaceID = j["id"];
-            if (j.contains("placeVisits")) PlaceVisits = j["placeVisits"];
+            if (j.contains("name")) name = j["name"];
+            if (j.contains("description") && !(j["description"].is_null())) description = j["description"];
+            if (j.contains("creator")) creator = GroupExperienceCreator(j["creator"]);
+            if (j.contains("created")) created = Timestamp(j["created"]);
+            if (j.contains("updated")) updated = Timestamp(j["updated"]);
+            if (j.contains("id")) universe_id = j["id"];
+            if (j.contains("rootPlace")) place_id = j["id"];
+            if (j.contains("placeVisits")) place_visits = j["placeVisits"];
         }
 
         GroupExperience() = default;
@@ -951,16 +965,16 @@ namespace Responses
     struct AuditItem
     {
         AuditItemActor actor;
-        std::string ActionType;
-        json Description;
-        Timestamp Created;
+        std::string action_type;
+        json description;
+        Timestamp created;
 
         explicit AuditItem(json j)
         {
             if (j.contains("actor")) actor = AuditItemActor(j["actor"]);
-            if (j.contains("actionType")) ActionType = j["actionType"];
-            if (j.contains("description")) Description = j["description"];
-            if (j.contains("created")) Created = Timestamp(j["created"]);
+            if (j.contains("actionType")) action_type = j["actionType"];
+            if (j.contains("description")) description = j["description"];
+            if (j.contains("created")) created = Timestamp(j["created"]);
         }
 
         AuditItem() = default;
@@ -968,7 +982,7 @@ namespace Responses
 
     struct AuditPage
     {
-        std::vector<AuditItem> Items;
+        std::vector<AuditItem> items;
 
         explicit AuditPage(json j)
         {
@@ -976,7 +990,7 @@ namespace Responses
             {
                 for (auto& item : j["data"])
                 {
-                    Items.push_back(AuditItem(item));
+                    items.push_back(AuditItem(item));
                 }
             }
         }
@@ -984,16 +998,16 @@ namespace Responses
 
     struct GShout
     {
-        std::string Body;
-        User Poster;
+        std::string body;
+        ShorthandUser poster;
 
         Timestamp Created;
         Timestamp Updated;
 
         explicit GShout(json j)
         {
-            if (j.contains("body")) Body = j["body"];
-            if (j.contains("poster")) Poster = User(j["poster"]);
+            if (j.contains("body")) body = j["body"];
+            if (j.contains("poster")) poster = ShorthandUser(j["poster"]);
             if (j.contains("created")) Created = Timestamp(j["created"]);
             if (j.contains("updated")) Updated = Timestamp(j["updated"]);
         }
@@ -1011,7 +1025,7 @@ namespace Responses
         GShout shout;
 
         int64_t group_id;
-        long MemberCount;
+        long member_count;
 
         bool is_builders_club_only;
         bool is_public_entry_allowed;
@@ -1023,7 +1037,7 @@ namespace Responses
             if (j.contains("description")) description = j["description"];
             if (j.contains("owner")) owner = ShorthandUser(j["owner"]);
             if (j.contains("shout") && !(j["shout"].is_null())) shout = GShout(j["shout"]);
-            if (j.contains("memberCount")) MemberCount = j["memberCount"];
+            if (j.contains("memberCount")) member_count = j["memberCount"];
             if (j.contains("id")) group_id = j["id"];
             if (j.contains("isBuildersClubOnly")) is_builders_club_only = j["isBuildersClubOnly"];
             if (j.contains("isPublicEntryAllowed")) is_public_entry_allowed = j["isPublicEntryAllowed"];

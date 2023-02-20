@@ -46,7 +46,7 @@ std::vector<Responses::GroupWallPost> RoPP::Group::get_group_wall(std::string so
     return posts;
 }
 
-std::vector<Responses::GroupExperience> RoPP::Group::get_games(std::string access_filter, std::string sort, int32_t limit)
+std::vector<Responses::GroupExperience> RoPP::Group::get_group_games(std::string access_filter, std::string sort, int32_t limit)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
