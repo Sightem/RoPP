@@ -182,19 +182,19 @@ namespace Responses
 
     struct SearchedUser
     {
-        std::vector<std::string> PreviousUsernames;
-        bool HasVerifiedBadge;
-        long ID;
-        std::string Name;
-        std::string DisplayName;
+        std::vector<std::string> previous_usernames;
+        bool has_verified_badge;
+        int64_t id;
+        std::string name;
+        std::string display_name;
 
         explicit SearchedUser(json j)
         {
-            if (j.contains("previousUsernames")) PreviousUsernames = j["previousUsernames"];
-            if (j.contains("hasVerifiedBadge")) HasVerifiedBadge = j["hasVerifiedBadge"];
-            if (j.contains("id")) ID = j["id"];
-            if (j.contains("name")) Name = j["name"];
-            if (j.contains("displayName")) DisplayName = j["displayName"];
+            if (j.contains("previousUsernames")) previous_usernames = j["previousUsernames"];
+            if (j.contains("hasVerifiedBadge")) has_verified_badge = j["hasVerifiedBadge"];
+            if (j.contains("id")) id = j["id"];
+            if (j.contains("name")) name = j["name"];
+            if (j.contains("displayName")) display_name = j["displayName"];
         }
 
         SearchedUser() = default;
@@ -837,28 +837,28 @@ namespace Responses
 
     struct UserPresence
     {
-        std::string LastLocation;
-        std::string GameId;
+        std::string last_location;
+        std::string game_id;
 
-        Timestamp LastOnline;
+        Timestamp last_online;
 
-        long PlaceID;
-        long RootPlaceID;
-        long UniverseID;
-        long UserID;
+        int64_t place_id;
+        int64_t root_place_id;
+        int64_t universe_id;
+        int64_t user_id;
 
-        int UserPresenceType;
+        int user_presence_type;
 
         explicit UserPresence(json j)
         {
-            if (j.contains("lastLocation") && !(j["lastLocation"].is_null())) LastLocation = j["lastLocation"];
-            if (j.contains("lastOnline") && !(j["lastOnline"].is_null())) LastOnline = Timestamp(j["lastOnline"]);
-            if (j.contains("placeId") && !(j["placeId"].is_null())) PlaceID = j["placeId"];
-            if (j.contains("rootPlaceId") && !(j["rootPlaceId"].is_null())) RootPlaceID = j["rootPlaceId"];
-            if (j.contains("universeId") && !(j["universeId"].is_null())) UniverseID = j["universeId"];
-            if (j.contains("userId") && !(j["userId"].is_null())) UserID = j["userId"];
-            if (j.contains("userPresenceType") && !(j["userPresenceType"].is_null())) UserPresenceType = j["userPresenceType"];
-            if (j.contains("gameId") && !(j["gameId"].is_null())) GameId = j["gameId"];
+            if (j.contains("lastLocation") && !(j["lastLocation"].is_null())) last_location = j["lastLocation"];
+            if (j.contains("lastOnline") && !(j["lastOnline"].is_null())) last_online = Timestamp(j["lastOnline"]);
+            if (j.contains("placeId") && !(j["placeId"].is_null())) place_id = j["placeId"];
+            if (j.contains("rootPlaceId") && !(j["rootPlaceId"].is_null())) root_place_id = j["rootPlaceId"];
+            if (j.contains("universeId") && !(j["universeId"].is_null())) universe_id = j["universeId"];
+            if (j.contains("userId") && !(j["userId"].is_null())) user_id = j["userId"];
+            if (j.contains("userPresenceType") && !(j["userPresenceType"].is_null())) user_presence_type = j["userPresenceType"];
+            if (j.contains("gameId") && !(j["gameId"].is_null())) game_id = j["gameId"];
         }
 
         UserPresence() = default;

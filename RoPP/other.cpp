@@ -3,11 +3,11 @@
 #include "../include/request.hpp"
 
 
-std::vector<Responses::SearchedUser> RoPP::Other::UserSearch(std::string Keyword, int Limit)
+std::vector<Responses::SearchedUser> RoPP::Other::user_search(std::string keyword, int32_t limit)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
-        "https://users.roblox.com/v1/users/search?keyword=" + Keyword + "&limit=" + std::to_string(Limit),
+        "https://users.roblox.com/v1/users/search?keyword=" + keyword + "&limit=" + std::to_string(limit),
         "GET"
     ).JsonObj;
 
@@ -20,44 +20,44 @@ std::vector<Responses::SearchedUser> RoPP::Other::UserSearch(std::string Keyword
     return users;
 }
 
-json RoPP::Other::GroupSearch(std::string Keyword, bool prioritizeExactMatch, int Limit)
+json RoPP::Other::group_search(std::string keyword, bool prioritize_exact_match, int32_t limit)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
-        "https://groups.roblox.com/v1/groups/search?keyword=" + Keyword + "&prioritizeExactMatch=" + std::to_string(prioritizeExactMatch) + "&limit=" + std::to_string(Limit),
+        "https://groups.roblox.com/v1/groups/search?keyword=" + keyword + "&prioritizeExactMatch=" + std::to_string(prioritize_exact_match) + "&limit=" + std::to_string(limit),
         "GET"
     ).JsonObj;
 
     return res;
 }
 
-std::string RoPP::Other::ValidateUsername(std::string Username)
+std::string RoPP::Other::validate_username(std::string username)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
-        "https://auth.roblox.com/v2/usernames/validate?request.username=" + Username + "&request.birthday=1970-10-10",
+        "https://auth.roblox.com/v2/usernames/validate?request.username=" + username + "&request.birthday=1970-10-10",
         "GET"
     ).JsonObj;
 
     return res["message"];
 }
 
-long RoPP::Other::GetGameUniverseID(long PlaceID)
+int64_t RoPP::Other::get_game_universe_id(int64_t place_id)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
-        "https://apis.roblox.com/universes/v1/places/" + std::to_string(PlaceID) + "/universe",
+        "https://apis.roblox.com/universes/v1/places/" + std::to_string(place_id) + "/universe",
         "GET"
     ).JsonObj;
 
     return res["universeId"];
 }
 
-std::vector<Responses::UserPresence> RoPP::Other::GetUsersPresence(std::vector<long> UIDs)
+std::vector<Responses::UserPresence> RoPP::Other::get_users_presence(const std::vector<int64_t>& user_ids)
 {
     json data = 
     {
-        {"userIds", UIDs}
+        {"userIds", user_ids}
     };
 
     json res;
@@ -91,13 +91,13 @@ std::vector<Responses::UserPresence> RoPP::Other::GetUsersPresence(std::vector<l
     return presences;
 }
 
-long RoPP::Other::get_uid_from_cookie(std::string Cookie)
+long RoPP::Other::get_uid_from_cookie(std::string cookie)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         "https://users.roblox.com/v1/users/authenticated",
         "GET",
-        Cookie,
+        cookie,
         CSRF_NOT_REQUIRED
     ).JsonObj;
 

@@ -314,12 +314,12 @@ namespace RoPP
     {
         public:
 
-            std::vector<Responses::UserPresence> GetUsersPresence(std::vector<long> UIDs);
-            std::vector<Responses::SearchedUser> UserSearch(std::string Keyword, int Limit=10);
-            json GroupSearch(std::string Keyword, bool prioritizeExactMatch=true, int Limit=10);
-            std::string ValidateUsername(std::string Username);
-            long GetGameUniverseID(long PlaceID);
-            long get_uid_from_cookie(std::string Cookie);
+            std::vector<Responses::UserPresence> get_users_presence(const std::vector<int64_t>& user_ids);
+            std::vector<Responses::SearchedUser> user_search(std::string keyword, int32_t limit=10);
+            json group_search(std::string keyword, bool prioritize_exact_match=true, int32_t limit=10);
+            std::string validate_username(std::string username);
+            int64_t get_game_universe_id(int64_t place_id);
+            long get_uid_from_cookie(std::string cookie);
             Responses::GamePassProductInfoResponse get_gamepass_product_info(int64_t gamepass_id);
             void buy_gamepass(int64_t gamepass_id);
 
