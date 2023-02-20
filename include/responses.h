@@ -498,7 +498,7 @@ namespace Responses
 
         int64_t trade_id;
 
-        User sender;
+        ShorthandUser sender;
         Timestamp created;
         Timestamp expiriation;
 
@@ -508,7 +508,7 @@ namespace Responses
         {
             if (j.contains("status")) status = j["status"];
             if (j.contains("id")) trade_id = j["id"];
-            if (j.contains("user")) sender = User(j["user"]);
+            if (j.contains("user")) sender = ShorthandUser(j["user"]);
             if (j.contains("created")) created = Timestamp(j["created"]);
             if (j.contains("expiration")) expiriation = Timestamp(j["expiration"]);
             if (j.contains("isActive")) is_active = j["isActive"];
@@ -625,7 +625,7 @@ namespace Responses
     {
         std::string Body;
 
-        User Poster;
+        ShorthandUser Poster;
 
         Timestamp Created;
         Timestamp Updated;
@@ -635,7 +635,7 @@ namespace Responses
         explicit GroupWallPost(json j)
         {
             if (j.contains("body")) Body = j["body"];
-            if (j.contains("poster")) Poster = User(j["poster"]);
+            if (j.contains("poster")) Poster = ShorthandUser(j["poster"]);
             if (j.contains("created")) Created = Timestamp(j["created"]);
             if (j.contains("updated")) Updated = Timestamp(j["updated"]);
             if (j.contains("id")) PostID = j["id"];
