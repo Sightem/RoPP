@@ -1,10 +1,11 @@
 #pragma once
-#include <algorithm>
-#include <cctype>
 #include <string>
 #include <map>
 #include <sstream>
+#include <utility>
 #include <vector>
+#include <fstream>
+#include <cinttypes>
 #ifdef MANUAL_CURL_PATH // manually linking
 #include MANUAL_CURL_PATH
 #else
@@ -16,7 +17,7 @@ typedef headers_t cookies_t;
 
 static size_t _m_writeFunction(void* ptr, size_t size, size_t nmemb, std::vector<uint8_t>* userdata)
 {
-    uint8_t* data = (uint8_t*)ptr;
+    auto* data = (uint8_t*)ptr;
     for (size_t i = 0; i < nmemb; i++)
     {
         userdata->push_back(data[i]);
@@ -24,6 +25,15 @@ static size_t _m_writeFunction(void* ptr, size_t size, size_t nmemb, std::vector
 
     return size * nmemb;
 }
+
+static size_t _m_fileWriteFunction(void* ptr, size_t size, size_t nmemb, void* userdata)
+{
+    auto* ofs = static_cast<std::ofstream*>(userdata);
+    size_t bytes_written = size * nmemb;
+    ofs->write(static_cast<const char*>(ptr), bytes_written);
+    return bytes_written;
+}
+
 
 struct Response
 {
@@ -37,20 +47,81 @@ struct Response
     cookies_t cookies;
 };
 
+class Form {
+    public:
+        explicit Form(CURL* curl) {
+            form = curl_mime_init(curl);
+        };
+
+        /**
+         * @brief append a string to the form
+         * @param name the name of the field
+         * @param value the value of the field
+        */
+        void append_string(const std::string& name, const std::string& value) {
+            auto part = append(name);
+            curl_mime_data(part, value.c_str(), value.size());
+        }
+
+        /**
+         * @brief append a file to the form
+         * @param name the name of the field
+         * @param path the path of the file
+        */
+        void append_file(const std::string& name, const std::string& path) {
+            auto part = append(name);
+            curl_mime_filedata(part, path.c_str());
+        }
+
+        /**
+         * @brief append a file to the form
+         * @param name the name of the field
+         * @param path the path of the file
+         * @param filename the filename of the file
+        */
+        void append_file(const std::string& name, const std::string& path, const std::string& filename) {
+            auto part = append(name);
+            curl_mime_filename(part, filename.c_str());
+            curl_mime_filedata(part, path.c_str());
+        }
+
+        /**
+         * @brief append a part to the form
+         * @param name the name of the field
+         * @return the part
+         * @note you can use this to set custom field data
+        */
+        curl_mimepart* append(const std::string& name) {
+            auto part = curl_mime_addpart(form);
+            curl_mime_name(part, name.c_str());
+            return part;
+        }
+
+        curl_mime* get() {
+            return form;
+        }
+    
+    protected:
+        friend class Request;
+        curl_mime* form = nullptr;
+};
+
 class Request
 {
 
 public:
-    Request(std::string url) : url(url), data(""), headers() {}
+    explicit Request(std::string url) : url(std::move(url)), headers() {}
 
-    Request(std::string url, std::string data) : url(url), data(data), headers() {}
+    Request(std::string url, std::string data) : url(std::move(url)), data(std::move(data)), headers() {}
 
-    Request(std::string url, std::string data, headers_t headers) : url(url), data(data), headers(headers) {}
+    Request(std::string url, std::string data, headers_t headers) : url(std::move(url)), data(std::move(data)), headers(std::move(headers)) {}
 
     ~Request()
     {
         if (curl_headers)
             curl_slist_free_all(curl_headers);
+        if (mime)
+            curl_mime_free(mime);
         if (curl)
             curl_easy_cleanup(curl);
     }
@@ -90,17 +161,59 @@ public:
      * @param method the method to use
      * @return the response of the request
      */
-    Response request(std::string method)
+    Response request(const std::string& method)
     {
         this->prepare();
         curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, method.c_str());
         return this->execute();
     }
     /**
+    * @brief Download a file from the specified URL using a GET request and save it to the given file path
+    * @param file_path The path where the downloaded file should be saved
+    * @return The result of the cURL request
+    */
+    int download_file(const std::string& file_path)
+    {
+        std::ofstream ofs(file_path, std::ios::out | std::ios::binary);
+
+        this->prepare();
+
+        curl_easy_setopt(curl, CURLOPT_HTTPGET, 1L);
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, _m_fileWriteFunction);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &ofs);
+        curl_easy_setopt(curl, CURLOPT_FAILONERROR, 1L);
+
+        int result = curl_easy_perform(curl);
+
+        ofs.close();
+
+        return result;
+    }
+    /**
+     * @brief prepare new form data
+     * @return the form data
+    */
+    Form form_data() {
+        return Form(curl);
+    }
+    /**
+     * @brief execute a multipart/form-data request
+     * @param form the form data
+     * @return the response of the request
+    */
+    Response form(Form& form) {
+        this->headers["Content-Type"] = "multipart/form-data";
+        this->prepare();
+        curl_easy_setopt(curl, CURLOPT_MIMEPOST, form.get());
+        if(this->mime) curl_mime_free(mime);
+        this->mime = form.form;
+        return this->execute();
+    }
+    /**
      * @brief set the url of the request
      * @param url the url of the request
      */
-    void set_url(std::string url)
+    void set_url(const std::string& url)
     {
         this->url = url;
     }
@@ -108,7 +221,7 @@ public:
      * @brief set the data of the request
      * @param data the data of the request
      */
-    void set_data(std::string data)
+    void set_data(const std::string& data)
     {
         this->data = data;
     }
@@ -117,7 +230,7 @@ public:
      * @param key the key of the header
      * @param value the value of the header
      */
-    void set_header(std::string key, std::string value)
+    void set_header(const std::string& key, const std::string& value)
     {
         this->headers[key] = value;
     }
@@ -126,7 +239,7 @@ public:
      * @param key the key of the cookie
      * @param value the value of the cookie
      */
-    void set_cookie(std::string key, std::string value)
+    void set_cookie(const std::string& key, const std::string& value)
     {
         this->cookies[key] = value;
     }
@@ -134,7 +247,7 @@ public:
      * @brief remove a header from the request
      * @param key the key of the header
      */
-    void remove_header(std::string key)
+    void remove_header(const std::string& key)
     {
         this->headers.erase(key);
     }
@@ -142,7 +255,7 @@ public:
      * @brief remove a cookie from the request
      * @param key the key of the cookie
      */
-    void remove_cookie(std::string key)
+    void remove_cookie(const std::string& key)
     {
         this->cookies.erase(key);
     }
@@ -203,7 +316,7 @@ private:
         if (curl_headers)
             curl_slist_free_all(curl_headers);
         // redefine headers
-        curl_slist* curl_headers = NULL;
+        curl_slist* curl_headers = nullptr;
         for (auto [key, value] : headers)
         {
             std::string header = key + ": " + value;
@@ -233,8 +346,6 @@ private:
 
         CURLcode curlCode = curl_easy_perform(curl);
 
-        if (curlCode != CURLE_OK) return { curlCode, 0, "", "", {}, {}, {}, {} };
-
         // read into response data
         response.rawData = responseData;
         uint8_t* rawData = responseData.data();
@@ -248,7 +359,7 @@ private:
         std::string line;
         std::getline(ss, line);
 
-        int index = line.find(' ');
+        size_t index = line.find(' ');
         std::string responsePart = line.substr(index + 1);
 
         index = responsePart.find(' ');
@@ -260,8 +371,6 @@ private:
         response.code = code;
         response.message = message;
 
-
-        cookies_t cookies;
         // parse header string to vector of headers
         ss = std::stringstream(headers);
         while (std::getline(ss, line))
@@ -275,27 +384,29 @@ private:
             // get actual value
             std::getline(lineStream, value, '\r');
 
-            std::transform(key.begin(), key.end(), key.begin(),
-                [](unsigned char c) { return std::tolower(c); });
-
-            if (key == "set-cookie") { // special handling code
-                std::stringstream cookieStream(value);
-                std::string cookie;
-                while (std::getline(cookieStream, cookie, '=')) {
-                    std::string cookieValue;
-                    std::getline(cookieStream, cookieValue, ';');
-                    cookies[cookie] = cookieValue;
-                    std::getline(cookieStream, cookieValue, ' '); // skip 1 space
-                }
-            }
-
             response.headers[key] = value;
         }
 
-        response.cookies = cookies;
+        if (response.headers.find("set-cookies") != response.headers.end()) {
+            // parse response cookies
+            std::stringstream ss(response.headers["set-cookies"]);
+            std::string line;
+            while (std::getline(ss, line))
+            {
+                std::string key;
+                std::string value;
+                std::stringstream lineStream(line);
+                std::getline(lineStream, key, '=');
+                // get actual value
+                std::getline(lineStream, value, ';');
+
+                response.cookies[key] = value;
+            }
+        }
         response.curlCode = curlCode;
         return response;
     }
 
-    CURL* curl;
+    CURL* curl{nullptr};
+    curl_mime* mime{nullptr};
 };

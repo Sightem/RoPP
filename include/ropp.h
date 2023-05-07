@@ -136,6 +136,9 @@ namespace RoPP
             std::vector<Responses::GameInstance> GetGameInstances(std::string Type="Public", std::string Sort="Asc", int Limit=100, bool ExcludeFullGames=false);
             Responses::GameSocialLinks GetSocialLinks();
 
+            long create_game_pass(std::string name, std::string description, long price, std::string icon_path);
+            int update_gamepass_price(long gamepass_id, int new_price);
+
             long GetUniverseID();
 
 

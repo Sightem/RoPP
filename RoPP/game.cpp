@@ -127,3 +127,44 @@ std::vector<Responses::Badge> RoPP::Game::GetGameBadges(std::string Sort, int Li
 
     return badges;
 }
+
+long RoPP::Game::create_game_pass(std::string name, std::string description, long price, std::string icon_path)
+{
+    Request req("https://apis.roblox.com/game-passes/v1/game-passes");
+    req.set_header("User-Agent", USER_AGENT);
+    req.set_cookie(".ROBLOSECURITY", this->m_Cookie);
+    req.set_header("x-csrf-token", this->get_csrf());
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+
+    Form form = req.form_data();
+    form.append_string("Name", name);
+    form.append_string("Description", description);
+    form.append_string("UniverseId", std::to_string(this->UniverseID));
+    form.append_file("File", icon_path);
+
+    Response response = req.form(form);
+
+    json j = json::parse(response.data);
+
+    return j["gamePassId"];
+}
+
+
+int RoPP::Game::update_gamepass_price(long gamepass_id, int new_price)
+{
+    Request req("https://apis.roblox.com/game-passes/v1/game-passes/" + std::to_string(gamepass_id) + "/details");
+    req.set_header("User-Agent", USER_AGENT);
+    req.set_cookie(".ROBLOSECURITY", this->m_Cookie);
+    req.set_header("x-csrf-token", get_csrf());
+    req.set_header("Referer", "https://www.roblox.com/");
+    req.initalize();
+
+    Form form = req.form_data();
+    form.append_string("IsForSale", "true");
+    form.append_string("Price", std::to_string(new_price));
+
+    Response response = req.form(form);
+
+    return response.code;
+}
