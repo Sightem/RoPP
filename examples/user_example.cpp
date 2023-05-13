@@ -1,5 +1,5 @@
-#include "../include/json.hpp"
-#include "../include/ropp.h"
+#include "RoPP/json.hpp"
+#include "RoPP/ropp.h"
 #include <iostream>
 #include <string>
 
@@ -11,10 +11,10 @@ int main()
 
     std::string UserResStr
     {
-        "User Name: " + UserResponse.Username + "\n"
-        "User Display name: " + UserResponse.DisplayName + "\n"
-        "User Creation Date: " + UserResponse.Created.ToISO8601() + "\n"
-        "User Description: " + UserResponse.Description + "\n"
+        "User Name: " + UserResponse.username + "\n"
+        "User Display name: " + UserResponse.display_name + "\n"
+        "User Creation Date: " + UserResponse.created.to_ISO8601() + "\n"
+        "User Description: " + UserResponse.description + "\n"
     };
     std::cout << UserResStr;
 
@@ -24,11 +24,11 @@ int main()
     {
         if (i == FriendsResponse.size() - 1)
         {
-            std::cout << FriendsResponse[i].Username;
+            std::cout << FriendsResponse[i].username;
         }
         else
         {
-            std::cout << FriendsResponse[i].Username << ", ";
+            std::cout << FriendsResponse[i].username << ", ";
         }
     }
     
@@ -41,11 +41,11 @@ int main()
     {
         if (i == UserGroupsResponse.size() - 1)
         {
-            std::cout << UserGroupsResponse[i].group.Name;
+            std::cout << UserGroupsResponse[i].group.name;
         }
         else
         {
-            std::cout << UserGroupsResponse[i].group.Name << ", ";
+            std::cout << UserGroupsResponse[i].group.name << ", ";
         }
     }
 
@@ -57,11 +57,11 @@ int main()
     {
         if (i == UserExperienceResponse.size() - 1)
         {
-            std::cout << UserExperienceResponse[i].Name;
+            std::cout << UserExperienceResponse[i].name;
         }
         else
         {
-            std::cout << UserExperienceResponse[i].Name << ", ";
+            std::cout << UserExperienceResponse[i].name << ", ";
         }
     }
 
@@ -73,11 +73,11 @@ int main()
     {
         if (i == UserBadgesResponse.size() - 1)
         {
-            std::cout << UserBadgesResponse[i].Name;
+            std::cout << UserBadgesResponse[i].name;
         }
         else
         {
-            std::cout << UserBadgesResponse[i].Name << ", ";
+            std::cout << UserBadgesResponse[i].name << ", ";
         }
     }
     

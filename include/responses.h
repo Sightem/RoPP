@@ -1052,49 +1052,49 @@ namespace Responses
 
     struct Badge
     {
-        std::string Name;
-        std::string Description;
-        std::string DisplayName;
-        std::string DisplayDescription;
-        std::string AwarderType;
+        std::string name;
+        std::string description;
+        std::string display_name;
+        std::string display_description;
+        std::string awarder_type;
 
-        Timestamp Created;
-        Timestamp Updated;
+        Timestamp created;
+        Timestamp updated;
 
-        BadgeStats Statistics;
+        BadgeStats statistics;
 
-        long IconImageId;
-        long DisplayIconImageId;
-        long AwarderId;
+        long icon_image_id;
+        long display_icon_image_id;
+        long awarder_id;
 
-        bool Enabled;
+        bool enabled;
 
         explicit Badge(json j)
         {
             if (j.contains("name"))
-                Name = j["name"];
+                name = j["name"];
             if (j.contains("description"))
-                Description = j["description"];
+                description = j["description"];
             if (j.contains("displayName"))
-                DisplayName = j["displayName"];
+                display_name = j["displayName"];
             if (j.contains("displayDescription"))
-                DisplayDescription = j["displayDescription"];
+                display_description = j["displayDescription"];
             if (j.contains("awarder"))
-                AwarderType = j["awarder"]["type"];
+                awarder_type = j["awarder"]["type"];
             if (j.contains("created"))
-                Created = Timestamp(j["created"].get<std::string>());
+                created = Timestamp(j["created"].get<std::string>());
             if (j.contains("updated"))
-                Updated = Timestamp(j["updated"].get<std::string>());
+                updated = Timestamp(j["updated"].get<std::string>());
             if (j.contains("iconImageId"))
-                IconImageId = j["iconImageId"];
+                icon_image_id = j["iconImageId"];
             if (j.contains("displayIconImageId"))
-                DisplayIconImageId = j["displayIconImageId"];
+                display_icon_image_id = j["displayIconImageId"];
             if (j.contains("awarder"))
-                AwarderId = j["awarder"]["id"];
+                awarder_id = j["awarder"]["id"];
             if (j.contains("enabled"))
-                Enabled = j["enabled"];
+                enabled = j["enabled"];
             if (j.contains("statistics"))
-                Statistics = BadgeStats(j["statistics"]);
+                statistics = BadgeStats(j["statistics"]);
         }
 
         Badge() = default;

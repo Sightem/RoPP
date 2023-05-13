@@ -6,11 +6,11 @@ Asset Asset Type: Face
 Asset Product ID: 392984560
 Asset Price: 75
 Asset Sales: 0
-Asset Is New: false
-Asset Is Limited: false
-Asset Is Limited Unique: true
-Asset Is For Sale: true
+Asset Is New: 0
+Asset Is Limited: 0
+Asset Is Limited Unique: 1
+Asset Is For Sale: 1
 Asset Creation Date: 2018-9-27
 Asset Updated Date: 2018-10-23
 
-Recent Average Resale Price: 55162
+Recent Average Resale Price: 60490
