@@ -20,7 +20,7 @@ namespace Responses
 
         std::time_t ToUnix()
         {
-            std::tm t = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+            std::tm t = { 0 };
             t.tm_year = year - 1900;
             t.tm_mon = month - 1;
             t.tm_mday = day;
@@ -64,7 +64,7 @@ namespace Responses
         bool IsBanned;
 
         void PopulateFromUID()
-        {   
+        {
             Request req("https://users.roblox.com/v1/users/" + std::to_string(this->UID));
             req.set_header("Referer", "https://www.roblox.com/users/" + std::to_string(this->UID) + "/profile");
             req.set_header("Content", "application/json");
@@ -83,7 +83,7 @@ namespace Responses
             if (j.contains("username")) Username = j["username"];
             if (j.contains("displayName")) DisplayName = j["displayName"];
             if (j.contains("description") && !(j["description"].is_null())) Description = j["description"];
-            if (j.contains("created")) Created = Timestamp(j["created"]);
+            if (j.contains("created")) Created = Timestamp(j["created"].get<std::string>());
             if (j.contains("presenceType")) PresenceType = j["presenceType"];
             if (j.contains("friendFrequentScore")) FriendFrequentScore = j["friendFrequentScore"];
             if (j.contains("friendFrequentRank")) FriendFrequentRank = j["friendFrequentRank"];
@@ -140,8 +140,8 @@ namespace Responses
             if (j.contains("description") && !(j["description"].is_null())) Description = j["description"];
             if (j.contains("creator") && !(j["creator"]["type"].is_null())) CreatorType = j["creator"]["type"];
             if (j.contains("rootPlace") && !(j["rootPlace"]["type"].is_null())) PlaceType = j["rootPlace"]["type"];
-            if (j.contains("created") && !(j["created"].is_null())) Created = Timestamp(j["created"]);
-            if (j.contains("updated") && !(j["updated"].is_null())) Updated = Timestamp(j["updated"]);
+            if (j.contains("created") && !(j["created"].is_null())) Created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("updated") && !(j["updated"].is_null())) Updated = Timestamp(j["updated"].get<std::string>());
             if (j.contains("creator") && !(j["creator"]["id"].is_null())) CreatorID = j["creator"]["id"];
             if (j.contains("rootPlace") && !(j["rootPlace"]["id"].is_null())) PlaceID = j["rootPlace"]["id"];
             if (j.contains("placeVisits") && !(j["placeVisits"].is_null())) PlaceVisits = j["placeVisits"];
@@ -163,13 +163,13 @@ namespace Responses
 
         AvatarAssetType() = default;
     };
-    
+
     struct ChatSettings
     {
         bool chat_enabled;
         bool is_active_chat_user;
         bool is_connect_tab_enabled;
-        
+
         explicit ChatSettings(json j)
         {
             if (j.contains("chatEnabled")) chat_enabled = j["chatEnabled"];
@@ -190,7 +190,7 @@ namespace Responses
 
         explicit SearchedUser(json j)
         {
-            if (j.contains("previousUsernames")) previous_usernames = j["previousUsernames"];
+            if (j.contains("previousUsernames")) previous_usernames = j["previousUsernames"].get<std::vector<std::string>>();
             if (j.contains("hasVerifiedBadge")) has_verified_badge = j["hasVerifiedBadge"];
             if (j.contains("id")) id = j["id"];
             if (j.contains("name")) name = j["name"];
@@ -242,7 +242,7 @@ namespace Responses
             if (j.contains("senderType")) sender_type = j["senderType"];
             if (j.contains("messageType")) message_type = j["messageType"];
             if (j.contains("content")) content = j["content"];
-            if (j.contains("sent")) sent = Timestamp(j["sent"]);
+            if (j.contains("sent")) sent = Timestamp(j["sent"].get<std::string>());
             if (j.contains("read")) read = j["read"];
             if (j.contains("senderTargetId")) sender_target_id = j["senderTargetId"];
         }
@@ -302,20 +302,20 @@ namespace Responses
 
         std::vector<RejectedParticipant> rejected_participants;
 
-       explicit ConversationAddResponse(json j)
-       {
-           if (j.contains("resultType")) result_type = j["resultType"];
-           if (j.contains("statusMessage")) status_message = j["statusMessage"];
-           if (j.contains("conversationId")) conersation_id = j["conversationId"];
+        explicit ConversationAddResponse(json j)
+        {
+            if (j.contains("resultType")) result_type = j["resultType"];
+            if (j.contains("statusMessage")) status_message = j["statusMessage"];
+            if (j.contains("conversationId")) conersation_id = j["conversationId"];
 
-           if (j.contains("rejectedParticipants") && !j["rejectedParticipants"].empty())
-           {
+            if (j.contains("rejectedParticipants") && !j["rejectedParticipants"].empty())
+            {
                 for (auto& i : j["rejectedParticipants"])
                 {
                     rejected_participants.emplace_back(i);
                 }
-           }
-       }
+            }
+        }
     };
     struct GameSocialLink
     {
@@ -396,7 +396,7 @@ namespace Responses
     struct OutfitDetailsAsset
     {
         std::string name;
-        
+
         AvatarAssetType asset_type;
 
         long asset_id;
@@ -412,7 +412,7 @@ namespace Responses
 
         OutfitDetailsAsset() = default;
     };
-    
+
     struct GetOutfitsAsset
     {
         std::string name;
@@ -509,8 +509,8 @@ namespace Responses
             if (j.contains("status")) status = j["status"];
             if (j.contains("id")) trade_id = j["id"];
             if (j.contains("user")) sender = ShorthandUser(j["user"]);
-            if (j.contains("created")) created = Timestamp(j["created"]);
-            if (j.contains("expiration")) expiriation = Timestamp(j["expiration"]);
+            if (j.contains("created")) created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("expiration")) expiriation = Timestamp(j["expiration"].get<std::string>());
             if (j.contains("isActive")) is_active = j["isActive"];
         }
 
@@ -567,7 +567,7 @@ namespace Responses
 
         GamePass() = default;
     };
-    
+
     struct PlaceInfoResponse
     {
         std::string Name, SourceName;
@@ -586,7 +586,7 @@ namespace Responses
         User Creator;
         Timestamp Created;
         Timestamp Updated;
-        
+
         bool IsGenreEnforced;
         bool CopyingAllowed;
         bool StudioAccessToApisAllowed;
@@ -609,8 +609,8 @@ namespace Responses
             if (j.contains("price") && !(j["price"].is_null())) Price = j["price"];
             if (j.contains("maxPlayers")) MaxPlayers = j["maxPlayers"];
             if (j.contains("creator")) Creator = User(j["creator"]);
-            if (j.contains("created")) Created = Timestamp(j["created"]);
-            if (j.contains("updated")) Updated = Timestamp(j["updated"]);
+            if (j.contains("created")) Created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("updated")) Updated = Timestamp(j["updated"].get<std::string>());
             if (j.contains("isGenreEnforced")) IsGenreEnforced = j["isGenreEnforced"];
             if (j.contains("copyingAllowed")) CopyingAllowed = j["copyingAllowed"];
             if (j.contains("studioAccessToApisAllowed")) StudioAccessToApisAllowed = j["studioAccessToApisAllowed"];
@@ -629,15 +629,15 @@ namespace Responses
 
         Timestamp created;
         Timestamp updated;
-        
+
         int64_t post_id;
 
         explicit GroupWallPost(json j)
         {
             if (j.contains("body")) body = j["body"];
             if (j.contains("poster")) poster = ShorthandUser(j["poster"]);
-            if (j.contains("created")) created = Timestamp(j["created"]);
-            if (j.contains("updated")) updated = Timestamp(j["updated"]);
+            if (j.contains("created")) created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("updated")) updated = Timestamp(j["updated"].get<std::string>());
             if (j.contains("id")) post_id = j["id"];
         }
 
@@ -652,7 +652,7 @@ namespace Responses
         explicit GroupNamehistory(json j)
         {
             if (j.contains("name")) name = j["name"];
-            if (j.contains("created")) created = Timestamp(j["created"]);
+            if (j.contains("created")) created = Timestamp(j["created"].get<std::string>());
         }
 
         GroupNamehistory() = default;
@@ -691,8 +691,8 @@ namespace Responses
             if (j.contains("name")) name = j["name"];
             if (j.contains("description") && !(j["description"].is_null())) description = j["description"];
             if (j.contains("creator")) creator = GroupExperienceCreator(j["creator"]);
-            if (j.contains("created")) created = Timestamp(j["created"]);
-            if (j.contains("updated")) updated = Timestamp(j["updated"]);
+            if (j.contains("created")) created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("updated")) updated = Timestamp(j["updated"].get<std::string>());
             if (j.contains("id")) universe_id = j["id"];
             if (j.contains("rootPlace")) place_id = j["id"];
             if (j.contains("placeVisits")) place_visits = j["placeVisits"];
@@ -714,7 +714,7 @@ namespace Responses
         explicit FriendRequest(json j)
         {
             if (j.contains("originSourceType")) OriginSourceType = j["originSourceType"];
-            if (j.contains("sentAt")) SentAt = Timestamp(j["sentAt"]);
+            if (j.contains("sentAt")) SentAt = Timestamp(j["sentAt"].get<std::string>());
             if (j.contains("senderId")) SenderID = j["senderId"];
             if (j.contains("sourceUniverseId") && !(j["sourceUniverseId"].is_null())) SourceUniverseID = j["sourceUniverseId"];
         }
@@ -830,7 +830,7 @@ namespace Responses
     };
 
     struct InventoryAsset
-    {   
+    {
         std::string Name;
         std::string AssetType;
 
@@ -842,7 +842,7 @@ namespace Responses
         {
             if (j.contains("name") && !(j["name"].is_null())) Name = j["name"];
             if (j.contains("assetType") && !(j["assetType"].is_null())) AssetType = j["assetType"];
-            if (j.contains("created") && !(j["created"].is_null())) Created = Timestamp(j["created"]);
+            if (j.contains("created") && !(j["created"].is_null())) Created = Timestamp(j["created"].get<std::string>());
             if (j.contains("assetId") && !(j["assetId"].is_null())) AssetID = j["assetId"];
         }
 
@@ -866,7 +866,7 @@ namespace Responses
         explicit UserPresence(json j)
         {
             if (j.contains("lastLocation") && !(j["lastLocation"].is_null())) last_location = j["lastLocation"];
-            if (j.contains("lastOnline") && !(j["lastOnline"].is_null())) last_online = Timestamp(j["lastOnline"]);
+            if (j.contains("lastOnline") && !(j["lastOnline"].is_null())) last_online = Timestamp(j["lastOnline"].get<std::string>());
             if (j.contains("placeId") && !(j["placeId"].is_null())) place_id = j["placeId"];
             if (j.contains("rootPlaceId") && !(j["rootPlaceId"].is_null())) root_place_id = j["rootPlaceId"];
             if (j.contains("universeId") && !(j["universeId"].is_null())) universe_id = j["universeId"];
@@ -906,7 +906,7 @@ namespace Responses
         Timestamp Updated;
 
         BadgeStats Statistics;
-        
+
         long IconImageId;
         long DisplayIconImageId;
         long AwarderId;
@@ -920,8 +920,8 @@ namespace Responses
             if (j.contains("displayName")) DisplayName = j["displayName"];
             if (j.contains("displayDescription")) DisplayDescription = j["displayDescription"];
             if (j.contains("awarder")) AwarderType = j["awarder"]["type"];
-            if (j.contains("created")) Created = Timestamp(j["created"]);
-            if (j.contains("updated")) Updated = Timestamp(j["updated"]);
+            if (j.contains("created")) Created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("updated")) Updated = Timestamp(j["updated"].get<std::string>());
             if (j.contains("iconImageId")) IconImageId = j["iconImageId"];
             if (j.contains("displayIconImageId")) DisplayIconImageId = j["displayIconImageId"];
             if (j.contains("awarder")) AwarderId = j["awarder"]["id"];
@@ -974,7 +974,7 @@ namespace Responses
             if (j.contains("actor")) actor = AuditItemActor(j["actor"]);
             if (j.contains("actionType")) action_type = j["actionType"];
             if (j.contains("description")) description = j["description"];
-            if (j.contains("created")) created = Timestamp(j["created"]);
+            if (j.contains("created")) created = Timestamp(j["created"].get<std::string>());
         }
 
         AuditItem() = default;
@@ -1008,8 +1008,8 @@ namespace Responses
         {
             if (j.contains("body")) body = j["body"];
             if (j.contains("poster")) poster = ShorthandUser(j["poster"]);
-            if (j.contains("created")) Created = Timestamp(j["created"]);
-            if (j.contains("updated")) Updated = Timestamp(j["updated"]);
+            if (j.contains("created")) Created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("updated")) Updated = Timestamp(j["updated"].get<std::string>());
         }
 
         GShout() = default;
@@ -1019,7 +1019,7 @@ namespace Responses
     {
         std::string name;
         std::string description;
-        
+
         ShorthandUser owner;
 
         GShout shout;
@@ -1075,19 +1075,19 @@ namespace Responses
         ChatConversationUniverse() = default;
     };
 
-    struct ChatConversationTitle 
+    struct ChatConversationTitle
     {
         std::string TitleForViewer;
 
         bool IsDefaultTitle;
 
-       explicit ChatConversationTitle(json j)
-       {
-           TitleForViewer = j["titleForViewer"];
-           IsDefaultTitle = j["isDefaultTitle"];
-       }
+        explicit ChatConversationTitle(json j)
+        {
+            TitleForViewer = j["titleForViewer"];
+            IsDefaultTitle = j["isDefaultTitle"];
+        }
 
-       ChatConversationTitle() {}
+        ChatConversationTitle() {}
     };
 
     struct ChatConversation
@@ -1115,7 +1115,7 @@ namespace Responses
             }
             if (j.contains("conversationType")) conversation_type = j["conversationType"];
             if (j.contains("conversationTitle")) conversation_title = ChatConversationTitle(j["conversationTitle"]);
-            if (j.contains("lastUpdated")) last_updated = Timestamp(j["lastUpdated"]);
+            if (j.contains("lastUpdated")) last_updated = Timestamp(j["lastUpdated"].get<std::string>());
             if (!j["conversationUniverse"].is_null()) conversation_universe = ChatConversationUniverse(j["conversationUniverse"]);
         }
 
@@ -1126,11 +1126,11 @@ namespace Responses
     {
         std::vector<ChatConversation> Conversations;
 
-       ChatConversationsResponse(json j)
-       {
-            for (auto& conversation : j) 
+        ChatConversationsResponse(json j)
+        {
+            for (auto& conversation : j)
                 Conversations.emplace_back(conversation);
-       }
+        }
     };
 
     struct FriendsOnline
@@ -1159,7 +1159,7 @@ namespace Responses
             if (j.contains("placeId")) PlaceID = j["placeId"];
             if (j.contains("universeId")) UniverseID = j["universeId"];
             if (j.contains("id")) UID = j["id"];
-            if (j.contains("lastOnline")) LastOnline = Timestamp(j["lastOnline"]);
+            if (j.contains("lastOnline")) LastOnline = Timestamp(j["lastOnline"].get<std::string>());
         }
 
         FriendsOnline() = default;
@@ -1210,7 +1210,7 @@ namespace Responses
         explicit PriceDataPoint(json j)
         {
             price = j["value"];
-            date = Timestamp(j["date"]);
+            date = Timestamp(j["date"].get<std::string>());
         }
 
         PriceDataPoint() = default;
@@ -1224,7 +1224,7 @@ namespace Responses
         explicit VolumeDataPoint(json j)
         {
             volume = j["value"];
-            date = Timestamp(j["date"]);
+            date = Timestamp(j["date"].get<std::string>());
         }
 
         VolumeDataPoint() = default;
@@ -1405,14 +1405,14 @@ namespace Responses
             {74, "Font Face"},
             {75, "MeshHiddenSurfaceRemoval"}
         };
-        
+
         explicit AssetInfo(json Data)
         {
             name = Data["Name"];
             description = Data["Description"];
             asset_type = asset_type_names[Data["AssetTypeId"]];
-            created = Timestamp(Data["Created"]);
-            updated = Timestamp(Data["Updated"]);
+            created = Timestamp(Data["Created"].get<std::string>());
+            updated = Timestamp(Data["Updated"].get<std::string>());
             creator_name = Data["Creator"]["Name"];
             creator_type = Data["Creator"]["CreatorType"];
             creator = AssetCreator(Data["Creator"]);
@@ -1550,7 +1550,7 @@ namespace Responses
             if (!response["content"].is_null()) content = response["content"];
             filtered_for_receivers = response["filteredForReceivers"];
             message_id = response["messageId"];
-            if (!response["Sent"].is_null()) sent = Timestamp(response["sent"]);
+            if (!response["Sent"].is_null()) sent = Timestamp(response["sent"].get<std::string>());
             message_type = response["messageType"];
             result_type = response["resultType"];
             status_message = response["statusMessage"];
@@ -1593,8 +1593,8 @@ namespace Responses
             asset_type_id = Data["AssetTypeId"];
             creator = Responses::AssetCreator(Data["Creator"]);
             icon_image_asset_id = Data["IconImageAssetId"];
-            created = Timestamp(Data["Created"]);
-            updated = Timestamp(Data["Updated"]);
+            created = Timestamp(Data["Created"].get<std::string>());
+            updated = Timestamp(Data["Updated"].get<std::string>());
             price_in_robux = Data["PriceInRobux"];
             sales = Data["Sales"];
             is_new = Data["IsNew"];
