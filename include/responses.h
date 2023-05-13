@@ -45,28 +45,28 @@ namespace Responses
 
     struct User
     {
-        std::string Username;
-        std::string DisplayName;
-        std::string Description;
-        std::string BuildersClubMembershipType;
+        std::string username;
+        std::string display_name;
+        std::string description;
+        std::string builders_club_membership_type;
 
-        Timestamp Created;
+        Timestamp created;
 
-        int PresenceType;
-        int FriendFrequentScore;
-        int FriendFrequentRank;
+        int presence_type;
+        int friend_frequent_score;
+        int friend_frequent_rank;
 
-        long UID;
+        int64_t user_id;
 
-        bool IsOnline;
-        bool IsDeleted;
-        bool HasVerifiedBadge;
-        bool IsBanned;
+        bool is_online;
+        bool is_deleted;
+        bool has_verified_badge;
+        bool is_banned;
 
         void PopulateFromUID()
         {
-            Request req("https://users.roblox.com/v1/users/" + std::to_string(this->UID));
-            req.set_header("Referer", "https://www.roblox.com/users/" + std::to_string(this->UID) + "/profile");
+            Request req("https://users.roblox.com/v1/users/" + std::to_string(this->user_id));
+            req.set_header("Referer", "https://www.roblox.com/users/" + std::to_string(this->user_id) + "/profile");
             req.set_header("Content", "application/json");
             req.set_header("Accept", "application/json");
             req.initalize();
@@ -79,21 +79,21 @@ namespace Responses
     public:
         explicit User(json j)
         {
-            if (j.contains("name")) Username = j["name"];
-            if (j.contains("username")) Username = j["username"];
-            if (j.contains("displayName")) DisplayName = j["displayName"];
-            if (j.contains("description") && !(j["description"].is_null())) Description = j["description"];
-            if (j.contains("created")) Created = Timestamp(j["created"].get<std::string>());
-            if (j.contains("presenceType")) PresenceType = j["presenceType"];
-            if (j.contains("friendFrequentScore")) FriendFrequentScore = j["friendFrequentScore"];
-            if (j.contains("friendFrequentRank")) FriendFrequentRank = j["friendFrequentRank"];
-            if (j.contains("id")) UID = j["id"];
-            if (j.contains("userId")) UID = j["userId"];
-            if (j.contains("isOnline")) IsOnline = j["isOnline"];
-            if (j.contains("isDeleted")) IsDeleted = j["isDeleted"];
-            if (j.contains("hasVerifiedBadge")) HasVerifiedBadge = j["hasVerifiedBadge"];
-            if (j.contains("isBanned")) IsBanned = j["isBanned"];
-            if (j.contains("buildersClubMembershipType")) BuildersClubMembershipType = j["buildersClubMembershipType"];
+            if (j.contains("name")) username = j["name"];
+            if (j.contains("username")) username = j["username"];
+            if (j.contains("displayName")) display_name = j["displayName"];
+            if (j.contains("description") && !(j["description"].is_null())) description = j["description"];
+            if (j.contains("created")) created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("presenceType")) presence_type = j["presenceType"];
+            if (j.contains("friendFrequentScore")) friend_frequent_score = j["friendFrequentScore"];
+            if (j.contains("friendFrequentRank")) friend_frequent_rank = j["friendFrequentRank"];
+            if (j.contains("id")) user_id = j["id"].get<int64_t>();
+            if (j.contains("userId")) user_id = j["userId"].get<int64_t>();
+            if (j.contains("isOnline")) is_online = j["isOnline"];
+            if (j.contains("isDeleted")) is_deleted = j["isDeleted"];
+            if (j.contains("hasVerifiedBadge")) has_verified_badge = j["hasVerifiedBadge"];
+            if (j.contains("isBanned")) is_banned = j["isBanned"];
+            if (j.contains("buildersClubMembershipType")) builders_club_membership_type = j["buildersClubMembershipType"];
         }
 
         User() = default;
@@ -122,29 +122,29 @@ namespace Responses
 
     struct Experience
     {
-        std::string Name;
-        std::string Description;
-        std::string CreatorType;
-        std::string PlaceType;
+        std::string name;
+        std::string description;
+        std::string creator_type;
+        std::string place_type;
 
-        Timestamp Created;
-        Timestamp Updated;
+        Timestamp created;
+        Timestamp updated;
 
-        long CreatorID;
-        long PlaceID;
-        long PlaceVisits;
+        int64_t creator_id;
+        int64_t place_id;
+        long place_visits;
 
         explicit Experience(json j)
         {
-            if (j.contains("name") && !(j["name"].is_null())) Name = j["name"];
-            if (j.contains("description") && !(j["description"].is_null())) Description = j["description"];
-            if (j.contains("creator") && !(j["creator"]["type"].is_null())) CreatorType = j["creator"]["type"];
-            if (j.contains("rootPlace") && !(j["rootPlace"]["type"].is_null())) PlaceType = j["rootPlace"]["type"];
-            if (j.contains("created") && !(j["created"].is_null())) Created = Timestamp(j["created"].get<std::string>());
-            if (j.contains("updated") && !(j["updated"].is_null())) Updated = Timestamp(j["updated"].get<std::string>());
-            if (j.contains("creator") && !(j["creator"]["id"].is_null())) CreatorID = j["creator"]["id"];
-            if (j.contains("rootPlace") && !(j["rootPlace"]["id"].is_null())) PlaceID = j["rootPlace"]["id"];
-            if (j.contains("placeVisits") && !(j["placeVisits"].is_null())) PlaceVisits = j["placeVisits"];
+            if (j.contains("name") && !(j["name"].is_null())) name = j["name"];
+            if (j.contains("description") && !(j["description"].is_null())) description = j["description"];
+            if (j.contains("creator") && !(j["creator"]["type"].is_null())) creator_type = j["creator"]["type"];
+            if (j.contains("rootPlace") && !(j["rootPlace"]["type"].is_null())) place_type = j["rootPlace"]["type"];
+            if (j.contains("created") && !(j["created"].is_null())) created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("updated") && !(j["updated"].is_null())) updated = Timestamp(j["updated"].get<std::string>());
+            if (j.contains("creator") && !(j["creator"]["id"].is_null())) creator_id = j["creator"]["id"];
+            if (j.contains("rootPlace") && !(j["rootPlace"]["id"].is_null())) place_id = j["rootPlace"]["id"];
+            if (j.contains("placeVisits") && !(j["placeVisits"].is_null())) place_visits = j["placeVisits"];
         }
 
         Experience() = default;
@@ -350,21 +350,22 @@ namespace Responses
 
         GameSocialLinks() = default;
     };
+
     struct DeveloperProductCreateResponse
     {
-        std::string Name, Description;
+        std::string name, description;
 
-        long ID;
-        long ShopID;
-        long IconImageAssetID;
+        int64_t id;
+        int64_t shop_id;
+        int64_t icon_image_asset_id;
 
         explicit DeveloperProductCreateResponse(json j)
         {
-            if (j.contains("id")) ID = j["id"];
-            if (j.contains("name")) Name = j["name"];
-            if (j.contains("description")) Description = j["description"];
-            if (j.contains("shopId")) ShopID = j["shopId"];
-            if (j.contains("iconImageAssetId")) IconImageAssetID = j["iconImageAssetId"];
+            if (j.contains("id")) id = j["id"];
+            if (j.contains("name")) name = j["name"];
+            if (j.contains("description")) description = j["description"];
+            if (j.contains("shopId")) shop_id = j["shopId"];
+            if (j.contains("iconImageAssetId")) icon_image_asset_id = j["iconImageAssetId"];
         }
 
         DeveloperProductCreateResponse() = default;
@@ -399,7 +400,7 @@ namespace Responses
 
         AvatarAssetType asset_type;
 
-        long asset_id;
+        int64_t asset_id;
         long current_version_id;
 
         explicit OutfitDetailsAsset(json j)
@@ -416,7 +417,7 @@ namespace Responses
     struct GetOutfitsAsset
     {
         std::string name;
-        long id;
+        int64_t id;
         bool is_editable;
 
         explicit GetOutfitsAsset(json j)
@@ -469,7 +470,7 @@ namespace Responses
         std::string player_avatar_type;
         std::string outfit_type;
 
-        long id;
+        int64_t id;
 
         std::vector<OutfitDetailsAsset> assets;
         BodyColors colors;
@@ -546,23 +547,23 @@ namespace Responses
 
     struct GamePass
     {
-        std::string Name;
-        std::string DisplayName;
+        std::string name;
+        std::string display_name;
 
-        long ID;
-        long CreatorID;
-        long ProductIdID;
+        int64_t id;
+        int64_t creator_id;
+        int64_t product_id;
 
-        int Price;
+        int price;
 
         explicit GamePass(json j)
         {
-            if (j.contains("name")) Name = j["name"];
-            if (j.contains("displayName")) DisplayName = j["displayName"];
-            if (j.contains("id")) ID = j["id"];
-            if (j.contains("sellerId")) CreatorID = j["sellerId"];
-            if (j.contains("productId")) ProductIdID = j["productId"];
-            if (j.contains("price")) Price = j["price"];
+            if (j.contains("name")) name = j["name"];
+            if (j.contains("displayName")) display_name = j["displayName"];
+            if (j.contains("id")) id = j["id"];
+            if (j.contains("sellerId")) creator_id = j["sellerId"];
+            if (j.contains("productId")) product_id = j["productId"];
+            if (j.contains("price")) price = j["price"];
         }
 
         GamePass() = default;
@@ -570,52 +571,52 @@ namespace Responses
 
     struct PlaceInfoResponse
     {
-        std::string Name, SourceName;
-        std::string Description, SourceDescription;
-        std::string UniverseAvatarType;
-        std::string Genre;
+        std::string name, source_name;
+        std::string description, source_description;
+        std::string universe_avatar_type;
+        std::string genre;
 
-        long UniverseID, PlaceID;
-        long CurrentPlayers;
-        long Visits;
-        long FavoritedCount;
+        int64_t universe_id, place_id;
+        long current_players;
+        long visits;
+        long favorited_count;
 
-        int Price;
-        int MaxPlayers;
+        int price;
+        int max_players;
 
-        User Creator;
-        Timestamp Created;
-        Timestamp Updated;
+        User creator;
+        Timestamp created;
+        Timestamp updated;
 
-        bool IsGenreEnforced;
-        bool CopyingAllowed;
-        bool StudioAccessToApisAllowed;
-        bool CreateVipServersAllowed;
-        bool IsAllGenre;
+        bool is_genre_enforced;
+        bool copying_allowed;
+        bool studio_access_to_apis_allowed;
+        bool create_vip_servers_allowed;
+        bool is_all_genre;
 
         explicit PlaceInfoResponse(json j)
         {
-            if (j.contains("name")) Name = j["name"];
-            if (j.contains("description")) Description = j["description"];
-            if (j.contains("sourceName")) SourceName = j["sourceName"];
-            if (j.contains("sourceDescription")) SourceDescription = j["sourceDescription"];
-            if (j.contains("universeAvatarType")) UniverseAvatarType = j["universeAvatarType"];
-            if (j.contains("genre")) Genre = j["genre"];
-            if (j.contains("id")) UniverseID = j["id"];
-            if (j.contains("rootPlaceId")) PlaceID = j["rootPlaceId"];
-            if (j.contains("playing")) CurrentPlayers = j["playing"];
-            if (j.contains("visits")) Visits = j["visits"];
-            if (j.contains("favoritedCount")) FavoritedCount = j["favoritedCount"];
-            if (j.contains("price") && !(j["price"].is_null())) Price = j["price"];
-            if (j.contains("maxPlayers")) MaxPlayers = j["maxPlayers"];
-            if (j.contains("creator")) Creator = User(j["creator"]);
-            if (j.contains("created")) Created = Timestamp(j["created"].get<std::string>());
-            if (j.contains("updated")) Updated = Timestamp(j["updated"].get<std::string>());
-            if (j.contains("isGenreEnforced")) IsGenreEnforced = j["isGenreEnforced"];
-            if (j.contains("copyingAllowed")) CopyingAllowed = j["copyingAllowed"];
-            if (j.contains("studioAccessToApisAllowed")) StudioAccessToApisAllowed = j["studioAccessToApisAllowed"];
-            if (j.contains("createVipServersAllowed")) CreateVipServersAllowed = j["createVipServersAllowed"];
-            if (j.contains("isAllGenre")) IsAllGenre = j["isAllGenre"];
+            if (j.contains("name")) name = j["name"];
+            if (j.contains("description")) description = j["description"];
+            if (j.contains("sourceName")) source_name = j["sourceName"];
+            if (j.contains("sourceDescription")) source_description = j["sourceDescription"];
+            if (j.contains("universeAvatarType")) universe_avatar_type = j["universeAvatarType"];
+            if (j.contains("genre")) genre = j["genre"];
+            if (j.contains("id")) universe_id = j["id"];
+            if (j.contains("rootPlaceId")) place_id = j["rootPlaceId"];
+            if (j.contains("playing")) current_players = j["playing"];
+            if (j.contains("visits")) visits = j["visits"];
+            if (j.contains("favoritedCount")) favorited_count = j["favoritedCount"];
+            if (j.contains("price") && !(j["price"].is_null())) price = j["price"];
+            if (j.contains("maxPlayers")) max_players = j["maxPlayers"];
+            if (j.contains("creator")) creator = User(j["creator"]);
+            if (j.contains("created")) created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("updated")) updated = Timestamp(j["updated"].get<std::string>());
+            if (j.contains("isGenreEnforced")) is_genre_enforced = j["isGenreEnforced"];
+            if (j.contains("copyingAllowed")) copying_allowed = j["copyingAllowed"];
+            if (j.contains("studioAccessToApisAllowed")) studio_access_to_apis_allowed = j["studioAccessToApisAllowed"];
+            if (j.contains("createVipServersAllowed")) create_vip_servers_allowed = j["createVipServersAllowed"];
+            if (j.contains("isAllGenre")) is_all_genre = j["isAllGenre"];
         }
 
         PlaceInfoResponse() = default;
@@ -704,19 +705,19 @@ namespace Responses
 
     struct FriendRequest
     {
-        std::string OriginSourceType;
+        std::string origin_source_type;
 
-        Timestamp SentAt;
+        Timestamp sent_at;
 
-        long SenderID;
-        long SourceUniverseID;
+        int64_t sender_id;
+        int64_t source_universe_id;
 
         explicit FriendRequest(json j)
         {
-            if (j.contains("originSourceType")) OriginSourceType = j["originSourceType"];
-            if (j.contains("sentAt")) SentAt = Timestamp(j["sentAt"].get<std::string>());
-            if (j.contains("senderId")) SenderID = j["senderId"];
-            if (j.contains("sourceUniverseId") && !(j["sourceUniverseId"].is_null())) SourceUniverseID = j["sourceUniverseId"];
+            if (j.contains("originSourceType")) origin_source_type = j["originSourceType"];
+            if (j.contains("sentAt")) sent_at = Timestamp(j["sentAt"].get<std::string>());
+            if (j.contains("senderId")) sender_id = j["senderId"];
+            if (j.contains("sourceUniverseId") && !(j["sourceUniverseId"].is_null())) source_universe_id = j["sourceUniverseId"];
         }
 
         FriendRequest() = default;
@@ -724,23 +725,23 @@ namespace Responses
 
     struct FriendRequestsResponse
     {
-        std::vector<FriendRequest> FriendRequests;
-        std::vector<User> SenderInfo;
-        std::vector<std::string> MutualFriendsList;
+        std::vector<FriendRequest> friend_requests;
+        std::vector<User> sender_info;
+        std::vector<std::string> mutual_friends_list;
 
         explicit FriendRequestsResponse(json j)
         {
             for (auto& i : j["data"])
             {
-                FriendRequests.emplace_back(i["friendRequest"]);
-                SenderInfo.emplace_back(i);
+                friend_requests.emplace_back(i["friendRequest"]);
+                sender_info.emplace_back(i);
             }
 
             if (j.contains("mutualFriendsList") && !j["mutualFriendsList"].empty())
             {
                 for (auto& i : j["mutualFriendsList"])
                 {
-                    MutualFriendsList.emplace_back(i);
+                    mutual_friends_list.emplace_back(i);
                 }
             }
         }
@@ -748,25 +749,26 @@ namespace Responses
         FriendRequestsResponse() = default;
     };
 
+
     struct PhoneInfo
     {
-        std::string CountryCode;
-        std::string Prefix;
-        std::string Phone;
+        std::string country_code;
+        std::string prefix;
+        std::string phone;
 
-        int VerificationCodeLength;
+        int verification_code_length;
 
-        bool IsVerified;
-        bool CanBypassPasswordForPhoneUpdate;
+        bool is_verified;
+        bool can_bypass_password_for_phone_update;
 
         explicit PhoneInfo(json j)
         {
-            CountryCode = j["countryCode"];
-            Prefix = j["prefix"];
-            Phone = j["phone"];
-            VerificationCodeLength = j["verificationCodeLength"];
-            IsVerified = j["isVerified"];
-            CanBypassPasswordForPhoneUpdate = j["canBypassPasswordForPhoneUpdate"];
+            country_code = j["countryCode"];
+            prefix = j["prefix"];
+            phone = j["phone"];
+            verification_code_length = j["verificationCodeLength"];
+            is_verified = j["isVerified"];
+            can_bypass_password_for_phone_update = j["canBypassPasswordForPhoneUpdate"];
         }
 
         PhoneInfo() = default;
@@ -796,6 +798,7 @@ namespace Responses
     {
         std::string player_avatar_type;
 
+
         BodyColors colors;
         AvatarScales scales;
 
@@ -817,13 +820,13 @@ namespace Responses
 
     struct BirthdateResponse
     {
-        int Year, Month, Day;
+        int year, month, day;
 
         explicit BirthdateResponse(json j)
         {
-            Year = j["birthYear"];
-            Month = j["birthMonth"];
-            Day = j["birthDay"];
+            year = j["birthYear"];
+            month = j["birthMonth"];
+            day = j["birthDay"];
         }
 
         BirthdateResponse() = default;
@@ -831,19 +834,19 @@ namespace Responses
 
     struct InventoryAsset
     {
-        std::string Name;
-        std::string AssetType;
+        std::string name;
+        std::string asset_type;
 
-        Timestamp Created;
+        Timestamp created;
 
-        long AssetID;
+        int64_t asset_id;
 
         explicit InventoryAsset(json j)
         {
-            if (j.contains("name") && !(j["name"].is_null())) Name = j["name"];
-            if (j.contains("assetType") && !(j["assetType"].is_null())) AssetType = j["assetType"];
-            if (j.contains("created") && !(j["created"].is_null())) Created = Timestamp(j["created"].get<std::string>());
-            if (j.contains("assetId") && !(j["assetId"].is_null())) AssetID = j["assetId"];
+            if (j.contains("name") && !(j["name"].is_null())) name = j["name"];
+            if (j.contains("assetType") && !(j["assetType"].is_null())) asset_type = j["assetType"];
+            if (j.contains("created") && !(j["created"].is_null())) created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("assetId") && !(j["assetId"].is_null())) asset_id = j["assetId"];
         }
 
         InventoryAsset() = default;
@@ -880,15 +883,15 @@ namespace Responses
 
     struct BadgeStats
     {
-        long PastDayAwardedCount;
-        long AwardedCount;
-        int WinRatePercentage;
+        long past_day_awarded_count;
+        long awarded_count;
+        int win_rate_percentage;
 
         explicit BadgeStats(json j)
         {
-            if (j.contains("pastDayAwardedCount")) PastDayAwardedCount = j["pastDayAwardedCount"];
-            if (j.contains("awardedCount")) AwardedCount = j["awardedCount"];
-            if (j.contains("winRatePercentage")) WinRatePercentage = j["winRatePercentage"];
+            if (j.contains("pastDayAwardedCount")) past_day_awarded_count = j["pastDayAwardedCount"];
+            if (j.contains("awardedCount")) awarded_count = j["awardedCount"];
+            if (j.contains("winRatePercentage")) win_rate_percentage = j["winRatePercentage"];
         }
 
         BadgeStats() = default;

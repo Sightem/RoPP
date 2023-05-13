@@ -285,27 +285,27 @@ namespace RoPP
             int GetFriendsCount();
 
             long GetRobuxBalance();
-            long GetUserID();
+            int64_t GetUserID();
 
             bool HasPremium();
-            bool IsFavoriteGame(int64_t PlaceID);
+            bool IsFavoriteGame(int64_t place_id);
             
             //post requests
 
             double UnlockPin(int Pin);
 
-            bool SendFriendRequest(long UID);
+            bool SendFriendRequest(int64_t user_id);
             bool LockPin();
 
-            void SetFavoriteGame(int PlaceID, bool Favorite);
-            void SetDescription(std::string Description);
+            void SetFavoriteGame(int64_t place_id, bool Favorite);
+            void SetDescription(const std::string& Description);
             void SetGender(std::string Gender);
-            void ChangePassword(std::string OldPassword, std::string NewPassword);
-            void AcceptFriendRequest(long UID);
-            void DeclineFriendRequest(long UID);
+            void ChangePassword(const std::string& OldPassword, const std::string& NewPassword);
+            void AcceptFriendRequest(int64_t user_id);
+            void DeclineFriendRequest(int64_t user_id);
             void DeclineAllFriendRequests();
-            void BlockUser(long UID);
-            void UnblockUser(long UID);
+            void BlockUser(int64_t user_id);
+            void UnblockUser(int64_t user_id);
 
             Session(std::string_view cookie)
             {
@@ -320,9 +320,10 @@ namespace RoPP
             std::vector<Responses::UserPresence> get_users_presence(const std::vector<int64_t>& user_ids);
             std::vector<Responses::SearchedUser> user_search(std::string keyword, int32_t limit=10);
             json group_search(std::string keyword, bool prioritize_exact_match=true, int32_t limit=10);
-            std::string validate_username(std::string username);
+            std::string validate_username(const std::string& username);
             int64_t get_game_universe_id(int64_t place_id);
-            long get_uid_from_cookie(std::string cookie);
+            int64_t get_uid_from_cookie(const std::string& cookie);
+            std::string get_username_from_cookie(const std::string& cookie);
             Responses::GamePassProductInfoResponse get_gamepass_product_info(int64_t gamepass_id);
             void buy_gamepass(int64_t gamepass_id);
 

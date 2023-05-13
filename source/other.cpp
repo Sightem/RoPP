@@ -31,7 +31,7 @@ json RoPP::Other::group_search(std::string keyword, bool prioritize_exact_match,
     return res;
 }
 
-std::string RoPP::Other::validate_username(std::string username)
+std::string RoPP::Other::validate_username(const std::string& username)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -91,7 +91,7 @@ std::vector<Responses::UserPresence> RoPP::Other::get_users_presence(const std::
     return presences;
 }
 
-long RoPP::Other::get_uid_from_cookie(std::string cookie)
+int64_t RoPP::Other::get_uid_from_cookie(const std::string& cookie)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -102,6 +102,19 @@ long RoPP::Other::get_uid_from_cookie(std::string cookie)
     ).JsonObj;
 
     return res["id"];
+}
+
+std::string get_username_from_cookie(const std::string& cookie)
+{
+    ordered_json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://users.roblox.com/v1/users/authenticated",
+        "GET",
+        cookie,
+        CSRF_NOT_REQUIRED
+    ).JsonObj;
+
+    return res["name"];
 }
 
 Responses::GamePassProductInfoResponse RoPP::Other::get_gamepass_product_info(int64_t gamepass_id)
