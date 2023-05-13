@@ -104,7 +104,7 @@ int64_t RoPP::Other::get_uid_from_cookie(const std::string& cookie)
     return res["id"];
 }
 
-std::string get_username_from_cookie(const std::string& cookie)
+std::string RoPP::Other::get_username_from_cookie(const std::string& cookie)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
