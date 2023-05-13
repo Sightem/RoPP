@@ -20,7 +20,7 @@ namespace Responses
 
         std::time_t ToUnix()
         {
-            std::tm t = { 0 };
+            std::tm t = {0};
             t.tm_year = year - 1900;
             t.tm_mon = month - 1;
             t.tm_mday = day;
@@ -79,21 +79,36 @@ namespace Responses
     public:
         explicit User(json j)
         {
-            if (j.contains("name")) username = j["name"];
-            if (j.contains("username")) username = j["username"];
-            if (j.contains("displayName")) display_name = j["displayName"];
-            if (j.contains("description") && !(j["description"].is_null())) description = j["description"];
-            if (j.contains("created")) created = Timestamp(j["created"].get<std::string>());
-            if (j.contains("presenceType")) presence_type = j["presenceType"];
-            if (j.contains("friendFrequentScore")) friend_frequent_score = j["friendFrequentScore"];
-            if (j.contains("friendFrequentRank")) friend_frequent_rank = j["friendFrequentRank"];
-            if (j.contains("id")) user_id = j["id"].get<int64_t>();
-            if (j.contains("userId")) user_id = j["userId"].get<int64_t>();
-            if (j.contains("isOnline")) is_online = j["isOnline"];
-            if (j.contains("isDeleted")) is_deleted = j["isDeleted"];
-            if (j.contains("hasVerifiedBadge")) has_verified_badge = j["hasVerifiedBadge"];
-            if (j.contains("isBanned")) is_banned = j["isBanned"];
-            if (j.contains("buildersClubMembershipType")) builders_club_membership_type = j["buildersClubMembershipType"];
+            if (j.contains("name"))
+                username = j["name"];
+            if (j.contains("username"))
+                username = j["username"];
+            if (j.contains("displayName"))
+                display_name = j["displayName"];
+            if (j.contains("description") && !(j["description"].is_null()))
+                description = j["description"];
+            if (j.contains("created"))
+                created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("presenceType"))
+                presence_type = j["presenceType"];
+            if (j.contains("friendFrequentScore"))
+                friend_frequent_score = j["friendFrequentScore"];
+            if (j.contains("friendFrequentRank"))
+                friend_frequent_rank = j["friendFrequentRank"];
+            if (j.contains("id"))
+                user_id = j["id"].get<int64_t>();
+            if (j.contains("userId"))
+                user_id = j["userId"].get<int64_t>();
+            if (j.contains("isOnline"))
+                is_online = j["isOnline"];
+            if (j.contains("isDeleted"))
+                is_deleted = j["isDeleted"];
+            if (j.contains("hasVerifiedBadge"))
+                has_verified_badge = j["hasVerifiedBadge"];
+            if (j.contains("isBanned"))
+                is_banned = j["isBanned"];
+            if (j.contains("buildersClubMembershipType"))
+                builders_club_membership_type = j["buildersClubMembershipType"];
         }
 
         User() = default;
@@ -109,12 +124,18 @@ namespace Responses
 
         explicit ShorthandUser(json j)
         {
-            if (j.contains("name")) username = j["name"];
-            if (j.contains("username")) username = j["username"];
-            if (j.contains("displayName")) display_name = j["displayName"];
-            if (j.contains("id")) user_id = j["id"];
-            if (j.contains("userId")) user_id = j["userId"];
-            if (j.contains("hasVerifiedBadge")) has_verified_badge = j["hasVerifiedBadge"];
+            if (j.contains("name"))
+                username = j["name"];
+            if (j.contains("username"))
+                username = j["username"];
+            if (j.contains("displayName"))
+                display_name = j["displayName"];
+            if (j.contains("id"))
+                user_id = j["id"];
+            if (j.contains("userId"))
+                user_id = j["userId"];
+            if (j.contains("hasVerifiedBadge"))
+                has_verified_badge = j["hasVerifiedBadge"];
         }
 
         ShorthandUser() = default;
@@ -136,15 +157,24 @@ namespace Responses
 
         explicit Experience(json j)
         {
-            if (j.contains("name") && !(j["name"].is_null())) name = j["name"];
-            if (j.contains("description") && !(j["description"].is_null())) description = j["description"];
-            if (j.contains("creator") && !(j["creator"]["type"].is_null())) creator_type = j["creator"]["type"];
-            if (j.contains("rootPlace") && !(j["rootPlace"]["type"].is_null())) place_type = j["rootPlace"]["type"];
-            if (j.contains("created") && !(j["created"].is_null())) created = Timestamp(j["created"].get<std::string>());
-            if (j.contains("updated") && !(j["updated"].is_null())) updated = Timestamp(j["updated"].get<std::string>());
-            if (j.contains("creator") && !(j["creator"]["id"].is_null())) creator_id = j["creator"]["id"];
-            if (j.contains("rootPlace") && !(j["rootPlace"]["id"].is_null())) place_id = j["rootPlace"]["id"];
-            if (j.contains("placeVisits") && !(j["placeVisits"].is_null())) place_visits = j["placeVisits"];
+            if (j.contains("name") && !(j["name"].is_null()))
+                name = j["name"];
+            if (j.contains("description") && !(j["description"].is_null()))
+                description = j["description"];
+            if (j.contains("creator") && !(j["creator"]["type"].is_null()))
+                creator_type = j["creator"]["type"];
+            if (j.contains("rootPlace") && !(j["rootPlace"]["type"].is_null()))
+                place_type = j["rootPlace"]["type"];
+            if (j.contains("created") && !(j["created"].is_null()))
+                created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("updated") && !(j["updated"].is_null()))
+                updated = Timestamp(j["updated"].get<std::string>());
+            if (j.contains("creator") && !(j["creator"]["id"].is_null()))
+                creator_id = j["creator"]["id"];
+            if (j.contains("rootPlace") && !(j["rootPlace"]["id"].is_null()))
+                place_id = j["rootPlace"]["id"];
+            if (j.contains("placeVisits") && !(j["placeVisits"].is_null()))
+                place_visits = j["placeVisits"];
         }
 
         Experience() = default;
@@ -172,9 +202,12 @@ namespace Responses
 
         explicit ChatSettings(json j)
         {
-            if (j.contains("chatEnabled")) chat_enabled = j["chatEnabled"];
-            if (j.contains("isActiveChatUser")) is_active_chat_user = j["isActiveChatUser"];
-            if (j.contains("isConnectTabEnabled")) is_connect_tab_enabled = j["isConnectTabEnabled"];
+            if (j.contains("chatEnabled"))
+                chat_enabled = j["chatEnabled"];
+            if (j.contains("isActiveChatUser"))
+                is_active_chat_user = j["isActiveChatUser"];
+            if (j.contains("isConnectTabEnabled"))
+                is_connect_tab_enabled = j["isConnectTabEnabled"];
         }
 
         ChatSettings() = default;
@@ -190,11 +223,16 @@ namespace Responses
 
         explicit SearchedUser(json j)
         {
-            if (j.contains("previousUsernames")) previous_usernames = j["previousUsernames"].get<std::vector<std::string>>();
-            if (j.contains("hasVerifiedBadge")) has_verified_badge = j["hasVerifiedBadge"];
-            if (j.contains("id")) id = j["id"];
-            if (j.contains("name")) name = j["name"];
-            if (j.contains("displayName")) display_name = j["displayName"];
+            if (j.contains("previousUsernames"))
+                previous_usernames = j["previousUsernames"].get<std::vector<std::string>>();
+            if (j.contains("hasVerifiedBadge"))
+                has_verified_badge = j["hasVerifiedBadge"];
+            if (j.contains("id"))
+                id = j["id"];
+            if (j.contains("name"))
+                name = j["name"];
+            if (j.contains("displayName"))
+                display_name = j["displayName"];
         }
 
         SearchedUser() = default;
@@ -213,12 +251,18 @@ namespace Responses
 
         explicit RejectedParticipant(json j)
         {
-            if (j.contains("rejectedReason")) rejected_reason = j["rejectedReason"];
-            if (j.contains("type")) type = j["type"];
-            if (j.contains("name")) name = j["name"];
-            if (j.contains("displayName")) display_name = j["displayName"];
-            if (j.contains("targetId")) target_id = j["targetId"];
-            if (j.contains("hasVerifiedBadge")) has_verified_badge = j["hasVerifiedBadge"];
+            if (j.contains("rejectedReason"))
+                rejected_reason = j["rejectedReason"];
+            if (j.contains("type"))
+                type = j["type"];
+            if (j.contains("name"))
+                name = j["name"];
+            if (j.contains("displayName"))
+                display_name = j["displayName"];
+            if (j.contains("targetId"))
+                target_id = j["targetId"];
+            if (j.contains("hasVerifiedBadge"))
+                has_verified_badge = j["hasVerifiedBadge"];
         }
 
         RejectedParticipant() = default;
@@ -238,13 +282,20 @@ namespace Responses
 
         explicit ChatMessage(json j)
         {
-            if (j.contains("id")) id = j["id"];
-            if (j.contains("senderType")) sender_type = j["senderType"];
-            if (j.contains("messageType")) message_type = j["messageType"];
-            if (j.contains("content")) content = j["content"];
-            if (j.contains("sent")) sent = Timestamp(j["sent"].get<std::string>());
-            if (j.contains("read")) read = j["read"];
-            if (j.contains("senderTargetId")) sender_target_id = j["senderTargetId"];
+            if (j.contains("id"))
+                id = j["id"];
+            if (j.contains("senderType"))
+                sender_type = j["senderType"];
+            if (j.contains("messageType"))
+                message_type = j["messageType"];
+            if (j.contains("content"))
+                content = j["content"];
+            if (j.contains("sent"))
+                sent = Timestamp(j["sent"].get<std::string>());
+            if (j.contains("read"))
+                read = j["read"];
+            if (j.contains("senderTargetId"))
+                sender_target_id = j["senderTargetId"];
         }
 
         ChatMessage() = default;
@@ -279,7 +330,7 @@ namespace Responses
         explicit GroupRoles(json j)
         {
             group_id = j["groupId"];
-            for (auto& i : j["roles"])
+            for (auto &i : j["roles"])
             {
                 roles.emplace_back(i);
             }
@@ -304,13 +355,16 @@ namespace Responses
 
         explicit ConversationAddResponse(json j)
         {
-            if (j.contains("resultType")) result_type = j["resultType"];
-            if (j.contains("statusMessage")) status_message = j["statusMessage"];
-            if (j.contains("conversationId")) conersation_id = j["conversationId"];
+            if (j.contains("resultType"))
+                result_type = j["resultType"];
+            if (j.contains("statusMessage"))
+                status_message = j["statusMessage"];
+            if (j.contains("conversationId"))
+                conersation_id = j["conversationId"];
 
             if (j.contains("rejectedParticipants") && !j["rejectedParticipants"].empty())
             {
-                for (auto& i : j["rejectedParticipants"])
+                for (auto &i : j["rejectedParticipants"])
                 {
                     rejected_participants.emplace_back(i);
                 }
@@ -327,10 +381,14 @@ namespace Responses
 
         explicit GameSocialLink(json j)
         {
-            if (j.contains("title")) Title = j["title"];
-            if (j.contains("url")) URL = j["url"];
-            if (j.contains("type")) Type = j["type"];
-            if (j.contains("id")) ID = j["id"];
+            if (j.contains("title"))
+                Title = j["title"];
+            if (j.contains("url"))
+                URL = j["url"];
+            if (j.contains("type"))
+                Type = j["type"];
+            if (j.contains("id"))
+                ID = j["id"];
         }
 
         GameSocialLink() = default;
@@ -342,7 +400,7 @@ namespace Responses
 
         explicit GameSocialLinks(json j)
         {
-            for (auto& i : j["data"])
+            for (auto &i : j["data"])
             {
                 Links.emplace_back(i);
             }
@@ -361,11 +419,16 @@ namespace Responses
 
         explicit DeveloperProductCreateResponse(json j)
         {
-            if (j.contains("id")) id = j["id"];
-            if (j.contains("name")) name = j["name"];
-            if (j.contains("description")) description = j["description"];
-            if (j.contains("shopId")) shop_id = j["shopId"];
-            if (j.contains("iconImageAssetId")) icon_image_asset_id = j["iconImageAssetId"];
+            if (j.contains("id"))
+                id = j["id"];
+            if (j.contains("name"))
+                name = j["name"];
+            if (j.contains("description"))
+                description = j["description"];
+            if (j.contains("shopId"))
+                shop_id = j["shopId"];
+            if (j.contains("iconImageAssetId"))
+                icon_image_asset_id = j["iconImageAssetId"];
         }
 
         DeveloperProductCreateResponse() = default;
@@ -382,17 +445,22 @@ namespace Responses
 
         explicit BodyColors(json j)
         {
-            if (j.contains("headColorId")) head_color_id = j["headColorId"];
-            if (j.contains("torsoColorId")) torso_color_id = j["torsoColorId"];
-            if (j.contains("rightArmColorId")) right_arm_color_id = j["rightArmColorId"];
-            if (j.contains("leftArmColorId")) left_arm_color_id = j["leftArmColorId"];
-            if (j.contains("rightLegColorId")) right_leg_color_id = j["rightLegColorId"];
-            if (j.contains("leftLegColorId")) left_leg_color_id = j["leftLegColorId"];
+            if (j.contains("headColorId"))
+                head_color_id = j["headColorId"];
+            if (j.contains("torsoColorId"))
+                torso_color_id = j["torsoColorId"];
+            if (j.contains("rightArmColorId"))
+                right_arm_color_id = j["rightArmColorId"];
+            if (j.contains("leftArmColorId"))
+                left_arm_color_id = j["leftArmColorId"];
+            if (j.contains("rightLegColorId"))
+                right_leg_color_id = j["rightLegColorId"];
+            if (j.contains("leftLegColorId"))
+                left_leg_color_id = j["leftLegColorId"];
         }
 
         BodyColors() = default;
     };
-
 
     struct OutfitDetailsAsset
     {
@@ -422,9 +490,12 @@ namespace Responses
 
         explicit GetOutfitsAsset(json j)
         {
-            if (j.contains("name")) name = j["name"];
-            if (j.contains("id")) id = j["id"];
-            if (j.contains("isEditable")) is_editable = j["isEditable"];
+            if (j.contains("name"))
+                name = j["name"];
+            if (j.contains("id"))
+                id = j["id"];
+            if (j.contains("isEditable"))
+                is_editable = j["isEditable"];
         }
 
         GetOutfitsAsset() = default;
@@ -439,9 +510,11 @@ namespace Responses
         {
             if (j.contains("data"))
             {
-                for (auto& i : j["data"]) outfits.emplace_back(i);
+                for (auto &i : j["data"])
+                    outfits.emplace_back(i);
             }
-            if (j.contains("total")) total = j["total"];
+            if (j.contains("total"))
+                total = j["total"];
         }
 
         GetOutfitsResponse() = default;
@@ -453,12 +526,18 @@ namespace Responses
 
         explicit AvatarScales(json j)
         {
-            if (j.contains("height")) height = j["height"];
-            if (j.contains("width")) width = j["width"];
-            if (j.contains("depth")) depth = j["depth"];
-            if (j.contains("head")) head = j["head"];
-            if (j.contains("proportion")) proportion = j["proportion"];
-            if (j.contains("bodyType")) body_type = j["bodyType"];
+            if (j.contains("height"))
+                height = j["height"];
+            if (j.contains("width"))
+                width = j["width"];
+            if (j.contains("depth"))
+                depth = j["depth"];
+            if (j.contains("head"))
+                head = j["head"];
+            if (j.contains("proportion"))
+                proportion = j["proportion"];
+            if (j.contains("bodyType"))
+                body_type = j["bodyType"];
         }
 
         AvatarScales() = default;
@@ -480,15 +559,22 @@ namespace Responses
 
         explicit OutfitDetailsResponse(json j)
         {
-            if (j.contains("name")) name = j["name"];
-            if (j.contains("playerAvatarType")) player_avatar_type = j["playerAvatarType"];
-            if (j.contains("outfitType")) outfit_type = j["outfitType"];
-            if (j.contains("id")) id = j["id"];
-            if (j.contains("bodyColors")) colors = BodyColors(j["bodyColors"]);
-            if (j.contains("scale")) scales = AvatarScales(j["scale"]);
-            if (j.contains("isEditable")) is_editable = j["isEditable"];
+            if (j.contains("name"))
+                name = j["name"];
+            if (j.contains("playerAvatarType"))
+                player_avatar_type = j["playerAvatarType"];
+            if (j.contains("outfitType"))
+                outfit_type = j["outfitType"];
+            if (j.contains("id"))
+                id = j["id"];
+            if (j.contains("bodyColors"))
+                colors = BodyColors(j["bodyColors"]);
+            if (j.contains("scale"))
+                scales = AvatarScales(j["scale"]);
+            if (j.contains("isEditable"))
+                is_editable = j["isEditable"];
 
-            for (auto& asset : j["assets"])
+            for (auto &asset : j["assets"])
                 assets.emplace_back(asset);
         }
     };
@@ -507,12 +593,18 @@ namespace Responses
 
         explicit TradeData(json j)
         {
-            if (j.contains("status")) status = j["status"];
-            if (j.contains("id")) trade_id = j["id"];
-            if (j.contains("user")) sender = ShorthandUser(j["user"]);
-            if (j.contains("created")) created = Timestamp(j["created"].get<std::string>());
-            if (j.contains("expiration")) expiriation = Timestamp(j["expiration"].get<std::string>());
-            if (j.contains("isActive")) is_active = j["isActive"];
+            if (j.contains("status"))
+                status = j["status"];
+            if (j.contains("id"))
+                trade_id = j["id"];
+            if (j.contains("user"))
+                sender = ShorthandUser(j["user"]);
+            if (j.contains("created"))
+                created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("expiration"))
+                expiriation = Timestamp(j["expiration"].get<std::string>());
+            if (j.contains("isActive"))
+                is_active = j["isActive"];
         }
 
         TradeData() = default;
@@ -525,8 +617,10 @@ namespace Responses
 
         explicit CanTradeWithResponse(json j)
         {
-            if (j.contains("status")) status = j["status"];
-            if (j.contains("canTrade")) can_trade = j["canTrade"];
+            if (j.contains("status"))
+                status = j["status"];
+            if (j.contains("canTrade"))
+                can_trade = j["canTrade"];
         }
 
         CanTradeWithResponse() = default;
@@ -558,12 +652,18 @@ namespace Responses
 
         explicit GamePass(json j)
         {
-            if (j.contains("name")) name = j["name"];
-            if (j.contains("displayName")) display_name = j["displayName"];
-            if (j.contains("id")) id = j["id"];
-            if (j.contains("sellerId")) creator_id = j["sellerId"];
-            if (j.contains("productId")) product_id = j["productId"];
-            if (j.contains("price")) price = j["price"];
+            if (j.contains("name"))
+                name = j["name"];
+            if (j.contains("displayName"))
+                display_name = j["displayName"];
+            if (j.contains("id"))
+                id = j["id"];
+            if (j.contains("sellerId"))
+                creator_id = j["sellerId"];
+            if (j.contains("productId"))
+                product_id = j["productId"];
+            if (j.contains("price"))
+                price = j["price"];
         }
 
         GamePass() = default;
@@ -596,27 +696,48 @@ namespace Responses
 
         explicit PlaceInfoResponse(json j)
         {
-            if (j.contains("name")) name = j["name"];
-            if (j.contains("description")) description = j["description"];
-            if (j.contains("sourceName")) source_name = j["sourceName"];
-            if (j.contains("sourceDescription")) source_description = j["sourceDescription"];
-            if (j.contains("universeAvatarType")) universe_avatar_type = j["universeAvatarType"];
-            if (j.contains("genre")) genre = j["genre"];
-            if (j.contains("id")) universe_id = j["id"];
-            if (j.contains("rootPlaceId")) place_id = j["rootPlaceId"];
-            if (j.contains("playing")) current_players = j["playing"];
-            if (j.contains("visits")) visits = j["visits"];
-            if (j.contains("favoritedCount")) favorited_count = j["favoritedCount"];
-            if (j.contains("price") && !(j["price"].is_null())) price = j["price"];
-            if (j.contains("maxPlayers")) max_players = j["maxPlayers"];
-            if (j.contains("creator")) creator = User(j["creator"]);
-            if (j.contains("created")) created = Timestamp(j["created"].get<std::string>());
-            if (j.contains("updated")) updated = Timestamp(j["updated"].get<std::string>());
-            if (j.contains("isGenreEnforced")) is_genre_enforced = j["isGenreEnforced"];
-            if (j.contains("copyingAllowed")) copying_allowed = j["copyingAllowed"];
-            if (j.contains("studioAccessToApisAllowed")) studio_access_to_apis_allowed = j["studioAccessToApisAllowed"];
-            if (j.contains("createVipServersAllowed")) create_vip_servers_allowed = j["createVipServersAllowed"];
-            if (j.contains("isAllGenre")) is_all_genre = j["isAllGenre"];
+            if (j.contains("name"))
+                name = j["name"];
+            if (j.contains("description"))
+                description = j["description"];
+            if (j.contains("sourceName"))
+                source_name = j["sourceName"];
+            if (j.contains("sourceDescription"))
+                source_description = j["sourceDescription"];
+            if (j.contains("universeAvatarType"))
+                universe_avatar_type = j["universeAvatarType"];
+            if (j.contains("genre"))
+                genre = j["genre"];
+            if (j.contains("id"))
+                universe_id = j["id"];
+            if (j.contains("rootPlaceId"))
+                place_id = j["rootPlaceId"];
+            if (j.contains("playing"))
+                current_players = j["playing"];
+            if (j.contains("visits"))
+                visits = j["visits"];
+            if (j.contains("favoritedCount"))
+                favorited_count = j["favoritedCount"];
+            if (j.contains("price") && !(j["price"].is_null()))
+                price = j["price"];
+            if (j.contains("maxPlayers"))
+                max_players = j["maxPlayers"];
+            if (j.contains("creator"))
+                creator = User(j["creator"]);
+            if (j.contains("created"))
+                created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("updated"))
+                updated = Timestamp(j["updated"].get<std::string>());
+            if (j.contains("isGenreEnforced"))
+                is_genre_enforced = j["isGenreEnforced"];
+            if (j.contains("copyingAllowed"))
+                copying_allowed = j["copyingAllowed"];
+            if (j.contains("studioAccessToApisAllowed"))
+                studio_access_to_apis_allowed = j["studioAccessToApisAllowed"];
+            if (j.contains("createVipServersAllowed"))
+                create_vip_servers_allowed = j["createVipServersAllowed"];
+            if (j.contains("isAllGenre"))
+                is_all_genre = j["isAllGenre"];
         }
 
         PlaceInfoResponse() = default;
@@ -635,11 +756,16 @@ namespace Responses
 
         explicit GroupWallPost(json j)
         {
-            if (j.contains("body")) body = j["body"];
-            if (j.contains("poster")) poster = ShorthandUser(j["poster"]);
-            if (j.contains("created")) created = Timestamp(j["created"].get<std::string>());
-            if (j.contains("updated")) updated = Timestamp(j["updated"].get<std::string>());
-            if (j.contains("id")) post_id = j["id"];
+            if (j.contains("body"))
+                body = j["body"];
+            if (j.contains("poster"))
+                poster = ShorthandUser(j["poster"]);
+            if (j.contains("created"))
+                created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("updated"))
+                updated = Timestamp(j["updated"].get<std::string>());
+            if (j.contains("id"))
+                post_id = j["id"];
         }
 
         GroupWallPost() = default;
@@ -652,8 +778,10 @@ namespace Responses
 
         explicit GroupNamehistory(json j)
         {
-            if (j.contains("name")) name = j["name"];
-            if (j.contains("created")) created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("name"))
+                name = j["name"];
+            if (j.contains("created"))
+                created = Timestamp(j["created"].get<std::string>());
         }
 
         GroupNamehistory() = default;
@@ -669,7 +797,8 @@ namespace Responses
         {
             id = j["id"];
             type = j["type"];
-            if (j.contains("name")) name = j["name"];
+            if (j.contains("name"))
+                name = j["name"];
         }
 
         GroupExperienceCreator() = default;
@@ -689,19 +818,26 @@ namespace Responses
 
         explicit GroupExperience(json j)
         {
-            if (j.contains("name")) name = j["name"];
-            if (j.contains("description") && !(j["description"].is_null())) description = j["description"];
-            if (j.contains("creator")) creator = GroupExperienceCreator(j["creator"]);
-            if (j.contains("created")) created = Timestamp(j["created"].get<std::string>());
-            if (j.contains("updated")) updated = Timestamp(j["updated"].get<std::string>());
-            if (j.contains("id")) universe_id = j["id"];
-            if (j.contains("rootPlace")) place_id = j["id"];
-            if (j.contains("placeVisits")) place_visits = j["placeVisits"];
+            if (j.contains("name"))
+                name = j["name"];
+            if (j.contains("description") && !(j["description"].is_null()))
+                description = j["description"];
+            if (j.contains("creator"))
+                creator = GroupExperienceCreator(j["creator"]);
+            if (j.contains("created"))
+                created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("updated"))
+                updated = Timestamp(j["updated"].get<std::string>());
+            if (j.contains("id"))
+                universe_id = j["id"];
+            if (j.contains("rootPlace"))
+                place_id = j["id"];
+            if (j.contains("placeVisits"))
+                place_visits = j["placeVisits"];
         }
 
         GroupExperience() = default;
     };
-
 
     struct FriendRequest
     {
@@ -714,10 +850,14 @@ namespace Responses
 
         explicit FriendRequest(json j)
         {
-            if (j.contains("originSourceType")) origin_source_type = j["originSourceType"];
-            if (j.contains("sentAt")) sent_at = Timestamp(j["sentAt"].get<std::string>());
-            if (j.contains("senderId")) sender_id = j["senderId"];
-            if (j.contains("sourceUniverseId") && !(j["sourceUniverseId"].is_null())) source_universe_id = j["sourceUniverseId"];
+            if (j.contains("originSourceType"))
+                origin_source_type = j["originSourceType"];
+            if (j.contains("sentAt"))
+                sent_at = Timestamp(j["sentAt"].get<std::string>());
+            if (j.contains("senderId"))
+                sender_id = j["senderId"];
+            if (j.contains("sourceUniverseId") && !(j["sourceUniverseId"].is_null()))
+                source_universe_id = j["sourceUniverseId"];
         }
 
         FriendRequest() = default;
@@ -731,7 +871,7 @@ namespace Responses
 
         explicit FriendRequestsResponse(json j)
         {
-            for (auto& i : j["data"])
+            for (auto &i : j["data"])
             {
                 friend_requests.emplace_back(i["friendRequest"]);
                 sender_info.emplace_back(i);
@@ -739,7 +879,7 @@ namespace Responses
 
             if (j.contains("mutualFriendsList") && !j["mutualFriendsList"].empty())
             {
-                for (auto& i : j["mutualFriendsList"])
+                for (auto &i : j["mutualFriendsList"])
                 {
                     mutual_friends_list.emplace_back(i);
                 }
@@ -748,7 +888,6 @@ namespace Responses
 
         FriendRequestsResponse() = default;
     };
-
 
     struct PhoneInfo
     {
@@ -798,7 +937,6 @@ namespace Responses
     {
         std::string player_avatar_type;
 
-
         BodyColors colors;
         AvatarScales scales;
 
@@ -809,7 +947,7 @@ namespace Responses
             player_avatar_type = j["playerAvatarType"];
             colors = BodyColors(j["bodyColors"]);
             scales = AvatarScales(j["scales"]);
-            for (auto& asset : j["assets"])
+            for (auto &asset : j["assets"])
             {
                 assets.emplace_back(asset);
             }
@@ -843,10 +981,14 @@ namespace Responses
 
         explicit InventoryAsset(json j)
         {
-            if (j.contains("name") && !(j["name"].is_null())) name = j["name"];
-            if (j.contains("assetType") && !(j["assetType"].is_null())) asset_type = j["assetType"];
-            if (j.contains("created") && !(j["created"].is_null())) created = Timestamp(j["created"].get<std::string>());
-            if (j.contains("assetId") && !(j["assetId"].is_null())) asset_id = j["assetId"];
+            if (j.contains("name") && !(j["name"].is_null()))
+                name = j["name"];
+            if (j.contains("assetType") && !(j["assetType"].is_null()))
+                asset_type = j["assetType"];
+            if (j.contains("created") && !(j["created"].is_null()))
+                created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("assetId") && !(j["assetId"].is_null()))
+                asset_id = j["assetId"];
         }
 
         InventoryAsset() = default;
@@ -868,14 +1010,22 @@ namespace Responses
 
         explicit UserPresence(json j)
         {
-            if (j.contains("lastLocation") && !(j["lastLocation"].is_null())) last_location = j["lastLocation"];
-            if (j.contains("lastOnline") && !(j["lastOnline"].is_null())) last_online = Timestamp(j["lastOnline"].get<std::string>());
-            if (j.contains("placeId") && !(j["placeId"].is_null())) place_id = j["placeId"];
-            if (j.contains("rootPlaceId") && !(j["rootPlaceId"].is_null())) root_place_id = j["rootPlaceId"];
-            if (j.contains("universeId") && !(j["universeId"].is_null())) universe_id = j["universeId"];
-            if (j.contains("userId") && !(j["userId"].is_null())) user_id = j["userId"];
-            if (j.contains("userPresenceType") && !(j["userPresenceType"].is_null())) user_presence_type = j["userPresenceType"];
-            if (j.contains("gameId") && !(j["gameId"].is_null())) game_id = j["gameId"];
+            if (j.contains("lastLocation") && !(j["lastLocation"].is_null()))
+                last_location = j["lastLocation"];
+            if (j.contains("lastOnline") && !(j["lastOnline"].is_null()))
+                last_online = Timestamp(j["lastOnline"].get<std::string>());
+            if (j.contains("placeId") && !(j["placeId"].is_null()))
+                place_id = j["placeId"];
+            if (j.contains("rootPlaceId") && !(j["rootPlaceId"].is_null()))
+                root_place_id = j["rootPlaceId"];
+            if (j.contains("universeId") && !(j["universeId"].is_null()))
+                universe_id = j["universeId"];
+            if (j.contains("userId") && !(j["userId"].is_null()))
+                user_id = j["userId"];
+            if (j.contains("userPresenceType") && !(j["userPresenceType"].is_null()))
+                user_presence_type = j["userPresenceType"];
+            if (j.contains("gameId") && !(j["gameId"].is_null()))
+                game_id = j["gameId"];
         }
 
         UserPresence() = default;
@@ -889,9 +1039,12 @@ namespace Responses
 
         explicit BadgeStats(json j)
         {
-            if (j.contains("pastDayAwardedCount")) past_day_awarded_count = j["pastDayAwardedCount"];
-            if (j.contains("awardedCount")) awarded_count = j["awardedCount"];
-            if (j.contains("winRatePercentage")) win_rate_percentage = j["winRatePercentage"];
+            if (j.contains("pastDayAwardedCount"))
+                past_day_awarded_count = j["pastDayAwardedCount"];
+            if (j.contains("awardedCount"))
+                awarded_count = j["awardedCount"];
+            if (j.contains("winRatePercentage"))
+                win_rate_percentage = j["winRatePercentage"];
         }
 
         BadgeStats() = default;
@@ -918,18 +1071,30 @@ namespace Responses
 
         explicit Badge(json j)
         {
-            if (j.contains("name")) Name = j["name"];
-            if (j.contains("description")) Description = j["description"];
-            if (j.contains("displayName")) DisplayName = j["displayName"];
-            if (j.contains("displayDescription")) DisplayDescription = j["displayDescription"];
-            if (j.contains("awarder")) AwarderType = j["awarder"]["type"];
-            if (j.contains("created")) Created = Timestamp(j["created"].get<std::string>());
-            if (j.contains("updated")) Updated = Timestamp(j["updated"].get<std::string>());
-            if (j.contains("iconImageId")) IconImageId = j["iconImageId"];
-            if (j.contains("displayIconImageId")) DisplayIconImageId = j["displayIconImageId"];
-            if (j.contains("awarder")) AwarderId = j["awarder"]["id"];
-            if (j.contains("enabled")) Enabled = j["enabled"];
-            if (j.contains("statistics")) Statistics = BadgeStats(j["statistics"]);
+            if (j.contains("name"))
+                Name = j["name"];
+            if (j.contains("description"))
+                Description = j["description"];
+            if (j.contains("displayName"))
+                DisplayName = j["displayName"];
+            if (j.contains("displayDescription"))
+                DisplayDescription = j["displayDescription"];
+            if (j.contains("awarder"))
+                AwarderType = j["awarder"]["type"];
+            if (j.contains("created"))
+                Created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("updated"))
+                Updated = Timestamp(j["updated"].get<std::string>());
+            if (j.contains("iconImageId"))
+                IconImageId = j["iconImageId"];
+            if (j.contains("displayIconImageId"))
+                DisplayIconImageId = j["displayIconImageId"];
+            if (j.contains("awarder"))
+                AwarderId = j["awarder"]["id"];
+            if (j.contains("enabled"))
+                Enabled = j["enabled"];
+            if (j.contains("statistics"))
+                Statistics = BadgeStats(j["statistics"]);
         }
 
         Badge() = default;
@@ -943,9 +1108,12 @@ namespace Responses
 
         explicit Role(json j)
         {
-            if (j.contains("name")) Name = j["name"];
-            if (j.contains("rank")) Rank = j["rank"];
-            if (j.contains("id")) ID = j["id"];
+            if (j.contains("name"))
+                Name = j["name"];
+            if (j.contains("rank"))
+                Rank = j["rank"];
+            if (j.contains("id"))
+                ID = j["id"];
         }
 
         Role() = default;
@@ -958,8 +1126,10 @@ namespace Responses
 
         explicit AuditItemActor(json j)
         {
-            if (j.contains("user")) user = ShorthandUser(j["user"]);
-            if (j.contains("role")) role = Role(j["role"]);
+            if (j.contains("user"))
+                user = ShorthandUser(j["user"]);
+            if (j.contains("role"))
+                role = Role(j["role"]);
         }
 
         AuditItemActor() = default;
@@ -974,10 +1144,14 @@ namespace Responses
 
         explicit AuditItem(json j)
         {
-            if (j.contains("actor")) actor = AuditItemActor(j["actor"]);
-            if (j.contains("actionType")) action_type = j["actionType"];
-            if (j.contains("description")) description = j["description"];
-            if (j.contains("created")) created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("actor"))
+                actor = AuditItemActor(j["actor"]);
+            if (j.contains("actionType"))
+                action_type = j["actionType"];
+            if (j.contains("description"))
+                description = j["description"];
+            if (j.contains("created"))
+                created = Timestamp(j["created"].get<std::string>());
         }
 
         AuditItem() = default;
@@ -991,7 +1165,7 @@ namespace Responses
         {
             if (j.contains("data"))
             {
-                for (auto& item : j["data"])
+                for (auto &item : j["data"])
                 {
                     items.push_back(AuditItem(item));
                 }
@@ -1009,10 +1183,14 @@ namespace Responses
 
         explicit GShout(json j)
         {
-            if (j.contains("body")) body = j["body"];
-            if (j.contains("poster")) poster = ShorthandUser(j["poster"]);
-            if (j.contains("created")) Created = Timestamp(j["created"].get<std::string>());
-            if (j.contains("updated")) Updated = Timestamp(j["updated"].get<std::string>());
+            if (j.contains("body"))
+                body = j["body"];
+            if (j.contains("poster"))
+                poster = ShorthandUser(j["poster"]);
+            if (j.contains("created"))
+                Created = Timestamp(j["created"].get<std::string>());
+            if (j.contains("updated"))
+                Updated = Timestamp(j["updated"].get<std::string>());
         }
 
         GShout() = default;
@@ -1036,15 +1214,24 @@ namespace Responses
 
         explicit Group(json j)
         {
-            if (j.contains("name")) name = j["name"];
-            if (j.contains("description")) description = j["description"];
-            if (j.contains("owner")) owner = ShorthandUser(j["owner"]);
-            if (j.contains("shout") && !(j["shout"].is_null())) shout = GShout(j["shout"]);
-            if (j.contains("memberCount")) member_count = j["memberCount"];
-            if (j.contains("id")) group_id = j["id"];
-            if (j.contains("isBuildersClubOnly")) is_builders_club_only = j["isBuildersClubOnly"];
-            if (j.contains("isPublicEntryAllowed")) is_public_entry_allowed = j["isPublicEntryAllowed"];
-            if (j.contains("hasVerifiedBadge")) has_verified_badge = j["hasVerifiedBadge"];
+            if (j.contains("name"))
+                name = j["name"];
+            if (j.contains("description"))
+                description = j["description"];
+            if (j.contains("owner"))
+                owner = ShorthandUser(j["owner"]);
+            if (j.contains("shout") && !(j["shout"].is_null()))
+                shout = GShout(j["shout"]);
+            if (j.contains("memberCount"))
+                member_count = j["memberCount"];
+            if (j.contains("id"))
+                group_id = j["id"];
+            if (j.contains("isBuildersClubOnly"))
+                is_builders_club_only = j["isBuildersClubOnly"];
+            if (j.contains("isPublicEntryAllowed"))
+                is_public_entry_allowed = j["isPublicEntryAllowed"];
+            if (j.contains("hasVerifiedBadge"))
+                has_verified_badge = j["hasVerifiedBadge"];
         }
 
         Group() = default;
@@ -1107,19 +1294,27 @@ namespace Responses
 
         ChatConversation(json j)
         {
-            if (j.contains("id")) id = j["id"];
-            if (j.contains("title")) title = j["title"];
-            if (j.contains("initiator")) initiator = User(j["initiator"]);
-            if (j.contains("hasUnreadMessages") && !j["hasUnreadMessages"].is_null()) has_unread_messages = j["hasUnreadMessages"];
+            if (j.contains("id"))
+                id = j["id"];
+            if (j.contains("title"))
+                title = j["title"];
+            if (j.contains("initiator"))
+                initiator = User(j["initiator"]);
+            if (j.contains("hasUnreadMessages") && !j["hasUnreadMessages"].is_null())
+                has_unread_messages = j["hasUnreadMessages"];
             if (j.contains("participants"))
             {
-                for (auto& user : j["participants"])
+                for (auto &user : j["participants"])
                     participants.emplace_back(user);
             }
-            if (j.contains("conversationType")) conversation_type = j["conversationType"];
-            if (j.contains("conversationTitle")) conversation_title = ChatConversationTitle(j["conversationTitle"]);
-            if (j.contains("lastUpdated")) last_updated = Timestamp(j["lastUpdated"].get<std::string>());
-            if (!j["conversationUniverse"].is_null()) conversation_universe = ChatConversationUniverse(j["conversationUniverse"]);
+            if (j.contains("conversationType"))
+                conversation_type = j["conversationType"];
+            if (j.contains("conversationTitle"))
+                conversation_title = ChatConversationTitle(j["conversationTitle"]);
+            if (j.contains("lastUpdated"))
+                last_updated = Timestamp(j["lastUpdated"].get<std::string>());
+            if (!j["conversationUniverse"].is_null())
+                conversation_universe = ChatConversationUniverse(j["conversationUniverse"]);
         }
 
         ChatConversation() = default;
@@ -1131,7 +1326,7 @@ namespace Responses
 
         ChatConversationsResponse(json j)
         {
-            for (auto& conversation : j)
+            for (auto &conversation : j)
                 Conversations.emplace_back(conversation);
         }
     };
@@ -1153,16 +1348,26 @@ namespace Responses
 
         explicit FriendsOnline(json j)
         {
-            if (j.contains("userPresenceType")) UserPresenceType = j["userPresenceType"];
-            if (j.contains("userLocationType")) UserLocationType = j["userLocationType"];
-            if (j.contains("lastLocation")) lastLocation = j["lastLocation"];
-            if (j.contains("gameInstanceId")) GameInstanceId = j["gameInstanceId"];
-            if (j.contains("name")) Username = j["name"];
-            if (j.contains("displayName")) DisplayName = j["displayName"];
-            if (j.contains("placeId")) PlaceID = j["placeId"];
-            if (j.contains("universeId")) UniverseID = j["universeId"];
-            if (j.contains("id")) UID = j["id"];
-            if (j.contains("lastOnline")) LastOnline = Timestamp(j["lastOnline"].get<std::string>());
+            if (j.contains("userPresenceType"))
+                UserPresenceType = j["userPresenceType"];
+            if (j.contains("userLocationType"))
+                UserLocationType = j["userLocationType"];
+            if (j.contains("lastLocation"))
+                lastLocation = j["lastLocation"];
+            if (j.contains("gameInstanceId"))
+                GameInstanceId = j["gameInstanceId"];
+            if (j.contains("name"))
+                Username = j["name"];
+            if (j.contains("displayName"))
+                DisplayName = j["displayName"];
+            if (j.contains("placeId"))
+                PlaceID = j["placeId"];
+            if (j.contains("universeId"))
+                UniverseID = j["universeId"];
+            if (j.contains("id"))
+                UID = j["id"];
+            if (j.contains("lastOnline"))
+                LastOnline = Timestamp(j["lastOnline"].get<std::string>());
         }
 
         FriendsOnline() = default;
@@ -1178,7 +1383,7 @@ namespace Responses
         explicit OneToOneConversationResponse(json j)
         {
             conversation = ChatConversation(j["conversation"]);
-            for (auto& user : j["rejectedParticipants"])
+            for (auto &user : j["rejectedParticipants"])
                 rejected_participants.emplace_back(user);
             result_type = j["resultType"];
             status_message = j["statusMessage"];
@@ -1197,7 +1402,7 @@ namespace Responses
         explicit StartGroupConversationResponse(json j)
         {
             conversation = ChatConversation(j["conversation"]);
-            for (auto& user : j["rejectedParticipants"])
+            for (auto &user : j["rejectedParticipants"])
                 rejected_participants.emplace_back(user);
             result_type = j["resultType"];
             status_message = j["statusMessage"];
@@ -1252,10 +1457,10 @@ namespace Responses
             original_price = j["originalPrice"];
             recent_average_price = j["recentAveragePrice"];
 
-            for (auto& element : j["priceDataPoints"])
+            for (auto &element : j["priceDataPoints"])
                 price_data.emplace_back(element);
 
-            for (auto& element : j["volumeDataPoints"])
+            for (auto &element : j["volumeDataPoints"])
                 volume_data.emplace_back(element);
         }
 
@@ -1337,7 +1542,7 @@ namespace Responses
         bool is_limited;
         bool is_limited_unique;
 
-        //https://github.com/ro-py/ro.py/blob/284b30dfef4c8117198b961c3b4b47c040da6af4/roblox/assets.py#L21 <3
+        // https://github.com/ro-py/ro.py/blob/284b30dfef4c8117198b961c3b4b47c040da6af4/roblox/assets.py#L21 <3
         std::map<int, std::string> asset_type_names = {
             {1, "Image"},
             {2, "T-Shirt"},
@@ -1406,8 +1611,7 @@ namespace Responses
             {72, "Dress Skirt Accessory"},
             {73, "Font Family"},
             {74, "Font Face"},
-            {75, "MeshHiddenSurfaceRemoval"}
-        };
+            {75, "MeshHiddenSurfaceRemoval"}};
 
         explicit AssetInfo(json Data)
         {
@@ -1447,21 +1651,29 @@ namespace Responses
         std::vector<std::string> PlayerTokens;
         explicit GameInstance(json instance)
         {
-            if (instance.contains("id")) ID = instance["id"];
-            if (instance.contains("maxPlayers")) MaxPlayers = instance["maxPlayers"];
-            if (instance.contains("playing") && !instance["playing"].is_null()) Playing = instance["playing"];
+            if (instance.contains("id"))
+                ID = instance["id"];
+            if (instance.contains("maxPlayers"))
+                MaxPlayers = instance["maxPlayers"];
+            if (instance.contains("playing") && !instance["playing"].is_null())
+                Playing = instance["playing"];
             if (instance.contains("playerTokens"))
             {
-                for (auto& element : instance["playerTokens"])
+                for (auto &element : instance["playerTokens"])
                 {
                     PlayerTokens.emplace_back(element);
                 }
             }
-            if (instance.contains("fps")) FPS = instance["fps"];
-            if (instance.contains("ping")) Ping = instance["ping"];
-            if (instance.contains("vipServerId")) VIPServerID = instance["vipServerId"];
-            if (instance.contains("accessCode")) AccessCode = instance["accessCode"];
-            if (instance.contains("owner")) Owner = Responses::User(instance["owner"]);
+            if (instance.contains("fps"))
+                FPS = instance["fps"];
+            if (instance.contains("ping"))
+                Ping = instance["ping"];
+            if (instance.contains("vipServerId"))
+                VIPServerID = instance["vipServerId"];
+            if (instance.contains("accessCode"))
+                AccessCode = instance["accessCode"];
+            if (instance.contains("owner"))
+                Owner = Responses::User(instance["owner"]);
         }
     };
 
@@ -1485,7 +1697,7 @@ namespace Responses
         explicit ChatConversationWithMessages(json conversation)
         {
             conversation_id = conversation["conversationId"];
-            for (auto& message : conversation["chatMessages"])
+            for (auto &message : conversation["chatMessages"])
             {
                 messages.emplace_back(message);
             }
@@ -1550,10 +1762,12 @@ namespace Responses
 
         explicit SendMessageResponse(json response)
         {
-            if (!response["content"].is_null()) content = response["content"];
+            if (!response["content"].is_null())
+                content = response["content"];
             filtered_for_receivers = response["filteredForReceivers"];
             message_id = response["messageId"];
-            if (!response["Sent"].is_null()) sent = Timestamp(response["sent"].get<std::string>());
+            if (!response["Sent"].is_null())
+                sent = Timestamp(response["sent"].get<std::string>());
             message_type = response["messageType"];
             result_type = response["resultType"];
             status_message = response["statusMessage"];
@@ -1561,7 +1775,6 @@ namespace Responses
 
         SendMessageResponse() = default;
     };
-
 
     struct GamePassProductInfoResponse
     {
