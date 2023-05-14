@@ -151,7 +151,7 @@ int64_t RoPP::Game::create_game_pass(std::string name, std::string description, 
 }
 
 
-int RoPP::Game::update_gamepass_price(long gamepass_id, int new_price)
+int RoPP::Game::update_gamepass_price(int64_t gamepass_id, int new_price)
 {
     Request req("https://apis.roblox.com/game-passes/v1/game-passes/" + std::to_string(gamepass_id) + "/details");
     req.set_header("User-Agent", USER_AGENT);

@@ -10,7 +10,7 @@ std::vector<int64_t> RoPP::Avatar::get_currently_wearing(int64_t user_id)
         "GET"
     ).JsonObj;
 
-    std::vector<long> AssetIDs;
+    std::vector<int64_t> AssetIDs;
     for (auto& id : res["assetIds"]) AssetIDs.push_back(id);
 
     return AssetIDs;

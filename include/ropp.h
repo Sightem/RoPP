@@ -53,24 +53,24 @@ namespace RoPP
 
 
         public:
-            Asset(long asset_id, std::string_view cookie)
+            Asset(int64_t asset_id, std::string_view cookie)
             {
                 this->m_AssetID = asset_id;
                 this->m_Cookie = cookie;
             }
 
-            Asset(long asset_id)
+            Asset(int64_t asset_id)
             {
                 this->m_AssetID = asset_id;
             }
 
-            void set_asset_id(long asset_id)
+            void set_asset_id(int64_t asset_id)
             {
                 this->m_AssetID = asset_id;
             }
 
         private:
-            long m_AssetID = 0;
+            int64_t m_AssetID = 0;
     };
 
     class Chat : public Auth
@@ -329,8 +329,8 @@ namespace RoPP
             json group_search(std::string keyword, bool prioritize_exact_match=true, int32_t limit=10);
 
             int64_t get_game_universe_id(int64_t place_id);
-            
             int64_t get_uid_from_cookie(const std::string& cookie);
+            
             void buy_gamepass(int64_t gamepass_id);
     };
 }

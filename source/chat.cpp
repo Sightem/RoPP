@@ -335,7 +335,7 @@ Responses::OneToOneConversationResponse RoPP::Chat::start_one_to_one_conversatio
     return Responses::OneToOneConversationResponse(res);
 }
 
-Responses::StartGroupConversationResponse RoPP::Chat::start_group_conversation(std::vector<long> UserIDs, std::string Title)
+Responses::StartGroupConversationResponse RoPP::Chat::start_group_conversation(std::vector<int64_t> UserIDs, std::string Title)
 {
     ordered_json Body =
     {
