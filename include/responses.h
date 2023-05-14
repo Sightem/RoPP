@@ -1824,4 +1824,18 @@ namespace Responses
 
         GamePassProductInfoResponse() = default;
     };
+
+    struct ThumbnailBase
+    {
+        int64_t target_id;
+        std::string state;
+        std::string image_url;
+
+        explicit ThumbnailBase(json Data)
+        {
+            target_id = Data["targetId"];
+            state = Data["state"];
+            image_url = Data["imageUrl"];
+        }
+    };
 }

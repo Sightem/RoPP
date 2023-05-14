@@ -267,6 +267,12 @@ namespace RoPP
             int64_t user_id = 0;
     };
 
+    class Thumbnail
+    {
+        public:
+            std::vector<Responses::ThumbnailBase> get_avatar_headshots(const std::vector<int64_t>& user_ids, const std::string& size="48x48", const std::string& format="Png", bool is_circular=false);
+    };
+
 
     class Session : public Auth
     {
@@ -330,6 +336,7 @@ namespace RoPP
 
             int64_t get_game_universe_id(int64_t place_id);
             int64_t get_uid_from_cookie(const std::string& cookie);
+            int64_t get_user_id_from_username(const std::string& username);
             
             void buy_gamepass(int64_t gamepass_id);
     };

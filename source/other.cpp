@@ -104,7 +104,25 @@ int64_t RoPP::Other::get_uid_from_cookie(const std::string& cookie)
     return res["id"];
 }
 
-std::string RoPP::Other::get_username_from_cookie(const std::string& cookie)
+int64_t RoPP::Other::get_user_id_from_username(const std::string &username)
+{
+    json data =
+    {
+        {"usernames", {username}},
+        {"excludeBannedUsers", true}
+    };
+
+    ordered_json res = Helper::MakeRobloxRequest
+    (
+        "https://users.roblox.com/v1/usernames/users",
+        "POST",
+        data
+    ).JsonObj;
+
+    return res["data"][0]["id"];
+}
+
+std::string RoPP::Other::get_username_from_cookie(const std::string &cookie)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
