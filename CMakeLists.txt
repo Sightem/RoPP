@@ -8,18 +8,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 include_directories(include)
 
-set(SOURCE_FILES
-    source/helper.cpp
-    source/group.cpp
-    source/avatar.cpp
-    source/asset.cpp
-    source/trade.cpp
-    source/auth.cpp
-    source/user.cpp
-    source/session.cpp
-    source/other.cpp
-    source/game.cpp
-    source/chat.cpp
+file(GLOB_RECURSE SOURCE_FILES
+    "${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp"
 )
 
 add_library(ropp ${SOURCE_FILES})
