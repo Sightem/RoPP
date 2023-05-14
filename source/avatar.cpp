@@ -2,7 +2,7 @@
 #include "../include/helper.h"
 #include "../include/responses.h"
 
-std::vector<long> RoPP::Avatar::get_currently_wearing(long user_id)
+std::vector<int64_t> RoPP::Avatar::get_currently_wearing(int64_t user_id)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -16,7 +16,7 @@ std::vector<long> RoPP::Avatar::get_currently_wearing(long user_id)
     return AssetIDs;
 }
 
-Responses::AvatarResponse RoPP::Avatar::get_avatar(long user_id)
+Responses::AvatarResponse RoPP::Avatar::get_avatar(int64_t user_id)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -27,7 +27,7 @@ Responses::AvatarResponse RoPP::Avatar::get_avatar(long user_id)
     return Responses::AvatarResponse(res);
 }
 
-Responses::OutfitDetailsResponse RoPP::Avatar::get_outfit_details(long outfit_id)
+Responses::OutfitDetailsResponse RoPP::Avatar::get_outfit_details(int64_t outfit_id)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -38,7 +38,7 @@ Responses::OutfitDetailsResponse RoPP::Avatar::get_outfit_details(long outfit_id
     return Responses::OutfitDetailsResponse(res);
 }
 
-Responses::GetOutfitsResponse RoPP::Avatar::get_outfits(long user_id, int page, int items_per_page, bool is_editable)
+Responses::GetOutfitsResponse RoPP::Avatar::get_outfits(int64_t user_id, int page, int items_per_page, bool is_editable)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -77,7 +77,7 @@ bool RoPP::Avatar::set_body_scales(json scales)
     return res["success"];
 }
 
-bool RoPP::Avatar::remove_asset(long asset_id)
+bool RoPP::Avatar::remove_asset(int64_t asset_id)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -109,7 +109,7 @@ bool RoPP::Avatar::set_player_avatar_type(std::string_view avatar_type)
     return res["success"];
 }
 
-bool RoPP::Avatar::wear_asset(long asset_id)
+bool RoPP::Avatar::wear_asset(int64_t asset_id)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (

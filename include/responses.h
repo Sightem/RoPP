@@ -1102,18 +1102,18 @@ namespace Responses
 
     struct Role
     {
-        std::string Name;
-        int Rank;
-        long ID;
+        std::string name;
+        int rank;
+        int64_t id;
 
         explicit Role(json j)
         {
             if (j.contains("name"))
-                Name = j["name"];
+                name = j["name"];
             if (j.contains("rank"))
-                Rank = j["rank"];
+                rank = j["rank"];
             if (j.contains("id"))
-                ID = j["id"];
+                id = j["id"];
         }
 
         Role() = default;
@@ -1267,14 +1267,14 @@ namespace Responses
 
     struct ChatConversationTitle
     {
-        std::string TitleForViewer;
+        std::string title_for_viewer;
 
-        bool IsDefaultTitle;
+        bool is_default_title;
 
         explicit ChatConversationTitle(json j)
         {
-            TitleForViewer = j["titleForViewer"];
-            IsDefaultTitle = j["isDefaultTitle"];
+            title_for_viewer = j["titleForViewer"];
+            is_default_title = j["isDefaultTitle"];
         }
 
         ChatConversationTitle() {}
@@ -1282,7 +1282,7 @@ namespace Responses
 
     struct ChatConversation
     {
-        long id;
+        int64_t id;
         std::string title;
         User initiator;
         bool has_unread_messages;
@@ -1333,41 +1333,41 @@ namespace Responses
 
     struct FriendsOnline
     {
-        std::string UserPresenceType;
-        std::string UserLocationType;
-        std::string lastLocation;
-        std::string GameInstanceId;
-        std::string Username;
-        std::string DisplayName;
+        std::string user_presence_type;
+        std::string user_location_type;
+        std::string last_location;
+        std::string game_instance_id;
+        std::string username;
+        std::string display_name;
 
-        long PlaceID;
-        long UniverseID;
-        long UID;
+        int64_t place_id;
+        int64_t universe_id;
+        int64_t uid;
 
-        Timestamp LastOnline;
+        Timestamp last_online;
 
         explicit FriendsOnline(json j)
         {
             if (j.contains("userPresenceType"))
-                UserPresenceType = j["userPresenceType"];
+                user_presence_type = j["userPresenceType"];
             if (j.contains("userLocationType"))
-                UserLocationType = j["userLocationType"];
+                user_location_type = j["userLocationType"];
             if (j.contains("lastLocation"))
-                lastLocation = j["lastLocation"];
+                last_location = j["lastLocation"];
             if (j.contains("gameInstanceId"))
-                GameInstanceId = j["gameInstanceId"];
+                game_instance_id = j["gameInstanceId"];
             if (j.contains("name"))
-                Username = j["name"];
+                username = j["name"];
             if (j.contains("displayName"))
-                DisplayName = j["displayName"];
+                display_name = j["displayName"];
             if (j.contains("placeId"))
-                PlaceID = j["placeId"];
+                place_id = j["placeId"];
             if (j.contains("universeId"))
-                UniverseID = j["universeId"];
+                universe_id = j["universeId"];
             if (j.contains("id"))
-                UID = j["id"];
+                uid = j["id"];
             if (j.contains("lastOnline"))
-                LastOnline = Timestamp(j["lastOnline"].get<std::string>());
+                last_online = Timestamp(j["lastOnline"].get<std::string>());
         }
 
         FriendsOnline() = default;
@@ -1469,34 +1469,34 @@ namespace Responses
 
     struct ResellerAgent
     {
-        std::string Username;
-        std::string Type;
-        long UID;
+        std::string username;
+        std::string type;
+        int64_t user_id;
 
         explicit ResellerAgent(json j)
         {
-            Username = j["name"];
-            Type = j["type"];
-            UID = j["id"];
+            username = j["name"];
+            type = j["type"];
+            user_id = j["id"];
         }
         ResellerAgent() = default;
     };
 
     struct ResellerData
     {
-        int userAssetId;
+        int user_asset_id;
         int price;
-        int serialNumber;
+        int serial_number;
 
-        ResellerAgent Seller;
+        ResellerAgent seller;
 
-        explicit ResellerData(json resellerData)
+        explicit ResellerData(json reseller_data)
         {
-            userAssetId = resellerData["userAssetId"];
-            price = resellerData["price"];
-            serialNumber = resellerData["serialNumber"];
+            user_asset_id = reseller_data["userAssetId"];
+            price = reseller_data["price"];
+            serial_number = reseller_data["serialNumber"];
 
-            Seller = ResellerAgent(resellerData["seller"]);
+            seller = ResellerAgent(reseller_data["seller"]);
         }
 
         ResellerData() = default;
@@ -1611,7 +1611,8 @@ namespace Responses
             {72, "Dress Skirt Accessory"},
             {73, "Font Family"},
             {74, "Font Face"},
-            {75, "MeshHiddenSurfaceRemoval"}};
+            {75, "MeshHiddenSurfaceRemoval"}
+        };
 
         explicit AssetInfo(json Data)
         {
@@ -1638,42 +1639,42 @@ namespace Responses
 
     struct GameInstance
     {
-        std::string ID;
-        std::string AccessCode;
+        std::string id;
+        std::string access_code;
 
-        int VIPServerID;
-        int MaxPlayers;
-        int Playing;
-        int FPS;
-        double Ping;
-        Responses::User Owner;
+        int64_t vip_server_id;
+        int max_players;
+        int playing;
+        int fps;
+        double ping;
+        Responses::User owner;
 
-        std::vector<std::string> PlayerTokens;
+        std::vector<std::string> player_tokens;
         explicit GameInstance(json instance)
         {
             if (instance.contains("id"))
-                ID = instance["id"];
+                id = instance["id"];
             if (instance.contains("maxPlayers"))
-                MaxPlayers = instance["maxPlayers"];
+                max_players = instance["maxPlayers"];
             if (instance.contains("playing") && !instance["playing"].is_null())
-                Playing = instance["playing"];
+                playing = instance["playing"];
             if (instance.contains("playerTokens"))
             {
                 for (auto &element : instance["playerTokens"])
                 {
-                    PlayerTokens.emplace_back(element);
+                    player_tokens.emplace_back(element);
                 }
             }
             if (instance.contains("fps"))
-                FPS = instance["fps"];
+                fps = instance["fps"];
             if (instance.contains("ping"))
-                Ping = instance["ping"];
+                ping = instance["ping"];
             if (instance.contains("vipServerId"))
-                VIPServerID = instance["vipServerId"];
+                vip_server_id = instance["vipServerId"];
             if (instance.contains("accessCode"))
-                AccessCode = instance["accessCode"];
+                access_code = instance["accessCode"];
             if (instance.contains("owner"))
-                Owner = Responses::User(instance["owner"]);
+                owner = Responses::User(instance["owner"]);
         }
     };
 

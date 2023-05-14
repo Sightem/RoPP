@@ -29,16 +29,16 @@ namespace RoPP
     class Avatar : public Auth
     {
         public:
-            std::vector<long> get_currently_wearing(long user_id);
-            Responses::AvatarResponse get_avatar(long user_id);
-            Responses::OutfitDetailsResponse get_outfit_details(long outfit_id);
-            Responses::GetOutfitsResponse get_outfits(long user_id, int page=1, int items_per_page=25, bool is_editable=false);
+            std::vector<int64_t> get_currently_wearing(int64_t user_id);
+            Responses::AvatarResponse get_avatar(int64_t user_id);
+            Responses::OutfitDetailsResponse get_outfit_details(int64_t outfit_id);
+            Responses::GetOutfitsResponse get_outfits(int64_t user_id, int page=1, int items_per_page=25, bool is_editable=false);
 
             bool set_body_colors(json colors);
             bool set_body_scales(json scales);
             bool set_player_avatar_type(std::string_view avatar_type);
-            bool remove_asset(long asset_id);
-            bool wear_asset(long asset_id);
+            bool remove_asset(int64_t asset_id);
+            bool wear_asset(int64_t asset_id);
     };
     
     class Asset : public Auth
@@ -136,53 +136,55 @@ namespace RoPP
             std::vector<Responses::GameInstance> GetGameInstances(std::string Type="Public", std::string Sort="Asc", int Limit=100, bool ExcludeFullGames=false);
             Responses::GameSocialLinks GetSocialLinks();
 
-            long create_game_pass(std::string name, std::string description, long price, std::string icon_path);
-            int update_gamepass_price(long gamepass_id, int new_price);
+            int64_t create_game_pass(std::string name, std::string description, long price, std::string icon_path);
+            int update_gamepass_price(int64_t gamepass_id, int new_price);
 
-            long GetUniverseID();
+            int64_t GetUniverseID();
 
 
         public:
-            Game(long PlaceID, std::string_view cookie)
+            Game(int64_t PlaceID, std::string_view cookie)
             {
-                this->PlaceID = PlaceID;
-                this->UniverseID = GetUniverseID();
+                this->m_PlaceID = PlaceID;
+                this->m_UniverseID = GetUniverseID();
                 this->m_Cookie = cookie;
             }
 
-            Game(long PlaceID)
+            Game(int64_t PlaceID)
             {
-                this->PlaceID = PlaceID;
-                this->UniverseID = GetUniverseID();
+                this->m_PlaceID = PlaceID;
+                this->m_UniverseID = GetUniverseID();
             }
 
-            void SetPlaceID(long PlaceID)
+            void SetPlaceID(int64_t PlaceID)
             {
-                this->PlaceID = PlaceID;
+                this->m_PlaceID = PlaceID;
+                this->m_UniverseID = GetUniverseID();
             }
 
         private:
-            long PlaceID = 0;
-            long UniverseID = 0;
+            int64_t m_PlaceID = 0;
+            int64_t m_UniverseID = 0;
     };
 
     class Group : public Auth
     {
         public:
-            Responses::Group get_group_info();
-            void delete_group_wall_post(int64_t post_id);
-            void delete_group_wall_posts_by_user(int64_t user_id);
-            Responses::GroupRoles get_group_roles();
-            void set_group_role(int64_t user_id, int64_t role_id);
-            Responses::GroupRole get_user_role(int64_t user_id);
+            std::vector<Responses::GroupExperience> get_group_games(const std::string& access_filter="All", const std::string& sort="Asc", int32_t limit=10);
+            Responses::AuditPage get_audit_log(const std::string& action_type="All", int64_t user_id=0, const std::string& sort="Asc", int32_t limit=10);
+            std::vector<Responses::GroupNamehistory> get_name_history(const std::string& sort="Asc", int32_t limit=10);
+            std::vector<Responses::GroupWallPost> get_group_wall(const std::string& sort="Asc", int32_t limit=10);
             Responses::ChangeRoleResponse change_role(int64_t user_id, int change);
             Responses::ChangeRoleResponse demote(int64_t user_id);
-            void remove_user(int64_t user_id);
-            Responses::AuditPage get_audit_log(std::string action_type="All", int64_t user_id=0, std::string sort="Asc", int32_t limit=10);
-            std::vector<Responses::GroupNamehistory> get_name_history(std::string sort="Asc", int32_t limit=10);
-            std::vector<Responses::GroupWallPost> get_group_wall(std::string sort="Asc", int32_t limit=10);
-            std::vector<Responses::GroupExperience> get_group_games(std::string access_filter="All", std::string sort="Asc", int32_t limit=10);
+            Responses::GroupRole get_user_role(int64_t user_id);
+            Responses::GroupRoles get_group_roles();
+            Responses::Group get_group_info();
 
+            void delete_group_wall_posts_by_user(int64_t user_id);
+            void set_group_role(int64_t user_id, int64_t role_id);
+            void delete_group_wall_post(int64_t post_id);
+            void remove_user(int64_t user_id);
+        
         public:
             Group(int64_t group_id, std::string_view cookie)
             {
@@ -212,7 +214,7 @@ namespace RoPP
     class Trade : public Auth
     {
         public:
-            std::vector<Responses::TradeData> get_trades(std::string trade_status_type="Inbound", std::string sort="Asc", int32_t limit=10);
+            std::vector<Responses::TradeData> get_trades(const std::string& trade_status_type="Inbound", const std::string& sort="Asc", int32_t limit=10);
             json get_trade_info(int64_t trade_id);
             Responses::CanTradeWithResponse can_trade_with(int64_t user_id);
             //TODO: counter
@@ -232,37 +234,37 @@ namespace RoPP
         public:
             Responses::User GetUser();
 
-            std::vector<Responses::User> GetFriends(std::string Sort="Alphabetical");
-            std::vector<Responses::User> GetFollowers(std::string Sort="Asc", int Limit=10);
-            std::vector<Responses::User> GetFollowings(std::string Sort="Asc", int Limit=10);
-            std::vector<Responses::Experience> GetExperiences(std::string Sort="Asc", int Limit=10);
-            std::vector<Responses::Experience> GetFavoriteExperiences(std::string Sort="Asc", int Limit=10);
-            std::vector<std::string> GetPastUsernames(std::string Sort="Asc", int Limit=10);
+            std::vector<Responses::User> GetFriends(const std::string& sort="Alphabetical");
+            std::vector<Responses::User> GetFollowers(const std::string& sort="Asc", int limit=10);
+            std::vector<Responses::User> GetFollowings(const std::string&  sort="Asc", int limit=10);
+            std::vector<Responses::Experience> GetExperiences(const std::string& sort="Asc", int limit=10);
+            std::vector<Responses::Experience> GetFavoriteExperiences(const std::string& sort="Asc", int limit=10);
+            std::vector<std::string> GetPastUsernames(const std::string& sort="Asc", int limit=10);
             std::vector<Responses::GroupWithRole> GetGroups();
             std::vector<Responses::Badge> GetBadges();
             Responses::Group GetPrimaryGroup();
-            std::vector<Responses::InventoryAsset>  GetInventory(std::vector<std::string> AssetType, std::string Sort="Asc", int Limit=10);
+            std::vector<Responses::InventoryAsset> GetInventory(const std::vector<std::string>& AssetType, const std::string& sort="Asc", int limit=10);
 
             bool CanInventoryBeViewed();
 
         public:
-            User(long UID)
+            User(int64_t UID)
             {
-                this->UID = UID;
+                this->user_id = UID;
             }
 
             User()
             {
-                this->UID = 0;
+                this->user_id = 0;
             }
 
-            void SetUID(long UID)
+            void SetUID(int64_t UID)
             {
-                this->UID = UID;
+                this->user_id = UID;
             }
 
         private:
-            long UID = 0;
+            int64_t user_id = 0;
     };
 
 
@@ -300,7 +302,7 @@ namespace RoPP
             void SetFavoriteGame(int64_t place_id, bool Favorite);
             void SetDescription(const std::string& Description);
             void SetGender(std::string Gender);
-            void ChangePassword(const std::string& OldPassword, const std::string& NewPassword);
+            void ChangePassword(const std::string& old_password, const std::string& new_password);
             void AcceptFriendRequest(int64_t user_id);
             void DeclineFriendRequest(int64_t user_id);
             void DeclineAllFriendRequests();
@@ -316,16 +318,19 @@ namespace RoPP
     class Other : public Auth
     {
         public:
-
             std::vector<Responses::UserPresence> get_users_presence(const std::vector<int64_t>& user_ids);
             std::vector<Responses::SearchedUser> user_search(std::string keyword, int32_t limit=10);
-            json group_search(std::string keyword, bool prioritize_exact_match=true, int32_t limit=10);
-            std::string validate_username(const std::string& username);
-            int64_t get_game_universe_id(int64_t place_id);
-            int64_t get_uid_from_cookie(const std::string& cookie);
-            std::string get_username_from_cookie(const std::string& cookie);
+            
             Responses::GamePassProductInfoResponse get_gamepass_product_info(int64_t gamepass_id);
-            void buy_gamepass(int64_t gamepass_id);
+            
+            std::string validate_username(const std::string& username);
+            std::string get_username_from_cookie(const std::string& cookie);
+            
+            json group_search(std::string keyword, bool prioritize_exact_match=true, int32_t limit=10);
 
+            int64_t get_game_universe_id(int64_t place_id);
+            
+            int64_t get_uid_from_cookie(const std::string& cookie);
+            void buy_gamepass(int64_t gamepass_id);
     };
 }

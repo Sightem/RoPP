@@ -2,11 +2,11 @@
 #include "../include/helper.h"
 #include "../include/request.hpp"
 
-long RoPP::Game::GetUniverseID()
+int64_t RoPP::Game::GetUniverseID()
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
-        "https://apis.roblox.com/universes/v1/places/" + std::to_string(this->PlaceID) + "/universe",
+        "https://apis.roblox.com/universes/v1/places/" + std::to_string(this->m_PlaceID) + "/universe",
         "GET"
     ).JsonObj;
 
@@ -17,7 +17,7 @@ Responses::PlaceInfoResponse RoPP::Game::GetPlaceInfo()
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
-        "https://games.roblox.com/v1/games?universeIds=" + std::to_string(this->UniverseID),
+        "https://games.roblox.com/v1/games?universeIds=" + std::to_string(this->m_UniverseID),
         "GET"
     ).JsonObj;
 
@@ -28,7 +28,7 @@ Responses::ExperienceVotes RoPP::Game::GetVotes()
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
-        "https://games.roblox.com/v1/games/votes?universeIds=" + std::to_string(this->UniverseID),
+        "https://games.roblox.com/v1/games/votes?universeIds=" + std::to_string(this->m_UniverseID),
         "GET"
     ).JsonObj;
 
@@ -39,7 +39,7 @@ std::vector<Responses::GamePass> RoPP::Game::GetGamepasses(std::string Sort, int
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
-        "https://games.roblox.com/v1/games/" + std::to_string(this->UniverseID) + "/game-passes?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
+        "https://games.roblox.com/v1/games/" + std::to_string(this->m_UniverseID) + "/game-passes?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
         "GET"
     ).JsonObj;
 
@@ -57,7 +57,7 @@ Responses::DeveloperProductCreateResponse RoPP::Game::CreateDeveloperProduct(std
     //untested
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://develop.roblox.com/v1/universes/" + std::to_string(this->UniverseID) + "/developerproducts?name=" + Name + "&description=" + Description + "&priceInRobux=" + std::to_string(Price) + "&iconImageAssetId=" + std::to_string(IconImageAssetID),
+        "https://develop.roblox.com/v1/universes/" + std::to_string(this->m_UniverseID) + "/developerproducts?name=" + Name + "&description=" + Description + "&priceInRobux=" + std::to_string(Price) + "&iconImageAssetId=" + std::to_string(IconImageAssetID),
         "POST",
         this->m_Cookie,
         CSRF_REQUIRED
@@ -74,7 +74,7 @@ std::vector<Responses::GameInstance> RoPP::Game::GetGameInstances(std::string Ty
     {
         res = Helper::MakeRobloxRequest
         (
-            "https://games.roblox.com/v1/games/" + std::to_string(this->PlaceID) + "/servers/" + Type + "?sortOrder=" + Sort + "&excludeFullGames=" + std::to_string(ExcludeFullGames) + "&limit=" + std::to_string(Limit),
+            "https://games.roblox.com/v1/games/" + std::to_string(this->m_PlaceID) + "/servers/" + Type + "?sortOrder=" + Sort + "&excludeFullGames=" + std::to_string(ExcludeFullGames) + "&limit=" + std::to_string(Limit),
             "GET"
         ).JsonObj;
     }
@@ -82,7 +82,7 @@ std::vector<Responses::GameInstance> RoPP::Game::GetGameInstances(std::string Ty
     {
         res = Helper::MakeAuthedRobloxRequest
         (
-            "https://games.roblox.com/v1/games/" + std::to_string(this->PlaceID) + "/servers/" + Type + "?sortOrder=" + Sort + "&excludeFullGames=" + std::to_string(ExcludeFullGames) + "&limit=" + std::to_string(Limit),
+            "https://games.roblox.com/v1/games/" + std::to_string(this->m_PlaceID) + "/servers/" + Type + "?sortOrder=" + Sort + "&excludeFullGames=" + std::to_string(ExcludeFullGames) + "&limit=" + std::to_string(Limit),
             "GET",
             this->m_Cookie,
             CSRF_REQUIRED
@@ -102,7 +102,7 @@ Responses::GameSocialLinks RoPP::Game::GetSocialLinks()
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://games.roblox.com/v1/games/" + std::to_string(this->UniverseID) + "/social-links/list",
+        "https://games.roblox.com/v1/games/" + std::to_string(this->m_UniverseID) + "/social-links/list",
         "GET",
         this->m_Cookie,
         CSRF_NOT_REQUIRED
@@ -115,7 +115,7 @@ std::vector<Responses::Badge> RoPP::Game::GetGameBadges(std::string Sort, int Li
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
-        "https://badges.roblox.com/v1/universes/" + std::to_string(this->UniverseID) + "/badges?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
+        "https://badges.roblox.com/v1/universes/" + std::to_string(this->m_UniverseID) + "/badges?sortOrder=" + Sort + "&limit=" + std::to_string(Limit),
         "GET"
     ).JsonObj;
 
@@ -128,7 +128,7 @@ std::vector<Responses::Badge> RoPP::Game::GetGameBadges(std::string Sort, int Li
     return badges;
 }
 
-long RoPP::Game::create_game_pass(std::string name, std::string description, long price, std::string icon_path)
+int64_t RoPP::Game::create_game_pass(std::string name, std::string description, long price, std::string icon_path)
 {
     Request req("https://apis.roblox.com/game-passes/v1/game-passes");
     req.set_header("User-Agent", USER_AGENT);
@@ -140,7 +140,7 @@ long RoPP::Game::create_game_pass(std::string name, std::string description, lon
     Form form = req.form_data();
     form.append_string("Name", name);
     form.append_string("Description", description);
-    form.append_string("UniverseId", std::to_string(this->UniverseID));
+    form.append_string("UniverseId", std::to_string(this->m_UniverseID));
     form.append_file("File", icon_path);
 
     Response response = req.form(form);

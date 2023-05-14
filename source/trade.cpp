@@ -26,7 +26,7 @@ void RoPP::Trade::decline_trade(int64_t trade_id)
     );
 }
 
-std::vector<Responses::TradeData> RoPP::Trade::get_trades(std::string trade_status_type, std::string sort, int32_t limit)
+std::vector<Responses::TradeData> RoPP::Trade::get_trades(const std::string& trade_status_type, const std::string& sort, int32_t limit)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (

@@ -12,7 +12,7 @@ Responses::Group RoPP::Group::get_group_info()
     return Responses::Group(res);
 }
 
-std::vector<Responses::GroupNamehistory> RoPP::Group::get_name_history(std::string sort, int32_t limit)
+std::vector<Responses::GroupNamehistory> RoPP::Group::get_name_history(const std::string& sort, int32_t limit)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -29,7 +29,7 @@ std::vector<Responses::GroupNamehistory> RoPP::Group::get_name_history(std::stri
     return NameHistory;
 }
 
-std::vector<Responses::GroupWallPost> RoPP::Group::get_group_wall(std::string sort, int32_t limit)
+std::vector<Responses::GroupWallPost> RoPP::Group::get_group_wall(const std::string& sort, int32_t limit)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -46,7 +46,7 @@ std::vector<Responses::GroupWallPost> RoPP::Group::get_group_wall(std::string so
     return posts;
 }
 
-std::vector<Responses::GroupExperience> RoPP::Group::get_group_games(std::string access_filter, std::string sort, int32_t limit)
+std::vector<Responses::GroupExperience> RoPP::Group::get_group_games(const std::string& access_filter, const std::string& sort, int32_t limit)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -143,7 +143,7 @@ Responses::ChangeRoleResponse RoPP::Group::change_role(int64_t user_id, int chan
     {
         if (group.group.group_id == this->m_GroupID)
         {
-            user_role = group.role.ID;
+            user_role = group.role.id;
             break;
         }
     }
@@ -194,7 +194,7 @@ void RoPP::Group::remove_user(int64_t UserID)
     );
 }
 
-Responses::AuditPage RoPP::Group::get_audit_log(std::string action_type, int64_t user_id, std::string sort, int32_t limit)
+Responses::AuditPage RoPP::Group::get_audit_log(const std::string& action_type, int64_t user_id, const std::string& sort, int32_t limit)
 {
     std::string url = "https://groups.roblox.com/v1/groups/" + std::to_string(this->m_GroupID) + "/audit-log?limit=" + std::to_string(limit) + "&sortOrder=" + sort;
 
