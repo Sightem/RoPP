@@ -270,6 +270,16 @@ namespace RoPP
     class Thumbnail
     {
         public:
+            std::vector<Responses::Thumbnail> get_assets_thumbnails(const std::vector<int64_t>& asset_ids, const std::string& size="30x30", const std::string& format="Png", bool is_circular=false);
+            Responses::Thumbnail get_asset_thumbnail_3d(int64_t asset_id);
+            std::vector<Responses::Thumbnail> get_badges_thumbnails(const std::vector<int64_t>& badge_ids, const std::string& size="150x150", const std::string& format="Png", bool is_circular=false);
+            std::vector<Responses::Thumbnail> get_bundles_thumbnails(const std::vector<int64_t>& bundle_ids, const std::string& size="150x150", const std::string& format="Png", bool is_circular=false);
+            std::vector<Responses::Thumbnail> get_gamepasses_thumbails(const std::vector<int64_t>& gamepass_ids, const std::string& size="150x150", const std::string& format="Png", bool is_circular=false);
+            
+            
+            
+            
+            
             std::vector<Responses::Thumbnail> get_avatar_headshots(const std::vector<int64_t>& user_ids, const std::string& size="48x48", const std::string& format="Png", bool is_circular=false);
     };
 

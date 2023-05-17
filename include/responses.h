@@ -1835,7 +1835,7 @@ namespace Responses
         {
             target_id = Data["targetId"];
             state = Data["state"];
-            image_url = Data["imageUrl"];
+            Data["imageUrl"].is_null() ? image_url = "" : image_url = Data["imageUrl"];
         }
     };
 }
