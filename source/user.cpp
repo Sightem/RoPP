@@ -3,7 +3,7 @@
 #include "../include/request.hpp"
 #include "../include/responses.h"
 
-std::vector<Responses::User> RoPP::User::GetFriends(const std::string& sort)
+std::vector<Responses::User> RoPP::User::get_friends(const std::string& sort)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -21,7 +21,7 @@ std::vector<Responses::User> RoPP::User::GetFriends(const std::string& sort)
     return Friends;
 }
 
-std::vector<Responses::User> RoPP::User::GetFollowers(const std::string& sort, int limit)
+std::vector<Responses::User> RoPP::User::get_followers(const std::string& sort, int limit)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -39,7 +39,7 @@ std::vector<Responses::User> RoPP::User::GetFollowers(const std::string& sort, i
     return Followers;
 }
 
-std::vector<Responses::User> RoPP::User::GetFollowings(const std::string& sort, int limit)
+std::vector<Responses::User> RoPP::User::get_followings(const std::string& sort, int limit)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -57,7 +57,7 @@ std::vector<Responses::User> RoPP::User::GetFollowings(const std::string& sort, 
     return Followings;
 }
 
-std::vector<Responses::GroupWithRole> RoPP::User::GetGroups()
+std::vector<Responses::GroupWithRole> RoPP::User::get_groups()
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -75,7 +75,7 @@ std::vector<Responses::GroupWithRole> RoPP::User::GetGroups()
     return Groups;
 }
 
-std::vector<Responses::Badge> RoPP::User::GetBadges()
+std::vector<Responses::Badge> RoPP::User::get_badges()
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -93,7 +93,7 @@ std::vector<Responses::Badge> RoPP::User::GetBadges()
     return Badges;
 }
 
-std::vector<Responses::Experience> RoPP::User::GetExperiences(const std::string& sort, int limit)
+std::vector<Responses::Experience> RoPP::User::get_experiences(const std::string& sort, int limit)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -112,7 +112,7 @@ std::vector<Responses::Experience> RoPP::User::GetExperiences(const std::string&
     
 }
 
-std::vector<Responses::Experience> RoPP::User::GetFavoriteExperiences(const std::string& sort, int limit)
+std::vector<Responses::Experience> RoPP::User::get_favorite_experiences(const std::string& sort, int limit)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -130,7 +130,7 @@ std::vector<Responses::Experience> RoPP::User::GetFavoriteExperiences(const std:
     return Experiences;
 }
 
-std::vector<std::string> RoPP::User::GetPastUsernames(const std::string& sort, int limit)
+std::vector<std::string> RoPP::User::get_past_usernames(const std::string& sort, int limit)
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -148,7 +148,7 @@ std::vector<std::string> RoPP::User::GetPastUsernames(const std::string& sort, i
     return PastUsernames;
 }
 
-Responses::Group RoPP::User::GetPrimaryGroup()
+Responses::Group RoPP::User::get_primary_group()
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -159,7 +159,7 @@ Responses::Group RoPP::User::GetPrimaryGroup()
     return Responses::Group(res);
 }
 
-std::vector<Responses::InventoryAsset> RoPP::User::GetInventory(const std::vector<std::string>& AssetType, const std::string& Sort, int Limit)
+std::vector<Responses::InventoryAsset> RoPP::User::get_inventory(const std::vector<std::string>& AssetType, const std::string& Sort, int Limit)
 {
     std::string AssetTypeString = "";
     for (size_t i = 0; i < AssetType.size(); i++)
@@ -186,7 +186,7 @@ std::vector<Responses::InventoryAsset> RoPP::User::GetInventory(const std::vecto
     return Assets;
 }
 
-bool RoPP::User::CanInventoryBeViewed()
+bool RoPP::User::can_inventory_be_viewed()
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -197,7 +197,7 @@ bool RoPP::User::CanInventoryBeViewed()
     return res["canView"];
 }
 
-Responses::User RoPP::User::GetUser()
+Responses::User RoPP::User::get_user()
 {
     ordered_json res = Helper::MakeRobloxRequest
     (

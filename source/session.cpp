@@ -3,7 +3,7 @@
 #include "../include/request.hpp"
 #include "../include/responses.h"
 
-Responses::BirthdateResponse RoPP::Session::GetBirthDate()
+Responses::BirthdateResponse RoPP::Session::get_birth_date()
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -16,7 +16,7 @@ Responses::BirthdateResponse RoPP::Session::GetBirthDate()
     return Responses::BirthdateResponse(res);
 }
 
-std::string RoPP::Session::GetDescription()
+std::string RoPP::Session::get_description()
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -29,7 +29,7 @@ std::string RoPP::Session::GetDescription()
     return res["description"];
 }
 
-Responses::PhoneInfo RoPP::Session::GetPhoneInfo()
+Responses::PhoneInfo RoPP::Session::get_phone_info()
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -42,11 +42,11 @@ Responses::PhoneInfo RoPP::Session::GetPhoneInfo()
     return Responses::PhoneInfo(res);
 }
 
-long RoPP::Session::GetRobuxBalance()
+long RoPP::Session::get_robux_balance()
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://economy.roblox.com/v1/users/" + std::to_string(this->GetUserID()) + "/currency",
+        "https://economy.roblox.com/v1/users/" + std::to_string(this->get_user_id()) + "/currency",
         "GET",
         this->m_Cookie,
         CSRF_REQUIRED
@@ -55,11 +55,11 @@ long RoPP::Session::GetRobuxBalance()
     return res["robux"];
 }
 
-bool RoPP::Session::HasPremium()
+bool RoPP::Session::has_premium()
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://premiumfeatures.roblox.com/v1/users/" + std::to_string(this->GetUserID()) + "/validate-membership",
+        "https://premiumfeatures.roblox.com/v1/users/" + std::to_string(this->get_user_id()) + "/validate-membership",
         "GET",
         this->m_Cookie,
         CSRF_NOT_REQUIRED
@@ -68,7 +68,7 @@ bool RoPP::Session::HasPremium()
     return res;
 }
 
-int RoPP::Session::GetFriendsCount()
+int RoPP::Session::get_friends_count()
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -81,11 +81,11 @@ int RoPP::Session::GetFriendsCount()
     return res["count"];
 }
 
-Responses::FriendRequestsResponse RoPP::Session::GetFriendRequests(std::string Sort, int Limit)
+Responses::FriendRequestsResponse RoPP::Session::get_friend_requests(const std::string& sort, int limit)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://friends.roblox.com/v1/my/friends/requests?" + Sort + "&limit=" + std::to_string(Limit),
+        "https://friends.roblox.com/v1/my/friends/requests?" + sort + "&limit=" + std::to_string(limit),
         "GET",
         this->m_Cookie,
         CSRF_REQUIRED
@@ -94,13 +94,13 @@ Responses::FriendRequestsResponse RoPP::Session::GetFriendRequests(std::string S
     return Responses::FriendRequestsResponse(res);
 }
 
-bool RoPP::Session::IsFavoriteGame(int64_t PlaceID)
+bool RoPP::Session::is_favorite_game(int64_t place_id)
 {
-    int64_t UniverseID = RoPP::Other().get_game_universe_id(PlaceID);
+    int64_t universe_id = RoPP::Other().get_game_universe_id(place_id);
 
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://games.roblox.com/v1/games/" + std::to_string(UniverseID) + "/favorites",
+        "https://games.roblox.com/v1/games/" + std::to_string(universe_id) + "/favorites",
         "GET",
         this->m_Cookie,
         CSRF_NOT_REQUIRED
@@ -109,18 +109,18 @@ bool RoPP::Session::IsFavoriteGame(int64_t PlaceID)
     return res["isFavorited"];
 }
 
-void RoPP::Session::SetFavoriteGame(int64_t PlaceID, bool Favorite)
+void RoPP::Session::set_favorite_game(int64_t place_id, bool favorite)
 {
-    int64_t UniverseID = RoPP::Other().get_game_universe_id(PlaceID);
+    int64_t universe_id = RoPP::Other().get_game_universe_id(place_id);
 
     json data = 
     {
-        {"isFavorited", Favorite}
+        {"isFavorited", favorite}
     };
 
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://games.roblox.com/v1/games/" + std::to_string(UniverseID) + "/favorites",
+        "https://games.roblox.com/v1/games/" + std::to_string(universe_id) + "/favorites",
         "POST",
         this->m_Cookie,
         CSRF_REQUIRED,
@@ -128,11 +128,11 @@ void RoPP::Session::SetFavoriteGame(int64_t PlaceID, bool Favorite)
     ).JsonObj;
 }
 
-double RoPP::Session::UnlockPin(int Pin)
+double RoPP::Session::unlock_pin(int pin)
 {
     json data = 
     {
-        {"pin", Pin}
+        {"pin", pin}
     };
 
     ordered_json res = Helper::MakeAuthedRobloxRequest
@@ -148,7 +148,7 @@ double RoPP::Session::UnlockPin(int Pin)
     return res["unlockedUntil"]; 
 }
 
-bool RoPP::Session::LockPin()
+bool RoPP::Session::lock_pin()
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -161,7 +161,7 @@ bool RoPP::Session::LockPin()
     return res["success"];
 }
 
-void RoPP::Session::ChangePassword(const std::string& old_password, const std::string& new_password)
+void RoPP::Session::change_password(const std::string& old_password, const std::string& new_password)
 {
     json data = 
     {
@@ -187,7 +187,7 @@ void RoPP::Session::ChangePassword(const std::string& old_password, const std::s
     }
 }
 
-bool RoPP::Session::SendFriendRequest(int64_t UID)
+bool RoPP::Session::send_friend_request(int64_t uid)
 {
     json data = 
     {
@@ -196,7 +196,7 @@ bool RoPP::Session::SendFriendRequest(int64_t UID)
 
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://friends.roblox.com/v1/users/" + std::to_string(UID) + "/request-friendship",
+        "https://friends.roblox.com/v1/users/" + std::to_string(uid) + "/request-friendship",
         "POST",
         this->m_Cookie,
         CSRF_REQUIRED,
@@ -206,7 +206,7 @@ bool RoPP::Session::SendFriendRequest(int64_t UID)
     return res["success"];
 }
 
-void RoPP::Session::AcceptFriendRequest(int64_t user_id)
+void RoPP::Session::accept_friend_request(int64_t user_id)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -217,7 +217,7 @@ void RoPP::Session::AcceptFriendRequest(int64_t user_id)
     ).JsonObj;
 }
 
-void RoPP::Session::DeclineFriendRequest(int64_t user_id)
+void RoPP::Session::decline_friend_request(int64_t user_id)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -228,7 +228,7 @@ void RoPP::Session::DeclineFriendRequest(int64_t user_id)
     ).JsonObj;
 }
 
-void RoPP::Session::DeclineAllFriendRequests()
+void RoPP::Session::decline_all_friend_requests()
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -239,7 +239,7 @@ void RoPP::Session::DeclineAllFriendRequests()
     ).JsonObj;
 }
 
-void RoPP::Session::BlockUser(int64_t user_id)
+void RoPP::Session::block_user(int64_t user_id)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -250,7 +250,7 @@ void RoPP::Session::BlockUser(int64_t user_id)
     ).JsonObj;
 }
 
-void RoPP::Session::UnblockUser(int64_t user_id)
+void RoPP::Session::unblock_user(int64_t user_id)
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -261,11 +261,11 @@ void RoPP::Session::UnblockUser(int64_t user_id)
     ).JsonObj;
 }
 
-void RoPP::Session::SetDescription(const std::string& Description)
+void RoPP::Session::set_description(const std::string& description)
 {
     json data = 
     {
-        {"description", Description}
+        {"description", description}
     };
 
     ordered_json res = Helper::MakeAuthedRobloxRequest
@@ -278,11 +278,11 @@ void RoPP::Session::SetDescription(const std::string& Description)
     ).JsonObj;
 }
 
-void RoPP::Session::SetGender(std::string Gender)
+void RoPP::Session::set_gender(std::string gender)
 {
     json data = 
     {
-        {"gender", Gender}
+        {"gender", gender}
     };
 
     ordered_json res = Helper::MakeAuthedRobloxRequest
@@ -295,11 +295,11 @@ void RoPP::Session::SetGender(std::string Gender)
     ).JsonObj;
 }
 
-std::vector<Responses::FriendsOnline> RoPP::Session::GetFriendsOnline()
+std::vector<Responses::FriendsOnline> RoPP::Session::get_friends_online()
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://friends.roblox.com/v1/users/" + std::to_string(this->GetUserID()) + "/friends/online",
+        "https://friends.roblox.com/v1/users/" + std::to_string(this->get_user_id()) + "/friends/online",
         "GET",
         this->m_Cookie,
         CSRF_REQUIRED
@@ -314,11 +314,11 @@ std::vector<Responses::FriendsOnline> RoPP::Session::GetFriendsOnline()
     return Friends;
 }
 
-Responses::User RoPP::Session::GetUser()
+Responses::User RoPP::Session::get_user()
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
-        "https://users.roblox.com/v1/users/" + std::to_string(this->GetUserID()),
+        "https://users.roblox.com/v1/users/" + std::to_string(this->get_user_id()),
         "GET",
         this->m_Cookie,
         CSRF_REQUIRED
@@ -327,7 +327,7 @@ Responses::User RoPP::Session::GetUser()
     return Responses::User(res);
 }
 
-int64_t RoPP::Session::GetUserID()
+int64_t RoPP::Session::get_user_id()
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (

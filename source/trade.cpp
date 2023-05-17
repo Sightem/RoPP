@@ -85,7 +85,7 @@ int RoPP::Trade::send_trade_request(int64_t target_uid, json user_offer, json us
                 {"robux", user_request["robux"]}
             },
             {
-                {"userId", Session.GetUserID()},
+                {"userId", Session.get_user_id()},
                 {"userAssetIds", user_offer["userAssetIds"]},
                 {"robux", user_request["robux"]}
             }

@@ -136,7 +136,7 @@ Responses::ChangeRoleResponse RoPP::Group::change_role(int64_t user_id, int chan
 {
     Responses::GroupRoles roles = this->get_group_roles();
     RoPP::User user(user_id);
-    std::vector<Responses::GroupWithRole> user_groups = user.GetGroups();
+    std::vector<Responses::GroupWithRole> user_groups = user.get_groups();
 
     int64_t user_role = 0;
     for (auto& group : user_groups)

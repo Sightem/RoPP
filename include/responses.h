@@ -1825,13 +1825,13 @@ namespace Responses
         GamePassProductInfoResponse() = default;
     };
 
-    struct ThumbnailBase
+    struct Thumbnail
     {
         int64_t target_id;
         std::string state;
         std::string image_url;
 
-        explicit ThumbnailBase(json Data)
+        explicit Thumbnail(json Data)
         {
             target_id = Data["targetId"];
             state = Data["state"];

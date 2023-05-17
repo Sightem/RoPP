@@ -2,7 +2,7 @@
 #include "../include/ropp.h"
 #include "../include/responses.h"
 
-std::vector<Responses::ThumbnailBase> RoPP::Thumbnail::get_avatar_headshots(const std::vector<int64_t>& user_ids, const std::string& size, const std::string& format, bool is_circular)
+std::vector<Responses::Thumbnail> RoPP::Thumbnail::get_avatar_headshots(const std::vector<int64_t>& user_ids, const std::string& size, const std::string& format, bool is_circular)
 {
     //https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=2057697144,87844870&size=48x48&format=Png&isCircular=false
     std::string url;
@@ -25,10 +25,10 @@ std::vector<Responses::ThumbnailBase> RoPP::Thumbnail::get_avatar_headshots(cons
         "GET"
     ).JsonObj;
 
-    std::vector<Responses::ThumbnailBase> thumbnails;
+    std::vector<Responses::Thumbnail> thumbnails;
     for (size_t i = 0; i < res["data"].size(); i++)
     {
-        thumbnails.push_back(Responses::ThumbnailBase(res["data"][i]));
+        thumbnails.push_back(Responses::Thumbnail(res["data"][i]));
     }
 
     return thumbnails;
