@@ -275,9 +275,8 @@ namespace RoPP
             std::vector<Responses::Thumbnail> get_badges_thumbnails(const std::vector<int64_t>& badge_ids, const std::string& size="150x150", const std::string& format="Png", bool is_circular=false);
             std::vector<Responses::Thumbnail> get_bundles_thumbnails(const std::vector<int64_t>& bundle_ids, const std::string& size="150x150", const std::string& format="Png", bool is_circular=false);
             std::vector<Responses::Thumbnail> get_gamepasses_thumbails(const std::vector<int64_t>& gamepass_ids, const std::string& size="150x150", const std::string& format="Png", bool is_circular=false);
-            
-            
-            
+            std::vector<Responses::Thumbnail> get_games_icons(const std::vector<int64_t>& place_ids, const std::string& return_policy="PlaceHolder", const std::string& size="50x50", const std::string& format="Png", bool is_circular=false);
+            std::vector<Responses::Thumbnail> get_groups_emblems(const std::vector<int64_t>& group_ids, const std::string& size="150x150", const std::string& format="Png", bool is_circular=false);
             
             
             std::vector<Responses::Thumbnail> get_avatar_headshots(const std::vector<int64_t>& user_ids, const std::string& size="48x48", const std::string& format="Png", bool is_circular=false);

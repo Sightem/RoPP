@@ -1,6 +1,7 @@
 #include "../include/request.hpp"
 #include "../include/ropp.h"
 #include "../include/responses.h"
+#include "ropp.h"
 
 std::vector<Responses::Thumbnail> RoPP::Thumbnail::get_assets_thumbnails(const std::vector<int64_t> &asset_ids, const std::string &size, const std::string &format, bool is_circular)
 {
@@ -132,6 +133,68 @@ std::vector<Responses::Thumbnail> RoPP::Thumbnail::get_gamepasses_thumbails(cons
 
     return thumbnails;
 }
+std::vector<Responses::Thumbnail> RoPP::Thumbnail::get_games_icons(const std::vector<int64_t> &place_ids, const std::string &return_policy, const std::string &size, const std::string &format, bool is_circular)
+{
+    std::string url;
+
+    std::string place_ids_str = "";
+    for (size_t i = 0; i < place_ids.size(); i++)
+    {
+        place_ids_str += std::to_string(place_ids[i]);
+        if (i != place_ids.size() - 1)
+        {
+            place_ids_str += ",";
+        }
+    }
+
+    url = "https://thumbnails.roblox.com/v1/places/gameicons?placeIds=" + place_ids_str + "&returnPolicy=" + return_policy + "&size=" + size + "&format=" + format + "&isCircular=" + (is_circular ? "true" : "false");
+
+    ordered_json res = Helper::MakeRobloxRequest
+    (
+        url,
+        "GET"
+    ).JsonObj;
+
+    std::vector<Responses::Thumbnail> thumbnails;
+    for (size_t i = 0; i < res["data"].size(); i++)
+    {
+        thumbnails.push_back(Responses::Thumbnail(res["data"][i]));
+    }
+
+    return thumbnails;
+}
+
+std::vector<Responses::Thumbnail> RoPP::Thumbnail::get_groups_emblems(const std::vector<int64_t> &group_ids, const std::string &size, const std::string &format, bool is_circular)
+{
+    std::string url;
+
+    std::string group_ids_str = "";
+    for (size_t i = 0; i < group_ids.size(); i++)
+    {
+        group_ids_str += std::to_string(group_ids[i]);
+        if (i != group_ids.size() - 1)
+        {
+            group_ids_str += ",";
+        }
+    }
+
+    url = "https://thumbnails.roblox.com/v1/groups/icons?groupIds=" + group_ids_str + "&size=" + size + "&format=" + format + "&isCircular=" + (is_circular ? "true" : "false");
+
+    ordered_json res = Helper::MakeRobloxRequest
+    (
+        url,
+        "GET"
+    ).JsonObj;
+
+    std::vector<Responses::Thumbnail> thumbnails;
+    for (size_t i = 0; i < res["data"].size(); i++)
+    {
+        thumbnails.push_back(Responses::Thumbnail(res["data"][i]));
+    }
+
+    return thumbnails;
+}
+
 std::vector<Responses::Thumbnail> RoPP::Thumbnail::get_avatar_headshots(const std::vector<int64_t> &user_ids, const std::string &size, const std::string &format, bool is_circular)
 {
     std::string url;
