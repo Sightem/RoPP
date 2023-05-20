@@ -295,6 +295,23 @@ void RoPP::Session::set_gender(std::string gender)
     ).JsonObj;
 }
 
+void RoPP::Session::set_displayname(const std::string &displayname)
+{
+    json data = 
+    {
+        {"newDisplayName", displayname}
+    };
+
+    ordered_json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://users.roblox.com/v1/users/" + std::to_string(this->get_user_id()) + "/display-names",
+        "PATCH",
+        this->m_Cookie,
+        CSRF_REQUIRED,
+        data
+    ).JsonObj;    
+}
+
 std::vector<Responses::FriendsOnline> RoPP::Session::get_friends_online()
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
