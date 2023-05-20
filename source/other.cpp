@@ -1,6 +1,7 @@
 #include "../include/ropp.h"
 #include "../include/helper.h"
 #include "../include/request.hpp"
+#include "ropp.h"
 
 
 std::vector<Responses::SearchedUser> RoPP::Other::user_search(std::string keyword, int32_t limit)
@@ -40,6 +41,25 @@ std::string RoPP::Other::validate_username(const std::string& username)
     ).JsonObj;
 
     return res["message"];
+}
+
+bool RoPP::Other::validate_display_name(const std::string &display_name)
+{
+    int64_t user_id = this->get_uid_from_cookie(this->m_Cookie);
+
+    try {
+        ordered_json res = Helper::MakeAuthedRobloxRequest
+        (
+            "https://users.roblox.com/v1/users/" + std::to_string(user_id) + "/display-names/validate?displayName=" + display_name,
+            "GET",
+            this->m_Cookie,
+            CSRF_NOT_REQUIRED
+        ).JsonObj;
+    } catch (const std::exception& e) {
+        return false;
+    }
+
+    return true;
 }
 
 int64_t RoPP::Other::get_game_universe_id(int64_t place_id)
