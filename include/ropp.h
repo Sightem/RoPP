@@ -340,7 +340,7 @@ namespace RoPP
             Responses::GamePassProductInfoResponse get_gamepass_product_info(int64_t gamepass_id);
             
             std::string validate_username(const std::string& username);
-            bool validate_display_name(const std::string& display_name);
+            void validate_display_name(const std::string& display_name);
             std::string get_username_from_cookie(const std::string& cookie);
             
             json group_search(std::string keyword, bool prioritize_exact_match=true, int32_t limit=10);

@@ -43,23 +43,17 @@ std::string RoPP::Other::validate_username(const std::string& username)
     return res["message"];
 }
 
-bool RoPP::Other::validate_display_name(const std::string &display_name)
+void RoPP::Other::validate_display_name(const std::string &display_name)
 {
     int64_t user_id = this->get_uid_from_cookie(this->m_Cookie);
 
-    try {
-        ordered_json res = Helper::MakeAuthedRobloxRequest
-        (
-            "https://users.roblox.com/v1/users/" + std::to_string(user_id) + "/display-names/validate?displayName=" + display_name,
-            "GET",
-            this->m_Cookie,
-            CSRF_NOT_REQUIRED
-        ).JsonObj;
-    } catch (const std::exception& e) {
-        return false;
-    }
-
-    return true;
+    ordered_json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://users.roblox.com/v1/users/" + std::to_string(user_id) + "/display-names/validate?displayName=" + display_name,
+        "GET",
+        this->m_Cookie,
+        CSRF_NOT_REQUIRED
+    ).JsonObj;
 }
 
 int64_t RoPP::Other::get_game_universe_id(int64_t place_id)
