@@ -298,6 +298,7 @@ namespace RoPP
             Responses::BirthdateResponse get_birth_date();
             Responses::PhoneInfo get_phone_info();
             Responses::FriendRequestsResponse get_friend_requests(const std::string& sort="Asc", int limit=10);
+            Responses::TransactionTotalsResponse get_transaction_totals(const std::string& time_frame);
 
             int get_friends_count();
 

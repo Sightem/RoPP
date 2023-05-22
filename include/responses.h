@@ -1838,4 +1838,50 @@ namespace Responses
             Data["imageUrl"].is_null() ? image_url = "" : image_url = Data["imageUrl"];
         }
     };
+
+    struct TransactionTotalsResponse
+    {
+        int64_t sales_total;
+        int64_t purchases_total;
+        int64_t affiliate_sales_total;
+        int64_t group_payouts_total;
+        int64_t currency_purchases_total;
+        int64_t premium_stipends_total;
+        int64_t trade_system_earnings_total;
+        int64_t trade_system_costs_total;
+        int64_t premium_payouts_total;
+        int64_t group_premium_payouts_total;
+        int64_t ad_spend_total;
+        int64_t developer_exchange_total;
+        int64_t pending_robux_total;
+        int64_t incoming_robux_total;
+        int64_t outgoing_robux_total;
+        int64_t individual_to_group_total;
+        int64_t cs_adjustment_total;
+        int64_t ads_revshare_payouts_total;
+        int64_t group_ads_revshare_payouts_total;
+
+        explicit TransactionTotalsResponse(json Data)
+        {
+            sales_total = Data["salesTotal"];
+            purchases_total = Data["purchasesTotal"];
+            affiliate_sales_total = Data["affiliateSalesTotal"];
+            group_payouts_total = Data["groupPayoutsTotal"];
+            currency_purchases_total = Data["currencyPurchasesTotal"];
+            premium_stipends_total = Data["premiumStipendsTotal"];
+            trade_system_earnings_total = Data["tradeSystemEarningsTotal"];
+            trade_system_costs_total = Data["tradeSystemCostsTotal"];
+            premium_payouts_total = Data["premiumPayoutsTotal"];
+            group_premium_payouts_total = Data["groupPremiumPayoutsTotal"];
+            ad_spend_total = Data["adSpendTotal"];
+            developer_exchange_total = Data["developerExchangeTotal"];
+            pending_robux_total = Data["pendingRobuxTotal"];
+            incoming_robux_total = Data["incomingRobuxTotal"];
+            outgoing_robux_total = Data["outgoingRobuxTotal"];
+            individual_to_group_total = Data["individualToGroupTotal"];
+            cs_adjustment_total = Data["csAdjustmentTotal"];
+            ads_revshare_payouts_total = Data["adsRevsharePayoutsTotal"];
+            group_ads_revshare_payouts_total = Data["groupAdsRevsharePayoutsTotal"];
+        }
+    };
 }

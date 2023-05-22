@@ -2,6 +2,7 @@
 #include "../include/helper.h"
 #include "../include/request.hpp"
 #include "../include/responses.h"
+#include "ropp.h"
 
 Responses::BirthdateResponse RoPP::Session::get_birth_date()
 {
@@ -92,6 +93,19 @@ Responses::FriendRequestsResponse RoPP::Session::get_friend_requests(const std::
     ).JsonObj;
 
     return Responses::FriendRequestsResponse(res);
+}
+
+Responses::TransactionTotalsResponse RoPP::Session::get_transaction_totals(const std::string &time_frame)
+{
+    ordered_json res = Helper::MakeAuthedRobloxRequest
+    (
+        "https://economy.roblox.com/v2/users/" + std::to_string(this->get_user_id()) + "/transaction-totals?timeFrame=" + time_frame + "&transactionType=summary",
+        "GET",
+        this->m_Cookie,
+        CSRF_NOT_REQUIRED
+    ).JsonObj;
+
+    return Responses::TransactionTotalsResponse(res);
 }
 
 bool RoPP::Session::is_favorite_game(int64_t place_id)
