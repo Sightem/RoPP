@@ -292,7 +292,7 @@ void RoPP::Session::set_description(const std::string& description)
     ).JsonObj;
 }
 
-void RoPP::Session::set_gender(std::string gender)
+void RoPP::Session::set_gender(const std::string& gender)
 {
     json data = 
     {

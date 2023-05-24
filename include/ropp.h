@@ -317,7 +317,7 @@ namespace RoPP
 
             void set_favorite_game(int64_t place_id, bool favorite);
             void set_description(const std::string& description);
-            void set_gender(std::string gender);
+            void set_gender(const std::string& gender);
             void set_displayname(const std::string& displayname);
             void change_password(const std::string& old_password, const std::string& new_password);
             void accept_friend_request(int64_t user_id);
