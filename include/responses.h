@@ -343,6 +343,12 @@ namespace Responses
     {
         GroupRole old_role;
         GroupRole new_role;
+
+        explicit ChangeRoleResponse(GroupRole old, GroupRole new_)
+        {
+            old_role = old;
+            new_role = new_;
+        }
     };
 
     struct ConversationAddResponse
