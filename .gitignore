@@ -3,3 +3,6 @@ build/
 main.cpp
 balls
 main
+out/
+.vs/
+CMakeSettings.json
