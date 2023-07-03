@@ -12,23 +12,24 @@ namespace Responses
     struct Timestamp
     {
         int year, month, day, hour, minute, second;
+        std::string timestamp;
 
         const std::string to_ISO8601()
         {
             return std::to_string(year) + "-" + std::to_string(month) + "-" + std::to_string(day);
         }
 
-        int64_t to_unix(const std::string& time)
+        int64_t to_unix()
         {
             std::chrono::system_clock::time_point tp;
-            std::istringstream is{time};
+            std::istringstream is{timestamp};
             is >> std::chrono::parse("%FT%TZ", tp);
             auto duration = tp.time_since_epoch();
             auto seconds = std::chrono::duration_cast<std::chrono::seconds>(duration);
             return seconds.count();
         }
 
-        explicit Timestamp(const std::string& timestamp)
+        explicit Timestamp(const std::string& timestamp_p)
         {
             year = std::stoi(timestamp.substr(0, 4));
             month = std::stoi(timestamp.substr(5, 2));
@@ -36,6 +37,7 @@ namespace Responses
             hour = std::stoi(timestamp.substr(11, 2));
             minute = std::stoi(timestamp.substr(14, 2));
             second = std::stoi(timestamp.substr(17, 2));
+            timestamp = timestamp_p;
         }
 
         Timestamp() = default;
