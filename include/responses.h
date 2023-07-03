@@ -18,16 +18,14 @@ namespace Responses
             return std::to_string(year) + "-" + std::to_string(month) + "-" + std::to_string(day);
         }
 
-        std::time_t ToUnix()
+        int64_t to_unix(const std::string& time)
         {
-            std::tm t = {0};
-            t.tm_year = year - 1900;
-            t.tm_mon = month - 1;
-            t.tm_mday = day;
-            t.tm_hour = hour;
-            t.tm_min = minute;
-            t.tm_sec = second;
-            return std::mktime(&t);
+            std::chrono::system_clock::time_point tp;
+            std::istringstream is{time};
+            is >> std::chrono::parse("%FT%TZ", tp);
+            auto duration = tp.time_since_epoch();
+            auto seconds = std::chrono::duration_cast<std::chrono::seconds>(duration);
+            return seconds.count();
         }
 
         explicit Timestamp(std::string timestamp)
