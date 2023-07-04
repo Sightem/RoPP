@@ -12,7 +12,7 @@ namespace Responses
     struct Timestamp
     {
         int year, month, day, hour, minute, second;
-        std::string timestamp;
+        std::string time;
 
         const std::string to_ISO8601()
         {
@@ -22,22 +22,22 @@ namespace Responses
         int64_t to_unix()
         {
             std::chrono::system_clock::time_point tp;
-            std::istringstream is{timestamp};
+            std::istringstream is{time};
             is >> std::chrono::parse("%FT%TZ", tp);
             auto duration = tp.time_since_epoch();
             auto seconds = std::chrono::duration_cast<std::chrono::seconds>(duration);
             return seconds.count();
         }
 
-        explicit Timestamp(const std::string& timestamp_p)
-        {
+        explicit Timestamp(std::string timestamp)
+        {   
             year = std::stoi(timestamp.substr(0, 4));
             month = std::stoi(timestamp.substr(5, 2));
             day = std::stoi(timestamp.substr(8, 2));
             hour = std::stoi(timestamp.substr(11, 2));
             minute = std::stoi(timestamp.substr(14, 2));
             second = std::stoi(timestamp.substr(17, 2));
-            timestamp = timestamp_p;
+            time = timestamp;
         }
 
         Timestamp() = default;
@@ -77,7 +77,7 @@ namespace Responses
         }
 
     public:
-        explicit User(const json& j)
+        explicit User(json j)
         {
             if (j.contains("name"))
                 username = j["name"];
@@ -122,7 +122,7 @@ namespace Responses
 
         bool has_verified_badge;
 
-        explicit ShorthandUser(const json& j)
+        explicit ShorthandUser(json j)
         {
             if (j.contains("name"))
                 username = j["name"];
@@ -155,7 +155,7 @@ namespace Responses
         int64_t place_id;
         long place_visits;
 
-        explicit Experience(const json& j)
+        explicit Experience(json j)
         {
             if (j.contains("name") && !(j["name"].is_null()))
                 name = j["name"];
@@ -200,7 +200,7 @@ namespace Responses
         bool is_active_chat_user;
         bool is_connect_tab_enabled;
 
-        explicit ChatSettings(const json& j)
+        explicit ChatSettings(json j)
         {
             if (j.contains("chatEnabled"))
                 chat_enabled = j["chatEnabled"];
@@ -221,7 +221,7 @@ namespace Responses
         std::string name;
         std::string display_name;
 
-        explicit SearchedUser(const json& j)
+        explicit SearchedUser(json j)
         {
             if (j.contains("previousUsernames"))
                 previous_usernames = j["previousUsernames"].get<std::vector<std::string>>();
@@ -249,7 +249,7 @@ namespace Responses
 
         bool has_verified_badge;
 
-        explicit RejectedParticipant(const json& j)
+        explicit RejectedParticipant(json j)
         {
             if (j.contains("rejectedReason"))
                 rejected_reason = j["rejectedReason"];
@@ -280,7 +280,7 @@ namespace Responses
 
         int64_t sender_target_id;
 
-        explicit ChatMessage(const json& j)
+        explicit ChatMessage(json j)
         {
             if (j.contains("id"))
                 id = j["id"];
@@ -308,7 +308,7 @@ namespace Responses
         int rank;
         int member_count;
 
-        explicit GroupRole(const json& j)
+        explicit GroupRole(json j)
         {
             id = j["id"];
             name = j["name"];
@@ -327,10 +327,10 @@ namespace Responses
         int64_t group_id;
         std::vector<GroupRole> roles;
 
-        explicit GroupRoles(const json& j)
+        explicit GroupRoles(json j)
         {
             group_id = j["groupId"];
-            for (auto &i : j["roles"])
+            for (auto& i : j["roles"])
             {
                 roles.emplace_back(i);
             }
@@ -344,7 +344,7 @@ namespace Responses
         GroupRole old_role;
         GroupRole new_role;
 
-        explicit ChangeRoleResponse(const GroupRole& old, const GroupRole& new_)
+        explicit ChangeRoleResponse(GroupRole old, GroupRole new_)
         {
             old_role = old;
             new_role = new_;
@@ -359,7 +359,7 @@ namespace Responses
 
         std::vector<RejectedParticipant> rejected_participants;
 
-        explicit ConversationAddResponse(const json& j)
+        explicit ConversationAddResponse(json j)
         {
             if (j.contains("resultType"))
                 result_type = j["resultType"];
@@ -370,7 +370,7 @@ namespace Responses
 
             if (j.contains("rejectedParticipants") && !j["rejectedParticipants"].empty())
             {
-                for (auto &i : j["rejectedParticipants"])
+                for (auto& i : j["rejectedParticipants"])
                 {
                     rejected_participants.emplace_back(i);
                 }
@@ -385,7 +385,7 @@ namespace Responses
 
         long ID;
 
-        explicit GameSocialLink(const json& j)
+        explicit GameSocialLink(json j)
         {
             if (j.contains("title"))
                 Title = j["title"];
@@ -404,9 +404,9 @@ namespace Responses
     {
         std::vector<GameSocialLink> Links;
 
-        explicit GameSocialLinks(const json& j)
+        explicit GameSocialLinks(json j)
         {
-            for (auto &i : j["data"])
+            for (auto& i : j["data"])
             {
                 Links.emplace_back(i);
             }
@@ -423,7 +423,7 @@ namespace Responses
         int64_t shop_id;
         int64_t icon_image_asset_id;
 
-        explicit DeveloperProductCreateResponse(const json& j)
+        explicit DeveloperProductCreateResponse(json j)
         {
             if (j.contains("id"))
                 id = j["id"];
@@ -477,7 +477,7 @@ namespace Responses
         int64_t asset_id;
         long current_version_id;
 
-        explicit OutfitDetailsAsset(const json& j)
+        explicit OutfitDetailsAsset(json j)
         {
             name = j["name"];
             asset_type = AvatarAssetType(j["assetType"]);
@@ -494,7 +494,7 @@ namespace Responses
         int64_t id;
         bool is_editable;
 
-        explicit GetOutfitsAsset(const json& j)
+        explicit GetOutfitsAsset(json j)
         {
             if (j.contains("name"))
                 name = j["name"];
@@ -512,11 +512,11 @@ namespace Responses
         std::vector<GetOutfitsAsset> outfits;
         int total;
 
-        explicit GetOutfitsResponse(const json& j)
+        explicit GetOutfitsResponse(json j)
         {
             if (j.contains("data"))
             {
-                for (auto &i : j["data"])
+                for (auto& i : j["data"])
                     outfits.emplace_back(i);
             }
             if (j.contains("total"))
@@ -530,7 +530,7 @@ namespace Responses
     {
         int height, width, depth, head, proportion, body_type;
 
-        explicit AvatarScales(const json& j)
+        explicit AvatarScales(json j)
         {
             if (j.contains("height"))
                 height = j["height"];
@@ -563,7 +563,7 @@ namespace Responses
 
         bool is_editable;
 
-        explicit OutfitDetailsResponse(const json& j)
+        explicit OutfitDetailsResponse(json j)
         {
             if (j.contains("name"))
                 name = j["name"];
@@ -580,7 +580,7 @@ namespace Responses
             if (j.contains("isEditable"))
                 is_editable = j["isEditable"];
 
-            for (auto &asset : j["assets"])
+            for (auto& asset : j["assets"])
                 assets.emplace_back(asset);
         }
     };
@@ -597,7 +597,7 @@ namespace Responses
 
         bool is_active;
 
-        explicit TradeData(const json& j)
+        explicit TradeData(json j)
         {
             if (j.contains("status"))
                 status = j["status"];
@@ -621,7 +621,7 @@ namespace Responses
         std::string status;
         bool can_trade;
 
-        explicit CanTradeWithResponse(const json& j)
+        explicit CanTradeWithResponse(json j)
         {
             if (j.contains("status"))
                 status = j["status"];
@@ -636,7 +636,7 @@ namespace Responses
     {
         long Upvotes, Downvotes;
 
-        explicit ExperienceVotes(const json& j)
+        explicit ExperienceVotes(json j)
         {
             Upvotes = j["upVotes"];
             Downvotes = j["downVotes"];
@@ -656,7 +656,7 @@ namespace Responses
 
         int price;
 
-        explicit GamePass(const json& j)
+        explicit GamePass(json j)
         {
             if (j.contains("name"))
                 name = j["name"];
@@ -700,7 +700,7 @@ namespace Responses
         bool create_vip_servers_allowed;
         bool is_all_genre;
 
-        explicit PlaceInfoResponse(const json& j)
+        explicit PlaceInfoResponse(json j)
         {
             if (j.contains("name"))
                 name = j["name"];
@@ -760,7 +760,7 @@ namespace Responses
 
         int64_t post_id;
 
-        explicit GroupWallPost(const json& j)
+        explicit GroupWallPost(json j)
         {
             if (j.contains("body"))
                 body = j["body"];
@@ -782,7 +782,7 @@ namespace Responses
         std::string name;
         Timestamp created;
 
-        explicit GroupNamehistory(const json& j)
+        explicit GroupNamehistory(json j)
         {
             if (j.contains("name"))
                 name = j["name"];
@@ -799,7 +799,7 @@ namespace Responses
         std::string type;
         std::string name;
 
-        explicit GroupExperienceCreator(const json& j)
+        explicit GroupExperienceCreator(json j)
         {
             id = j["id"];
             type = j["type"];
@@ -822,7 +822,7 @@ namespace Responses
         int64_t universe_id;
         long place_visits;
 
-        explicit GroupExperience(const json& j)
+        explicit GroupExperience(json j)
         {
             if (j.contains("name"))
                 name = j["name"];
@@ -854,7 +854,7 @@ namespace Responses
         int64_t sender_id;
         int64_t source_universe_id;
 
-        explicit FriendRequest(const json& j)
+        explicit FriendRequest(json j)
         {
             if (j.contains("originSourceType"))
                 origin_source_type = j["originSourceType"];
@@ -875,9 +875,9 @@ namespace Responses
         std::vector<User> sender_info;
         std::vector<std::string> mutual_friends_list;
 
-        explicit FriendRequestsResponse(const json& j)
+        explicit FriendRequestsResponse(json j)
         {
-            for (auto &i : j["data"])
+            for (auto& i : j["data"])
             {
                 friend_requests.emplace_back(i["friendRequest"]);
                 sender_info.emplace_back(i);
@@ -885,7 +885,7 @@ namespace Responses
 
             if (j.contains("mutualFriendsList") && !j["mutualFriendsList"].empty())
             {
-                for (auto &i : j["mutualFriendsList"])
+                for (auto& i : j["mutualFriendsList"])
                 {
                     mutual_friends_list.emplace_back(i);
                 }
@@ -906,7 +906,7 @@ namespace Responses
         bool is_verified;
         bool can_bypass_password_for_phone_update;
 
-        explicit PhoneInfo(const json& j)
+        explicit PhoneInfo(json j)
         {
             country_code = j["countryCode"];
             prefix = j["prefix"];
@@ -928,7 +928,7 @@ namespace Responses
         long asset_id;
         long current_version_id;
 
-        explicit AvatarAsset(const json& j)
+        explicit AvatarAsset(json j)
         {
             name = j["name"];
             asset_type = AvatarAssetType(j["assetType"]);
@@ -948,12 +948,12 @@ namespace Responses
 
         std::vector<AvatarAsset> assets;
 
-        explicit AvatarResponse(const json& j)
+        explicit AvatarResponse(json j)
         {
             player_avatar_type = j["playerAvatarType"];
             colors = BodyColors(j["bodyColors"]);
             scales = AvatarScales(j["scales"]);
-            for (auto &asset : j["assets"])
+            for (auto& asset : j["assets"])
             {
                 assets.emplace_back(asset);
             }
@@ -966,7 +966,7 @@ namespace Responses
     {
         int year, month, day;
 
-        explicit BirthdateResponse(const json& j)
+        explicit BirthdateResponse(json j)
         {
             year = j["birthYear"];
             month = j["birthMonth"];
@@ -985,7 +985,7 @@ namespace Responses
 
         int64_t asset_id;
 
-        explicit InventoryAsset(const json& j)
+        explicit InventoryAsset(json j)
         {
             if (j.contains("name") && !(j["name"].is_null()))
                 name = j["name"];
@@ -1014,7 +1014,7 @@ namespace Responses
 
         int user_presence_type;
 
-        explicit UserPresence(const json& j)
+        explicit UserPresence(json j)
         {
             if (j.contains("lastLocation") && !(j["lastLocation"].is_null()))
                 last_location = j["lastLocation"];
@@ -1043,7 +1043,7 @@ namespace Responses
         long awarded_count;
         int win_rate_percentage;
 
-        explicit BadgeStats(const json& j)
+        explicit BadgeStats(json j)
         {
             if (j.contains("pastDayAwardedCount"))
                 past_day_awarded_count = j["pastDayAwardedCount"];
@@ -1075,7 +1075,7 @@ namespace Responses
 
         bool enabled;
 
-        explicit Badge(const json& j)
+        explicit Badge(json j)
         {
             if (j.contains("name"))
                 name = j["name"];
@@ -1112,7 +1112,7 @@ namespace Responses
         int rank;
         int64_t id;
 
-        explicit Role(const json& j)
+        explicit Role(json j)
         {
             if (j.contains("name"))
                 name = j["name"];
@@ -1130,7 +1130,7 @@ namespace Responses
         ShorthandUser user;
         Role role;
 
-        explicit AuditItemActor(const json& j)
+        explicit AuditItemActor(json j)
         {
             if (j.contains("user"))
                 user = ShorthandUser(j["user"]);
@@ -1148,7 +1148,7 @@ namespace Responses
         json description;
         Timestamp created;
 
-        explicit AuditItem(const json& j)
+        explicit AuditItem(json j)
         {
             if (j.contains("actor"))
                 actor = AuditItemActor(j["actor"]);
@@ -1167,11 +1167,11 @@ namespace Responses
     {
         std::vector<AuditItem> items;
 
-        explicit AuditPage(const json& j)
+        explicit AuditPage(json j)
         {
             if (j.contains("data"))
             {
-                for (auto &item : j["data"])
+                for (auto& item : j["data"])
                 {
                     items.push_back(AuditItem(item));
                 }
@@ -1187,7 +1187,7 @@ namespace Responses
         Timestamp Created;
         Timestamp Updated;
 
-        explicit GShout(const json& j)
+        explicit GShout(json j)
         {
             if (j.contains("body"))
                 body = j["body"];
@@ -1218,7 +1218,7 @@ namespace Responses
         bool is_public_entry_allowed;
         bool has_verified_badge;
 
-        explicit Group(const json& j)
+        explicit Group(json j)
         {
             if (j.contains("name"))
                 name = j["name"];
@@ -1248,7 +1248,7 @@ namespace Responses
         Group group;
         Role role;
 
-        explicit GroupWithRole(const json& j)
+        explicit GroupWithRole(json j)
         {
             group = Group(j["group"]);
             role = Role(j["role"]);
@@ -1262,7 +1262,7 @@ namespace Responses
         int64_t universe_id;
         int64_t root_place_id;
 
-        explicit ChatConversationUniverse(const json& j)
+        explicit ChatConversationUniverse(json j)
         {
             universe_id = j["universeId"];
             root_place_id = j["rootPlaceId"];
@@ -1277,7 +1277,7 @@ namespace Responses
 
         bool is_default_title;
 
-        explicit ChatConversationTitle(const json& j)
+        explicit ChatConversationTitle(json j)
         {
             title_for_viewer = j["titleForViewer"];
             is_default_title = j["isDefaultTitle"];
@@ -1298,7 +1298,7 @@ namespace Responses
         Timestamp last_updated;
         ChatConversationUniverse conversation_universe;
 
-        ChatConversation(const json& j)
+        ChatConversation(json j)
         {
             if (j.contains("id"))
                 id = j["id"];
@@ -1310,7 +1310,7 @@ namespace Responses
                 has_unread_messages = j["hasUnreadMessages"];
             if (j.contains("participants"))
             {
-                for (auto &user : j["participants"])
+                for (auto& user : j["participants"])
                     participants.emplace_back(user);
             }
             if (j.contains("conversationType"))
@@ -1330,9 +1330,9 @@ namespace Responses
     {
         std::vector<ChatConversation> Conversations;
 
-        ChatConversationsResponse(const json& j)
+        ChatConversationsResponse(json j)
         {
-            for (auto &conversation : j)
+            for (auto& conversation : j)
                 Conversations.emplace_back(conversation);
         }
     };
@@ -1352,7 +1352,7 @@ namespace Responses
 
         Timestamp last_online;
 
-        explicit FriendsOnline(const json& j)
+        explicit FriendsOnline(json j)
         {
             if (j.contains("userPresenceType"))
                 user_presence_type = j["userPresenceType"];
@@ -1386,10 +1386,10 @@ namespace Responses
         std::string result_type;
         std::string status_message;
 
-        explicit OneToOneConversationResponse(const json& j)
+        explicit OneToOneConversationResponse(json j)
         {
             conversation = ChatConversation(j["conversation"]);
-            for (auto &user : j["rejectedParticipants"])
+            for (auto& user : j["rejectedParticipants"])
                 rejected_participants.emplace_back(user);
             result_type = j["resultType"];
             status_message = j["statusMessage"];
@@ -1405,10 +1405,10 @@ namespace Responses
         std::string result_type;
         std::string status_message;
 
-        explicit StartGroupConversationResponse(const json& j)
+        explicit StartGroupConversationResponse(json j)
         {
             conversation = ChatConversation(j["conversation"]);
-            for (auto &user : j["rejectedParticipants"])
+            for (auto& user : j["rejectedParticipants"])
                 rejected_participants.emplace_back(user);
             result_type = j["resultType"];
             status_message = j["statusMessage"];
@@ -1421,7 +1421,7 @@ namespace Responses
         long price;
         Timestamp date;
 
-        explicit PriceDataPoint(const json& j)
+        explicit PriceDataPoint(json j)
         {
             price = j["value"];
             date = Timestamp(j["date"].get<std::string>());
@@ -1435,7 +1435,7 @@ namespace Responses
         long volume;
         Timestamp date;
 
-        explicit VolumeDataPoint(const json& j)
+        explicit VolumeDataPoint(json j)
         {
             volume = j["value"];
             date = Timestamp(j["date"].get<std::string>());
@@ -1455,7 +1455,7 @@ namespace Responses
         std::vector<PriceDataPoint> price_data;
         std::vector<VolumeDataPoint> volume_data;
 
-        explicit ResaleData(const json& j)
+        explicit ResaleData(json j)
         {
             asset_stock = j["assetStock"];
             sales = j["sales"];
@@ -1463,10 +1463,10 @@ namespace Responses
             original_price = j["originalPrice"];
             recent_average_price = j["recentAveragePrice"];
 
-            for (auto &element : j["priceDataPoints"])
+            for (auto& element : j["priceDataPoints"])
                 price_data.emplace_back(element);
 
-            for (auto &element : j["volumeDataPoints"])
+            for (auto& element : j["volumeDataPoints"])
                 volume_data.emplace_back(element);
         }
 
@@ -1479,7 +1479,7 @@ namespace Responses
         std::string type;
         int64_t user_id;
 
-        explicit ResellerAgent(const json& j)
+        explicit ResellerAgent(json j)
         {
             username = j["name"];
             type = j["type"];
@@ -1496,7 +1496,7 @@ namespace Responses
 
         ResellerAgent seller;
 
-        explicit ResellerData(const json& reseller_data)
+        explicit ResellerData(json reseller_data)
         {
             user_asset_id = reseller_data["userAssetId"];
             price = reseller_data["price"];
@@ -1514,7 +1514,7 @@ namespace Responses
         std::string creator_type;
         int64_t user_id;
 
-        explicit AssetCreator(const json& creator)
+        explicit AssetCreator(json creator)
         {
             name = creator["Name"];
             creator_type = creator["CreatorType"];
@@ -1656,7 +1656,7 @@ namespace Responses
         Responses::User owner;
 
         std::vector<std::string> player_tokens;
-        explicit GameInstance(const json& instance)
+        explicit GameInstance(json instance)
         {
             if (instance.contains("id"))
                 id = instance["id"];
@@ -1666,7 +1666,7 @@ namespace Responses
                 playing = instance["playing"];
             if (instance.contains("playerTokens"))
             {
-                for (auto &element : instance["playerTokens"])
+                for (auto& element : instance["playerTokens"])
                 {
                     player_tokens.emplace_back(element);
                 }
@@ -1689,7 +1689,7 @@ namespace Responses
         std::string feature_name;
         bool is_rollout_enabled;
 
-        explicit RolloutFeature(const json& feature)
+        explicit RolloutFeature(json feature)
         {
             feature_name = feature["featureName"];
             is_rollout_enabled = feature["isRolloutEnabled"];
@@ -1701,10 +1701,10 @@ namespace Responses
         int64_t conversation_id;
         std::vector<Responses::ChatMessage> messages;
 
-        explicit ChatConversationWithMessages(const json& conversation)
+        explicit ChatConversationWithMessages(json conversation)
         {
             conversation_id = conversation["conversationId"];
-            for (auto &message : conversation["chatMessages"])
+            for (auto& message : conversation["chatMessages"])
             {
                 messages.emplace_back(message);
             }
@@ -1717,7 +1717,7 @@ namespace Responses
         std::string result_type;
         std::string status_message;
 
-        explicit RemoveFromConversationResponse(const json& response)
+        explicit RemoveFromConversationResponse(json response)
         {
             conversation_id = response["conversationId"];
             result_type = response["resultType"];
@@ -1748,7 +1748,7 @@ namespace Responses
         RenameGroupConversationTitle Title;
         std::string StatusMessage;
 
-        explicit RenameGroupConversationResponse(const json& response)
+        explicit RenameGroupConversationResponse(json response)
         {
             ConversationTitle = response["conversationTitle"];
             ResultType = response["resultType"];
@@ -1767,7 +1767,7 @@ namespace Responses
         std::string result_type;
         std::string status_message;
 
-        explicit SendMessageResponse(const json& response)
+        explicit SendMessageResponse(json response)
         {
             if (!response["content"].is_null())
                 content = response["content"];
@@ -1805,7 +1805,7 @@ namespace Responses
         bool is_limited_unique;
         int64_t minimum_membership_level;
 
-        explicit GamePassProductInfoResponse(const json& Data)
+        explicit GamePassProductInfoResponse(json Data)
         {
             target_id = Data["TargetId"];
             product_type = Data["ProductType"];
@@ -1867,7 +1867,7 @@ namespace Responses
         int64_t ads_revshare_payouts_total;
         int64_t group_ads_revshare_payouts_total;
 
-        explicit TransactionTotalsResponse(const json& Data)
+        explicit TransactionTotalsResponse(json Data)
         {
             sales_total = Data["salesTotal"];
             purchases_total = Data["purchasesTotal"];
