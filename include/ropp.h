@@ -232,7 +232,7 @@ namespace RoPP
     class User
     {
         public:
-            Responses::User get_user();
+            Responses::ShorthandUser get_user();
 
             std::vector<Responses::User> get_friends(const std::string& sort="Alphabetical");
             std::vector<Responses::User> get_followers(const std::string& sort="Asc", int limit=10);
@@ -290,7 +290,7 @@ namespace RoPP
             //get requests
 
 
-            Responses::User get_user();
+            Responses::ShorthandUser get_user();
             
             std::string get_description();
 

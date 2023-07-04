@@ -345,7 +345,7 @@ std::vector<Responses::FriendsOnline> RoPP::Session::get_friends_online()
     return Friends;
 }
 
-Responses::User RoPP::Session::get_user()
+Responses::ShorthandUser RoPP::Session::get_user()
 {
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
@@ -355,7 +355,7 @@ Responses::User RoPP::Session::get_user()
         CSRF_REQUIRED
     ).JsonObj;
 
-    return Responses::User(res);
+    return Responses::ShorthandUser(res);
 }
 
 int64_t RoPP::Session::get_user_id()

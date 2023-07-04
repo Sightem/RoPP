@@ -197,7 +197,7 @@ bool RoPP::User::can_inventory_be_viewed()
     return res["canView"];
 }
 
-Responses::User RoPP::User::get_user()
+Responses::ShorthandUser RoPP::User::get_user()
 {
     ordered_json res = Helper::MakeRobloxRequest
     (
@@ -205,5 +205,5 @@ Responses::User RoPP::User::get_user()
         "GET"
     ).JsonObj;
 
-    return Responses::User(res);
+    return Responses::ShorthandUser(res);
 }
