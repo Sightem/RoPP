@@ -19,9 +19,12 @@ target_include_directories(ropp PUBLIC
     $<INSTALL_INTERFACE:include/${CMAKE_BUILD_TYPE}/RoPP>
 )
 
-find_package(CURL REQUIRED)
-
-target_link_libraries(ropp PRIVATE CURL::libcurl)
+# Configure CURL
+set(ENABLE_WEBSOCKETS ON)
+set(BUILD_SHARED_LIBS OFF)
+set(CURL_STATICLIB ON)
+add_subdirectory(lib/curl EXCLUDE_FROM_ALL)
+target_link_libraries(ropp PRIVATE libcurl)
 
 include(GNUInstallDirs)
 
