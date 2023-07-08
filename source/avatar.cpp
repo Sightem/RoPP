@@ -1,6 +1,6 @@
-#include "../include/ropp.h"
-#include "../include/helper.h"
-#include "../include/responses.h"
+#include "../include/RoPP/ropp.h"
+#include "../include/RoPP/helper.h"
+#include "../include/RoPP/responses.h"
 
 std::vector<int64_t> RoPP::Avatar::get_currently_wearing(int64_t user_id)
 {

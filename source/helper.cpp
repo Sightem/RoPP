@@ -1,6 +1,6 @@
-#include "../include/request.hpp"
-#include "../include/json.hpp"
-#include "../include/helper.h"
+#include "../include/RoPP/request.hpp"
+#include "../include/RoPP/json.hpp"
+#include "../include/RoPP/helper.h"
 
 //@Nowilltolife
 [[maybe_unused]] Helper::WebResponse Helper::MakeAuthedRobloxRequest(

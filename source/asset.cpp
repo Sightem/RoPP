@@ -1,5 +1,5 @@
-#include "../include/ropp.h"
-#include "../include/helper.h"
+#include "../include/RoPP/ropp.h"
+#include "../include/RoPP/helper.h"
 
 json RoPP::Asset::buy_asset()
 {

@@ -1,5 +1,5 @@
-#include "../include/ropp.h"
-#include "../include/helper.h"
+#include "../include/RoPP/ropp.h"
+#include "../include/RoPP/helper.h"
 
 Responses::Group RoPP::Group::get_group_info()
 {

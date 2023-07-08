@@ -1,7 +1,7 @@
-#include "../include/request.hpp"
-#include "../include/ropp.h"
-#include "../include/responses.h"
-#include "ropp.h"
+#include "../include/RoPP/request.hpp"
+#include "../include/RoPP/ropp.h"
+#include "../include/RoPP/responses.h"
+
 
 std::vector<Responses::Thumbnail> RoPP::Thumbnail::get_assets_thumbnails(const std::vector<int64_t> &asset_ids, const std::string &size, const std::string &format, bool is_circular)
 {

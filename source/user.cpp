@@ -1,7 +1,7 @@
-#include "../include/ropp.h"
-#include "../include/helper.h"
-#include "../include/request.hpp"
-#include "../include/responses.h"
+#include "../include/RoPP/ropp.h"
+#include "../include/RoPP/helper.h"
+#include "../include/RoPP/request.hpp"
+#include "../include/RoPP/responses.h"
 
 std::vector<Responses::User> RoPP::User::get_friends(const std::string& sort)
 {

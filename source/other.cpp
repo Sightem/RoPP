@@ -1,7 +1,6 @@
-#include "../include/ropp.h"
-#include "../include/helper.h"
-#include "../include/request.hpp"
-#include "ropp.h"
+#include "../include/RoPP/ropp.h"
+#include "../include/RoPP/helper.h"
+#include "../include/RoPP/request.hpp"
 
 
 std::vector<Responses::SearchedUser> RoPP::Other::user_search(std::string keyword, int32_t limit)

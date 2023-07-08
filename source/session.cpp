@@ -1,8 +1,7 @@
-#include "../include/ropp.h"
-#include "../include/helper.h"
-#include "../include/request.hpp"
-#include "../include/responses.h"
-#include "ropp.h"
+#include "../include/RoPP/ropp.h"
+#include "../include/RoPP/helper.h"
+#include "../include/RoPP/request.hpp"
+#include "../include/RoPP/responses.h"
 
 Responses::BirthdateResponse RoPP::Session::get_birth_date()
 {

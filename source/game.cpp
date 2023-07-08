@@ -1,6 +1,6 @@
-#include "../include/ropp.h"
-#include "../include/helper.h"
-#include "../include/request.hpp"
+#include "../include/RoPP/ropp.h"
+#include "../include/RoPP/helper.h"
+#include "../include/RoPP/request.hpp"
 
 int64_t RoPP::Game::get_universe_id()
 {
