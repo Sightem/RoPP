@@ -28,16 +28,15 @@ FetchContent_GetProperties(cpr)
 if(NOT cpr_POPULATED)
   FetchContent_Populate(cpr)
   add_subdirectory(${cpr_SOURCE_DIR} ${cpr_BINARY_DIR})
+  set(cpr_install_target cpr) # This is added to handle the installation of cpr when building RoPP standalone
 endif()
 
-include(${CMAKE_CURRENT_SOURCE_DIR}/FindCPR.cmake)
-
-target_link_libraries(ropp PRIVATE RoPP::cpr)
+target_link_libraries(ropp PRIVATE cpr)
 
 include(GNUInstallDirs)
 
-install(TARGETS ropp
-    EXPORT RoPP-targets
+install(TARGETS ropp ${cpr_install_target}
+    EXPORT RoPP-Targets
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/${CMAKE_BUILD_TYPE}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/${CMAKE_BUILD_TYPE}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}/${CMAKE_BUILD_TYPE}
@@ -46,6 +45,11 @@ install(TARGETS ropp
 
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${CMAKE_BUILD_TYPE}/RoPP)
 
+install(EXPORT RoPP-Targets
+    FILE RoPPTargets.cmake
+    NAMESPACE RoPP::
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/RoPP/${CMAKE_BUILD_TYPE}
+)
 
 configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/RoPPConfig.cmake.in"
