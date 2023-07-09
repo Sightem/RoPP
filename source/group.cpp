@@ -1,19 +1,30 @@
 #include "../include/RoPP/ropp.h"
-#include "../include/RoPP/helper.h"
+#include <cpr/cpr.h>
 
 Responses::Group RoPP::Group::get_group_info()
 {
+    /*
     ordered_json res = Helper::MakeRobloxRequest
     (
         "https://groups.roblox.com/v1/groups/" + std::to_string(this->m_GroupID),
         "GET"
     ).JsonObj;
+    */
+
+    cpr::Response r = cpr::Get(
+		cpr::Url{ "https://groups.roblox.com/v1/groups/" + std::to_string(this->m_GroupID) },
+		cpr::Header{ {"Content-Type", "application/json"}, { "Referer", "https://www.roblox.com/" }, { "User-Agent", USER_AGENT } }
+	);
+
+    nlohmann::json res = nlohmann::json::parse(r.text);
 
     return Responses::Group(res);
 }
 
 std::vector<Responses::GroupNamehistory> RoPP::Group::get_name_history(const std::string& sort, int32_t limit)
 {
+    /*
+    
     ordered_json res = Helper::MakeRobloxRequest
     (
         "https://groups.roblox.com/v1/groups/" + std::to_string(this->m_GroupID) + "/name-history?sortOrder=" + sort + "&limit=" + std::to_string(limit),
@@ -25,12 +36,28 @@ std::vector<Responses::GroupNamehistory> RoPP::Group::get_name_history(const std
     {
         NameHistory.emplace_back(element);
     }
+    */
+    cpr::Response r = cpr::Get(
+
+        cpr::Url{ "https://groups.roblox.com/v1/groups/" + std::to_string(this->m_GroupID) + "/name-history?sortOrder=" + sort + "&limit=" + std::to_string(limit) },
+        cpr::Header{ {"Content-Type", "application/json"}, { "Referer", "https://www.roblox.com/" }, { "User-Agent", USER_AGENT } }
+    );
+
+    nlohmann::json res = nlohmann::json::parse(r.text);
+
+    std::vector<Responses::GroupNamehistory> NameHistory;
+    for (auto& element : res["data"])
+    {
+		NameHistory.emplace_back(element);
+	}
 
     return NameHistory;
 }
 
 std::vector<Responses::GroupWallPost> RoPP::Group::get_group_wall(const std::string& sort, int32_t limit)
 {
+    /*
+    
     ordered_json res = Helper::MakeRobloxRequest
     (
         "https://groups.roblox.com/v1/groups/" + std::to_string(this->m_GroupID) + "/wall/posts?sortOrder=" + sort + "&limit=" + std::to_string(limit),
@@ -43,16 +70,43 @@ std::vector<Responses::GroupWallPost> RoPP::Group::get_group_wall(const std::str
         posts.emplace_back(element);
     }
 
+    */
+
+    cpr::Response r = cpr::Get(
+
+		cpr::Url{ "https://groups.roblox.com/v1/groups/" + std::to_string(this->m_GroupID) + "/wall/posts?sortOrder=" + sort + "&limit=" + std::to_string(limit) },
+		cpr::Header{ {"Content-Type", "application/json"}, { "Referer", "https://www.roblox.com/" }, { "User-Agent", USER_AGENT } }
+	);
+
+    nlohmann::json res = nlohmann::json::parse(r.text);
+
+    std::vector<Responses::GroupWallPost> posts;
+    for (auto& element : res["data"])
+    {
+        posts.emplace_back(element);
+    }
+
     return posts;
 }
 
 std::vector<Responses::GroupExperience> RoPP::Group::get_group_games(const std::string& access_filter, const std::string& sort, int32_t limit)
 {
+    /*
+    
     ordered_json res = Helper::MakeRobloxRequest
     (
         "https://games.roblox.com/v2/groups/" + std::to_string(this->m_GroupID) + "/games?accessFilter=" + access_filter + "&sortOrder=" + sort + "&limit=" + std::to_string(limit),
         "GET"
     ).JsonObj;
+    */
+
+    cpr::Response r = cpr::Get(
+
+        cpr::Url{ "https://games.roblox.com/v2/groups/" + std::to_string(this->m_GroupID) + "/games?accessFilter=" + access_filter + "&sortOrder=" + sort + "&limit=" + std::to_string(limit) },
+        cpr::Header{ {"Content-Type", "application/json"}, { "Referer", "https://www.roblox.com/" }, { "User-Agent", USER_AGENT } }
+    );
+
+    nlohmann::json res = nlohmann::json::parse(r.text);
 
     std::vector<Responses::GroupExperience> Experiences;
     for (auto& element : res["data"])
@@ -65,6 +119,8 @@ std::vector<Responses::GroupExperience> RoPP::Group::get_group_games(const std::
 
 void RoPP::Group::delete_group_wall_post(int64_t post_id)
 {
+    /*
+    
     Helper::MakeAuthedRobloxRequest
     (
         "https://groups.roblox.com/v1/groups/" + std::to_string(this->m_GroupID) + "/wall/posts/" + std::to_string(post_id),
@@ -72,10 +128,21 @@ void RoPP::Group::delete_group_wall_post(int64_t post_id)
         this->m_Cookie,
         CSRF_REQUIRED
     );
+    */
+
+    cpr::Response r = cpr::Delete(
+
+		cpr::Url{ "https://groups.roblox.com/v1/groups/" + std::to_string(this->m_GroupID) + "/wall/posts/" + std::to_string(post_id) },
+		cpr::Header{ {"Content-Type", "application/json"}, { "Referer", "https://www.roblox.com/" }, { "User-Agent", USER_AGENT }, { "X-CSRF-TOKEN", this->get_csrf() } },
+        cpr::Cookies{ {".ROBLOSECURITY", this->m_Cookie} }
+	);
+
+    nlohmann::json res = nlohmann::json::parse(r.text);
 }
 
 void RoPP::Group::delete_group_wall_posts_by_user(int64_t user_id)
 {
+    /*
     Helper::MakeAuthedRobloxRequest
     (
         "https://groups.roblox.com/v1/groups/" + std::to_string(this->m_GroupID) + "/wall/users/" + std::to_string(user_id) + "/posts",
@@ -83,10 +150,19 @@ void RoPP::Group::delete_group_wall_posts_by_user(int64_t user_id)
         this->m_Cookie,
         CSRF_REQUIRED
     );
+    */
+
+    cpr::Response r = cpr::Delete(
+
+        cpr::Url{ "https://groups.roblox.com/v1/groups/" + std::to_string(this->m_GroupID) + "/wall/users/" + std::to_string(user_id) + "/posts" },
+        cpr::Header{ {"Content-Type", "application/json"}, { "Referer", "https://www.roblox.com/" }, { "User-Agent", USER_AGENT }, { "X-CSRF-TOKEN", this->get_csrf() } },
+        cpr::Cookies{ {".ROBLOSECURITY", this->m_Cookie} }
+    );
 }
 
 Responses::GroupRoles RoPP::Group::get_group_roles()
 {
+    /*
     ordered_json res = Helper::MakeRobloxRequest
     (
         "https://groups.roblox.com/v1/groups/" + std::to_string(this->m_GroupID) + "/roles",
@@ -94,6 +170,17 @@ Responses::GroupRoles RoPP::Group::get_group_roles()
     ).JsonObj;
 
     return Responses::GroupRoles(res);
+    */
+
+    cpr::Response r = cpr::Get(
+
+		cpr::Url{ "https://groups.roblox.com/v1/groups/" + std::to_string(this->m_GroupID) + "/roles" },
+		cpr::Header{ {"Content-Type", "application/json"}, { "Referer", "https://www.roblox.com/" }, { "User-Agent", USER_AGENT } }
+	);
+
+    nlohmann::json res = nlohmann::json::parse(r.text);
+
+	return Responses::GroupRoles(res);
 }
 
 void RoPP::Group::set_group_role(int64_t user_id, int64_t role_id)
@@ -103,6 +190,7 @@ void RoPP::Group::set_group_role(int64_t user_id, int64_t role_id)
         {"roleId", role_id}
     };
 
+    /*
     Helper::MakeAuthedRobloxRequest
     (
         "https://groups.roblox.com/v1/groups/" + std::to_string(this->m_GroupID) + "/users/" + std::to_string(user_id),
@@ -111,15 +199,35 @@ void RoPP::Group::set_group_role(int64_t user_id, int64_t role_id)
         CSRF_REQUIRED,
         body
     );
+    */
+
+    cpr::Response r = cpr::Patch(
+
+		cpr::Url{ "https://groups.roblox.com/v1/groups/" + std::to_string(this->m_GroupID) + "/users/" + std::to_string(user_id) },
+		cpr::Header{ {"Content-Type", "application/json"}, { "Referer", "https://www.roblox.com/" }, { "User-Agent", USER_AGENT }, { "X-CSRF-TOKEN", this->get_csrf() } },
+		cpr::Cookies{ {".ROBLOSECURITY", this->m_Cookie} },
+		cpr::Body{ body.dump() }
+	);
 }
 
 Responses::GroupRole RoPP::Group::get_user_role(int64_t user_id)
 {
+    /*
+    
     ordered_json res = Helper::MakeRobloxRequest
     (
         "https://groups.roblox.com/v1/users/" + std::to_string(user_id) + "/groups/roles",
         "GET"
     ).JsonObj;
+    */
+
+    cpr::Response r = cpr::Get(
+
+        cpr::Url{ "https://groups.roblox.com/v1/users/" + std::to_string(user_id) + "/groups/roles" },
+        cpr::Header{ {"Content-Type", "application/json"}, { "Referer", "https://www.roblox.com/" }, { "User-Agent", USER_AGENT } }
+    );
+
+    nlohmann::json res = nlohmann::json::parse(r.text);
 
     for (int i = 0; i < res["data"].size(); i++)
     {
@@ -185,6 +293,7 @@ Responses::ChangeRoleResponse RoPP::Group::demote(int64_t user_id)
 
 void RoPP::Group::remove_user(int64_t UserID)
 {
+    /*
     Helper::MakeAuthedRobloxRequest
     (
         "https://groups.roblox.com/v1/groups/" + std::to_string(this->m_GroupID) + "/users/" + std::to_string(UserID),
@@ -192,6 +301,14 @@ void RoPP::Group::remove_user(int64_t UserID)
         this->m_Cookie,
         CSRF_REQUIRED
     );
+    */
+
+    cpr::Response r = cpr::Delete(
+
+		cpr::Url{ "https://groups.roblox.com/v1/groups/" + std::to_string(this->m_GroupID) + "/users/" + std::to_string(UserID) },
+		cpr::Header{ {"Content-Type", "application/json"}, { "Referer", "https://www.roblox.com/" }, { "User-Agent", USER_AGENT }, { "X-CSRF-TOKEN", this->get_csrf() } },
+		cpr::Cookies{ {".ROBLOSECURITY", this->m_Cookie} }
+	);
 }
 
 Responses::AuditPage RoPP::Group::get_audit_log(const std::string& action_type, int64_t user_id, const std::string& sort, int32_t limit)
@@ -208,6 +325,7 @@ Responses::AuditPage RoPP::Group::get_audit_log(const std::string& action_type, 
         url += "&userId=" + std::to_string(user_id);
     }
 
+    /*
     ordered_json res = Helper::MakeAuthedRobloxRequest
     (
         url,
@@ -217,4 +335,16 @@ Responses::AuditPage RoPP::Group::get_audit_log(const std::string& action_type, 
     ).JsonObj;
 
     return Responses::AuditPage(res);
+    */
+
+    cpr::Response r = cpr::Get(
+
+		cpr::Url{ url },
+		cpr::Header{ {"Content-Type", "application/json"}, { "Referer", "https://www.roblox.com/" }, { "User-Agent", USER_AGENT }, { "X-CSRF-TOKEN", this->get_csrf() } },
+		cpr::Cookies{ {".ROBLOSECURITY", this->m_Cookie} }
+	);
+
+    nlohmann::json res = nlohmann::json::parse(r.text);
+
+	return Responses::AuditPage(res);
 }

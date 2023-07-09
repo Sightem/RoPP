@@ -5,7 +5,8 @@
 
 #include "json.hpp"
 #include "responses.h"
-#include "helper.h"
+
+#define USER_AGENT "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
 
 using json = nlohmann::json;
 
@@ -36,7 +37,7 @@ namespace RoPP
 
             bool set_body_colors(json colors);
             bool set_body_scales(json scales);
-            bool set_player_avatar_type(std::string_view avatar_type);
+            bool set_player_avatar_type(const std::string& avatar_type);
             bool remove_asset(int64_t asset_id);
             bool wear_asset(int64_t asset_id);
     };
@@ -132,7 +133,6 @@ namespace RoPP
             std::vector<Responses::GamePass> get_gamepasses(const std::string& sort="Asc", int limit=10);
             std::vector<Responses::Badge> get_game_badges(const std::string& ort="Asc", int limit=10);
             Responses::ExperienceVotes get_votes();
-            Responses::DeveloperProductCreateResponse create_developer_product(const std::string& name, const std::string& description, long price, int64_t icon_image_asset_id=0);
             std::vector<Responses::GameInstance> get_game_instances(const std::string& type="Public", const std::string& sort="Asc", int limit=100, bool exclude_full_games=false);
             Responses::GameSocialLinks get_social_links();
 
@@ -211,32 +211,14 @@ namespace RoPP
             int64_t m_GroupID = 0;
     };
 
-    class Trade : public Auth
-    {
-        public:
-            std::vector<Responses::TradeData> get_trades(const std::string& trade_status_type="Inbound", const std::string& sort="Asc", int32_t limit=10);
-            json get_trade_info(int64_t trade_id);
-            Responses::CanTradeWithResponse can_trade_with(int64_t user_id);
-            //TODO: counter
-            int send_trade_request(int64_t target_uid, json user_offer, json user_request);
-            void accept_trade(int64_t trade_id);
-            void decline_trade(int64_t trade_id);
-
-        public:
-            Trade(std::string_view cookie)
-            {
-                this->m_Cookie = cookie;
-            }
-    };
-
     class User
     {
         public:
             Responses::ShorthandUser get_user();
 
-            std::vector<Responses::User> get_friends(const std::string& sort="Alphabetical");
-            std::vector<Responses::User> get_followers(const std::string& sort="Asc", int limit=10);
-            std::vector<Responses::User> get_followings(const std::string&  sort="Asc", int limit=10);
+            std::vector<Responses::Friend> get_friends(const std::string& sort="Alphabetical");
+            std::vector<Responses::Friend> get_followers(const std::string& sort="Asc", int limit=10);
+            std::vector<Responses::Friend> get_followings(const std::string&  sort="Asc", int limit=10);
             std::vector<Responses::Experience> get_experiences(const std::string& sort="Asc", int limit=10);
             std::vector<Responses::Experience> get_favorite_experiences(const std::string& sort="Asc", int limit=10);
             std::vector<std::string> get_past_usernames(const std::string& sort="Asc", int limit=10);

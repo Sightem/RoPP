@@ -1,6 +1,4 @@
 #include "../include/RoPP/ropp.h"
-#include "../include/RoPP/helper.h"
-#include "../include/RoPP/request.hpp"
 #include "../include/RoPP/responses.h"
 #include "cpr/cpr.h"
 
@@ -19,20 +17,15 @@ std::string RoPP::Auth::get_csrf()
 
 std::string RoPP::Auth::get_auth_ticket()
 {
-    cookie_check();
-    
-    Request req("https://auth.roblox.com/v1/authentication-ticket");
-    req.set_cookie(".ROBLOSECURITY", this->m_Cookie);
-    req.set_header("Referer", "https://www.roblox.com/");
-    req.initalize();
-    Response res = req.post();
+    std::string csrf = this->get_csrf();
 
-    std::string csrfToken = res.headers["x-csrf-token"];
-    req.set_header("x-csrf-token", csrfToken);
+    cpr::Response r = cpr::Post(
+        cpr::Url{ "https://auth.roblox.com/v1/authentication-ticket" },
+        cpr::Header{ {"Content-Type", "application/json"}, { "Referer", "https://www.roblox.com/" }, { "x-csrf-token", csrf } },
+        cpr::Cookies{ {".ROBLOSECURITY", this->m_Cookie} }
+    );
 
-    res = req.post();
-    std::string ticket = res.headers["rbx-authentication-ticket"];
-    return ticket;
+    return r.header["rbx-authentication-ticket"];
 }
 
 void RoPP::Auth::cookie_check()

@@ -3,7 +3,7 @@
 #include <string>
 #include <chrono>
 #include "json.hpp"
-#include "request.hpp"
+#include <cpr/cpr.h>
 
 using json = nlohmann::json;
 
@@ -65,15 +65,12 @@ namespace Responses
 
         void PopulateFromUID()
         {
-            Request req("https://users.roblox.com/v1/users/" + std::to_string(this->user_id));
-            req.set_header("Referer", "https://www.roblox.com/users/" + std::to_string(this->user_id) + "/profile");
-            req.set_header("Content", "application/json");
-            req.set_header("Accept", "application/json");
-            req.initalize();
+            cpr::Response r = cpr::Get(
+				cpr::Url{ "https://users.roblox.com/v1/users/" + std::to_string(this->user_id) },
+				cpr::Header{ {"Content-Type", "application/json"}, { "Referer", "https://www.roblox.com/users/" + std::to_string(this->user_id) + "/profile" } }
+			);
 
-            Response res = req.get();
-
-            *this = User(json::parse(res.data));
+            *this = User(json::parse(r.text));
         }
 
     public:
@@ -1889,5 +1886,38 @@ namespace Responses
             ads_revshare_payouts_total = Data["adsRevsharePayoutsTotal"];
             group_ads_revshare_payouts_total = Data["groupAdsRevsharePayoutsTotal"];
         }
+    };
+
+    struct Friend
+    {
+        bool is_online;
+        bool is_deleted;
+        int64_t friend_frequent_score;
+        int64_t friend_frequent_rank;
+        bool has_verified_badge;
+        std::string description;
+        Timestamp created;
+        bool is_banned;
+        std::string external_app_display_name;
+        int64_t id;
+        std::string name;
+        std::string display_name;
+
+        explicit Friend(json Data)
+        {
+			//check if fields are null, if so, set to default value
+            Data["isOnline"].is_null() ? is_online = false : is_online = Data["isOnline"];
+            Data["isDeleted"].is_null() ? is_deleted = false : is_deleted = Data["isDeleted"];
+            Data["friendFrequentScore"].is_null() ? friend_frequent_score = 0 : friend_frequent_score = Data["friendFrequentScore"];
+            Data["friendFrequentRank"].is_null() ? friend_frequent_rank = 0 : friend_frequent_rank = Data["friendFrequentRank"];
+            Data["hasVerifiedBadge"].is_null() ? has_verified_badge = false : has_verified_badge = Data["hasVerifiedBadge"];
+            Data["description"].is_null() ? description = "" : description = Data["description"];
+            Data["created"].is_null() ? created = Timestamp("0001-01-01T06:00:00Z") : created = Timestamp(Data["created"].get<std::string>());
+            Data["isBanned"].is_null() ? is_banned = false : is_banned = Data["isBanned"];
+            Data["externalAppDisplayName"].is_null() ? external_app_display_name = "" : external_app_display_name = Data["externalAppDisplayName"];
+            Data["id"].is_null() ? id = 0 : id = Data["id"];
+            Data["name"].is_null() ? name = "" : name = Data["name"];
+            Data["displayName"].is_null() ? display_name = "" : display_name = Data["displayName"];
+		}
     };
 }

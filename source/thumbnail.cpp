@@ -1,6 +1,6 @@
-#include "../include/RoPP/request.hpp"
 #include "../include/RoPP/ropp.h"
 #include "../include/RoPP/responses.h"
+#include <cpr/cpr.h>
 
 
 std::vector<Responses::Thumbnail> RoPP::Thumbnail::get_assets_thumbnails(const std::vector<int64_t> &asset_ids, const std::string &size, const std::string &format, bool is_circular)
@@ -19,27 +19,21 @@ std::vector<Responses::Thumbnail> RoPP::Thumbnail::get_assets_thumbnails(const s
 
     url = "https://thumbnails.roblox.com/v1/assets?assetIds=" + asset_ids_str + "&size=" + size + "&format=" + format + "&isCircular=" + (is_circular ? "true" : "false");
 
-    ordered_json res = Helper::MakeRobloxRequest
-    (
-        url,
-        "GET"
-    ).JsonObj;
+    cpr::Response r = cpr::Get(cpr::Url{ url });
+    nlohmann::json res = nlohmann::json::parse(r.text);
 
     std::vector<Responses::Thumbnail> thumbnails;
     for (size_t i = 0; i < res["data"].size(); i++)
     {
-        thumbnails.push_back(Responses::Thumbnail(res["data"][i]));
-    }
+		thumbnails.push_back(Responses::Thumbnail(res["data"][i]));
+	}
 
     return thumbnails;       
 }
 Responses::Thumbnail RoPP::Thumbnail::get_asset_thumbnail_3d(int64_t asset_id)
 {
-    ordered_json res = Helper::MakeRobloxRequest
-    (
-        "https://thumbnails.roblox.com/v1/assets-thumbnail-3d?assetId=" + std::to_string(asset_id),
-        "GET"
-    ).JsonObj;
+    cpr::Response r = cpr::Get(cpr::Url{ "https://thumbnails.roblox.com/v1/assets-thumbnail-3d?assetId=" + std::to_string(asset_id) });
+    nlohmann::json res = nlohmann::json::parse(r.text);
 
     return Responses::Thumbnail(res["data"]);
 }
@@ -59,11 +53,8 @@ std::vector<Responses::Thumbnail> RoPP::Thumbnail::get_badges_thumbnails(const s
 
     url = "https://thumbnails.roblox.com/v1/badges/icons?badgeIds=" + badge_ids_str + "&size=" + size + "&format=" + format + "&isCircular=" + (is_circular ? "true" : "false");
 
-    ordered_json res = Helper::MakeRobloxRequest
-    (
-        url,
-        "GET"
-    ).JsonObj;
+    cpr::Response r = cpr::Get(cpr::Url{ url });
+    nlohmann::json res = nlohmann::json::parse(r.text);
 
     std::vector<Responses::Thumbnail> thumbnails;
     for (size_t i = 0; i < res["data"].size(); i++)
@@ -89,11 +80,8 @@ std::vector<Responses::Thumbnail> RoPP::Thumbnail::get_bundles_thumbnails(const 
 
     url = "https://thumbnails.roblox.com/v1/bundles/thumbnails?bundleIds=" + bundle_ids_str + "&size=" + size + "&format=" + format + "&isCircular=" + (is_circular ? "true" : "false");
 
-    ordered_json res = Helper::MakeRobloxRequest
-    (
-        url,
-        "GET"
-    ).JsonObj;
+    cpr::Response r = cpr::Get(cpr::Url{ url });
+    nlohmann::json res = nlohmann::json::parse(r.text);
 
     std::vector<Responses::Thumbnail> thumbnails;
     for (size_t i = 0; i < res["data"].size(); i++)
@@ -119,11 +107,8 @@ std::vector<Responses::Thumbnail> RoPP::Thumbnail::get_gamepasses_thumbails(cons
 
     url = "https://thumbnails.roblox.com/v1/game-passes?gamePassIds=" + gamepass_ids_str + "&size=" + size + "&format=" + format + "&isCircular=" + (is_circular ? "true" : "false");
 
-    ordered_json res = Helper::MakeRobloxRequest
-    (
-        url,
-        "GET"
-    ).JsonObj;
+    cpr::Response r = cpr::Get(cpr::Url{ url });
+    nlohmann::json res = nlohmann::json::parse(r.text);
 
     std::vector<Responses::Thumbnail> thumbnails;
     for (size_t i = 0; i < res["data"].size(); i++)
@@ -149,11 +134,8 @@ std::vector<Responses::Thumbnail> RoPP::Thumbnail::get_games_icons(const std::ve
 
     url = "https://thumbnails.roblox.com/v1/places/gameicons?placeIds=" + place_ids_str + "&returnPolicy=" + return_policy + "&size=" + size + "&format=" + format + "&isCircular=" + (is_circular ? "true" : "false");
 
-    ordered_json res = Helper::MakeRobloxRequest
-    (
-        url,
-        "GET"
-    ).JsonObj;
+    cpr::Response r = cpr::Get(cpr::Url{ url });
+    nlohmann::json res = nlohmann::json::parse(r.text);
 
     std::vector<Responses::Thumbnail> thumbnails;
     for (size_t i = 0; i < res["data"].size(); i++)
@@ -180,11 +162,8 @@ std::vector<Responses::Thumbnail> RoPP::Thumbnail::get_groups_emblems(const std:
 
     url = "https://thumbnails.roblox.com/v1/groups/icons?groupIds=" + group_ids_str + "&size=" + size + "&format=" + format + "&isCircular=" + (is_circular ? "true" : "false");
 
-    ordered_json res = Helper::MakeRobloxRequest
-    (
-        url,
-        "GET"
-    ).JsonObj;
+    cpr::Response r = cpr::Get(cpr::Url{ url });
+    nlohmann::json res = nlohmann::json::parse(r.text);
 
     std::vector<Responses::Thumbnail> thumbnails;
     for (size_t i = 0; i < res["data"].size(); i++)
@@ -211,11 +190,8 @@ std::vector<Responses::Thumbnail> RoPP::Thumbnail::get_avatar_headshots(const st
 
     url = "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" + user_ids_str + "&size=" + size + "&format=" + format + "&isCircular=" + (is_circular ? "true" : "false");
 
-    ordered_json res = Helper::MakeRobloxRequest
-    (
-        url,
-        "GET"
-    ).JsonObj;
+    cpr::Response r = cpr::Get(cpr::Url{ url });
+    nlohmann::json res = nlohmann::json::parse(r.text);
 
     std::vector<Responses::Thumbnail> thumbnails;
     for (size_t i = 0; i < res["data"].size(); i++)
