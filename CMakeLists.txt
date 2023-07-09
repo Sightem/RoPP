@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+include(FetchContent)
 include_directories(include)
 
 file(GLOB_RECURSE SOURCE_FILES
@@ -19,9 +20,18 @@ target_include_directories(ropp PUBLIC
     $<INSTALL_INTERFACE:include/${CMAKE_BUILD_TYPE}/RoPP>
 )
 
-find_package(CURL REQUIRED)
+# Fetch and make CPR library available
+FetchContent_Declare(cpr GIT_REPOSITORY https://github.com/libcpr/cpr.git
+                         GIT_TAG 3020c34ae2b732121f37433e61599c34535e68a8) # The commit hash for 1.10.x. Replace with the latest from: https://github.com/libcpr/cpr/releases
+FetchContent_GetProperties(cpr)
+if(NOT cpr_POPULATED)
+  FetchContent_Populate(cpr)
+  add_subdirectory(${cpr_SOURCE_DIR} ${cpr_BINARY_DIR})
+endif()
 
-target_link_libraries(ropp PRIVATE CURL::libcurl)
+include(${CMAKE_CURRENT_SOURCE_DIR}/FindCPR.cmake)
+
+target_link_libraries(ropp PRIVATE RoPP::cpr)
 
 include(GNUInstallDirs)
 
@@ -35,11 +45,6 @@ install(TARGETS ropp
 
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${CMAKE_BUILD_TYPE}/RoPP)
 
-install(EXPORT RoPP-targets
-    FILE RoPPTargets.cmake
-    NAMESPACE RoPP::
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/RoPP/${CMAKE_BUILD_TYPE}
-)
 
 configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/RoPPConfig.cmake.in"
@@ -57,11 +62,6 @@ install(FILES
     "${CMAKE_CURRENT_BINARY_DIR}/RoPPConfig.cmake"
     "${CMAKE_CURRENT_BINARY_DIR}/RoPPConfigVersion.cmake"
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/RoPP/${CMAKE_BUILD_TYPE}
-)
-
-export(EXPORT RoPP-targets
-    FILE "${CMAKE_CURRENT_BINARY_DIR}/RoPPTargets.cmake"
-    NAMESPACE RoPP::
 )
 
 set(default_build_type "Release")
