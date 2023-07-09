@@ -21,14 +21,17 @@ target_include_directories(ropp PUBLIC
     $<INSTALL_INTERFACE:include/${CMAKE_BUILD_TYPE}/RoPP>
 )
 
-# Fetch and make CPR library available
-FetchContent_Declare(cpr GIT_REPOSITORY https://github.com/libcpr/cpr.git
-                         GIT_TAG 3020c34ae2b732121f37433e61599c34535e68a8) # The commit hash for 1.10.x. Replace with the latest from: https://github.com/libcpr/cpr/releases
-FetchContent_GetProperties(cpr)
-if(NOT cpr_POPULATED)
-  FetchContent_Populate(cpr)
-  add_subdirectory(${cpr_SOURCE_DIR} ${cpr_BINARY_DIR})
-  set(cpr_install_target cpr) # This is added to handle the installation of cpr when building RoPP standalone
+# Check if the cpr target is already defined
+if (NOT TARGET cpr)
+    # Fetch and make CPR library available
+    FetchContent_Declare(cpr GIT_REPOSITORY https://github.com/libcpr/cpr.git
+                            GIT_TAG 3020c34ae2b732121f37433e61599c34535e68a8) # The commit hash for 1.10.x. Replace with the latest from: https://github.com/libcpr/cpr/releases
+    FetchContent_GetProperties(cpr)
+    if (NOT cpr_POPULATED)
+        FetchContent_Populate(cpr)
+        add_subdirectory(${cpr_SOURCE_DIR} ${cpr_BINARY_DIR})
+        set(cpr_install_target cpr) # This is added to handle the installation of cpr when building RoPP standalone
+    endif()
 endif()
 
 target_link_libraries(ropp PRIVATE cpr)
