@@ -14,6 +14,7 @@ file(GLOB_RECURSE SOURCE_FILES
 )
 
 add_library(ropp ${SOURCE_FILES})
+add_library(RoPP::ropp ALIAS ropp)
 
 target_include_directories(ropp PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
