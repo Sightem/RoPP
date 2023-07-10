@@ -18,6 +18,7 @@ namespace RoPP
             std::string get_csrf();
             std::string get_auth_ticket();
             std::string read_cookie();
+            std::string renew_cookie();
             
             void set_cookie(std::string_view cookie);
         protected:
